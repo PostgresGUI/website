@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   output: "export",
   basePath:
     process.env.NODE_ENV === "development" ? "" : "/postgresmac-website",
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;

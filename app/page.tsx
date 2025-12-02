@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { AppStoreBadge } from "./components/AppStoreBadge";
 
 const COMING_SOON = true;
@@ -8,7 +9,7 @@ export default function Home() {
       <div className="text-center px-6 max-w-3xl">
         {/* Top Image */}
         <div className="flex justify-center">
-          <img
+          <Image
             src="/postgresmac-elephant-app-icon.png"
             alt="PostgresMac"
             width={300}
