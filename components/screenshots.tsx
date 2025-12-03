@@ -14,26 +14,26 @@ const screenshots = [
     title: "Welcome Screen",
     description:
       "Get started quickly. Connect with your localhost in one click.",
-    imagePath: "/screenshots/PostgresMac-Welcome_Screen-1440x900.jpg",
-    alt: "PostgresMac Welcome Screen",
+    imagePath: "/screenshots/PostgresGUI-Welcome_Screen-1440x900.jpg",
+    alt: "PostgresGUI Welcome Screen",
   },
   {
     title: "Query Results",
     description: "Execute SQL queries and view results in a clean table.",
-    imagePath: "/screenshots/PostgresMac-Query_Result_View-1440x900.jpg",
-    alt: "PostgresMac Query Result View",
+    imagePath: "/screenshots/PostgresGUI-Query_Result_View-1440x900.jpg",
+    alt: "PostgresGUI Query Result View",
   },
   {
     title: "Connections List View",
     description: "Manage all your PostgreSQL connections in one place.",
-    imagePath: "/screenshots/PostgresMac-Connections_List_View-1440x900.jpg",
-    alt: "PostgresMac Connections List View",
+    imagePath: "/screenshots/PostgresGUI-Connections_List_View-1440x900.jpg",
+    alt: "PostgresGUI Connections List View",
   },
   {
     title: "Create Connection",
     description: "Add new connections with a simple form.",
-    imagePath: "/screenshots/PostgresMac-Create_Connection_View-1440x900.jpg",
-    alt: "PostgresMac Create Connection View",
+    imagePath: "/screenshots/PostgresGUI-Create_Connection_View-1440x900.jpg",
+    alt: "PostgresGUI Create Connection View",
   },
 ];
 

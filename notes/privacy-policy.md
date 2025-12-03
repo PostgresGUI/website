@@ -1,4 +1,4 @@
-# Privacy Policy for PostgresMac
+# Privacy Policy for PostgresGUI
 
 **Last Updated: December 1, 2025**
 
@@ -6,13 +6,13 @@
 
 ## Introduction
 
-PostgresMac is committed to protecting your privacy. This Privacy Policy explains how our macOS PostgreSQL client application handles your information. Our fundamental principle is simple: **your data stays on your device**.
+PostgresGUI is committed to protecting your privacy. This Privacy Policy explains how our macOS PostgreSQL client application handles your information. Our fundamental principle is simple: **your data stays on your device**.
 
-PostgresMac is a local-only application. We do not collect, transmit, store, or share any of your personal information or usage data. This privacy policy explains what data the app accesses on your device and how it is used.
+PostgresGUI is a local-only application. We do not collect, transmit, store, or share any of your personal information or usage data. This privacy policy explains what data the app accesses on your device and how it is used.
 
 ## Information We Do NOT Collect
 
-PostgresMac does not collect any information from you, including but not limited to:
+PostgresGUI does not collect any information from you, including but not limited to:
 
 - Personal information (name, email, phone number, etc.)
 - Usage analytics or statistics
@@ -26,7 +26,7 @@ PostgresMac does not collect any information from you, including but not limited
 
 ## Information the App Accesses Locally
 
-While PostgresMac does not collect or transmit any data, it does access the following information locally on your device to provide its functionality:
+While PostgresGUI does not collect or transmit any data, it does access the following information locally on your device to provide its functionality:
 
 **PostgreSQL Connection Information**
 - Database connection credentials (host, port, username, password, database name)
@@ -42,12 +42,12 @@ While PostgresMac does not collect or transmit any data, it does access the foll
 
 ## How Your Data is Stored
 
-All data used by PostgresMac is stored locally on your device:
+All data used by PostgresGUI is stored locally on your device:
 
 **macOS Keychain Integration**
 - Database passwords are securely stored in your macOS Keychain
 - This is Apple's built-in secure storage system designed to protect sensitive credentials
-- Only PostgresMac can access these stored passwords, and only with your system's permission
+- Only PostgresGUI can access these stored passwords, and only with your system's permission
 - Passwords are encrypted and protected by your Mac's security features
 
 **Local Application Storage**
@@ -66,7 +66,7 @@ All data used by PostgresMac is stored locally on your device:
 Your data security is ensured through:
 
 **Local-Only Architecture**
-- PostgresMac operates entirely on your device
+- PostgresGUI operates entirely on your device
 - No data transmission to external servers (except PostgreSQL servers you explicitly connect to)
 - No network connections initiated by the app except to your specified database servers
 
@@ -82,7 +82,7 @@ Your data security is ensured through:
 
 ## Third-Party Services
 
-PostgresMac does not use any third-party services, including:
+PostgresGUI does not use any third-party services, including:
 
 - Analytics platforms (no Google Analytics, Mixpanel, etc.)
 - Crash reporting services
@@ -90,7 +90,7 @@ PostgresMac does not use any third-party services, including:
 - Cloud storage services
 - Authentication services
 
-The only network connections made by PostgresMac are directly to the PostgreSQL database servers you explicitly configure and choose to connect to.
+The only network connections made by PostgresGUI are directly to the PostgreSQL database servers you explicitly configure and choose to connect to.
 
 ## Data Sharing
 
@@ -109,17 +109,17 @@ You have complete control over your data:
 - You can also manage stored passwords through macOS System Preferences > Passwords
 
 **Uninstalling the App**
-- Uninstalling PostgresMac removes the application and its local data
+- Uninstalling PostgresGUI removes the application and its local data
 - You may need to manually remove Keychain entries through System Preferences if desired
 - No data remains on our servers because no data was ever sent to us
 
 ## Children's Privacy
 
-PostgresMac does not collect any information from anyone, including children under the age of 13. The app does not target children specifically, and we do not knowingly collect personal information from children. Since no data is collected by the app, COPPA compliance is maintained by default.
+PostgresGUI does not collect any information from anyone, including children under the age of 13. The app does not target children specifically, and we do not knowingly collect personal information from children. Since no data is collected by the app, COPPA compliance is maintained by default.
 
 ## Mac App Store Privacy
 
-For Mac App Store users, PostgresMac's privacy label indicates "No Data Collected" because the app does not collect any data that leaves your device. The app accesses local data only as necessary to provide database management functionality.
+For Mac App Store users, PostgresGUI's privacy label indicates "No Data Collected" because the app does not collect any data that leaves your device. The app accesses local data only as necessary to provide database management functionality.
 
 ## Changes to This Privacy Policy
 
@@ -134,7 +134,7 @@ We encourage you to review this Privacy Policy periodically to stay informed abo
 
 ## Future Changes to the App
 
-Currently, PostgresMac is a completely local application with no data collection. If we ever introduce features that involve data collection, cloud synchronization, or online services:
+Currently, PostgresGUI is a completely local application with no data collection. If we ever introduce features that involve data collection, cloud synchronization, or online services:
 
 - This Privacy Policy will be updated accordingly
 - Users will be clearly notified before any such features are enabled
@@ -143,11 +143,11 @@ Currently, PostgresMac is a completely local application with no data collection
 
 ## Contact Us
 
-If you have any questions, concerns, or requests regarding this Privacy Policy or PostgresMac's privacy practices, please contact us at:
+If you have any questions, concerns, or requests regarding this Privacy Policy or PostgresGUI's privacy practices, please contact us at:
 
 **Email**: fikri@mghazi.com
 
-**Website**: postgresmac.com
+**Website**: postgresgui.com
 
 **Developer**: Fikri Ghazi
 
@@ -155,7 +155,7 @@ If you have any questions, concerns, or requests regarding this Privacy Policy o
 
 ## Summary
 
-To summarize PostgresMac's approach to privacy:
+To summarize PostgresGUI's approach to privacy:
 
 - **No data collection**: We do not collect any information from you
 - **Local storage only**: All data stays on your Mac

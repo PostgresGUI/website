@@ -13,8 +13,8 @@ export default function Home() {
           {/* Top Image */}
           <div className="flex justify-center">
             <Image
-              src="/postgresmac-elephant-app-icon.png"
-              alt="PostgresMac"
+              src="/postgresgui-elephant-app-icon.png"
+              alt="PostgresGUI"
               width={300}
               height={300}
               className="object-contain"
@@ -23,7 +23,7 @@ export default function Home() {
 
           <section className="space-y-8 md:space-y-14 mt-16">
             {/* Product Name */}
-            <h1 className="text-5xl md:text-7xl font-semibold">PostgresMac</h1>
+            <h1 className="text-5xl md:text-7xl font-semibold">PostgresGUI</h1>
 
             {/* Download Button or Coming Soon */}
             <div className="flex justify-center">

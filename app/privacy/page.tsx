@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - PostgresMac",
+  title: "Privacy Policy - PostgresGUI",
   description:
-    "PostgresMac Privacy Policy - Your data stays on your device. We do not collect, transmit, or store any personal information.",
+    "PostgresGUI Privacy Policy - Your data stays on your device. We do not collect, transmit, or store any personal information.",
   robots: {
     index: true,
     follow: true,
@@ -21,13 +21,13 @@ export default function PrivacyPage() {
 
         <div>
           <p>
-            PostgresMac is a local-only PostgreSQL macOS client. We do not
+            PostgresGUI is a local-only PostgreSQL macOS client. We do not
             collect, transmit, store, or share any of your personal information
             or usage data.
           </p>
 
           <p>
-            All data used by PostgresMac, including database credentials,
+            All data used by PostgresGUI, including database credentials,
             connection profiles, SQL queries, and results, remains exclusively
             on your Mac. Database passwords are stored securely in your macOS
             Keychain. Connection information is stored in your application's
@@ -36,9 +36,9 @@ export default function PrivacyPage() {
           </p>
 
           <p>
-            The only network connections made by PostgresMac are directly to the
+            The only network connections made by PostgresGUI are directly to the
             PostgreSQL database servers you explicitly configure and connect to.
-            We are not an intermediary in these connections. PostgresMac does
+            We are not an intermediary in these connections. PostgresGUI does
             not use any third-party services including analytics platforms,
             crash reporting services, advertising networks, or cloud storage
             services.
@@ -47,7 +47,7 @@ export default function PrivacyPage() {
           <p>
             You have complete control over your data. You can delete connection
             profiles directly in the app, which also removes associated
-            passwords from macOS Keychain. Uninstalling PostgresMac removes the
+            passwords from macOS Keychain. Uninstalling PostgresGUI removes the
             application and its local data. No data remains on our servers
             because no data was ever sent to us.
           </p>

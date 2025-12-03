@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PostgresMac - Lightweight PostgreSQL Client for Mac",
+  title: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
   description:
     "A lightweight PostgreSQL client for macOS. Manage connections, browse databases, execute SQL queries with syntax highlighting, and view results—all in a native SwiftUI interface.",
   keywords: [
@@ -31,17 +31,17 @@ export const metadata: Metadata = {
     "developer",
     "admin",
   ],
-  authors: [{ name: "PostgresMac" }],
+  authors: [{ name: "PostgresGUI" }],
   openGraph: {
-    title: "PostgresMac - Lightweight PostgreSQL Client for Mac",
+    title: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
     description:
       "A lightweight PostgreSQL client for macOS. Manage connections, browse databases, execute SQL queries with syntax highlighting, and view results—all in a native SwiftUI interface.",
     type: "website",
-    siteName: "PostgresMac",
+    siteName: "PostgresGUI",
   },
   twitter: {
     card: "summary_large_image",
-    title: "PostgresMac - Lightweight PostgreSQL Client for Mac",
+    title: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
     description:
       "A lightweight PostgreSQL client for macOS. Manage connections, browse databases, execute SQL queries with syntax highlighting, and view results—all in a native SwiftUI interface.",
   },

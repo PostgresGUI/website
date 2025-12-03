@@ -21,7 +21,7 @@ export function Footer() {
             ))}
           </div>
 
-          <p>&copy; 2025 PostgresMac</p>
+          <p>&copy; 2025 PostgresGUI</p>
         </div>
       </div>
     </footer>

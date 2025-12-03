@@ -1,4 +1,4 @@
-# PostgresMac - App Store Marketing Content
+# PostgresGUI - App Store Marketing Content
 
 ## Subtitle
 
@@ -10,7 +10,7 @@ A lightweight PostgreSQL client for macOS. Manage connections, browse databases,
 
 ## Description
 
-PostgresMac is a lightweight PostgreSQL client built specifically for macOS. Designed for users learning PostgreSQL and developers who need quick database access, it provides essential database management capabilities in a clean, native macOS interface.
+PostgresGUI is a lightweight PostgreSQL client built specifically for macOS. Designed for users learning PostgreSQL and developers who need quick database access, it provides essential database management capabilities in a clean, native macOS interface.
 
 **Connection Management**
 
@@ -53,7 +53,7 @@ PostgresMac is a lightweight PostgreSQL client built specifically for macOS. Des
 - Full light and dark mode support
 - Keyboard shortcuts for common operations
 
-PostgresMac is perfect for developers learning PostgreSQL, students working on database projects, or anyone who needs a straightforward tool for managing Postgres databases on Mac. No complicated setup, no heavy resource usage—just a clean, efficient PostgreSQL client that feels right at home on macOS.
+PostgresGUI is perfect for developers learning PostgreSQL, students working on database projects, or anyone who needs a straightforward tool for managing Postgres databases on Mac. No complicated setup, no heavy resource usage—just a clean, efficient PostgreSQL client that feels right at home on macOS.
 
 ## Keywords
 

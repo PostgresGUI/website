@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Support - PostgresMac",
+  title: "Support - PostgresGUI",
   description:
-    "Get support for PostgresMac. Report issues, ask questions, or contact us directly.",
+    "Get support for PostgresGUI. Report issues, ask questions, or contact us directly.",
   robots: {
     index: true,
     follow: true,
@@ -21,7 +21,7 @@ export default function SupportPage() {
 
         <div>
           <p>
-            Need help with PostgresMac? You can reach out to us through the
+            Need help with PostgresGUI? You can reach out to us through the
             following 2 ways:
           </p>
 
@@ -30,7 +30,7 @@ export default function SupportPage() {
             <br /> Found a bug or have a feature request? Please report it on
             our{" "}
             <Link
-              href="https://github.com/mughazi/postgresmac-website/issues"
+              href="https://github.com/mughazi/postgresgui-website/issues"
               className="text-blue-600 dark:text-blue-400 hover:underline"
             >
               GitHub Issues page
