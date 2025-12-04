@@ -13,11 +13,11 @@ export default function Home() {
           {/* Top Image */}
           <div className="flex justify-center">
             <Image
-              src="/postgresgui-elephant-app-icon.png"
+              src="/postgresgui-icon.jpg"
               alt="PostgresGUI"
               width={300}
               height={300}
-              className="object-contain"
+              className="object-contain rounded-4xl"
             />
           </div>
 
