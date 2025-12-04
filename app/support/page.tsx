@@ -30,7 +30,7 @@ export default function SupportPage() {
             <br /> Found a bug or have a feature request? Please report it on
             our{" "}
             <Link
-              href="https://github.com/mughazi/postgresgui-website/issues"
+              href="https://github.com/postgresgui/postgresgui/issues"
               className="text-blue-600 dark:text-blue-400 hover:underline"
             >
               GitHub Issues page
