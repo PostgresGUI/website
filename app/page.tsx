@@ -56,14 +56,14 @@ export default function Home() {
           </section>
 
           {/* Highlights */}
-          <section className="mt-24 md:mt-30 md:min-w-3xl mx-auto">
+          <section className="mt-12 md:mt-24 md:min-w-3xl mx-auto">
             <Highlights />
           </section>
         </div>
       </div>
 
       {/* Screenshots */}
-      <section className="my-24 px-6">
+      <section className="my-12 px-6">
         <Screenshots />
       </section>
     </>
