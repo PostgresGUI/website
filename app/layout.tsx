@@ -51,6 +51,8 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
+    site: "@postgresgui",
+    creator: "@postgresgui",
     card: "summary_large_image",
     title: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
     description:
