@@ -44,6 +44,16 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+html {
+  @apply bg-white text-gray-900;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    @apply bg-stone-900 text-gray-100;
+  }
+}
+
 body {
   background: transparent;
   color: inherit;

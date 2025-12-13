@@ -48,7 +48,7 @@ const highlights = [
         <a
           href="https://github.com/postgresgui/postgresgui"
           target="_blank"
-          className="text-blue-600 hover:underline"
+          className="text-blue-600 dark:text-blue-400 hover:underline"
         >
           GitHub ↗
         </a>
@@ -68,7 +68,7 @@ export function Highlights() {
       {highlights.map((highlight) => (
         <div
           key={highlight.title}
-          className="group p-4 md:p-6 rounded-2xl bg-white dark:bg-gray-800 transition-all duration-200"
+          className="group p-4 md:p-12 rounded-2xl border dark:border-stone-700 dark:bg-stone-800 transition-all duration-200"
         >
           <div className="space-y-4 md:space-y-6">
             <div className="flex justify-center text-blue-500">

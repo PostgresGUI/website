@@ -13,7 +13,7 @@ export default function Home() {
           {/* Top Image */}
           <div className="flex justify-center">
             <Image
-              src="/postgresgui-icon.jpg"
+              src="/postgresgui-elephant.png"
               alt="PostgresGUI"
               width={300}
               height={300}
@@ -21,7 +21,7 @@ export default function Home() {
             />
           </div>
 
-          <section className="space-y-8 md:space-y-14 mt-16">
+          <section className="space-y-8 md:space-y-14 mt-2">
             {/* Product Name */}
             <h1 className="text-5xl md:text-7xl font-semibold">PostgresGUI</h1>
 
