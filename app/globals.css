@@ -44,16 +44,6 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-html {
-  @apply bg-gradient-to-b from-gray-50 to-gray-100 text-gray-900;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    @apply bg-gradient-to-b from-gray-900 to-gray-950 text-gray-100;
-  }
-}
-
 body {
   background: transparent;
   color: inherit;
@@ -144,6 +134,6 @@ body {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
   }
 }
