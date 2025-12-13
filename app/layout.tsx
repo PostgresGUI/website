@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/postgresgui-og-image.jpg",
+        url: "https://postgresgui.com/postgresgui-og-image.jpg",
         width: 1200,
         height: 630,
         alt: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
       "A lightweight PostgreSQL client for macOS. Manage connections, browse databases, execute SQL queries with syntax highlighting, and view results—all in a native SwiftUI interface.",
     images: [
       {
-        url: "/postgresgui-og-image.jpg",
+        url: "https://postgresgui.com/postgresgui-og-image.jpg",
         alt: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
       },
     ],
