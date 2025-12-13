@@ -41,8 +41,19 @@ const highlights = [
   },
   {
     icon: SearchCheckIcon,
-    title: "Open Code",
-    description: "Review the code on GitHub",
+    title: "Open Source",
+    description: (
+      <>
+        View code on{" "}
+        <a
+          href="https://github.com/postgresgui/postgresgui"
+          target="_blank"
+          className="text-blue-600 hover:underline"
+        >
+          GitHub ↗
+        </a>
+      </>
+    ),
   },
   {
     icon: DocToRightIcon,
@@ -67,7 +78,7 @@ export function Highlights() {
               <h3 className="text-base md:text-lg font-semibold">
                 {highlight.title}
               </h3>
-              <p className="text-sm opacity-50">{highlight.description}</p>
+              <p className="text-sm">{highlight.description}</p>
             </div>
           </div>
         </div>
