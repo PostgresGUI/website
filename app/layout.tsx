@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://postgresgui.com"),
   title: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
   description:
     "A lightweight PostgreSQL client for macOS. Manage connections, browse databases, execute SQL queries with syntax highlighting, and view results—all in a native SwiftUI interface.",
@@ -37,15 +38,29 @@ export const metadata: Metadata = {
     description:
       "A lightweight PostgreSQL client for macOS. Manage connections, browse databases, execute SQL queries with syntax highlighting, and view results—all in a native SwiftUI interface.",
     type: "website",
+    url: "https://postgresgui.com",
     siteName: "PostgresGUI",
-    images: ["/postgresgui-og-image.jpg"],
+    locale: "en_US",
+    images: [
+      {
+        url: "/postgresgui-og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
     description:
       "A lightweight PostgreSQL client for macOS. Manage connections, browse databases, execute SQL queries with syntax highlighting, and view results—all in a native SwiftUI interface.",
-    images: ["/postgresgui-og-image.jpg"],
+    images: [
+      {
+        url: "/postgresgui-og-image.jpg",
+        alt: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
+      },
+    ],
   },
   robots: {
     index: true,
