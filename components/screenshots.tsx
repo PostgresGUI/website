@@ -24,16 +24,22 @@ const screenshots = [
     alt: "PostgresGUI Query Result View",
   },
   {
+    title: "Create Connection",
+    description: "Add new connections with a simple form.",
+    imagePath: "/screenshots/PostgresGUI-Create_Connection_View-1440x900.jpg",
+    alt: "PostgresGUI Create Connection View",
+  },
+  {
     title: "Connections List View",
     description: "Manage all your PostgreSQL connections in one place.",
     imagePath: "/screenshots/PostgresGUI-Connections_List_View-1440x900.jpg",
     alt: "PostgresGUI Connections List View",
   },
   {
-    title: "Create Connection",
-    description: "Add new connections with a simple form.",
-    imagePath: "/screenshots/PostgresGUI-Create_Connection_View-1440x900.jpg",
-    alt: "PostgresGUI Create Connection View",
+    title: "Edit Connection",
+    description: "Edit existing connections with a simple form.",
+    imagePath: "/screenshots/PostgresGUI-Edit_Connection_View-1440x900.jpg",
+    alt: "PostgresGUI Edit Connection View",
   },
 ];
 
