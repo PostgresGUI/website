@@ -9,37 +9,6 @@ import {
 
 const highlights = [
   {
-    icon: CircleCheckIcon,
-    title: "No Data Collection",
-    description: "All data stays local on your Mac",
-  },
-  {
-    icon: RocketIcon,
-    title: "Lightweight",
-    description: (
-      <>
-        12.4 MB download
-        <br /> 25.2 MB installed
-      </>
-    ),
-  },
-  {
-    icon: LaptopIcon,
-    title: "Native",
-    description: (
-      <>
-        Built with SwiftUI
-        <br />
-        No Electron
-      </>
-    ),
-  },
-  {
-    icon: CreditCardOffIcon,
-    title: "No Subscription",
-    description: "Buy once, use forever",
-  },
-  {
     icon: SearchCheckIcon,
     title: "Open Source",
     description: (
@@ -56,8 +25,39 @@ const highlights = [
     ),
   },
   {
+    icon: LaptopIcon,
+    title: "Native",
+    description: (
+      <>
+        Writtin in Swift
+        <br />
+        No Electron
+      </>
+    ),
+  },
+  {
+    icon: RocketIcon,
+    title: "Lightweight",
+    description: (
+      <>
+        12.4 MB download
+        <br /> 25.2 MB installed
+      </>
+    ),
+  },
+  {
+    icon: CreditCardOffIcon,
+    title: "No Subscription",
+    description: "Buy once, use forever",
+  },
+  {
+    icon: CircleCheckIcon,
+    title: "No Data Collection",
+    description: "All data stays local on your Mac",
+  },
+  {
     icon: DocToRightIcon,
-    title: "Simple UI",
+    title: "Minimalistic UI",
     description: "No bloated features",
   },
 ];
