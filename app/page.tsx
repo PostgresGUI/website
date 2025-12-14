@@ -5,6 +5,8 @@ import { Screenshots } from "@/components/screenshots";
 
 const COMING_SOON = true;
 
+const GUMROAD_PRODUCT_LINK = "https://muizahg.gumroad.com/l/postgresgui";
+
 export default function Home() {
   return (
     <>
@@ -28,20 +30,21 @@ export default function Home() {
             {/* Download Button or Coming Soon */}
             <div className="flex justify-center">
               {COMING_SOON ? (
-                <div className="relative inline-block">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 rounded-full blur-xl opacity-30 dark:opacity-20 animate-pulse"></div>
+                <a
+                  href={GUMROAD_PRODUCT_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative inline-block hover:scale-102 transition-all"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-blue-500 to-blue-500 rounded-full blur-xl opacity-30 dark:opacity-20 animate-pulse"></div>
                   <div className="relative bg-gradient-to-r from-gray-800 to-gray-900 dark:from-gray-700 dark:to-gray-800 rounded-full px-6 py-2 md:px-10 md:py-3 shadow-2xl border border-gray-700/50 dark:border-gray-600/50 backdrop-blur-sm">
                     <div className="flex items-center gap-3 md:gap-4">
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-blue-500 rounded-full blur-md opacity-50 dark:opacity-40 animate-ping"></div>
-                        <div className="relative w-2 h-2 md:w-3 md:h-3 bg-blue-400 dark:bg-blue-300 rounded-full animate-pulse"></div>
-                      </div>
                       <span className="text-xl md:text-3xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 dark:from-gray-100 dark:via-gray-200 dark:to-white bg-clip-text text-transparent tracking-tight">
-                        Coming Soon
+                        Buy Now - $14.99 ↗
                       </span>
                     </div>
                   </div>
-                </div>
+                </a>
               ) : (
                 <a href="#" className="inline-block scale-150">
                   <AppStoreBadge />
