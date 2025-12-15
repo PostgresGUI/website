@@ -40,8 +40,8 @@ const highlights = [
     title: "Lightweight",
     description: (
       <>
-        12.4 MB download
-        <br /> 25.2 MB installed
+        14.6 MB installer
+        <br /> 25.8 MB installed
       </>
     ),
   },
