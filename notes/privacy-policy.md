@@ -44,11 +44,13 @@ While PostgresGUI does not collect or transmit any data, it does access the foll
 
 All data used by PostgresGUI is stored locally on your device:
 
-**macOS Keychain Integration**
-- Database passwords are securely stored in your macOS Keychain
-- This is Apple's built-in secure storage system designed to protect sensitive credentials
+**macOS Keychain Integration (Optional)**
+- You have the option to save database passwords in your macOS Keychain via a "Save Password in Keychain" checkbox
+- When enabled, this uses Apple's built-in secure storage system designed to protect sensitive credentials
 - Only PostgresGUI can access these stored passwords, and only with your system's permission
 - Passwords are encrypted and protected by your Mac's security features
+- If you choose not to save passwords in the Keychain, you will need to enter your password each time you connect
+- This choice is entirely under your control for each connection profile
 
 **Local Application Storage**
 - Connection profiles (excluding passwords) are stored in your application's local storage
@@ -105,12 +107,13 @@ You have complete control over your data:
 - Deleting a connection removes it from local storage
 
 **Removing Passwords**
-- Deleting a connection profile also removes associated passwords from macOS Keychain
+- If you chose to save passwords in the Keychain, deleting a connection profile also removes associated passwords from macOS Keychain
 - You can also manage stored passwords through macOS System Preferences > Passwords
+- If you did not save passwords in the Keychain, no password data is retained
 
 **Uninstalling the App**
 - Uninstalling PostgresGUI removes the application and its local data
-- You may need to manually remove Keychain entries through System Preferences if desired
+- If you saved passwords in the Keychain, you may need to manually remove Keychain entries through System Preferences if desired
 - No data remains on our servers because no data was ever sent to us
 
 ## Children's Privacy
@@ -159,7 +162,7 @@ To summarize PostgresGUI's approach to privacy:
 
 - **No data collection**: We do not collect any information from you
 - **Local storage only**: All data stays on your Mac
-- **Secure credentials**: Passwords protected by macOS Keychain
+- **Secure credentials**: Optional password storage in macOS Keychain
 - **No tracking**: No analytics, no crash reports, no usage statistics
 - **No third parties**: No external services or data sharing
 - **You are in control**: Complete control over your connection profiles and data

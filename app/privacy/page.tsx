@@ -29,10 +29,10 @@ export default function PrivacyPage() {
           <p>
             All data used by PostgresGUI, including database credentials,
             connection profiles, SQL queries, and results, remains exclusively
-            on your Mac. Database passwords are stored securely in your macOS
-            Keychain. Connection information is stored in your application's
-            local storage. No data is synchronized to iCloud or any cloud
-            service.
+            on your Mac. You have the option to save database passwords securely
+            in your macOS Keychain via a "Save Password in Keychain" checkbox.
+            Connection information is stored in your application's local
+            storage. No data is synchronized to iCloud or any cloud service.
           </p>
 
           <p>
@@ -46,8 +46,9 @@ export default function PrivacyPage() {
 
           <p>
             You have complete control over your data. You can delete connection
-            profiles directly in the app, which also removes associated
-            passwords from macOS Keychain. Uninstalling PostgresGUI removes the
+            profiles directly in the app. If you chose to save passwords in the
+            Keychain, deleting a connection also removes associated passwords
+            from macOS Keychain. Uninstalling PostgresGUI removes the
             application and its local data. No data remains on our servers
             because no data was ever sent to us.
           </p>
@@ -55,8 +56,9 @@ export default function PrivacyPage() {
           <p>
             If we ever introduce features that involve data collection, cloud
             synchronization, or online services in the future, this Privacy
-            Policy will be updated accordingly, you will be clearly notified,
-            and any such features will be optional and require explicit consent.
+            Policy will be updated accordingly, you will be clearly notified if
+            you purchased the app, and any such features will be optional and
+            require explicit consent.
           </p>
 
           <p>
