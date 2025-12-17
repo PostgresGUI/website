@@ -7,9 +7,7 @@ export function FinalCTA() {
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-display mb-6 tracking-tight">
           Ready to try PostgresGUI?
         </h2>
-        <p className="text-xl md:text-2xl mb-4">
-          A lightweight PostgreSQL client for Mac.
-        </p>
+
         <p className="text-base md:text-lg text-muted-foreground font-mono mb-10">
           $ echo "14.99" # One-time payment • No subscription
         </p>
