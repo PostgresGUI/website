@@ -6,16 +6,26 @@ import { ComparisonTable } from "@/components/comparison-table";
 import { Testimonials } from "@/components/testimonials";
 import { FAQ } from "@/components/faq";
 import { FinalCTA } from "@/components/final-cta";
+import { FloatingSQLQueries } from "@/components/hero-animations/floating-sql";
 
 const COMING_SOON = true;
 
 const GUMROAD_PRODUCT_LINK = "https://muizahg.gumroad.com/l/postgresgui";
 
+// Hero animation toggle: true | false
+const SHOW_SQL_ANIMATION = true;
+
 export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <div className="flex-1 flex items-center justify-center grid-bg relative overflow-hidden">
+      <div
+        id="hero-section"
+        className="flex-1 flex items-center justify-center grid-bg relative overflow-hidden"
+      >
+        {/* Hero Background Animation */}
+        {SHOW_SQL_ANIMATION && <FloatingSQLQueries />}
+
         {/* Accent Element */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--postgres-blue)] opacity-5 blur-3xl"></div>
 
