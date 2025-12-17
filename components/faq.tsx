@@ -12,17 +12,22 @@ const faqs = [
   {
     question: "Do I need a subscription?",
     answer:
-      "No! PostgresGUI is a one-time purchase. Pay $14.99 once and use it forever. No monthly fees, no recurring charges, no hidden costs.",
+      "No. PostgresGUI is a one-time purchase. Pay $14.99 once and use it forever. No monthly fees, no recurring charges, no hidden costs.",
   },
   {
     question: "Do you collect my data?",
     answer:
-      "No. PostgresGUI does not collect any telemetry, analytics, or usage data. All your database connections and queries stay completely local on your Mac. We respect your privacy.",
+      "No. PostgresGUI does not collect any telemetry, analytics, or usage data. All your database connections and queries stay completely local on your Mac.",
   },
   {
     question: "Does PostgresGUI support other databases besides PostgreSQL?",
     answer:
       "No. PostgresGUI is designed specifically for PostgreSQL only. It does not support MySQL, SQLite, MongoDB, or other database systems.",
+  },
+  {
+    question: "How does PostgresGUI compare to TablePlus?",
+    answer:
+      "TablePlus is a powerful multi-database tool with advanced features like code review, plugin systems, inline editing, advanced filters, and support for 15+ database types. PostgresGUI prioritizes simplicity and a lightweight design over many features. It offers a cleaner interface and is open source.",
   },
 ];
 
