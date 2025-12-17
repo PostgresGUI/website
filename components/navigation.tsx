@@ -3,17 +3,18 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { MenuIcon, XIcon } from "@/components/icons";
 
 const GUMROAD_PRODUCT_LINK = "https://muizahg.gumroad.com/l/postgresgui";
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const navLinks = [
     { href: "#features", label: "Features" },
     { href: "#screenshots", label: "Screenshots" },
-    { href: "#pricing", label: "Pricing" },
     { href: "/support", label: "Support" },
   ];
 
@@ -44,23 +45,31 @@ export function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-semibold hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-colors relative group"
-                onClick={(e) => {
-                  if (link.href.startsWith("#")) {
-                    e.preventDefault();
-                    const element = document.querySelector(link.href);
-                    element?.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--postgres-blue)] dark:bg-[var(--postgres-blue-light)] group-hover:w-full transition-all"></span>
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              // If link is a hash and we're not on home page, prepend "/" to navigate to home first
+              const href = link.href.startsWith("#") && pathname !== "/" 
+                ? `/${link.href}` 
+                : link.href;
+              
+              return (
+                <Link
+                  key={link.href}
+                  href={href}
+                  className="text-sm font-semibold hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-colors relative group"
+                  onClick={(e) => {
+                    if (link.href.startsWith("#") && pathname === "/") {
+                      // Only prevent default and scroll if we're already on home page
+                      e.preventDefault();
+                      const element = document.querySelector(link.href);
+                      element?.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--postgres-blue)] dark:bg-[var(--postgres-blue-light)] group-hover:w-full transition-all"></span>
+                </Link>
+              );
+            })}
             <a
               href={GUMROAD_PRODUCT_LINK}
               target="_blank"
@@ -89,25 +98,31 @@ export function Navigation() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 space-y-3 border-t border-border/30 pt-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block font-semibold text-sm hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-swiftui py-2 px-3 hover:bg-accent/50 rounded-lg"
-                onClick={(e) => {
-                  if (link.href.startsWith("#")) {
-                    e.preventDefault();
-                    const element = document.querySelector(link.href);
-                    element?.scrollIntoView({ behavior: "smooth" });
+            {navLinks.map((link) => {
+              // If link is a hash and we're not on home page, prepend "/" to navigate to home first
+              const href = link.href.startsWith("#") && pathname !== "/" 
+                ? `/${link.href}` 
+                : link.href;
+              
+              return (
+                <Link
+                  key={link.href}
+                  href={href}
+                  className="block font-semibold text-sm hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-swiftui py-2 px-3 hover:bg-accent/50 rounded-lg"
+                  onClick={(e) => {
+                    if (link.href.startsWith("#") && pathname === "/") {
+                      // Only prevent default and scroll if we're already on home page
+                      e.preventDefault();
+                      const element = document.querySelector(link.href);
+                      element?.scrollIntoView({ behavior: "smooth" });
+                    }
                     setMobileMenuOpen(false);
-                  } else {
-                    setMobileMenuOpen(false);
-                  }
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
+                  }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
             <a
               href={GUMROAD_PRODUCT_LINK}
               target="_blank"
