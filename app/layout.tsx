@@ -13,7 +13,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://postgresgui.com"),
-  title: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
+  title: "PostgresGUI - Native PostgreSQL Client for Mac",
   description:
     "A lightweight PostgreSQL client for macOS. Manage connections, browse databases, execute SQL queries with syntax highlighting, and view results—all in a native SwiftUI interface.",
   keywords: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "PostgresGUI" }],
   openGraph: {
-    title: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
+    title: "PostgresGUI - Native PostgreSQL Client for Mac",
     description:
       "A lightweight PostgreSQL client for macOS. Manage connections, browse databases, execute SQL queries with syntax highlighting, and view results—all in a native SwiftUI interface.",
     type: "website",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
         url: "https://postgresgui.com/postgresgui-og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
+        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
       },
     ],
   },
@@ -52,13 +52,13 @@ export const metadata: Metadata = {
     site: "@postgresgui",
     creator: "@postgresgui",
     card: "summary_large_image",
-    title: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
+    title: "PostgresGUI - Native PostgreSQL Client for Mac",
     description:
       "A lightweight PostgreSQL client for macOS. Manage connections, browse databases, execute SQL queries with syntax highlighting, and view results—all in a native SwiftUI interface.",
     images: [
       {
         url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        alt: "PostgresGUI - Lightweight PostgreSQL Client for Mac",
+        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
       },
     ],
   },
