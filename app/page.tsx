@@ -118,7 +118,7 @@ export default function Home() {
       >
         <div className="max-w-6xl mx-auto">
           <div className="mb-12 md:mb-16">
-            <div className="inline-block mb-4 px-4 py-1.5 bg-accent/50 backdrop-blur-sm border border-border/20 rounded-full shadow-sm">
+            <div className="mb-4">
               <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 Features
               </span>
@@ -141,9 +141,9 @@ export default function Home() {
       >
         <div className="max-w-7xl mx-auto">
           <div className="mb-12">
-            <div className="inline-block mb-4 px-4 py-1.5 bg-accent/50 backdrop-blur-sm border border-border/20 rounded-full shadow-sm">
+            <div className="mb-4">
               <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
-                Interface
+                Screenshots
               </span>
             </div>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-display mb-4 tracking-tight">
@@ -155,13 +155,13 @@ export default function Home() {
       </section>
 
       {/* Comparison Table Section */}
-      <section
+      {/* <section
         id="pricing"
         className="py-16 md:py-24 px-6 border-t border-border grid-bg"
       >
         <div className="max-w-5xl mx-auto">
           <div className="mb-12">
-            <div className="inline-block mb-4 px-4 py-1.5 bg-accent/50 backdrop-blur-sm border border-border/20 rounded-full shadow-sm">
+            <div className="mb-4">
               <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 Comparison
               </span>
@@ -174,29 +174,14 @@ export default function Home() {
             </p>
           </div>
           <ComparisonTable />
-          <div className="mt-8">
-            <a
-              href={GUMROAD_PRODUCT_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-block bg-gradient-to-r from-[var(--postgres-blue)] to-blue-500 hover:from-[var(--postgres-blue-dark)] hover:to-blue-600 text-white px-8 py-3 rounded-xl font-semibold text-sm transition-swiftui shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <span className="inline-flex items-center gap-2">
-                Buy PostgresGUI — $14.99
-                <span className="group-hover:translate-x-1 transition-transform">
-                  ↗
-                </span>
-              </span>
-            </a>
-          </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Testimonials Section */}
-      <section className="py-16 md:py-24 px-6 border-t border-border">
+      {/* <section className="py-16 md:py-24 px-6 border-t border-border">
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
-            <div className="inline-block mb-4 px-4 py-1.5 bg-accent/50 backdrop-blur-sm border border-border/20 rounded-full shadow-sm">
+            <div className="mb-4">
               <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 Testimonials
               </span>
@@ -207,7 +192,7 @@ export default function Home() {
           </div>
           <Testimonials />
         </div>
-      </section>
+      </section> */}
 
       {/* FAQ Section */}
       <section
@@ -216,7 +201,7 @@ export default function Home() {
       >
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
-            <div className="inline-block mb-4 px-4 py-1.5 bg-accent/50 backdrop-blur-sm border border-border/20 rounded-full shadow-sm">
+            <div className="mb-4">
               <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 FAQ
               </span>

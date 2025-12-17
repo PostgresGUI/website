@@ -1,7 +1,9 @@
+import { Check, X } from "lucide-react";
+
 export function ComparisonTable() {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full border-collapse bg-card rounded-2xl border border-border/50 overflow-hidden shadow-lg">
+      <table className="w-full border-collapse bg-card border-t border-border/50 overflow-hidden shadow-lg">
         <caption className="sr-only">
           Comparison of PostgresGUI with alternative PostgreSQL clients
         </caption>
@@ -15,7 +17,7 @@ export function ComparisonTable() {
             </th>
             <th
               scope="col"
-              className="p-4 font-mono text-xs uppercase tracking-wide bg-[var(--postgres-blue)] bg-opacity-10"
+              className="p-4 font-mono text-xs uppercase tracking-wide bg-stone-200 dark:bg-stone-800/20"
             >
               PostgresGUI
             </th>
@@ -32,40 +34,47 @@ export function ComparisonTable() {
             <th scope="row" className="text-left p-4 font-mono text-sm">
               Price
             </th>
-            <td className="p-4 text-center bg-[var(--postgres-blue)] bg-opacity-10">
-              <span className="font-bold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
+            <td className="p-4 text-center bg-stone-200 dark:bg-stone-800/20">
+              <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] font-medium">
                 $14.99
               </span>
-              <div className="text-xs text-muted-foreground font-mono">
-                one-time
-              </div>
             </td>
-            <td className="p-4 text-center">
+            <td className="p-4 text-center font-medium">
               $99/yr
-              <div className="text-xs text-gray-600 dark:text-gray-400">
-                subscription
-              </div>
             </td>
-            <td className="p-4 text-center">
+            <td className="p-4 text-center font-medium">
               Free
-              <div className="text-xs text-gray-600 dark:text-gray-400">
-                open source
-              </div>
+            </td>
+          </tr>
+          <tr className="border-b border-border/30">
+            <th scope="row" className="text-left p-4 font-medium">
+              Payment Model
+            </th>
+            <td className="p-4 text-center bg-stone-100 dark:bg-stone-800/10">
+              <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] font-medium">
+                One-Time
+              </span>
+            </td>
+            <td className="p-4 text-center text-red-500 dark:text-red-400 font-medium">
+              Subscription
+            </td>
+            <td className="p-4 text-center text-gray-600 dark:text-gray-400 font-medium">
+              Open Source
             </td>
           </tr>
           <tr className="border-b border-border/30">
             <th scope="row" className="text-left p-4 font-medium">
               Platform
             </th>
-            <td className="p-4 text-center bg-blue-50 dark:bg-blue-900/20">
-              <span className="text-green-600 dark:text-green-400 font-semibold">
+            <td className="p-4 text-center bg-stone-100 dark:bg-stone-800/10">
+              <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] font-medium">
                 Native Mac
               </span>
             </td>
-            <td className="p-4 text-center text-gray-600 dark:text-gray-400">
+            <td className="p-4 text-center text-gray-600 dark:text-gray-400 font-medium">
               Electron
             </td>
-            <td className="p-4 text-center text-gray-600 dark:text-gray-400">
+            <td className="p-4 text-center text-gray-600 dark:text-gray-400 font-medium">
               Electron
             </td>
           </tr>
@@ -73,15 +82,15 @@ export function ComparisonTable() {
             <th scope="row" className="text-left p-4 font-medium">
               Install Size
             </th>
-            <td className="p-4 text-center bg-blue-50 dark:bg-blue-900/20">
-              <span className="text-green-600 dark:text-green-400 font-semibold">
+            <td className="p-4 text-center bg-stone-100 dark:bg-stone-800/10">
+              <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] font-medium">
                 14.6 MB
               </span>
             </td>
-            <td className="p-4 text-center text-gray-600 dark:text-gray-400">
+            <td className="p-4 text-center text-gray-600 dark:text-gray-400 font-medium">
               150+ MB
             </td>
-            <td className="p-4 text-center text-gray-600 dark:text-gray-400">
+            <td className="p-4 text-center text-gray-600 dark:text-gray-400 font-medium">
               250+ MB
             </td>
           </tr>
@@ -89,77 +98,55 @@ export function ComparisonTable() {
             <th scope="row" className="text-left p-4 font-medium">
               Open Source
             </th>
-            <td className="p-4 text-center bg-blue-50 dark:bg-blue-900/20">
-              <span className="text-green-600 dark:text-green-400 text-2xl">
-                ✓
-              </span>
+            <td className="p-4 text-center bg-stone-100 dark:bg-stone-800/10">
+              <Check className="w-5 h-5 text-blue-600 dark:text-blue-400 mx-auto" />
             </td>
             <td className="p-4 text-center">
-              <span className="text-red-500 dark:text-red-400 text-2xl">
-                ✗
-              </span>
+              <X className="w-5 h-5 text-red-500 dark:text-red-400 mx-auto" />
             </td>
             <td className="p-4 text-center">
-              <span className="text-green-600 dark:text-green-400 text-2xl">
-                ✓
-              </span>
+              <Check className="w-5 h-5 text-blue-600 dark:text-blue-400 mx-auto" />
             </td>
           </tr>
           <tr className="border-b border-border/30">
             <th scope="row" className="text-left p-4 font-medium">
               Dark Mode
             </th>
-            <td className="p-4 text-center bg-blue-50 dark:bg-blue-900/20">
-              <span className="text-green-600 dark:text-green-400 text-2xl">
-                ✓
-              </span>
+            <td className="p-4 text-center bg-stone-100 dark:bg-stone-800/10">
+              <Check className="w-5 h-5 text-blue-600 dark:text-blue-400 mx-auto" />
             </td>
             <td className="p-4 text-center">
-              <span className="text-green-600 dark:text-green-400 text-2xl">
-                ✓
-              </span>
+              <Check className="w-5 h-5 text-blue-600 dark:text-blue-400 mx-auto" />
             </td>
             <td className="p-4 text-center">
-              <span className="text-green-600 dark:text-green-400 text-2xl">
-                ✓
-              </span>
+              <Check className="w-5 h-5 text-blue-600 dark:text-blue-400 mx-auto" />
             </td>
           </tr>
           <tr className="border-b border-border/30">
             <th scope="row" className="text-left p-4 font-medium">
               Query Editor
             </th>
-            <td className="p-4 text-center bg-blue-50 dark:bg-blue-900/20">
-              <span className="text-green-600 dark:text-green-400 text-2xl">
-                ✓
-              </span>
+            <td className="p-4 text-center bg-stone-100 dark:bg-stone-800/10">
+              <Check className="w-5 h-5 text-blue-600 dark:text-blue-400 mx-auto" />
             </td>
             <td className="p-4 text-center">
-              <span className="text-green-600 dark:text-green-400 text-2xl">
-                ✓
-              </span>
+              <Check className="w-5 h-5 text-blue-600 dark:text-blue-400 mx-auto" />
             </td>
             <td className="p-4 text-center">
-              <span className="text-green-600 dark:text-green-400 text-2xl">
-                ✓
-              </span>
+              <Check className="w-5 h-5 text-blue-600 dark:text-blue-400 mx-auto" />
             </td>
           </tr>
           <tr className="border-b border-border/30">
             <th scope="row" className="text-left p-4 font-medium">
               No Telemetry
             </th>
-            <td className="p-4 text-center bg-blue-50 dark:bg-blue-900/20">
-              <span className="text-green-600 dark:text-green-400 text-2xl">
-                ✓
-              </span>
+            <td className="p-4 text-center bg-stone-100 dark:bg-stone-800/10">
+              <Check className="w-5 h-5 text-blue-600 dark:text-blue-400 mx-auto" />
             </td>
             <td className="p-4 text-center">
-              <span className="text-red-500 dark:text-red-400 text-2xl">
-                ✗
-              </span>
+              <X className="w-5 h-5 text-red-500 dark:text-red-400 mx-auto" />
             </td>
-            <td className="p-4 text-center text-gray-600 dark:text-gray-400">
+            <td className="p-4 text-center text-gray-600 dark:text-gray-400 font-medium">
               ?
             </td>
           </tr>
