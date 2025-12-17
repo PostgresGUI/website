@@ -14,7 +14,7 @@ export function FinalCTA() {
           $ echo "14.99" # One-time payment • No subscription
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col items-center justify-center gap-8">
           <a
             href={GUMROAD_PRODUCT_LINK}
             target="_blank"
@@ -23,7 +23,9 @@ export function FinalCTA() {
           >
             <span className="inline-flex items-center gap-2">
               Buy Now — $14.99
-              <span className="group-hover:translate-x-1 transition-transform">↗</span>
+              <span className="group-hover:translate-x-1 transition-transform">
+                ↗
+              </span>
             </span>
           </a>
           <a
