@@ -6,14 +6,11 @@ import { ComparisonTable } from "@/components/comparison-table";
 import { Testimonials } from "@/components/testimonials";
 import { FAQ } from "@/components/faq";
 import { FinalCTA } from "@/components/final-cta";
-import { FloatingSQLQueries } from "@/components/hero-animations/floating-sql";
+import { FlowingData } from "@/components/hero-animations/flowing-data";
 
 const COMING_SOON = true;
 
 const GUMROAD_PRODUCT_LINK = "https://muizahg.gumroad.com/l/postgresgui";
-
-// Hero animation toggle: true | false
-const SHOW_SQL_ANIMATION = true;
 
 export default function Home() {
   return (
@@ -23,15 +20,15 @@ export default function Home() {
         id="hero-section"
         className="flex-1 flex items-center justify-center grid-bg relative overflow-hidden"
       >
-        {/* Hero Background Animation */}
-        {SHOW_SQL_ANIMATION && <FloatingSQLQueries />}
+        {/* Flowing Data Streams Background */}
+        <FlowingData />
 
         {/* Accent Element */}
         <div className="absolute w-[800px] h-[600px] bg-gradient-to-br from-[var(--postgres-blue)] to-blue-400 opacity-5 blur-3xl rounded-full"></div>
 
         <div className="text-center px-6 pt-12 pb-16 md:pb-24 relative z-10">
           {/* Logo Image */}
-          <div className="flex justify-center mb-4 animate-slide-in">
+          <div className="flex justify-center mb-2 animate-slide-in">
             <div className="relative">
               <Image
                 src="/postgresgui-elephant.png"
@@ -50,8 +47,8 @@ export default function Home() {
           </h1> */}
 
           {/* Main Tagline */}
-          <h1 className="text-2xl md:text-4xl lg:text-5xl max-w-2xl font-semibold mx-auto mb-4 md:mb-6 animate-slide-in stagger-2 leading-tight">
-            Lightweight + Native PostgreSQL GUI for your Mac
+          <h1 className="text-5xl lg:text-6xl mb-8 max-w-lg font-semibold mx-auto mb-4 md:mb-6 animate-slide-in stagger-2 leading-tight font-display">
+            Native macOS PostgreSQL GUI
           </h1>
 
           {/* CTA Buttons */}
@@ -62,9 +59,9 @@ export default function Home() {
                   href={GUMROAD_PRODUCT_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group w-full sm:w-auto bg-gradient-to-r from-[var(--postgres-blue)] to-blue-500 hover:from-[var(--postgres-blue-dark)] hover:to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-swiftui shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98]"
+                  className="group w-full sm:w-[280px] bg-gradient-to-r from-[var(--postgres-blue)] to-blue-500 hover:from-[var(--postgres-blue-dark)] hover:to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-swiftui shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] text-center"
                 >
-                  <span className="inline-flex items-center gap-2">
+                  <span className="inline-flex items-center justify-center gap-2">
                     Buy Now — $14.99
                     <span className="group-hover:translate-x-1 transition-transform">
                       ↗
@@ -75,9 +72,9 @@ export default function Home() {
                   href="https://github.com/postgresgui/postgresgui"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group w-full sm:w-auto border border-border/50 hover:border-border bg-card/50 backdrop-blur-sm px-8 py-4 rounded-xl font-semibold text-lg transition-swiftui shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+                  className="group w-full sm:w-[280px] border border-border/50 hover:border-border bg-card/50 backdrop-blur-sm px-8 py-4 rounded-xl font-semibold text-lg transition-swiftui shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] text-center"
                 >
-                  <span className="inline-flex items-center gap-2">
+                  <span className="inline-flex items-center justify-center gap-2">
                     Open Source
                     <span className="group-hover:translate-x-1 transition-transform">
                       ↗
@@ -93,15 +90,14 @@ export default function Home() {
           </div>
 
           {/* Feature Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 text-xs md:text-sm font-mono">
-            <div className="flex items-center gap-2 px-4 py-2 font-medium bg-card/80 backdrop-blur-sm border border-border/30 rounded-full">
+          <div className="flex flex-wrap items-center justify-center gap-2 text-xs md:text-sm font-mono">
+            <div className="flex items-center gap-2 px-4 py-2 font-medium bg-white dark:bg-stone-900 border border-border/10 rounded-full text-gray-900 dark:text-white">
               <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 ▪
               </span>
               <span>14.6 MB installer</span>
             </div>
-
-            <div className="flex items-center gap-2 px-4 py-2 font-medium bg-card/80 backdrop-blur-sm border border-border/30 rounded-full">
+            <div className="flex items-center gap-2 px-4 py-2 font-medium bg-white dark:bg-stone-900 border border-border/10 rounded-full text-gray-900 dark:text-white">
               <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 ▪
               </span>
@@ -114,7 +110,7 @@ export default function Home() {
       {/* Features Section */}
       <section
         id="features"
-        className="py-16 md:py-24 px-6 border-t border-border"
+        className="py-16 md:py-24 px-6 border-t border-border/20"
       >
         <div className="max-w-6xl mx-auto">
           <div className="mb-12 md:mb-16">
@@ -137,7 +133,7 @@ export default function Home() {
       {/* Screenshots Section */}
       <section
         id="screenshots"
-        className="py-16 md:py-24 px-6 border-t border-border"
+        className="py-16 md:py-24 px-6 border-t border-border/20"
       >
         <div className="max-w-7xl mx-auto">
           <div className="mb-12">
@@ -147,7 +143,7 @@ export default function Home() {
               </span>
             </div>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-display mb-4 tracking-tight">
-              See What It Looks Like
+              Crafted for Ease of Use
             </h2>
           </div>
           <ScreenshotGallery />
@@ -157,7 +153,7 @@ export default function Home() {
       {/* Comparison Table Section */}
       {/* <section
         id="pricing"
-        className="py-16 md:py-24 px-6 border-t border-border grid-bg"
+        className="py-16 md:py-24 px-6 border-t border-border/20 grid-bg"
       >
         <div className="max-w-5xl mx-auto">
           <div className="mb-12">
@@ -197,7 +193,7 @@ export default function Home() {
       {/* FAQ Section */}
       <section
         id="faq"
-        className="py-16 md:py-24 px-6 border-t border-border grid-bg"
+        className="py-16 md:py-24 px-6 border-t border-border/20 grid-bg"
       >
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
@@ -215,7 +211,7 @@ export default function Home() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="border-t border-border">
+      <section className="border-t border-border/20">
         <FinalCTA />
       </section>
     </>

@@ -58,7 +58,7 @@ export function ComparisonTable() {
             <td className="p-4 text-center text-red-500 dark:text-red-400 font-medium">
               Subscription
             </td>
-            <td className="p-4 text-center text-gray-600 dark:text-gray-400 font-medium">
+            <td className="p-4 text-center text-muted-foreground font-medium">
               Open Source
             </td>
           </tr>
@@ -71,10 +71,10 @@ export function ComparisonTable() {
                 Native Mac
               </span>
             </td>
-            <td className="p-4 text-center text-gray-600 dark:text-gray-400 font-medium">
+            <td className="p-4 text-center text-muted-foreground font-medium">
               Electron
             </td>
-            <td className="p-4 text-center text-gray-600 dark:text-gray-400 font-medium">
+            <td className="p-4 text-center text-muted-foreground font-medium">
               Electron
             </td>
           </tr>
@@ -87,10 +87,10 @@ export function ComparisonTable() {
                 14.6 MB
               </span>
             </td>
-            <td className="p-4 text-center text-gray-600 dark:text-gray-400 font-medium">
+            <td className="p-4 text-center text-muted-foreground font-medium">
               150+ MB
             </td>
-            <td className="p-4 text-center text-gray-600 dark:text-gray-400 font-medium">
+            <td className="p-4 text-center text-muted-foreground font-medium">
               250+ MB
             </td>
           </tr>
@@ -146,7 +146,7 @@ export function ComparisonTable() {
             <td className="p-4 text-center">
               <X className="w-5 h-5 text-red-500 dark:text-red-400 mx-auto" />
             </td>
-            <td className="p-4 text-center text-gray-600 dark:text-gray-400 font-medium">
+            <td className="p-4 text-center text-muted-foreground font-medium">
               ?
             </td>
           </tr>

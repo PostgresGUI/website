@@ -30,7 +30,7 @@ export function Footer() {
 
   return (
     <footer
-      className="w-full border-t border-border/30 bg-accent/20 backdrop-blur-sm py-12 px-6 mt-auto"
+      className="w-full border-t border-border/50 bg-accent/30 backdrop-blur-sm py-12 px-6 mt-auto"
       role="contentinfo"
     >
       <div className="max-w-6xl mx-auto">
@@ -38,22 +38,22 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div className="md:col-span-1">
-            <h3 className="font-bold text-lg mb-2">PostgresGUI</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">PostgresGUI</h3>
+            <p className="text-sm text-gray-600 dark:text-white">
               Lightweight PostgreSQL client for Mac
             </p>
           </div>
 
           {/* Product Links */}
           <div>
-            <h4 className="font-semibold mb-3">Product</h4>
+            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">Product</h4>
             <nav aria-label="Product navigation">
               <ul className="space-y-2">
                 {productLinks.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+                      className="text-sm text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-white transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -65,14 +65,14 @@ export function Footer() {
 
           {/* Support Links */}
           <div>
-            <h4 className="font-semibold mb-3">Support</h4>
+            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">Support</h4>
             <nav aria-label="Support navigation">
               <ul className="space-y-2">
                 {supportLinks.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+                      className="text-sm text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-white transition-colors"
                       {...(link.external && {
                         target: "_blank",
                         rel: "noopener noreferrer",
@@ -89,14 +89,14 @@ export function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h4 className="font-semibold mb-3">Legal</h4>
+            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">Legal</h4>
             <nav aria-label="Legal navigation">
               <ul className="space-y-2">
                 {legalLinks.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+                      className="text-sm text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-white transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -118,7 +118,7 @@ export function Footer() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+                  className="text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-white transition-colors"
                   aria-label={`${link.label} profile`}
                 >
                   {link.label} ↗
@@ -127,7 +127,7 @@ export function Footer() {
             </div>
 
             {/* Copyright */}
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-600 dark:text-white">
               &copy; 2025 PostgresGUI
             </p>
           </div>

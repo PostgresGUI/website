@@ -7,7 +7,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "SF Pro Text", "Segoe UI", system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono);
   --font-display: var(--font-jetbrains-mono);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -51,7 +52,7 @@ html {
 
 @media (prefers-color-scheme: dark) {
   html {
-    @apply bg-stone-900 text-gray-100;
+    @apply bg-stone-900 text-white;
   }
 }
 
@@ -72,15 +73,21 @@ body {
 
   /* Technical Grid Background - Subtle */
   .grid-bg {
-    background-image:
-      linear-gradient(to right, rgb(0 0 0 / 0.015) 1px, transparent 1px),
+    background-image: linear-gradient(
+        to right,
+        rgb(0 0 0 / 0.015) 1px,
+        transparent 1px
+      ),
       linear-gradient(to bottom, rgb(0 0 0 / 0.015) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 
   .dark .grid-bg {
-    background-image:
-      linear-gradient(to right, rgb(255 255 255 / 0.02) 1px, transparent 1px),
+    background-image: linear-gradient(
+        to right,
+        rgb(255 255 255 / 0.02) 1px,
+        transparent 1px
+      ),
       linear-gradient(to bottom, rgb(255 255 255 / 0.02) 1px, transparent 1px);
     background-size: 40px 40px;
   }
@@ -134,7 +141,7 @@ body {
   }
 
   .gradient-overlay::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: var(--gradient-card);
@@ -165,18 +172,30 @@ body {
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
   .animate-fade-in {
     animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
   }
 
-  .stagger-1 { animation-delay: 0.1s; }
-  .stagger-2 { animation-delay: 0.2s; }
-  .stagger-3 { animation-delay: 0.3s; }
-  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-1 {
+    animation-delay: 0.1s;
+  }
+  .stagger-2 {
+    animation-delay: 0.2s;
+  }
+  .stagger-3 {
+    animation-delay: 0.3s;
+  }
+  .stagger-4 {
+    animation-delay: 0.4s;
+  }
 }
 
 :root {
@@ -188,17 +207,17 @@ body {
   --radius-2xl: 2rem;
 
   /* PostgresGUI Brand Colors - Tailwind Blue */
-  --postgres-blue: #2563EB;
-  --postgres-blue-dark: #1D4ED8;
-  --postgres-blue-light: #3B82F6;
+  --postgres-blue: #2563eb;
+  --postgres-blue-dark: #1d4ed8;
+  --postgres-blue-light: #3b82f6;
 
   /* Feature Card Colors - Bold & Vibrant Palette */
-  --color-opensource: #10b981;     /* Emerald - GitHub, code, growth */
-  --color-native: #2563EB;         /* Blue - Mac, native, brand */
-  --color-lightweight: #f59e0b;    /* Amber - Speed, performance, energy */
-  --color-subscription: #8b5cf6;   /* Purple - Premium, value, unique */
-  --color-privacy: #06b6d4;        /* Cyan - Security, privacy, trust */
-  --color-minimal: #ec4899;        /* Pink - Design, aesthetics, refined */
+  --color-opensource: #10b981; /* Emerald - GitHub, code, growth */
+  --color-native: #2563eb; /* Blue - Mac, native, brand */
+  --color-lightweight: #f59e0b; /* Amber - Speed, performance, energy */
+  --color-subscription: #8b5cf6; /* Purple - Premium, value, unique */
+  --color-privacy: #06b6d4; /* Cyan - Security, privacy, trust */
+  --color-minimal: #ec4899; /* Pink - Design, aesthetics, refined */
 
   /* Technical Palette */
   --background: #fafafa;
@@ -235,7 +254,8 @@ body {
 
   /* SwiftUI Shadow System - Soft, blur-based */
   --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.06);
-  --shadow-card-hover: 0 10px 20px -5px rgb(0 0 0 / 0.12), 0 4px 8px -4px rgb(0 0 0 / 0.08);
+  --shadow-card-hover: 0 10px 20px -5px rgb(0 0 0 / 0.12),
+    0 4px 8px -4px rgb(0 0 0 / 0.08);
   --shadow-sm: 0 2px 4px -1px rgb(0 0 0 / 0.08);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
@@ -249,28 +269,32 @@ body {
 
   /* Gradient System */
   --gradient-card: linear-gradient(135deg, rgb(255 255 255 / 0.1), transparent);
-  --gradient-blue: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
-  --gradient-blue-subtle: linear-gradient(to bottom right, rgb(37 99 235 / 0.05), transparent);
+  --gradient-blue: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  --gradient-blue-subtle: linear-gradient(
+    to bottom right,
+    rgb(37 99 235 / 0.05),
+    transparent
+  );
 }
 
 .dark {
   /* PostgresGUI Brand Colors - Dark Mode */
-  --postgres-blue: #3B82F6;
-  --postgres-blue-dark: #2563EB;
-  --postgres-blue-light: #60A5FA;
+  --postgres-blue: #3b82f6;
+  --postgres-blue-dark: #2563eb;
+  --postgres-blue-light: #60a5fa;
 
   /* Feature Card Colors - Vibrant for Dark Mode */
-  --color-opensource: #10b981;     /* Keep emerald vibrant */
-  --color-native: #3B82F6;         /* Update to match new blue */
-  --color-lightweight: #f59e0b;    /* Keep amber bright */
-  --color-subscription: #a78bfa;   /* Lighter purple for dark */
-  --color-privacy: #22d3ee;        /* Brighter cyan for dark */
-  --color-minimal: #f472b6;        /* Lighter pink for dark */
+  --color-opensource: #10b981; /* Keep emerald vibrant */
+  --color-native: #3b82f6; /* Update to match new blue */
+  --color-lightweight: #f59e0b; /* Keep amber bright */
+  --color-subscription: #a78bfa; /* Lighter purple for dark */
+  --color-privacy: #22d3ee; /* Brighter cyan for dark */
+  --color-minimal: #f472b6; /* Lighter pink for dark */
 
   --background: #0a0a0a;
-  --foreground: #fafafa;
-  --card: #171717;
-  --card-foreground: #fafafa;
+  --foreground: #ffffff;
+  --card: #1a1a1a;
+  --card-foreground: #ffffff;
   --popover: #171717;
   --popover-foreground: #fafafa;
   --primary: var(--postgres-blue);
@@ -278,11 +302,11 @@ body {
   --secondary: #27272a;
   --secondary-foreground: #fafafa;
   --muted: #27272a;
-  --muted-foreground: #a1a1aa;
+  --muted-foreground: #d4d4d8;
   --accent: #3f3f46;
   --accent-foreground: #fafafa;
   --destructive: #f87171;
-  --border: #27272a;
+  --border: #3f3f46;
   --input: #27272a;
   --ring: var(--postgres-blue-light);
   --chart-1: oklch(0.488 0.243 264.376);
@@ -301,20 +325,32 @@ body {
 
   /* SwiftUI Shadow System - Dark Mode */
   --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.3);
-  --shadow-card-hover: 0 10px 20px -5px rgb(0 0 0 / 0.5), 0 4px 8px -4px rgb(0 0 0 / 0.4);
-  --shadow-sm: 0 2px 4px -1px rgb(0 0 0 / 0.35), 0 1px 2px -1px rgb(0 0 0 / 0.25);
+  --shadow-card-hover: 0 10px 20px -5px rgb(0 0 0 / 0.5),
+    0 4px 8px -4px rgb(0 0 0 / 0.4);
+  --shadow-sm: 0 2px 4px -1px rgb(0 0 0 / 0.35),
+    0 1px 2px -1px rgb(0 0 0 / 0.25);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.45), 0 4px 6px -4px rgb(0 0 0 / 0.35);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.45),
+    0 4px 6px -4px rgb(0 0 0 / 0.35);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5),
+    0 8px 10px -6px rgb(0 0 0 / 0.4);
 
   /* Glassmorphism Effects - Dark Mode */
-  --glass-bg: rgb(23 23 23 / 0.7);
-  --glass-border: rgb(255 255 255 / 0.1);
+  --glass-bg: rgb(23 23 23 / 0.85);
+  --glass-border: rgb(255 255 255 / 0.15);
   --glass-blur: 16px;
 
   /* Gradient System - Dark Mode */
-  --gradient-card: linear-gradient(135deg, rgb(255 255 255 / 0.05), transparent);
-  --gradient-blue-subtle: linear-gradient(to bottom right, rgb(59 130 246 / 0.08), transparent);
+  --gradient-card: linear-gradient(
+    135deg,
+    rgb(255 255 255 / 0.05),
+    transparent
+  );
+  --gradient-blue-subtle: linear-gradient(
+    to bottom right,
+    rgb(59 130 246 / 0.08),
+    transparent
+  );
 }
 
 @layer base {
@@ -330,7 +366,12 @@ body {
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     letter-spacing: -0.022em;
     font-weight: 600;
   }
