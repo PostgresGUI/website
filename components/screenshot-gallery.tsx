@@ -44,7 +44,7 @@ export function ScreenshotGallery() {
     <div className="w-full" role="region" aria-label="Screenshot gallery">
       {/* Tabs */}
       <div
-        className="flex overflow-x-auto mb-8 border-b-2 border-border scrollbar-hide"
+        className="flex overflow-x-auto mb-8 border-b border-border/30 scrollbar-hide"
         role="tablist"
         aria-label="Screenshot tabs"
       >
@@ -65,9 +65,9 @@ export function ScreenshotGallery() {
                 );
               }
             }}
-            className={`flex-shrink-0 px-4 py-3 font-mono text-xs uppercase tracking-wide transition-all whitespace-nowrap ${
+            className={`flex-shrink-0 px-4 py-3 font-semibold text-sm transition-swiftui whitespace-nowrap ${
               activeIndex === index
-                ? "text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] border-b-2 border-[var(--postgres-blue)] dark:border-[var(--postgres-blue-light)] font-bold -mb-[2px]"
+                ? "text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] border-b-2 border-[var(--postgres-blue)] dark:border-[var(--postgres-blue-light)] -mb-[1px]"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -83,7 +83,7 @@ export function ScreenshotGallery() {
         aria-labelledby={`screenshot-tab-${activeIndex}`}
         className="mb-8"
       >
-        <div className="rounded-sharp overflow-hidden border-2 border-border shadow-brutal">
+        <div className="rounded-2xl overflow-hidden border border-border/50 shadow-xl">
           <Image
             src={screenshots[activeIndex].imagePath}
             alt={screenshots[activeIndex].alt}
@@ -115,10 +115,10 @@ export function ScreenshotGallery() {
           <button
             key={`thumb-${screenshot.title}`}
             onClick={() => setActiveIndex(index)}
-            className={`rounded-sharp overflow-hidden border-2 transition-all ${
+            className={`rounded-xl overflow-hidden border transition-swiftui ${
               activeIndex === index
-                ? "border-[var(--postgres-blue)] dark:border-[var(--postgres-blue-light)] shadow-brutal"
-                : "border-border hover:border-foreground opacity-50 hover:opacity-100"
+                ? "border-[var(--postgres-blue)] dark:border-[var(--postgres-blue-light)] shadow-lg ring-2 ring-[var(--postgres-blue)]/20"
+                : "border-border/50 hover:border-border opacity-60 hover:opacity-100 shadow-sm hover:shadow-md"
             }`}
             aria-label={`View ${screenshot.title}`}
           >

@@ -27,7 +27,7 @@ export default function Home() {
         {SHOW_SQL_ANIMATION && <FloatingSQLQueries />}
 
         {/* Accent Element */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--postgres-blue)] opacity-5 blur-3xl"></div>
+        <div className="absolute w-[800px] h-[600px] bg-gradient-to-br from-[var(--postgres-blue)] to-blue-400 opacity-5 blur-3xl rounded-full"></div>
 
         <div className="text-center px-6 pt-12 pb-16 md:pb-24 relative z-10">
           {/* Logo Image */}
@@ -62,7 +62,7 @@ export default function Home() {
                   href={GUMROAD_PRODUCT_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group w-full sm:w-auto bg-[var(--postgres-blue)] hover:bg-[var(--postgres-blue-dark)] text-white px-8 py-4 rounded-sharp font-bold text-lg transition-all shadow-brutal hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none font-mono uppercase tracking-wide"
+                  className="group w-full sm:w-auto bg-gradient-to-r from-[var(--postgres-blue)] to-blue-500 hover:from-[var(--postgres-blue-dark)] hover:to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-swiftui shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <span className="inline-flex items-center gap-2">
                     Buy Now — $14.99
@@ -75,7 +75,7 @@ export default function Home() {
                   href="https://github.com/postgresgui/postgresgui"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group w-full sm:w-auto border-2 border-border hover:border-foreground px-8 py-4 rounded-sharp font-bold text-lg transition-all font-mono uppercase tracking-wide"
+                  className="group w-full sm:w-auto border border-border/50 hover:border-border bg-card/50 backdrop-blur-sm px-8 py-4 rounded-xl font-semibold text-lg transition-swiftui shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <span className="inline-flex items-center gap-2">
                     Open Source
@@ -94,14 +94,14 @@ export default function Home() {
 
           {/* Feature Pills */}
           <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 text-xs md:text-sm font-mono">
-            <div className="flex items-center gap-2 px-3 py-1.5 font-medium bg-white dark:bg-black rounded-sharp">
+            <div className="flex items-center gap-2 px-4 py-2 font-medium bg-card/80 backdrop-blur-sm border border-border/30 rounded-full">
               <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 ▪
               </span>
               <span>14.6 MB installer</span>
             </div>
 
-            <div className="flex items-center gap-2 px-3 py-1.5 font-medium bg-white dark:bg-black rounded-sharp">
+            <div className="flex items-center gap-2 px-4 py-2 font-medium bg-card/80 backdrop-blur-sm border border-border/30 rounded-full">
               <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 ▪
               </span>
@@ -114,12 +114,12 @@ export default function Home() {
       {/* Features Section */}
       <section
         id="features"
-        className="py-16 md:py-24 px-6 border-t-2 border-border"
+        className="py-16 md:py-24 px-6 border-t border-border"
       >
         <div className="max-w-6xl mx-auto">
           <div className="mb-12 md:mb-16">
-            <div className="inline-block mb-4 px-3 py-1 bg-accent rounded-sharp">
-              <span className="text-xs font-mono uppercase tracking-wide text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
+            <div className="inline-block mb-4 px-4 py-1.5 bg-accent/50 backdrop-blur-sm border border-border/20 rounded-full shadow-sm">
+              <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 Features
               </span>
             </div>
@@ -137,12 +137,12 @@ export default function Home() {
       {/* Screenshots Section */}
       <section
         id="screenshots"
-        className="py-16 md:py-24 px-6 border-t-2 border-border"
+        className="py-16 md:py-24 px-6 border-t border-border"
       >
         <div className="max-w-7xl mx-auto">
           <div className="mb-12">
-            <div className="inline-block mb-4 px-3 py-1 bg-accent rounded-sharp">
-              <span className="text-xs font-mono uppercase tracking-wide text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
+            <div className="inline-block mb-4 px-4 py-1.5 bg-accent/50 backdrop-blur-sm border border-border/20 rounded-full shadow-sm">
+              <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 Interface
               </span>
             </div>
@@ -157,12 +157,12 @@ export default function Home() {
       {/* Comparison Table Section */}
       <section
         id="pricing"
-        className="py-16 md:py-24 px-6 border-t-2 border-border grid-bg"
+        className="py-16 md:py-24 px-6 border-t border-border grid-bg"
       >
         <div className="max-w-5xl mx-auto">
           <div className="mb-12">
-            <div className="inline-block mb-4 px-3 py-1 bg-accent rounded-sharp">
-              <span className="text-xs font-mono uppercase tracking-wide text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
+            <div className="inline-block mb-4 px-4 py-1.5 bg-accent/50 backdrop-blur-sm border border-border/20 rounded-full shadow-sm">
+              <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 Comparison
               </span>
             </div>
@@ -179,7 +179,7 @@ export default function Home() {
               href={GUMROAD_PRODUCT_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-block bg-[var(--postgres-blue)] hover:bg-[var(--postgres-blue-dark)] text-white px-8 py-3 rounded-sharp font-mono font-bold text-sm uppercase tracking-wide transition-all shadow-brutal hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
+              className="group inline-block bg-gradient-to-r from-[var(--postgres-blue)] to-blue-500 hover:from-[var(--postgres-blue-dark)] hover:to-blue-600 text-white px-8 py-3 rounded-xl font-semibold text-sm transition-swiftui shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98]"
             >
               <span className="inline-flex items-center gap-2">
                 Buy PostgresGUI — $14.99
@@ -193,11 +193,11 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 md:py-24 px-6 border-t-2 border-border">
+      <section className="py-16 md:py-24 px-6 border-t border-border">
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
-            <div className="inline-block mb-4 px-3 py-1 bg-accent rounded-sharp">
-              <span className="text-xs font-mono uppercase tracking-wide text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
+            <div className="inline-block mb-4 px-4 py-1.5 bg-accent/50 backdrop-blur-sm border border-border/20 rounded-full shadow-sm">
+              <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 Testimonials
               </span>
             </div>
@@ -212,12 +212,12 @@ export default function Home() {
       {/* FAQ Section */}
       <section
         id="faq"
-        className="py-16 md:py-24 px-6 border-t-2 border-border grid-bg"
+        className="py-16 md:py-24 px-6 border-t border-border grid-bg"
       >
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
-            <div className="inline-block mb-4 px-3 py-1 bg-accent rounded-sharp">
-              <span className="text-xs font-mono uppercase tracking-wide text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
+            <div className="inline-block mb-4 px-4 py-1.5 bg-accent/50 backdrop-blur-sm border border-border/20 rounded-full shadow-sm">
+              <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 FAQ
               </span>
             </div>
@@ -230,7 +230,7 @@ export default function Home() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="border-t-2 border-border">
+      <section className="border-t border-border">
         <FinalCTA />
       </section>
     </>

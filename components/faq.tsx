@@ -67,10 +67,10 @@ function FAQItem({ question, answer }: { question: string; answer: React.ReactNo
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-2 border-border rounded-sharp mb-3 overflow-hidden bg-card">
+    <div className="border border-border/50 rounded-xl mb-4 overflow-hidden bg-card shadow-sm hover:shadow-md transition-swiftui">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-4 text-left hover:bg-accent transition-colors"
+        className="w-full flex items-center justify-between p-5 text-left hover:bg-accent/50 transition-swiftui"
         aria-expanded={isOpen}
       >
         <span className="text-base font-display pr-8 tracking-tight">{question}</span>
@@ -83,7 +83,7 @@ function FAQItem({ question, answer }: { question: string; answer: React.ReactNo
         />
       </button>
       {isOpen && (
-        <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed border-t-2 border-border pt-4">
+        <div className="px-5 pb-5 text-sm text-muted-foreground leading-relaxed border-t border-border/30 pt-4">
           {answer}
         </div>
       )}

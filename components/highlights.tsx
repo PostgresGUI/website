@@ -92,7 +92,7 @@ export function Highlights() {
       {highlights.map((highlight, index) => (
         <div
           key={highlight.title}
-          className={`group p-6 md:p-8 rounded-sharp border-2 transition-all duration-200 hover:-translate-y-1 ${
+          className={`group p-6 md:p-8 rounded-2xl border border-opacity-20 transition-swiftui hover:-translate-y-2 hover:scale-[1.02] shadow-swiftui gradient-overlay ${
             highlight.bgColor
           } ${highlight.borderColor} ${
             index === 0 ? "md:col-span-2 lg:col-span-1" : ""
@@ -101,7 +101,7 @@ export function Highlights() {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div
-                className={`p-2.5 rounded-sharp ${highlight.iconBg} border-2 ${highlight.borderColor}`}
+                className={`p-3 rounded-xl ${highlight.iconBg} shadow-sm`}
               >
                 <highlight.icon
                   height={24}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Inter } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
@@ -9,12 +9,6 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -83,7 +77,7 @@ export default function RootLayout({
     <html lang="en">
       <GoogleTagManager gtmId="G-B50JK5C700" />
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased flex flex-col min-h-screen`}
+        className={`${jetbrainsMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <Navigation />
         {children}

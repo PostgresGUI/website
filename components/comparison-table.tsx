@@ -1,12 +1,12 @@
 export function ComparisonTable() {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full border-collapse bg-card rounded-sharp border-2 border-border overflow-hidden">
+      <table className="w-full border-collapse bg-card rounded-2xl border border-border/50 overflow-hidden shadow-lg">
         <caption className="sr-only">
           Comparison of PostgresGUI with alternative PostgreSQL clients
         </caption>
         <thead>
-          <tr className="border-b-2 border-border bg-accent">
+          <tr className="border-b border-border/30 bg-accent/50">
             <th
               scope="col"
               className="text-left p-4 font-mono text-xs uppercase tracking-wide"
@@ -53,7 +53,7 @@ export function ComparisonTable() {
               </div>
             </td>
           </tr>
-          <tr className="border-b border-gray-200 dark:border-stone-700">
+          <tr className="border-b border-border/30">
             <th scope="row" className="text-left p-4 font-medium">
               Platform
             </th>
@@ -69,7 +69,7 @@ export function ComparisonTable() {
               Electron
             </td>
           </tr>
-          <tr className="border-b border-gray-200 dark:border-stone-700">
+          <tr className="border-b border-border/30">
             <th scope="row" className="text-left p-4 font-medium">
               Install Size
             </th>
@@ -85,7 +85,7 @@ export function ComparisonTable() {
               250+ MB
             </td>
           </tr>
-          <tr className="border-b border-gray-200 dark:border-stone-700">
+          <tr className="border-b border-border/30">
             <th scope="row" className="text-left p-4 font-medium">
               Open Source
             </th>
@@ -105,7 +105,7 @@ export function ComparisonTable() {
               </span>
             </td>
           </tr>
-          <tr className="border-b border-gray-200 dark:border-stone-700">
+          <tr className="border-b border-border/30">
             <th scope="row" className="text-left p-4 font-medium">
               Dark Mode
             </th>
@@ -125,7 +125,7 @@ export function ComparisonTable() {
               </span>
             </td>
           </tr>
-          <tr className="border-b border-gray-200 dark:border-stone-700">
+          <tr className="border-b border-border/30">
             <th scope="row" className="text-left p-4 font-medium">
               Query Editor
             </th>
@@ -145,7 +145,7 @@ export function ComparisonTable() {
               </span>
             </td>
           </tr>
-          <tr className="border-b border-gray-200 dark:border-stone-700">
+          <tr className="border-b border-border/30">
             <th scope="row" className="text-left p-4 font-medium">
               No Telemetry
             </th>

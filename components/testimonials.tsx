@@ -26,12 +26,12 @@ export function Testimonials() {
         {testimonials.map((testimonial, index) => (
           <blockquote
             key={index}
-            className="bg-card p-6 md:p-8 rounded-sharp border-2 border-border hover:border-[var(--postgres-blue)] dark:hover:border-[var(--postgres-blue-light)] transition-all"
+            className="bg-card p-6 md:p-8 rounded-2xl border border-border/50 hover:border-[var(--postgres-blue)]/50 dark:hover:border-[var(--postgres-blue-light)]/50 transition-swiftui shadow-swiftui hover:shadow-lg gradient-overlay"
           >
             <p className="mb-4 leading-relaxed text-sm">
               "{testimonial.quote}"
             </p>
-            <footer className="border-t-2 border-border pt-3">
+            <footer className="border-t border-border/30 pt-3">
               <cite className="not-italic">
                 <div className="font-display text-sm tracking-tight">
                   {testimonial.author}
@@ -46,7 +46,7 @@ export function Testimonials() {
       </div>
 
       <div className="text-center">
-        <div className="inline-flex items-center gap-3 px-4 py-2 bg-accent rounded-sharp border-2 border-border">
+        <div className="inline-flex items-center gap-3 px-5 py-3 bg-accent/50 rounded-xl border border-border/30 shadow-sm backdrop-blur-sm">
           <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">★★★★★</span>
           <span className="font-mono text-sm">
             <span className="font-bold">4.8/5</span> on Gumroad

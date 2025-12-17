@@ -19,7 +19,7 @@ export function Navigation() {
 
   return (
     <nav
-      className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b-2 border-border"
+      className="sticky top-0 z-50 glass-lg border-b border-border/50 shadow-sm"
       aria-label="Main navigation"
     >
       <div className="max-w-7xl mx-auto px-6 py-3">
@@ -37,7 +37,7 @@ export function Navigation() {
                 height={32}
                 className="object-contain"
               />
-              <div className="absolute inset-0 bg-[var(--postgres-blue)] opacity-0 group-hover:opacity-10 transition-opacity rounded-sharp"></div>
+              <div className="absolute inset-0 bg-[var(--postgres-blue)] opacity-0 group-hover:opacity-10 transition-opacity rounded-lg"></div>
             </div>
             <span className="text-lg font-display tracking-tight">PostgresGUI</span>
           </Link>
@@ -48,7 +48,7 @@ export function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-mono uppercase tracking-wide hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-colors relative group"
+                className="text-sm font-semibold hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-colors relative group"
                 onClick={(e) => {
                   if (link.href.startsWith("#")) {
                     e.preventDefault();
@@ -65,7 +65,7 @@ export function Navigation() {
               href={GUMROAD_PRODUCT_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[var(--postgres-blue)] hover:bg-[var(--postgres-blue-dark)] text-white px-5 py-2 rounded-sharp font-mono font-bold text-sm uppercase tracking-wide transition-all shadow-brutal hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
+              className="bg-[var(--postgres-blue)] hover:bg-[var(--postgres-blue-dark)] text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-swiftui shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
             >
               Buy
             </a>
@@ -73,7 +73,7 @@ export function Navigation() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 rounded-sharp hover:bg-accent transition-colors"
+            className="md:hidden p-2 rounded-lg hover:bg-accent/50 transition-swiftui"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-label="Toggle menu"
@@ -88,12 +88,12 @@ export function Navigation() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-3 border-t-2 border-border pt-4">
+          <div className="md:hidden mt-4 pb-4 space-y-3 border-t border-border/30 pt-4">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="block font-mono text-sm uppercase tracking-wide hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-colors py-2 px-3 hover:bg-accent rounded-sharp"
+                className="block font-semibold text-sm hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-swiftui py-2 px-3 hover:bg-accent/50 rounded-lg"
                 onClick={(e) => {
                   if (link.href.startsWith("#")) {
                     e.preventDefault();
@@ -112,7 +112,7 @@ export function Navigation() {
               href={GUMROAD_PRODUCT_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="block bg-[var(--postgres-blue)] hover:bg-[var(--postgres-blue-dark)] text-white px-6 py-3 rounded-sharp font-mono font-bold text-sm uppercase tracking-wide transition-all text-center shadow-brutal"
+              className="block bg-[var(--postgres-blue)] hover:bg-[var(--postgres-blue-dark)] text-white px-6 py-3 rounded-lg font-semibold text-sm transition-swiftui text-center shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
             >
               Buy Now
             </a>

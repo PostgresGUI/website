@@ -19,7 +19,7 @@ export function FinalCTA() {
             href={GUMROAD_PRODUCT_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="group w-full sm:w-auto bg-[var(--postgres-blue)] hover:bg-[var(--postgres-blue-dark)] text-white px-10 py-4 rounded-sharp font-mono font-bold text-sm uppercase tracking-wide transition-all shadow-brutal hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
+            className="group w-full sm:w-auto bg-gradient-to-r from-[var(--postgres-blue)] to-blue-500 hover:from-[var(--postgres-blue-dark)] hover:to-blue-600 text-white px-10 py-4 rounded-xl font-semibold text-sm transition-swiftui shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98]"
           >
             <span className="inline-flex items-center gap-2">
               Buy Now — $14.99

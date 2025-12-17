@@ -30,7 +30,7 @@ export function Footer() {
 
   return (
     <footer
-      className="w-full border-t border-gray-200 dark:border-stone-700 bg-gray-50 dark:bg-stone-900/50 py-12 px-6 mt-auto"
+      className="w-full border-t border-border/30 bg-accent/20 backdrop-blur-sm py-12 px-6 mt-auto"
       role="contentinfo"
     >
       <div className="max-w-6xl mx-auto">
@@ -108,7 +108,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="pt-8 border-t border-gray-200 dark:border-stone-700">
+        <div className="pt-8 border-t border-border/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Social Links */}
             <div className="flex items-center gap-4">
