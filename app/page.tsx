@@ -127,7 +127,7 @@ export default function Home() {
               Why PostgresGUI?
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl font-mono">
-              // The PostgreSQL client that respects your Mac
+              // Fast, native PostgreSQL without the bloat
             </p>
           </div>
           <Highlights />
