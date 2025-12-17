@@ -147,7 +147,7 @@ export default function Home() {
               </span>
             </div>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-display mb-4 tracking-tight">
-              See PostgresGUI in Action
+              See What It Looks Like
             </h2>
           </div>
           <ScreenshotGallery />
