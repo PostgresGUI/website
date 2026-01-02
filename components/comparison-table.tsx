@@ -1,4 +1,5 @@
 import { Check, X } from "lucide-react";
+import { PRICE } from "@/lib/constants";
 
 export function ComparisonTable() {
   return (
@@ -36,7 +37,7 @@ export function ComparisonTable() {
             </th>
             <td className="p-4 text-center bg-stone-200 dark:bg-stone-800/20">
               <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] font-medium">
-                $14.99
+                {PRICE}
               </span>
             </td>
             <td className="p-4 text-center font-medium">

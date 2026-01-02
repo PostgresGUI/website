@@ -7,6 +7,7 @@ import { Testimonials } from "@/components/testimonials";
 import { FAQ } from "@/components/faq";
 import { FinalCTA } from "@/components/final-cta";
 import { FlowingData } from "@/components/hero-animations/flowing-data";
+import { PRICE } from "@/lib/constants";
 
 const COMING_SOON = true;
 
@@ -62,7 +63,7 @@ export default function Home() {
                   className="group w-full sm:w-[280px] bg-gradient-to-r from-[var(--postgres-blue)] to-blue-500 hover:from-[var(--postgres-blue-dark)] hover:to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-swiftui shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] text-center"
                 >
                   <span className="inline-flex items-center justify-center gap-2">
-                    Buy Now — $14.99
+                    Buy Now — {PRICE}
                     <span className="group-hover:translate-x-1 transition-transform">
                       ↗
                     </span>

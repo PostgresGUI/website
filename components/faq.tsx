@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDownIcon } from "@/components/icons";
+import { PRICE } from "@/lib/constants";
 
 const faqs = [
   {
@@ -11,8 +12,7 @@ const faqs = [
   },
   {
     question: "Do I need a subscription?",
-    answer:
-      "No. PostgresGUI is a one-time purchase. Pay $14.99 once and use it forever. No monthly fees, no recurring charges, no hidden costs.",
+    answer: `No. PostgresGUI is a one-time purchase. Pay ${PRICE} once and use it forever. No monthly fees, no recurring charges, no hidden costs.`,
   },
   {
     question: "Do you collect my data?",
