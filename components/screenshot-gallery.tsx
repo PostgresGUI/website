@@ -94,9 +94,10 @@ const screenshots = [
   {
     title: "Saved Queries",
     description: "Organize your queries into folders for easy access.",
-    imagePath: "/screenshots2/PostgresGUI - Organize saved queries into folders.png",
+    imagePath:
+      "/screenshots2/PostgresGUI - Organize saved queries into folders.png",
     alt: "PostgresGUI Saved Queries",
-    zoom: { x: 0, y: 100, scale: 1.5 },
+    zoom: { x: 50, y: 100, scale: 1.5 },
   },
 ];
 

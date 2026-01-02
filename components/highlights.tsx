@@ -98,10 +98,16 @@ export function Highlights() {
             index === 0 ? "md:col-span-2 lg:col-span-1" : ""
           }`}
         >
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
+          <div className="flex justify-between gap-4">
+            <div className="space-y-2">
+              <h3 className="text-base md:text-lg font-display tracking-tight">
+                {highlight.title}
+              </h3>
+              <p className="leading-relaxed">{highlight.description}</p>
+            </div>
+            <div>
               <div
-                className={`p-3 rounded-xl ${highlight.iconBg} shadow-sm`}
+                className={`p-3 rounded-xl ${highlight.iconBg} shadow-sm shrink-0`}
               >
                 <highlight.icon
                   height={24}
@@ -109,11 +115,7 @@ export function Highlights() {
                   className={highlight.iconColor}
                 />
               </div>
-              <h3 className="text-base md:text-lg font-display tracking-tight">
-                {highlight.title}
-              </h3>
             </div>
-            <p className="leading-relaxed">{highlight.description}</p>
           </div>
         </div>
       ))}
