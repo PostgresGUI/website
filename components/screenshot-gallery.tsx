@@ -84,6 +84,20 @@ const screenshots = [
     alt: "PostgresGUI Multiple Tabs",
     zoom: { x: 50, y: 0, scale: 1.5 },
   },
+  {
+    title: "Dark Mode",
+    description: "Easy on the eyes with full dark mode support.",
+    imagePath: "/screenshots2/PostgresGUI - Dark mode.png",
+    alt: "PostgresGUI Dark Mode",
+    zoom: { x: 50, y: 50, scale: 1 },
+  },
+  {
+    title: "Saved Queries",
+    description: "Organize your queries into folders for easy access.",
+    imagePath: "/screenshots2/PostgresGUI - Organize saved queries into folders.png",
+    alt: "PostgresGUI Saved Queries",
+    zoom: { x: 0, y: 100, scale: 1.5 },
+  },
 ];
 
 export function ScreenshotGallery() {
