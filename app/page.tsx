@@ -133,7 +133,7 @@ export default function Home() {
       {/* Screenshots Section */}
       <section
         id="screenshots"
-        className="py-16 md:py-24 px-6 border-t border-border/20"
+        className="py-16 md:py-24 px-6 border-t border-border/20 bg-stone-200 dark:bg-stone-900"
       >
         <div className="max-w-7xl mx-auto">
           <div className="mb-12">

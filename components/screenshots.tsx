@@ -12,34 +12,74 @@ import {
 const screenshots = [
   {
     title: "Welcome Screen",
-    description:
-      "Get started quickly. Connect with your localhost in one click.",
-    imagePath: "/screenshots/PostgresGUI-Welcome_Screen-1440x900.jpg",
+    description: "Get started quickly with a clean, minimal interface.",
+    imagePath: "/screenshots2/PostgresGUI - Welcome screen.png",
     alt: "PostgresGUI Welcome Screen",
   },
   {
-    title: "Query Results",
+    title: "Create Localhost Connection",
+    description: "Connect to your local PostgreSQL server in one click.",
+    imagePath: "/screenshots2/PostgresGUI - Create localhost connection.png",
+    alt: "PostgresGUI Create Localhost Connection",
+  },
+  {
+    title: "Connect Using Connection String",
+    description: "Connect to any server using a connection string.",
+    imagePath:
+      "/screenshots2/PostgresGUI - Connect to server using connection stirng.png",
+    alt: "PostgresGUI Connect Using Connection String",
+  },
+  {
+    title: "Manage Connections",
+    description: "See all your connections and connect or edit them.",
+    imagePath:
+      "/screenshots2/PostgrsGUI - See connection list and connect to it or edit.png",
+    alt: "PostgresGUI Connection List",
+  },
+  {
+    title: "Browse Databases",
+    description: "See your database list and click to connect.",
+    imagePath:
+      "/screenshots2/PostgresGUI - See database list and click to connect to it.png",
+    alt: "PostgresGUI Database List",
+  },
+  {
+    title: "Run Complex Queries",
     description: "Execute SQL queries and view results in a clean table.",
-    imagePath: "/screenshots/PostgresGUI-Query_Result_View-1440x900.jpg",
-    alt: "PostgresGUI Query Result View",
+    imagePath:
+      "/screenshots2/PostgresGUI - Run complex query and see query results.png",
+    alt: "PostgresGUI Query Results",
   },
   {
-    title: "Create Connection",
-    description: "Add new connections with a simple form.",
-    imagePath: "/screenshots/PostgresGUI-Create_Connection_View-1440x900.jpg",
-    alt: "PostgresGUI Create Connection View",
+    title: "Edit Rows",
+    description: "Edit table rows directly with inline editing.",
+    imagePath: "/screenshots2/PostgresGUI - Edit row.png",
+    alt: "PostgresGUI Edit Row",
   },
   {
-    title: "Connections List View",
-    description: "Manage all your PostgreSQL connections in one place.",
-    imagePath: "/screenshots/PostgresGUI-Connections_List_View-1440x900.jpg",
-    alt: "PostgresGUI Connections List View",
+    title: "Filter & Search",
+    description: "Filter and search through your query results.",
+    imagePath: "/screenshots2/PostgresGUI - Filter:search query results.png",
+    alt: "PostgresGUI Filter and Search",
   },
   {
-    title: "Edit Connection",
-    description: "Edit existing connections with a simple form.",
-    imagePath: "/screenshots/PostgresGUI-Edit_Connection_View-1440x900.jpg",
-    alt: "PostgresGUI Edit Connection View",
+    title: "Sort Columns",
+    description: "Sort your data by any column with a single click.",
+    imagePath: "/screenshots2/PostgresGUI - Sort columns.png",
+    alt: "PostgresGUI Sort Columns",
+  },
+  {
+    title: "Export & View JSON",
+    description: "View results as JSON and export to CSV.",
+    imagePath:
+      "/screenshots2/PostgresGUI - View query results as JSON and export to CSV.png",
+    alt: "PostgresGUI Export and JSON View",
+  },
+  {
+    title: "Multiple Tabs",
+    description: "Work with multiple queries in separate tabs.",
+    imagePath: "/screenshots2/PotsgresGUI - Create multiple tabs.png",
+    alt: "PostgresGUI Multiple Tabs",
   },
 ];
 
@@ -55,7 +95,7 @@ export function Screenshots() {
       <CarouselContent className="-ml-2 md:-ml-4">
         {screenshots.map((screenshot, index) => (
           <CarouselItem key={screenshot.title} className="pl-2 md:pl-4">
-            <div className="rounded-xl overflow-hidden">
+            <div className="overflow-hidden">
               <Image
                 src={screenshot.imagePath}
                 alt={screenshot.alt}
