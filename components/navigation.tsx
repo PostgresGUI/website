@@ -76,7 +76,7 @@ export function Navigation() {
               rel="noopener noreferrer"
               className="bg-[var(--postgres-blue)] hover:bg-[var(--postgres-blue-dark)] text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-swiftui shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
             >
-              Buy
+              Download
             </a>
           </div>
 
@@ -129,7 +129,7 @@ export function Navigation() {
               rel="noopener noreferrer"
               className="block bg-[var(--postgres-blue)] hover:bg-[var(--postgres-blue-dark)] text-white px-6 py-3 rounded-lg font-semibold text-sm transition-swiftui text-center shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
             >
-              Buy Now
+              Download
             </a>
           </div>
         )}
