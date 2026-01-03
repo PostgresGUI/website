@@ -6,6 +6,7 @@ import {
   CreditCardOffIcon,
   DocToRightIcon,
 } from "@/components/icons";
+import { INSTALLER_SIZE, INSTALLED_SIZE } from "@/lib/constants";
 
 const highlights = [
   {
@@ -48,8 +49,8 @@ const highlights = [
     title: "Lightweight",
     description: (
       <>
-        14.6 MB installer
-        <br /> 25.8 MB installed
+        {INSTALLER_SIZE} installer
+        <br /> {INSTALLED_SIZE} installed
       </>
     ),
     bgColor: "bg-amber-50 dark:bg-amber-950/30",

@@ -7,7 +7,7 @@ import { Testimonials } from "@/components/testimonials";
 import { FAQ } from "@/components/faq";
 import { FinalCTA } from "@/components/final-cta";
 import { FlowingData } from "@/components/hero-animations/flowing-data";
-import { PRICE } from "@/lib/constants";
+import { PRICE, INSTALLER_SIZE, INSTALLED_SIZE } from "@/lib/constants";
 
 const COMING_SOON = true;
 
@@ -96,13 +96,13 @@ export default function Home() {
               <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 ▪
               </span>
-              <span>14.6 MB installer</span>
+              <span>{INSTALLER_SIZE} installer</span>
             </div>
             <div className="flex items-center gap-2 px-4 py-2 font-medium bg-white dark:bg-stone-900 border border-border/10 rounded-full text-gray-900 dark:text-white">
               <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 ▪
               </span>
-              <span>25.8 MB installed</span>
+              <span>{INSTALLED_SIZE} installed</span>
             </div>
           </div>
         </div>
