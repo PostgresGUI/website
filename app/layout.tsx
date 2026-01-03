@@ -3,6 +3,7 @@ import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
+import { AppStoreBanner } from "@/components/app-store-banner";
 import { GoogleTagManager } from "@next/third-parties/google";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -80,6 +81,7 @@ export default function RootLayout({
         className={`${jetbrainsMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <Navigation />
+        <AppStoreBanner />
         {children}
         <Footer />
       </body>
