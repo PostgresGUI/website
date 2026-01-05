@@ -40,17 +40,20 @@ export function Navigation() {
               />
               <div className="absolute inset-0 bg-[var(--postgres-blue)] opacity-0 group-hover:opacity-10 transition-opacity rounded-lg"></div>
             </div>
-            <span className="text-lg font-display tracking-tight text-gray-900 dark:text-white">PostgresGUI</span>
+            <span className="text-lg font-display tracking-tight text-gray-900 dark:text-white">
+              PostgresGUI
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => {
               // If link is a hash and we're not on home page, prepend "/" to navigate to home first
-              const href = link.href.startsWith("#") && pathname !== "/" 
-                ? `/${link.href}` 
-                : link.href;
-              
+              const href =
+                link.href.startsWith("#") && pathname !== "/"
+                  ? `/${link.href}`
+                  : link.href;
+
               return (
                 <Link
                   key={link.href}
@@ -70,14 +73,14 @@ export function Navigation() {
                 </Link>
               );
             })}
-            <a
+            {/* <a
               href={GUMROAD_PRODUCT_LINK}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[var(--postgres-blue)] hover:bg-[var(--postgres-blue-dark)] text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-swiftui shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
             >
               Download
-            </a>
+            </a> */}
           </div>
 
           {/* Mobile Menu Button */}
@@ -88,9 +91,17 @@ export function Navigation() {
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
-              <XIcon width={20} height={20} className="text-gray-900 dark:text-white" />
+              <XIcon
+                width={20}
+                height={20}
+                className="text-gray-900 dark:text-white"
+              />
             ) : (
-              <MenuIcon width={20} height={20} className="text-gray-900 dark:text-white" />
+              <MenuIcon
+                width={20}
+                height={20}
+                className="text-gray-900 dark:text-white"
+              />
             )}
           </button>
         </div>
@@ -100,10 +111,11 @@ export function Navigation() {
           <div className="md:hidden mt-4 pb-4 space-y-3 border-t border-border/30 pt-4 bg-white dark:bg-stone-900">
             {navLinks.map((link) => {
               // If link is a hash and we're not on home page, prepend "/" to navigate to home first
-              const href = link.href.startsWith("#") && pathname !== "/" 
-                ? `/${link.href}` 
-                : link.href;
-              
+              const href =
+                link.href.startsWith("#") && pathname !== "/"
+                  ? `/${link.href}`
+                  : link.href;
+
               return (
                 <Link
                   key={link.href}

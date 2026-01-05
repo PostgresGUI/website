@@ -56,7 +56,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 md:mb-10 animate-slide-in stagger-4">
             {COMING_SOON ? (
               <>
-                <a
+                {/* <a
                   href={GUMROAD_PRODUCT_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -68,7 +68,13 @@ export default function Home() {
                       ↗
                     </span>
                   </span>
-                </a>
+                </a> */}
+                <button
+                  disabled
+                  className="w-full sm:w-[280px] bg-gray-400 dark:bg-gray-600 text-white px-8 py-4 rounded-xl font-semibold text-lg cursor-not-allowed opacity-60 text-center"
+                >
+                  Coming Soon
+                </button>
                 <a
                   href="https://github.com/postgresgui/postgresgui"
                   target="_blank"
