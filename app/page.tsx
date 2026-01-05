@@ -5,7 +5,8 @@ import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import { ComparisonTable } from "@/components/comparison-table";
 import { Testimonials } from "@/components/testimonials";
 import { FAQ } from "@/components/faq";
-import { FinalCTA } from "@/components/final-cta";
+// import { FinalCTA } from "@/components/final-cta";
+import { FinalCTAV2 } from "@/components/final-cta-v2";
 import { FlowingData } from "@/components/hero-animations/flowing-data";
 import { INSTALLER_SIZE, INSTALLED_SIZE } from "@/lib/constants";
 
@@ -219,7 +220,8 @@ export default function Home() {
 
       {/* Final CTA Section */}
       <section className="border-t border-border/20">
-        <FinalCTA />
+        {/* <FinalCTA /> */}
+        <FinalCTAV2 />
       </section>
     </>
   );
