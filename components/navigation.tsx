@@ -2,15 +2,28 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { MenuIcon, XIcon } from "@/components/icons";
+import { MenuIcon, XIcon, GitHubIcon } from "@/components/icons";
 
-const GUMROAD_PRODUCT_LINK = "https://muizahg.gumroad.com/l/postgresgui";
+const GITHUB_LINK = "https://github.com/postgresgui/postgresgui";
+const GITHUB_API = "https://api.github.com/repos/postgresgui/postgresgui";
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [starCount, setStarCount] = useState<number | null>(null);
   const pathname = usePathname();
+
+  useEffect(() => {
+    fetch(GITHUB_API)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.stargazers_count !== undefined) {
+          setStarCount(data.stargazers_count);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const navLinks = [
     { href: "#features", label: "Features" },
@@ -73,14 +86,22 @@ export function Navigation() {
                 </Link>
               );
             })}
-            {/* <a
-              href={GUMROAD_PRODUCT_LINK}
+            <a
+              href={GITHUB_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[var(--postgres-blue)] hover:bg-[var(--postgres-blue-dark)] text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-swiftui shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-stone-800 hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
+              aria-label="View on GitHub"
             >
-              Download
-            </a> */}
+              <GitHubIcon width={18} height={18} />
+              {starCount !== null && (
+                <span className="text-xs font-semibold tabular-nums">
+                  ⭐ {starCount >= 1000
+                    ? `${(starCount / 1000).toFixed(1)}k`
+                    : starCount}
+                </span>
+              )}
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -136,12 +157,21 @@ export function Navigation() {
               );
             })}
             <a
-              href={GUMROAD_PRODUCT_LINK}
+              href={GITHUB_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="block bg-[var(--postgres-blue)] hover:bg-[var(--postgres-blue-dark)] text-white px-6 py-3 rounded-lg font-semibold text-sm transition-swiftui text-center shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+              className="flex items-center gap-2 font-semibold text-sm text-gray-900 dark:text-white hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-swiftui py-2 px-3 hover:bg-accent/50 rounded-lg"
+              onClick={() => setMobileMenuOpen(false)}
             >
-              Download
+              <GitHubIcon width={18} height={18} />
+              GitHub
+              {starCount !== null && (
+                <span className="text-xs font-medium text-gray-500 dark:text-gray-400 tabular-nums">
+                  ⭐ {starCount >= 1000
+                    ? `${(starCount / 1000).toFixed(1)}k`
+                    : starCount}
+                </span>
+              )}
             </a>
           </div>
         )}

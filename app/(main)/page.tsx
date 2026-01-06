@@ -10,9 +10,7 @@ import { FinalCTAV2 } from "@/components/final-cta-v2";
 import { FlowingData } from "@/components/hero-animations/flowing-data";
 import { INSTALLER_SIZE, INSTALLED_SIZE } from "@/lib/constants";
 
-const COMING_SOON = true;
-
-const GUMROAD_PRODUCT_LINK = "https://muizahg.gumroad.com/l/postgresgui";
+const APP_STORE_LINK = "https://apps.apple.com/us/app/postgresgui/id6756467181";
 
 export default function Home() {
   return (
@@ -49,52 +47,28 @@ export default function Home() {
           </h1> */}
 
           {/* Main Tagline */}
-          <h1 className="text-5xl lg:text-6xl mb-8 max-w-lg font-semibold mx-auto mb-4 md:mb-6 animate-slide-in stagger-2 leading-tight font-display">
+          <h1 className="text-5xl lg:text-6xl max-w-lg font-semibold mx-auto mb-8 md:mb-10 animate-slide-in stagger-2 leading-tight font-display">
             Native macOS PostgreSQL GUI
           </h1>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 md:mb-10 animate-slide-in stagger-4">
-            {COMING_SOON ? (
-              <>
-                {/* <a
-                  href={GUMROAD_PRODUCT_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group w-full sm:w-[280px] bg-gradient-to-r from-[var(--postgres-blue)] to-blue-500 hover:from-[var(--postgres-blue-dark)] hover:to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-swiftui shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] text-center"
-                >
-                  <span className="inline-flex items-center justify-center gap-2">
-                    Download
-                    <span className="group-hover:translate-x-1 transition-transform">
-                      ↗
-                    </span>
-                  </span>
-                </a> */}
-                <button
-                  disabled
-                  className="w-full sm:w-[280px] bg-gray-400 dark:bg-gray-600 text-white px-8 py-4 rounded-xl font-semibold text-lg cursor-not-allowed opacity-60 text-center"
-                >
-                  Coming Soon
-                </button>
-                <a
-                  href="https://github.com/postgresgui/postgresgui"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group w-full sm:w-[280px] border border-border/50 hover:border-border bg-card/50 backdrop-blur-sm px-8 py-4 rounded-xl font-semibold text-lg transition-swiftui shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] text-center"
-                >
-                  <span className="inline-flex items-center justify-center gap-2">
-                    Open Source
-                    <span className="group-hover:translate-x-1 transition-transform">
-                      ↗
-                    </span>
-                  </span>
-                </a>
-              </>
-            ) : (
-              <a href="#" className="inline-block scale-150">
-                <AppStoreBadge />
-              </a>
-            )}
+          {/* CTA Button */}
+          <div className="flex flex-col items-center justify-center gap-6 mb-8 md:mb-10 animate-slide-in stagger-4">
+            <a
+              href={APP_STORE_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block scale-150 transition-transform hover:scale-[1.55]"
+            >
+              <AppStoreBadge />
+            </a>
+            <a
+              href="https://github.com/postgresgui/postgresgui"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] text-sm font-medium hover:underline"
+            >
+              Open Source ↗
+            </a>
           </div>
 
           {/* Feature Pills */}
