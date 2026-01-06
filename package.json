@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev --turbopack",
+    "build": "next build --webpack",
     "start": "next start"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "next": "^16.0.10",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "sql.js": "^1.13.0",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {

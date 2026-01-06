@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  metadata as helloWorldMetadata,
-  date as helloWorldDate,
-} from "./hello-world/page";
+import { metadata as helloWorldMetadata } from "./hello-world/page";
 
 export const metadata: Metadata = {
   title: "Blog - PostgresGUI",
@@ -42,7 +39,7 @@ type BlogPostInfo = {
 const posts: BlogPostInfo[] = [
   {
     slug: "hello-world",
-    date: helloWorldDate,
+    date: "2025-01-15",
     title: helloWorldMetadata.title as string,
     description: helloWorldMetadata.description as string,
   },

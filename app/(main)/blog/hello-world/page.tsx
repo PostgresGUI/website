@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const date = "2025-01-15";
+const date = "2025-01-15";
 
 export const metadata: Metadata = {
   title: "Hello World - PostgresGUI Blog",
