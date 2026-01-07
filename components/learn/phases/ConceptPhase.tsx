@@ -26,11 +26,11 @@ export function ConceptPhase({ concepts, onNext, onPrev, className }: ConceptPha
         {concepts.map((concept, index) => (
           <div
             key={index}
-            className="rounded-xl border border-border/50 bg-card overflow-hidden shadow-swiftui animate-slide-in"
+            className="rounded-xl border border-border bg-card overflow-hidden shadow-swiftui animate-slide-in"
             style={{ animationDelay: `${index * 100}ms` }}
           >
             {/* Header */}
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-border/30 bg-muted/30">
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-muted/30">
               <div className="w-6 h-6 rounded-md bg-[var(--postgres-blue)]/10 flex items-center justify-center">
                 <Code2 className="w-3.5 h-3.5 text-[var(--postgres-blue)]" />
               </div>
@@ -39,7 +39,7 @@ export function ConceptPhase({ concepts, onNext, onPrev, className }: ConceptPha
 
             {/* Syntax */}
             <div className="p-4">
-              <pre className="p-3 rounded-lg bg-muted/50 border border-border/30 overflow-x-auto mb-3">
+              <pre className="p-3 rounded-lg bg-muted/50 border border-border overflow-x-auto mb-3">
                 <code className="text-sm font-mono text-foreground/90 whitespace-pre">
                   {concept.syntax}
                 </code>

@@ -55,7 +55,7 @@ export function SummaryPhase({
       </div>
 
       {/* What you learned */}
-      <div className="rounded-xl border border-border/50 bg-card p-4 shadow-swiftui">
+      <div className="rounded-xl border border-border bg-card p-4 shadow-swiftui">
         <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 text-emerald-500" />
           What you learned

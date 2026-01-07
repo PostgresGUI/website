@@ -36,7 +36,7 @@ export function SchemaExplorer({ className }: SchemaExplorerProps) {
   if (schema.length === 0) {
     return (
       <div className={cn(
-        'rounded-xl border border-border/50 bg-card p-4 text-center',
+        'rounded-xl border border-border bg-card p-4 text-center',
         className
       )}>
         <div className="w-10 h-10 rounded-xl bg-muted mx-auto mb-3 flex items-center justify-center">
@@ -52,10 +52,10 @@ export function SchemaExplorer({ className }: SchemaExplorerProps) {
 
   return (
     <div className={cn(
-      'rounded-xl border border-border/50 bg-card overflow-hidden shadow-swiftui',
+      'rounded-xl border border-border bg-card overflow-hidden shadow-swiftui',
       className
     )}>
-      <div className="px-4 py-3 border-b border-border/30 bg-muted/30">
+      <div className="px-4 py-3 border-b border-border bg-muted/30">
         <h3 className="text-sm font-semibold flex items-center gap-2">
           <Table2 className="w-4 h-4 text-[var(--postgres-blue)]" />
           Schema Explorer
@@ -87,7 +87,7 @@ export function SchemaExplorer({ className }: SchemaExplorerProps) {
 
               {/* Columns */}
               {isExpanded && (
-                <div className="ml-5 pl-3 border-l border-border/30 my-1 space-y-0.5">
+                <div className="ml-5 pl-3 border-l border-border my-1 space-y-0.5">
                   {table.columns.map((col) => (
                     <div
                       key={col.name}

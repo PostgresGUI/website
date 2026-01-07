@@ -54,7 +54,7 @@ export function GuidedPhase({ practice, onNext, onPrev, className }: GuidedPhase
       </div>
 
       {/* Template hint */}
-      <div className="rounded-lg border border-border/30 bg-muted/30 p-3">
+      <div className="rounded-lg border border-border bg-muted/30 p-3">
         <p className="text-xs text-muted-foreground mb-2">Template:</p>
         <pre className="text-sm font-mono text-foreground/70 whitespace-pre-wrap">
           {practice.template}
@@ -95,7 +95,7 @@ export function GuidedPhase({ practice, onNext, onPrev, className }: GuidedPhase
         <div className="flex items-center gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
           <CheckCircle2 className="w-5 h-5 text-emerald-500" />
           <div>
-            <p className="font-medium text-emerald-600 text-sm">Great job!</p>
+            <p className="font-medium text-emerald-600 dark:text-emerald-400 text-sm">Great job!</p>
             <p className="text-sm text-muted-foreground">
               You&apos;ve got the basics. Ready for a challenge?
             </p>

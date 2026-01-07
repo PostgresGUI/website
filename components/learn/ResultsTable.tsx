@@ -35,13 +35,13 @@ export function ResultsTable({
 
   return (
     <div className={cn(
-      'rounded-xl border border-border/50 bg-card overflow-hidden shadow-swiftui',
+      'rounded-xl border border-border bg-card overflow-hidden shadow-swiftui',
       className
     )}>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-border/50 bg-muted/30">
+            <tr className="border-b border-border bg-muted/30">
               {columns.map((col, i) => (
                 <th
                   key={i}
@@ -80,7 +80,7 @@ export function ResultsTable({
 
       {/* Footer with more indicator */}
       {hasMore && (
-        <div className="px-4 py-2 border-t border-border/30 bg-muted/20 text-xs text-muted-foreground text-center">
+        <div className="px-4 py-2 border-t border-border bg-muted/20 text-xs text-muted-foreground text-center">
           Showing {maxRows} of {rows.length} rows
         </div>
       )}

@@ -42,7 +42,7 @@ export function HintSystem({
 
   return (
     <div className={cn(
-      'rounded-xl border border-border/50 bg-card overflow-hidden shadow-swiftui',
+      'rounded-xl border border-border bg-card overflow-hidden shadow-swiftui',
       className
     )}>
       {/* Header - clickable to expand */}
@@ -69,7 +69,7 @@ export function HintSystem({
 
       {/* Hints content */}
       {isExpanded && (
-        <div className="px-4 pb-4 space-y-3 border-t border-border/30 pt-3">
+        <div className="px-4 pb-4 space-y-3 border-t border-border pt-3">
           {hints.map((hint, index) => {
             const tier = index + 1;
             const isUnlocked = tier <= effectiveTier;
@@ -82,7 +82,7 @@ export function HintSystem({
                   'rounded-lg border p-3 transition-all',
                   isUnlocked
                     ? 'border-amber-500/30 bg-amber-500/5'
-                    : 'border-border/30 bg-muted/20'
+                    : 'border-border bg-muted/20'
                 )}
               >
                 <div className="flex items-center justify-between mb-2">

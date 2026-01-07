@@ -18,11 +18,11 @@ export function SyntaxCard({ card, className, showSaveButton = true }: SyntaxCar
 
   return (
     <div className={cn(
-      'rounded-xl border border-border/50 bg-card overflow-hidden shadow-swiftui',
+      'rounded-xl border border-border bg-card overflow-hidden shadow-swiftui',
       className
     )}>
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border/30 bg-muted/30">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/30">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-[var(--postgres-blue)]/10 flex items-center justify-center">
             <Code2 className="w-4 h-4 text-[var(--postgres-blue)]" />
@@ -50,7 +50,7 @@ export function SyntaxCard({ card, className, showSaveButton = true }: SyntaxCar
 
       {/* Syntax */}
       <div className="p-4">
-        <pre className="p-3 rounded-lg bg-muted/50 border border-border/30 overflow-x-auto">
+        <pre className="p-3 rounded-lg bg-muted/50 border border-border overflow-x-auto">
           <code className="text-sm font-mono text-foreground/90 whitespace-pre">
             {card.syntax}
           </code>
@@ -65,7 +65,7 @@ export function SyntaxCard({ card, className, showSaveButton = true }: SyntaxCar
             {card.examples.map((example, i) => (
               <pre
                 key={i}
-                className="p-2 rounded-md bg-muted/30 border border-border/20 overflow-x-auto"
+                className="p-2 rounded-md bg-muted/30 border border-border overflow-x-auto"
               >
                 <code className="text-xs font-mono text-foreground/80">{example}</code>
               </pre>

@@ -69,7 +69,7 @@ export function QueryConsole({
       <div className={cn(
         'rounded-xl border bg-card overflow-hidden transition-all duration-300',
         isExecuting && 'border-[var(--postgres-blue)] shadow-lg shadow-[var(--postgres-blue)]/10',
-        !isExecuting && 'border-border/50 shadow-swiftui'
+        !isExecuting && 'border-border shadow-swiftui'
       )}>
         {/* Textarea */}
         <div className="relative">
@@ -88,17 +88,17 @@ export function QueryConsole({
             )}
           />
           {/* Line numbers decoration */}
-          <div className="absolute left-0 top-0 w-8 h-full bg-muted/30 border-r border-border/20 pointer-events-none" />
+          <div className="absolute left-0 top-0 w-8 h-full bg-muted/30 border-r border-border pointer-events-none" />
         </div>
 
         {/* Action bar */}
-        <div className="flex items-center justify-between px-4 py-2.5 border-t border-border/30 bg-muted/20">
+        <div className="flex items-center justify-between px-4 py-2.5 border-t border-border bg-muted/20">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border/50 font-mono">
+            <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border font-mono">
               {typeof navigator !== 'undefined' && navigator.platform?.includes('Mac') ? '⌘' : 'Ctrl'}
             </kbd>
             <span>+</span>
-            <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border/50 font-mono">
+            <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border font-mono">
               Enter
             </kbd>
             <span className="ml-1">to run</span>
@@ -140,7 +140,7 @@ export function QueryConsole({
               {/* Success header */}
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                <span className="text-emerald-600 font-medium">Query executed successfully</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-medium">Query executed successfully</span>
                 {result.rowCount !== undefined && (
                   <span className="text-muted-foreground">
                     · {result.rowCount} {result.rowCount === 1 ? 'row' : 'rows'}

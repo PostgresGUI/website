@@ -90,7 +90,7 @@ export function LessonView({ lesson, onLessonComplete, className }: LessonViewPr
   return (
     <div className={cn('flex flex-col h-full', className)}>
       {/* Phase indicator */}
-      <div className="shrink-0 px-4 py-4 border-b border-border/30 bg-card/50">
+      <div className="shrink-0 px-4 py-4 border-b border-border bg-card/50">
         <PhaseIndicator
           currentPhase={currentPhase}
           phases={phases}

@@ -44,7 +44,7 @@ export function PhaseIndicator({
             className={cn(
               'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg transition-all text-xs font-medium',
               isActive && 'bg-[var(--postgres-blue)] text-white shadow-md',
-              isPast && 'bg-emerald-500/10 text-emerald-600',
+              isPast && 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
               !isActive && !isPast && 'bg-muted/50 text-muted-foreground',
               isClickable && 'hover:scale-105 cursor-pointer',
               !isClickable && 'cursor-default'

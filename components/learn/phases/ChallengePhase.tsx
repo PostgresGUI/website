@@ -119,8 +119,8 @@ export function ChallengePhase({
       </div>
 
       {/* Current challenge */}
-      <div className="rounded-xl border border-border/50 bg-card shadow-swiftui overflow-hidden">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-border/30 bg-muted/30">
+      <div className="rounded-xl border border-border bg-card shadow-swiftui overflow-hidden">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/30">
           <div className="flex items-center gap-2">
             <Trophy className="w-4 h-4 text-amber-500" />
             <span className="font-semibold text-sm">{currentChallenge.title}</span>
@@ -147,7 +147,7 @@ export function ChallengePhase({
           {isCurrentComplete && (
             <div className="flex items-center gap-2 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 mb-4">
               <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-              <span className="text-sm font-medium text-emerald-600">Challenge completed!</span>
+              <span className="text-sm font-medium text-emerald-600 dark:text-emerald-400">Challenge completed!</span>
             </div>
           )}
         </div>
