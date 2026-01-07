@@ -47,12 +47,15 @@ export default function Home() {
           </h1> */}
 
           {/* Main Tagline */}
-          <h1 className="text-5xl lg:text-6xl max-w-lg font-semibold mx-auto mb-8 md:mb-10 animate-slide-in stagger-2 leading-tight font-display">
+          <h1
+            className="text-5xl lg:text-6xl max-w-lg mx-auto mb-8 md:mb-10 animate-slide-in stagger-2 leading-tight"
+            style={{ fontFamily: "'Oswald', sans-serif", fontWeight: 600 }}
+          >
             The Best PostgreSQL GUI for Mac
           </h1>
 
           {/* CTA Button */}
-          <div className="flex flex-col items-center justify-center gap-6 mb-8 md:mb-10 animate-slide-in stagger-4">
+          <div className="flex flex-col items-center justify-center gap-8 mb-8 md:mb-10 animate-slide-in stagger-4">
             <a
               href={APP_STORE_LINK}
               target="_blank"
@@ -71,21 +74,6 @@ export default function Home() {
             </a>
           </div>
 
-          {/* Feature Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-xs md:text-sm font-mono">
-            <div className="flex items-center gap-2 px-4 py-2 font-medium bg-white dark:bg-stone-900 border border-border/10 rounded-full text-gray-900 dark:text-white">
-              <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
-                ▪
-              </span>
-              <span>{INSTALLER_SIZE} installer</span>
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 font-medium bg-white dark:bg-stone-900 border border-border/10 rounded-full text-gray-900 dark:text-white">
-              <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
-                ▪
-              </span>
-              <span>{INSTALLED_SIZE} installed</span>
-            </div>
-          </div>
         </div>
       </div>
 
