@@ -41,10 +41,10 @@ function FAQItem({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border border-border/50 rounded-xl mb-4 overflow-hidden bg-card shadow-sm hover:shadow-md transition-swiftui">
+    <div className="border border-border/50 rounded-xl mb-4 overflow-hidden bg-white dark:bg-stone-800 shadow-sm hover:shadow-md transition-swiftui">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-5 text-left transition-swiftui text-foreground"
+        className="w-full flex items-center justify-between p-5 text-left transition-swiftui text-gray-900 dark:text-white"
         aria-expanded={isOpen}
       >
         <span className="text-base font-display pr-8 tracking-tight">
@@ -59,7 +59,7 @@ function FAQItem({
         />
       </button>
       {isOpen && (
-        <div className="px-5 pb-5 leading-relaxed border-t border-border/30 pt-4 text-foreground">
+        <div className="px-5 pb-5 leading-relaxed border-t border-border/30 pt-4 text-gray-700 dark:text-gray-300">
           {answer}
         </div>
       )}
