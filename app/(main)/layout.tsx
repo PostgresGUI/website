@@ -13,10 +13,14 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://postgresgui.com"),
-  title: "PostgresGUI - Native macOS PostgreSQL GUI (Open Source)",
+  title: "PostgresGUI – Best PostgreSQL GUI for Mac | Open Source",
   description:
-    "A lightweight PostgreSQL client for macOS. Manage connections, browse databases, execute SQL queries with syntax highlighting, and view results—all in a native SwiftUI interface.",
+    "The best PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
   keywords: [
+    "postgresql gui mac",
+    "best postgres gui",
+    "postgres client mac",
+    "postgresql macos",
     "PostgreSQL",
     "Postgres",
     "SQL",
@@ -32,9 +36,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "PostgresGUI" }],
   openGraph: {
-    title: "PostgresGUI - Native PostgreSQL Client for Mac",
+    title: "PostgresGUI – Best PostgreSQL GUI for Mac",
     description:
-      "A lightweight PostgreSQL client for macOS. Manage connections, browse databases, execute SQL queries with syntax highlighting, and view results—all in a native SwiftUI interface.",
+      "The best PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
     type: "website",
     url: "https://postgresgui.com",
     siteName: "PostgresGUI",
@@ -44,7 +48,7 @@ export const metadata: Metadata = {
         url: "https://postgresgui.com/postgresgui-og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
+        alt: "PostgresGUI – Best PostgreSQL GUI for Mac",
       },
     ],
   },
@@ -52,13 +56,13 @@ export const metadata: Metadata = {
     site: "@postgresgui",
     creator: "@postgresgui",
     card: "summary_large_image",
-    title: "PostgresGUI - Native PostgreSQL Client for Mac",
+    title: "PostgresGUI – Best PostgreSQL GUI for Mac",
     description:
-      "A lightweight PostgreSQL client for macOS. Manage connections, browse databases, execute SQL queries with syntax highlighting, and view results—all in a native SwiftUI interface.",
+      "The best PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
     images: [
       {
         url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
+        alt: "PostgresGUI – Best PostgreSQL GUI for Mac",
       },
     ],
   },
