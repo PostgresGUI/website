@@ -37,12 +37,7 @@ export function Sidebar({
   const progressPercent = (completedCount / lessons.length) * 100;
 
   return (
-    <aside
-      className={cn(
-        "flex flex-col h-full",
-        className
-      )}
-    >
+    <aside className={cn("flex flex-col h-full", className)}>
       {/* Header */}
       <div className="p-5">
         <h1 className="font-display text-base font-bold">Learn PostgreSQL</h1>
@@ -120,9 +115,6 @@ export function Sidebar({
                     )}
                   >
                     {lesson.shortTitle}
-                  </p>
-                  <p className="text-xs text-muted-foreground truncate">
-                    {lesson.title}
                   </p>
                 </div>
 

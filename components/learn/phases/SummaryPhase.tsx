@@ -73,12 +73,12 @@ export function SummaryPhase({
         </ul>
       </div>
 
-      <div className="flex justify-between pt-4">
-        <Button variant="outline" onClick={onPrev} className="gap-2">
+      <div className="sticky bottom-0 flex justify-between pt-4 pb-2 bg-gradient-to-t from-card via-card to-transparent mt-8">
+        <Button size="xl" variant="outline" onClick={onPrev} className="gap-2">
           <ArrowLeft className="w-4 h-4" />
           Review
         </Button>
-        <Button onClick={handleComplete} className="gap-2">
+        <Button size="xl" onClick={handleComplete} className="gap-2">
           {alreadyComplete ? 'Continue' : 'Complete & Continue'}
           <CheckCircle2 className="w-4 h-4" />
         </Button>

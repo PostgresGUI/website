@@ -71,7 +71,7 @@ export default function LearnPage() {
             height={24}
             className="object-contain"
           />
-          <span className="font-display text-sm">Learn PostgreSQL</span>
+          <span className="font-display">Learn PostgreSQL</span>
         </div>
       </header>
 
@@ -105,9 +105,9 @@ export default function LearnPage() {
 
 function WelcomeScreen({ onStartLesson }: { onStartLesson: () => void }) {
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
+    <div className="h-full flex items-center justify-center p-6">
       <div className="max-w-lg text-center animate-slide-in">
-        <h2 className="text-3xl mb-12">
+        <h2 className="text-3xl mb-12 font-bold">
           Learn SQL through hands-on challenges. You'll be writing real queries
           in minutes.
         </h2>
@@ -119,7 +119,7 @@ function WelcomeScreen({ onStartLesson }: { onStartLesson: () => void }) {
               <BookOpen className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
             </div>
             <div>
-              <p className="font-medium">5 Interactive Lessons</p>
+              <p className="font-bold">5 Interactive Lessons</p>
               <p className="text-muted-foreground">
                 Learn by doing, not just reading
               </p>
@@ -131,7 +131,7 @@ function WelcomeScreen({ onStartLesson }: { onStartLesson: () => void }) {
               <Trophy className="w-5 h-5 text-amber-600 dark:text-amber-400" />
             </div>
             <div>
-              <p className="font-medium">Real Challenges</p>
+              <p className="font-bold">Real Challenges</p>
               <p className="text-muted-foreground">
                 Practice with realistic scenarios
               </p>
@@ -143,10 +143,8 @@ function WelcomeScreen({ onStartLesson }: { onStartLesson: () => void }) {
               <Sparkles className="w-5 h-5 text-purple-600 dark:text-purple-400" />
             </div>
             <div>
-              <p className="font-medium">Earn XP & Track Progress</p>
-              <p className="text-muted-foreground">
-                Watch your skills grow
-              </p>
+              <p className="font-bold">Earn XP & Track Progress</p>
+              <p className="text-muted-foreground">Watch your skills grow</p>
             </div>
           </div>
         </div>

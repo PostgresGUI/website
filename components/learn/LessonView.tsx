@@ -99,9 +99,11 @@ export function LessonView({ lesson, onLessonComplete, className }: LessonViewPr
       </div>
 
       {/* Phase content */}
-      <div className="flex-1 overflow-y-auto">
-        <div className="max-w-2xl mx-auto px-4 py-8">
-          {renderPhase()}
+      <div className="flex-1 flex flex-col min-h-0">
+        <div className="flex-1 overflow-y-auto">
+          <div className="max-w-2xl mx-auto px-4 py-8 min-h-full">
+            {renderPhase()}
+          </div>
         </div>
       </div>
     </div>

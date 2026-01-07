@@ -172,14 +172,14 @@ export function ChallengePhase({
       )}
 
       {/* Navigation */}
-      <div className="flex justify-between pt-4">
+      <div className="sticky bottom-0 flex justify-between pt-4 pb-2 bg-gradient-to-t from-card via-card to-transparent mt-8">
         <div className="flex gap-2">
-          <Button variant="outline" onClick={onPrev} className="gap-2">
+          <Button size="xl" variant="outline" onClick={onPrev} className="gap-2">
             <ArrowLeft className="w-4 h-4" />
             Back
           </Button>
           {currentIndex > 0 && (
-            <Button variant="outline" onClick={goToPrevChallenge}>
+            <Button size="xl" variant="outline" onClick={goToPrevChallenge}>
               Prev Challenge
             </Button>
           )}
@@ -187,11 +187,11 @@ export function ChallengePhase({
 
         <div className="flex gap-2">
           {currentIndex < challenges.length - 1 && isCurrentComplete && (
-            <Button variant="outline" onClick={goToNextChallenge}>
+            <Button size="xl" variant="outline" onClick={goToNextChallenge}>
               Next Challenge
             </Button>
           )}
-          <Button onClick={onNext} disabled={!allComplete} className="gap-2">
+          <Button size="xl" onClick={onNext} disabled={!allComplete} className="gap-2">
             {allComplete ? 'Complete Lesson' : `${challenges.filter(c => isChallengeComplete(lessonId, c.id)).length}/${challenges.length} Complete`}
             <ArrowRight className="w-4 h-4" />
           </Button>

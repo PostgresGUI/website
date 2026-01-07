@@ -103,12 +103,12 @@ export function GuidedPhase({ practice, onNext, onPrev, className }: GuidedPhase
         </div>
       )}
 
-      <div className="flex justify-between pt-4">
-        <Button variant="outline" onClick={onPrev} className="gap-2">
+      <div className="sticky bottom-0 flex justify-between pt-4 pb-2 bg-gradient-to-t from-card via-card to-transparent mt-8">
+        <Button size="xl" variant="outline" onClick={onPrev} className="gap-2">
           <ArrowLeft className="w-4 h-4" />
           Back
         </Button>
-        <Button onClick={onNext} disabled={!isComplete} className="gap-2">
+        <Button size="xl" onClick={onNext} disabled={!isComplete} className="gap-2">
           {isComplete ? 'Take the challenge' : 'Complete practice first'}
           <ArrowRight className="w-4 h-4" />
         </Button>
