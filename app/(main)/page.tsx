@@ -48,7 +48,7 @@ export default function Home() {
 
           {/* Main Tagline */}
           <h1 className="text-5xl lg:text-6xl max-w-lg font-semibold mx-auto mb-8 md:mb-10 animate-slide-in stagger-2 leading-tight font-display">
-            Native macOS PostgreSQL GUI
+            The Best PostgreSQL GUI for Mac
           </h1>
 
           {/* CTA Button */}
