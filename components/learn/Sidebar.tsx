@@ -60,7 +60,9 @@ export function Sidebar({
   className,
 }: SidebarProps) {
   const { isLessonComplete } = useProgressContext();
-  const [expandedLessons, setExpandedLessons] = useState<Set<string>>(new Set());
+  const [expandedLessons, setExpandedLessons] = useState<Set<string>>(
+    new Set()
+  );
   const [challengeExpanded, setChallengeExpanded] = useState(true);
 
   const completedCount = lessons.filter((l) => isLessonComplete(l.id)).length;
@@ -74,6 +76,17 @@ export function Sidebar({
       setExpandedLessons((prev) => new Set(prev).add(currentLessonId));
     }
   }, [currentLessonId]);
+
+  // Auto-expand challenges when a challenge is selected
+  useEffect(() => {
+    if (
+      currentChallengeId &&
+      challenges.length > 0 &&
+      currentPhase === "challenge"
+    ) {
+      setChallengeExpanded(true);
+    }
+  }, [currentChallengeId, challenges.length, currentPhase]);
 
   const toggleExpanded = (lessonId: string) => {
     setExpandedLessons((prev) => {
@@ -126,10 +139,14 @@ export function Sidebar({
                 <div
                   className={cn(
                     "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 group",
-                    !isLocked && canExpand && "hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer",
+                    !isLocked &&
+                      canExpand &&
+                      "hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer",
                     isLocked && "opacity-50 cursor-not-allowed"
                   )}
-                  onClick={() => !isLocked && canExpand && toggleExpanded(lesson.id)}
+                  onClick={() =>
+                    !isLocked && canExpand && toggleExpanded(lesson.id)
+                  }
                 >
                   {/* Status icon */}
                   <div
@@ -137,9 +154,7 @@ export function Sidebar({
                       "w-6 h-6 rounded-md flex items-center justify-center text-xs font-mono shrink-0",
                       isComplete &&
                         "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400",
-                      !isComplete &&
-                        !isLocked &&
-                        "bg-muted text-foreground/70",
+                      !isComplete && !isLocked && "bg-muted text-foreground/70",
                       isLocked && "bg-muted text-muted-foreground"
                     )}
                   >
@@ -177,7 +192,9 @@ export function Sidebar({
                   <div
                     className={cn(
                       "grid transition-all duration-300 ease-out",
-                      isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                      isExpanded
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0"
                     )}
                   >
                     <div className="overflow-hidden">
@@ -185,10 +202,16 @@ export function Sidebar({
                         {phases.map((phase, phaseIndex) => {
                           const config = PHASE_CONFIG[phase];
                           const Icon = config.icon;
-                          const isActivePhase = isCurrent && phase === currentPhase;
-                          const isPastPhase = isCurrent && phaseIndex < currentPhaseIndex;
+                          const isActivePhase =
+                            isCurrent && phase === currentPhase;
+                          const isPastPhase =
+                            isCurrent && phaseIndex < currentPhaseIndex;
                           const isChallengePhase = phase === "challenge";
-                          const canExpandChallenge = isCurrent && isChallengePhase && challenges.length > 0 && (isActivePhase || isPastPhase);
+                          const hasChallenges =
+                            isCurrent &&
+                            isChallengePhase &&
+                            challenges.length > 0;
+                          const canShowChallenges = hasChallenges;
 
                           return (
                             <div key={phase}>
@@ -196,79 +219,106 @@ export function Sidebar({
                                 className={cn(
                                   "w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-left transition-all duration-200 text-sm",
                                   isActivePhase &&
-                                    !canExpandChallenge &&
+                                    !hasChallenges &&
                                     "bg-zinc-200 dark:bg-zinc-700 font-medium text-foreground",
-                                  (!isActivePhase || canExpandChallenge) &&
+                                  (!isActivePhase || hasChallenges) &&
                                     "text-muted-foreground hover:text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
                                 )}
                               >
-                                <button
-                                  onClick={() => {
-                                    if (!isCurrent) {
-                                      onSelectLesson(lesson.id);
-                                    }
-                                    onPhaseClick?.(phase, lesson.id);
-                                  }}
-                                  className="flex items-center gap-2 flex-1 min-w-0"
-                                >
-                                  <Icon className="w-3.5 h-3.5 shrink-0" />
-                                  <span>{config.label}</span>
-                                </button>
-                                {isPastPhase && !isActivePhase && (
-                                  <CheckCircle className="w-3.5 h-3.5 shrink-0 text-emerald-500" />
-                                )}
-                                {canExpandChallenge && (
-                                  <button
-                                    onClick={() => setChallengeExpanded(!challengeExpanded)}
-                                    className="w-5 h-5 rounded flex items-center justify-center shrink-0 hover:bg-black/5 dark:hover:bg-white/5"
-                                  >
-                                    <ChevronRight
-                                      className={cn(
-                                        "w-3.5 h-3.5 transition-transform duration-300 ease-out",
-                                        challengeExpanded && "rotate-90"
-                                      )}
-                                    />
-                                  </button>
+                                {hasChallenges ? (
+                                  <>
+                                    <button
+                                      onClick={() =>
+                                        setChallengeExpanded(!challengeExpanded)
+                                      }
+                                      className="flex items-center gap-2 flex-1 min-w-0"
+                                    >
+                                      <Icon className="w-3.5 h-3.5 shrink-0" />
+                                      <span>{config.label}</span>
+                                    </button>
+                                    {isPastPhase && !isActivePhase && (
+                                      <CheckCircle className="w-3.5 h-3.5 shrink-0 text-emerald-500" />
+                                    )}
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setChallengeExpanded(
+                                          !challengeExpanded
+                                        );
+                                      }}
+                                      className="w-5 h-5 rounded flex items-center justify-center shrink-0 hover:bg-black/5 dark:hover:bg-white/5"
+                                    >
+                                      <ChevronRight
+                                        className={cn(
+                                          "w-3.5 h-3.5 transition-transform duration-300 ease-out",
+                                          challengeExpanded && "rotate-90"
+                                        )}
+                                      />
+                                    </button>
+                                  </>
+                                ) : (
+                                  <>
+                                    <button
+                                      onClick={() => {
+                                        if (!isCurrent) {
+                                          onSelectLesson(lesson.id);
+                                        }
+                                        onPhaseClick?.(phase, lesson.id);
+                                      }}
+                                      className="flex items-center gap-2 flex-1 min-w-0"
+                                    >
+                                      <Icon className="w-3.5 h-3.5 shrink-0" />
+                                      <span>{config.label}</span>
+                                    </button>
+                                    {isPastPhase && !isActivePhase && (
+                                      <CheckCircle className="w-3.5 h-3.5 shrink-0 text-emerald-500" />
+                                    )}
+                                  </>
                                 )}
                               </div>
 
                               {/* Challenge sub-items - animated */}
-                              {canExpandChallenge && (
+                              {canShowChallenges && (
                                 <div
                                   className={cn(
                                     "grid transition-all duration-300 ease-out",
-                                    challengeExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                                    challengeExpanded
+                                      ? "grid-rows-[1fr] opacity-100"
+                                      : "grid-rows-[0fr] opacity-0"
                                   )}
                                 >
                                   <div className="overflow-hidden">
                                     <div className="ml-5 mt-0.5 space-y-0.5">
-                                      {challenges.map((challenge, challengeIndex) => {
-                                        const isChallengeActive =
-                                          challenge.id === currentChallengeId &&
-                                          isActivePhase;
-                                        return (
-                                          <button
-                                            key={challenge.id}
-                                            onClick={() =>
-                                              onChallengeClick?.(challenge.id)
-                                            }
-                                            className={cn(
-                                              "w-full flex items-center gap-2 px-3 py-1 rounded-full text-left transition-all duration-200 text-sm",
-                                              isChallengeActive &&
-                                                "bg-zinc-200 dark:bg-zinc-700 font-medium text-foreground",
-                                              !isChallengeActive &&
-                                                "text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
-                                            )}
-                                          >
-                                            <span className="truncate">
-                                              Challenge {challengeIndex + 1}
-                                            </span>
-                                            {isPastPhase && (
-                                              <CheckCircle className="w-3.5 h-3.5 ml-auto shrink-0 text-emerald-500" />
-                                            )}
-                                          </button>
-                                        );
-                                      })}
+                                      {challenges.map(
+                                        (challenge, challengeIndex) => {
+                                          const isChallengeActive =
+                                            challenge.id ===
+                                              currentChallengeId &&
+                                            isActivePhase;
+                                          return (
+                                            <button
+                                              key={challenge.id}
+                                              onClick={() =>
+                                                onChallengeClick?.(challenge.id)
+                                              }
+                                              className={cn(
+                                                "w-full flex items-center gap-2 px-3 py-1 rounded-full text-left transition-all duration-200 text-sm",
+                                                isChallengeActive &&
+                                                  "bg-zinc-200 dark:bg-zinc-700 font-medium text-foreground",
+                                                !isChallengeActive &&
+                                                  "text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                                              )}
+                                            >
+                                              <span className="truncate">
+                                                Challenge {challengeIndex + 1}
+                                              </span>
+                                              {isPastPhase && (
+                                                <CheckCircle className="w-3.5 h-3.5 ml-auto shrink-0 text-emerald-500" />
+                                              )}
+                                            </button>
+                                          );
+                                        }
+                                      )}
                                     </div>
                                   </div>
                                 </div>
@@ -319,7 +369,6 @@ export function Sidebar({
           </button>
         </div>
       </div>
-
     </aside>
   );
 }

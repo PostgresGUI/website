@@ -39,14 +39,8 @@ export function SidebarNav() {
         const params = new URLSearchParams();
         params.set("phase", phase);
 
-        if (phase === "challenge") {
-          // Find the lesson to get its challenges
-          const targetLesson = module1.lessons.find(l => l.id === effectiveLessonId);
-          const firstChallengeId = targetLesson?.phases.challenges[0]?.id;
-          if (firstChallengeId) {
-            params.set("challenge", firstChallengeId);
-          }
-        }
+        // Note: For challenge phase, we don't auto-navigate to first challenge
+        // The user must select a specific challenge from the dropdown
 
         const newUrl = `${basePath}?${params.toString()}`;
         if (isDifferentLesson) {
