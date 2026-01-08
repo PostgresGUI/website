@@ -11,12 +11,13 @@ import { useRouter } from "next/navigation";
 import { useState, useCallback } from "react";
 import Image from "next/image";
 import { Menu } from "lucide-react";
+import { PhaseType } from "@/lib/learn/lessons/types";
 
 export function LessonPageClient() {
   const params = useParams();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { lesson, setLesson, goToPhase } = useLessonContext();
+  const { lesson, setLesson, goToPhase, currentPhase, phases } = useLessonContext();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const lessonId = params.lessonId as string;
@@ -46,7 +47,7 @@ export function LessonPageClient() {
   useEffect(() => {
     if (lesson) {
       const validPhases = ["context", "concept", "guided", "challenge", "summary"];
-      
+
       // If challenge param exists but phase is not challenge, set phase to challenge
       if (challengeParam && phaseParam !== "challenge") {
         const challengeExists = lesson.phases.challenges.some(c => c.id === challengeParam);
@@ -59,9 +60,9 @@ export function LessonPageClient() {
           return;
         }
       }
-      
+
       if (phaseParam && validPhases.includes(phaseParam)) {
-        goToPhase(phaseParam as typeof validPhases[number]);
+        goToPhase(phaseParam as PhaseType);
       } else if (!phaseParam) {
         // No phase param, set default to context
         router.replace(`/learn-sql/${lessonId}?phase=context`, { scroll: false });
@@ -74,6 +75,39 @@ export function LessonPageClient() {
       router.push(`/learn-sql/${selectedLessonId}`);
     },
     [router]
+  );
+
+  const handlePhaseClick = useCallback(
+    (phase: PhaseType) => {
+      if (lesson) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("phase", phase);
+        // If switching to challenge phase and no challenge param, set first challenge
+        if (phase === "challenge") {
+          const firstChallengeId = lesson.phases.challenges[0]?.id;
+          if (firstChallengeId && !url.searchParams.get("challenge")) {
+            url.searchParams.set("challenge", firstChallengeId);
+          }
+        } else {
+          // If leaving challenge phase, remove challenge param
+          url.searchParams.delete("challenge");
+        }
+        router.replace(url.pathname + url.search, { scroll: false });
+        goToPhase(phase);
+      }
+    },
+    [lesson, router, goToPhase]
+  );
+
+  const handleChallengeClick = useCallback(
+    (challengeId: string) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set("phase", "challenge");
+      url.searchParams.set("challenge", challengeId);
+      router.replace(url.pathname + url.search, { scroll: false });
+      goToPhase("challenge");
+    },
+    [router, goToPhase]
   );
 
   const handleLessonComplete = useCallback(() => {
@@ -107,6 +141,12 @@ export function LessonPageClient() {
           lessons={lessons}
           currentLessonId={lesson.id}
           onSelectLesson={handleSelectLesson}
+          currentPhase={currentPhase}
+          phases={phases}
+          onPhaseClick={handlePhaseClick}
+          challenges={lesson.phases.challenges}
+          currentChallengeId={challengeParam}
+          onChallengeClick={handleChallengeClick}
           className="h-full"
         />
       </aside>
@@ -138,6 +178,12 @@ export function LessonPageClient() {
         lessons={lessons}
         currentLessonId={lesson.id}
         onSelectLesson={handleSelectLesson}
+        currentPhase={currentPhase}
+        phases={phases}
+        onPhaseClick={handlePhaseClick}
+        challenges={lesson.phases.challenges}
+        currentChallengeId={challengeParam}
+        onChallengeClick={handleChallengeClick}
       />
 
       {/* Main Content - Elevated Panel */}

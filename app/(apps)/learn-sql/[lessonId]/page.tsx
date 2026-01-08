@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import { module1 } from "@/lib/learn/lessons/module1";
 import { LessonPageClient } from "./LessonPageClient";
@@ -10,12 +11,13 @@ export function generateStaticParams() {
 }
 
 // Generate metadata for each lesson
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { lessonId: string };
-}): Metadata {
-  const lesson = module1.lessons.find((l) => l.id === params.lessonId);
+  params: Promise<{ lessonId: string }>;
+}): Promise<Metadata> {
+  const { lessonId } = await params;
+  const lesson = module1.lessons.find((l) => l.id === lessonId);
 
   if (!lesson) {
     return {
@@ -56,5 +58,15 @@ export function generateMetadata({
 }
 
 export default function LessonPage() {
-  return <LessonPageClient />;
+  return (
+    <Suspense
+      fallback={
+        <div className="h-full flex items-center justify-center">
+          <div className="text-muted-foreground">Loading lesson...</div>
+        </div>
+      }
+    >
+      <LessonPageClient />
+    </Suspense>
+  );
 }

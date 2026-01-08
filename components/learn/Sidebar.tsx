@@ -5,12 +5,18 @@ import { ProgressRing } from "./ProgressRing";
 import { useProgressContext } from "./LearnProviders";
 import {
   Check,
+  CheckCircle,
   Lock,
   Sparkles,
   Coins,
   ChevronRight,
   BookOpen,
+  MessageSquare,
+  PenTool,
+  Trophy,
+  FileCheck,
 } from "lucide-react";
+import { PhaseType, Challenge } from "@/lib/learn/lessons/types";
 
 interface Lesson {
   id: string;
@@ -18,10 +24,27 @@ interface Lesson {
   shortTitle: string;
 }
 
+const PHASE_CONFIG: Record<
+  PhaseType,
+  { label: string; icon: typeof MessageSquare }
+> = {
+  context: { label: "Context", icon: MessageSquare },
+  concept: { label: "Concept", icon: BookOpen },
+  guided: { label: "Practice", icon: PenTool },
+  challenge: { label: "Challenge", icon: Trophy },
+  summary: { label: "Summary", icon: FileCheck },
+};
+
 interface SidebarProps {
   lessons: Lesson[];
   currentLessonId: string | null;
   onSelectLesson: (lessonId: string) => void;
+  currentPhase?: PhaseType;
+  phases?: PhaseType[];
+  onPhaseClick?: (phase: PhaseType) => void;
+  challenges?: Challenge[];
+  currentChallengeId?: string | null;
+  onChallengeClick?: (challengeId: string) => void;
   className?: string;
 }
 
@@ -29,12 +52,20 @@ export function Sidebar({
   lessons,
   currentLessonId,
   onSelectLesson,
+  currentPhase,
+  phases = [],
+  onPhaseClick,
+  challenges = [],
+  currentChallengeId,
+  onChallengeClick,
   className,
 }: SidebarProps) {
   const { progress, isLessonComplete } = useProgressContext();
 
   const completedCount = lessons.filter((l) => isLessonComplete(l.id)).length;
   const progressPercent = (completedCount / lessons.length) * 100;
+
+  const currentPhaseIndex = phases.indexOf(currentPhase || "context");
 
   return (
     <aside className={cn("flex flex-col h-full", className)}>
@@ -69,60 +100,135 @@ export function Sidebar({
               !isCurrent;
 
             return (
-              <button
-                key={lesson.id}
-                onClick={() => !isLocked && onSelectLesson(lesson.id)}
-                disabled={isLocked}
-                className={cn(
-                  "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-swiftui group",
-                  isCurrent &&
-                    "bg-[var(--postgres-blue)]/10 text-[var(--postgres-blue)]",
-                  !isCurrent && !isLocked && "hover:bg-muted/50",
-                  isLocked && "opacity-50 cursor-not-allowed"
-                )}
-              >
-                {/* Status icon */}
-                <div
+              <div key={lesson.id}>
+                <button
+                  onClick={() => !isLocked && onSelectLesson(lesson.id)}
+                  disabled={isLocked}
                   className={cn(
-                    "w-6 h-6 rounded-md flex items-center justify-center text-xs font-mono shrink-0",
-                    isComplete &&
-                      "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400",
+                    "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-swiftui group",
                     isCurrent &&
-                      !isComplete &&
-                      "bg-[var(--postgres-blue)]/15 text-[var(--postgres-blue)] dark:text-blue-400",
-                    !isCurrent &&
-                      !isComplete &&
-                      !isLocked &&
-                      "bg-muted text-foreground/70",
-                    isLocked && "bg-muted text-muted-foreground"
+                      "bg-[var(--postgres-blue)]/10 text-[var(--postgres-blue)]",
+                    !isCurrent && !isLocked && "hover:bg-muted/50",
+                    isLocked && "opacity-50 cursor-not-allowed"
                   )}
                 >
-                  {isComplete ? (
-                    <Check className="w-3.5 h-3.5" />
-                  ) : isLocked ? (
-                    <Lock className="w-3 h-3" />
-                  ) : (
-                    <span>{index + 1}</span>
-                  )}
-                </div>
-
-                {/* Lesson info */}
-                <div className="flex-1 min-w-0">
-                  <p
+                  {/* Status icon */}
+                  <div
                     className={cn(
-                      "text-sm font-medium truncate",
-                      isCurrent && "text-[var(--postgres-blue)]"
+                      "w-6 h-6 rounded-md flex items-center justify-center text-xs font-mono shrink-0",
+                      isComplete &&
+                        "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400",
+                      isCurrent &&
+                        !isComplete &&
+                        "bg-[var(--postgres-blue)]/15 text-[var(--postgres-blue)] dark:text-blue-400",
+                      !isCurrent &&
+                        !isComplete &&
+                        !isLocked &&
+                        "bg-muted text-foreground/70",
+                      isLocked && "bg-muted text-muted-foreground"
                     )}
                   >
-                    {lesson.shortTitle}
-                  </p>
-                </div>
+                    {isComplete ? (
+                      <Check className="w-3.5 h-3.5" />
+                    ) : isLocked ? (
+                      <Lock className="w-3 h-3" />
+                    ) : (
+                      <span>{index + 1}</span>
+                    )}
+                  </div>
 
-                {/* Arrow for current */}
-                {isCurrent && (
-                  <ChevronRight className="w-4 h-4 text-[var(--postgres-blue)] shrink-0" />
+                  {/* Lesson info */}
+                  <div className="flex-1 min-w-0">
+                    <p
+                      className={cn(
+                        "text-sm font-medium truncate",
+                        isCurrent && "text-[var(--postgres-blue)]"
+                      )}
+                    >
+                      {lesson.shortTitle}
+                    </p>
+                  </div>
+
+                  {/* Arrow for current */}
+                  {isCurrent && (
+                    <ChevronRight className="w-4 h-4 text-[var(--postgres-blue)] shrink-0" />
+                  )}
+                </button>
+
+                {/* Phase submenu for current lesson */}
+                {isCurrent && phases.length > 0 && (
+                  <div className="ml-6 mt-1 mb-2 pl-3 border-l-2 border-[var(--postgres-blue)]/20 space-y-0.5">
+                    {phases.map((phase, phaseIndex) => {
+                      const config = PHASE_CONFIG[phase];
+                      const Icon = config.icon;
+                      const isActivePhase = phase === currentPhase;
+                      const isPastPhase = phaseIndex < currentPhaseIndex;
+                      const isChallengePhase = phase === "challenge";
+                      const showChallengeItems =
+                        isChallengePhase &&
+                        challenges.length > 0 &&
+                        (isActivePhase || isPastPhase);
+
+                      return (
+                        <div key={phase}>
+                          <button
+                            onClick={() => onPhaseClick?.(phase)}
+                            className={cn(
+                              "w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-left transition-all text-sm",
+                              isActivePhase &&
+                                "bg-[var(--postgres-blue)] text-white font-medium",
+                              !isActivePhase &&
+                                "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                            )}
+                          >
+                            <Icon className="w-3.5 h-3.5 shrink-0" />
+                            <span>{config.label}</span>
+                            {isPastPhase && !isActivePhase && (
+                              <CheckCircle className="w-3.5 h-3.5 ml-auto shrink-0 text-emerald-500" />
+                            )}
+                          </button>
+
+                          {/* Challenge sub-items */}
+                          {showChallengeItems && (
+                            <div className="ml-5 mt-0.5 space-y-0.5">
+                              {challenges.map((challenge, challengeIndex) => {
+                                const isChallengeActive =
+                                  challenge.id === currentChallengeId &&
+                                  isActivePhase;
+                                return (
+                                  <button
+                                    key={challenge.id}
+                                    onClick={() =>
+                                      onChallengeClick?.(challenge.id)
+                                    }
+                                    className={cn(
+                                      "w-full flex items-center gap-2 px-2 py-1 rounded text-left transition-all text-sm",
+                                      isChallengeActive &&
+                                        "bg-[var(--postgres-blue)]/80 text-white font-medium",
+                                      !isChallengeActive &&
+                                        "text-muted-foreground/80 hover:text-foreground hover:bg-muted/30"
+                                    )}
+                                  >
+                                    <span className="w-4 h-4 rounded-full bg-current/10 flex items-center justify-center text-[10px] font-mono shrink-0">
+                                      {challengeIndex + 1}
+                                    </span>
+                                    <span className="truncate">
+                                      Challenge {challengeIndex + 1}
+                                    </span>
+                                    {isPastPhase && (
+                                      <CheckCircle className="w-3.5 h-3.5 ml-auto shrink-0 text-emerald-500" />
+                                    )}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
                 )}
-              </button>
+              </div>
             );
           })}
         </div>

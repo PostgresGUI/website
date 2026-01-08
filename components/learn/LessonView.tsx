@@ -1,11 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Lesson } from "@/lib/learn/lessons/types";
 import { useLessonContext, useSQLEngineContext } from "./LearnProviders";
-import { PhaseIndicator } from "./PhaseIndicator";
 import { ContextPhase } from "./phases/ContextPhase";
 import { ConceptPhase } from "./phases/ConceptPhase";
 import { GuidedPhase } from "./phases/GuidedPhase";
@@ -27,13 +26,10 @@ export function LessonView({
 }: LessonViewProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const { currentPhase, phases, nextPhase, prevPhase, goToPhase, resetLesson } =
+  const { currentPhase, nextPhase, prevPhase, resetLesson } =
     useLessonContext();
   const { initSchema, resetDatabase } = useSQLEngineContext();
   const isInitialMount = useRef(true);
-
-  const currentChallengeId = searchParams.get("challenge");
 
   // Initialize lesson schema
   useEffect(() => {
@@ -90,25 +86,6 @@ export function LessonView({
     prevPhase();
   }, [prevPhase]);
 
-  const handleGoToPhase = useCallback(
-    (phase: (typeof phases)[number]) => {
-      goToPhase(phase);
-    },
-    [goToPhase, phases]
-  );
-
-  const handleChallengeClick = useCallback(
-    (challengeId: string) => {
-      if (pathname && pathname.includes("/learn-sql/")) {
-        const url = new URL(window.location.href);
-        url.searchParams.set("phase", "challenge");
-        url.searchParams.set("challenge", challengeId);
-        router.replace(url.pathname + url.search, { scroll: false });
-      }
-    },
-    [pathname, router]
-  );
-
   const renderPhase = useCallback(() => {
     switch (currentPhase) {
       case "context":
@@ -140,26 +117,12 @@ export function LessonView({
   return (
     <div
       className={cn(
-        "relative h-full md:grid md:grid-rows-[auto_1fr_auto]",
+        "relative h-full md:grid md:grid-rows-[1fr_auto]",
         className
       )}
     >
-      {/* Header - Fixed on mobile, static in grid on desktop */}
-      <header className="fixed top-0 left-0 right-0 z-20 md:static md:z-auto px-4 py-3 border-b border-border bg-card/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none">
-        <div className="max-w-2xl mx-auto">
-          <PhaseIndicator
-            currentPhase={currentPhase}
-            phases={phases}
-            onPhaseClick={handleGoToPhase}
-            challenges={lesson.phases.challenges}
-            currentChallengeId={currentChallengeId}
-            onChallengeClick={handleChallengeClick}
-          />
-        </div>
-      </header>
-
-      {/* Content - Padded for fixed elements on mobile, scrollable in grid on desktop */}
-      <main className="h-full overflow-y-auto pt-16 pb-24 md:pt-0 md:pb-0">
+      {/* Content - scrollable */}
+      <main className="h-full overflow-y-auto pb-24 md:pb-0">
         <div className="max-w-2xl mx-auto px-4 py-6">{renderPhase()}</div>
       </main>
 

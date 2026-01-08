@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Sidebar } from './Sidebar';
 import { X } from 'lucide-react';
+import { PhaseType, Challenge } from '@/lib/learn/lessons/types';
 
 interface Lesson {
   id: string;
@@ -17,6 +18,12 @@ interface SidebarMobileProps {
   lessons: Lesson[];
   currentLessonId: string | null;
   onSelectLesson: (lessonId: string) => void;
+  currentPhase?: PhaseType;
+  phases?: PhaseType[];
+  onPhaseClick?: (phase: PhaseType) => void;
+  challenges?: Challenge[];
+  currentChallengeId?: string | null;
+  onChallengeClick?: (challengeId: string) => void;
 }
 
 export function SidebarMobile({
@@ -24,7 +31,13 @@ export function SidebarMobile({
   onClose,
   lessons,
   currentLessonId,
-  onSelectLesson
+  onSelectLesson,
+  currentPhase,
+  phases,
+  onPhaseClick,
+  challenges,
+  currentChallengeId,
+  onChallengeClick
 }: SidebarMobileProps) {
   // Prevent body scroll when open
   useEffect(() => {
@@ -51,6 +64,16 @@ export function SidebarMobile({
 
   const handleSelectLesson = (lessonId: string) => {
     onSelectLesson(lessonId);
+    onClose();
+  };
+
+  const handlePhaseClick = (phase: PhaseType) => {
+    onPhaseClick?.(phase);
+    onClose();
+  };
+
+  const handleChallengeClick = (challengeId: string) => {
+    onChallengeClick?.(challengeId);
     onClose();
   };
 
@@ -85,6 +108,12 @@ export function SidebarMobile({
             lessons={lessons}
             currentLessonId={currentLessonId}
             onSelectLesson={handleSelectLesson}
+            currentPhase={currentPhase}
+            phases={phases}
+            onPhaseClick={handlePhaseClick}
+            challenges={challenges}
+            currentChallengeId={currentChallengeId}
+            onChallengeClick={handleChallengeClick}
             className="h-full"
           />
         </div>
