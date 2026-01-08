@@ -2,23 +2,13 @@
 
 import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
-import { module1 } from "@/lib/learn/lessons/module1";
-import { Sidebar } from "@/components/learn/Sidebar";
-import { SidebarMobile } from "@/components/learn/SidebarMobile";
-import { Menu, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 export function WelcomePageClient() {
   const router = useRouter();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const lessons = module1.lessons.map((l) => ({
-    id: l.id,
-    title: l.title,
-    shortTitle: l.shortTitle,
-  }));
 
   const handleSelectLesson = useCallback(
     (lessonId: string) => {
@@ -28,54 +18,8 @@ export function WelcomePageClient() {
   );
 
   return (
-    <div className="h-full overflow-hidden bg-muted/50">
-      {/* Desktop Sidebar */}
-      <aside className="hidden md:block fixed left-0 top-0 h-full w-[280px] z-30">
-        <Sidebar
-          lessons={lessons}
-          currentLessonId={null}
-          onSelectLesson={handleSelectLesson}
-          className="h-full"
-        />
-      </aside>
-
-      {/* Mobile Header */}
-      <header className="md:hidden sticky top-0 z-40 h-14 border-b border-border bg-card/90 backdrop-blur-lg flex items-center px-4">
-        <button
-          onClick={() => setSidebarOpen(true)}
-          className="w-9 h-9 rounded-lg bg-muted/60 flex items-center justify-center hover:bg-muted transition-colors"
-        >
-          <Menu className="w-5 h-5" />
-        </button>
-        <div className="ml-3 flex items-center gap-2">
-          <Image
-            src="/postgresgui-elephant.png"
-            alt="PostgresGUI"
-            width={24}
-            height={24}
-            className="object-contain"
-          />
-          <span className="font-display">Learn PostgreSQL</span>
-        </div>
-      </header>
-
-      {/* Mobile Sidebar */}
-      <SidebarMobile
-        open={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-        lessons={lessons}
-        currentLessonId={null}
-        onSelectLesson={handleSelectLesson}
-      />
-
-      {/* Main Content - Elevated Panel */}
-      <main className="md:ml-[280px] h-[calc(100%-3.5rem)] md:h-full md:p-4">
-        <div className="h-full bg-card md:rounded-xl md:border md:border-border md:shadow-lg overflow-hidden">
-          <div className="h-full overflow-y-auto">
-            <WelcomeScreen onStartLesson={() => handleSelectLesson("1-0")} />
-          </div>
-        </div>
-      </main>
+    <div className="h-full overflow-y-auto">
+      <WelcomeScreen onStartLesson={() => handleSelectLesson("1-0")} />
     </div>
   );
 }

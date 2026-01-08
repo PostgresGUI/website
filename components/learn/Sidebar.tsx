@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { ProgressRing } from "./ProgressRing";
 import { useProgressContext } from "./LearnProviders";
@@ -61,11 +62,32 @@ export function Sidebar({
   className,
 }: SidebarProps) {
   const { progress, isLessonComplete } = useProgressContext();
+  const [expandedLessons, setExpandedLessons] = useState<Set<string>>(new Set());
+  const [challengeExpanded, setChallengeExpanded] = useState(true);
 
   const completedCount = lessons.filter((l) => isLessonComplete(l.id)).length;
   const progressPercent = (completedCount / lessons.length) * 100;
 
   const currentPhaseIndex = phases.indexOf(currentPhase || "context");
+
+  // Auto-expand current lesson
+  useEffect(() => {
+    if (currentLessonId) {
+      setExpandedLessons((prev) => new Set(prev).add(currentLessonId));
+    }
+  }, [currentLessonId]);
+
+  const toggleExpanded = (lessonId: string) => {
+    setExpandedLessons((prev) => {
+      const next = new Set(prev);
+      if (next.has(lessonId)) {
+        next.delete(lessonId);
+      } else {
+        next.add(lessonId);
+      }
+      return next;
+    });
+  };
 
   return (
     <aside className={cn("flex flex-col h-full", className)}>
@@ -98,19 +120,18 @@ export function Sidebar({
               index > 0 &&
               !isLessonComplete(lessons[index - 1].id) &&
               !isCurrent;
+            const isExpanded = expandedLessons.has(lesson.id);
+            const canExpand = !isLocked && phases.length > 0;
 
             return (
               <div key={lesson.id}>
-                <button
-                  onClick={() => !isLocked && onSelectLesson(lesson.id)}
-                  disabled={isLocked}
+                <div
                   className={cn(
-                    "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-swiftui group",
-                    isCurrent &&
-                      "bg-[var(--postgres-blue)]/10 text-[var(--postgres-blue)]",
-                    !isCurrent && !isLocked && "hover:bg-muted/50",
+                    "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 group",
+                    !isLocked && canExpand && "hover:bg-muted/50 cursor-pointer",
                     isLocked && "opacity-50 cursor-not-allowed"
                   )}
+                  onClick={() => !isLocked && canExpand && toggleExpanded(lesson.id)}
                 >
                   {/* Status icon */}
                   <div
@@ -118,11 +139,7 @@ export function Sidebar({
                       "w-6 h-6 rounded-md flex items-center justify-center text-xs font-mono shrink-0",
                       isComplete &&
                         "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400",
-                      isCurrent &&
-                        !isComplete &&
-                        "bg-[var(--postgres-blue)]/15 text-[var(--postgres-blue)] dark:text-blue-400",
-                      !isCurrent &&
-                        !isComplete &&
+                      !isComplete &&
                         !isLocked &&
                         "bg-muted text-foreground/70",
                       isLocked && "bg-muted text-muted-foreground"
@@ -137,95 +154,132 @@ export function Sidebar({
                     )}
                   </div>
 
-                  {/* Lesson info */}
+                  {/* Lesson info - not clickable, only for display */}
                   <div className="flex-1 min-w-0">
-                    <p
-                      className={cn(
-                        "text-sm font-medium truncate",
-                        isCurrent && "text-[var(--postgres-blue)]"
-                      )}
-                    >
+                    <p className="text-sm font-medium truncate">
                       {lesson.shortTitle}
                     </p>
                   </div>
 
-                  {/* Arrow for current */}
-                  {isCurrent && (
-                    <ChevronRight className="w-4 h-4 text-[var(--postgres-blue)] shrink-0" />
+                  {/* Expand/collapse toggle */}
+                  {canExpand && (
+                    <div className="w-6 h-6 rounded-md flex items-center justify-center shrink-0 transition-all duration-200 text-muted-foreground">
+                      <ChevronRight
+                        className={cn(
+                          "w-4 h-4 transition-transform duration-300 ease-out",
+                          isExpanded && "rotate-90"
+                        )}
+                      />
+                    </div>
                   )}
-                </button>
+                </div>
 
-                {/* Phase submenu for current lesson */}
-                {isCurrent && phases.length > 0 && (
-                  <div className="ml-6 mt-1 mb-2 pl-3 border-l-2 border-[var(--postgres-blue)]/20 space-y-0.5">
-                    {phases.map((phase, phaseIndex) => {
-                      const config = PHASE_CONFIG[phase];
-                      const Icon = config.icon;
-                      const isActivePhase = phase === currentPhase;
-                      const isPastPhase = phaseIndex < currentPhaseIndex;
-                      const isChallengePhase = phase === "challenge";
-                      const showChallengeItems =
-                        isChallengePhase &&
-                        challenges.length > 0 &&
-                        (isActivePhase || isPastPhase);
+                {/* Phase submenu - animated */}
+                {canExpand && (
+                  <div
+                    className={cn(
+                      "grid transition-all duration-300 ease-out",
+                      isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                    )}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="ml-6 mt-1 mb-2 pl-3 border-l-2 border-[var(--postgres-blue)]/20 space-y-0.5">
+                        {phases.map((phase, phaseIndex) => {
+                          const config = PHASE_CONFIG[phase];
+                          const Icon = config.icon;
+                          const isActivePhase = isCurrent && phase === currentPhase;
+                          const isPastPhase = isCurrent && phaseIndex < currentPhaseIndex;
+                          const isChallengePhase = phase === "challenge";
+                          const canExpandChallenge = isCurrent && isChallengePhase && challenges.length > 0 && (isActivePhase || isPastPhase);
 
-                      return (
-                        <div key={phase}>
-                          <button
-                            onClick={() => onPhaseClick?.(phase)}
-                            className={cn(
-                              "w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-left transition-all text-sm",
-                              isActivePhase &&
-                                "bg-[var(--postgres-blue)] text-white font-medium",
-                              !isActivePhase &&
-                                "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                            )}
-                          >
-                            <Icon className="w-3.5 h-3.5 shrink-0" />
-                            <span>{config.label}</span>
-                            {isPastPhase && !isActivePhase && (
-                              <CheckCircle className="w-3.5 h-3.5 ml-auto shrink-0 text-emerald-500" />
-                            )}
-                          </button>
-
-                          {/* Challenge sub-items */}
-                          {showChallengeItems && (
-                            <div className="ml-5 mt-0.5 space-y-0.5">
-                              {challenges.map((challenge, challengeIndex) => {
-                                const isChallengeActive =
-                                  challenge.id === currentChallengeId &&
-                                  isActivePhase;
-                                return (
-                                  <button
-                                    key={challenge.id}
-                                    onClick={() =>
-                                      onChallengeClick?.(challenge.id)
+                          return (
+                            <div key={phase}>
+                              <div
+                                className={cn(
+                                  "w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-left transition-all duration-200 text-sm",
+                                  isActivePhase &&
+                                    !canExpandChallenge &&
+                                    "bg-[var(--postgres-blue)] text-white font-medium",
+                                  (!isActivePhase || canExpandChallenge) &&
+                                    "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                                )}
+                              >
+                                <button
+                                  onClick={() => {
+                                    if (!isCurrent) {
+                                      onSelectLesson(lesson.id);
                                     }
-                                    className={cn(
-                                      "w-full flex items-center gap-2 px-2 py-1 rounded text-left transition-all text-sm",
-                                      isChallengeActive &&
-                                        "bg-[var(--postgres-blue)]/80 text-white font-medium",
-                                      !isChallengeActive &&
-                                        "text-muted-foreground/80 hover:text-foreground hover:bg-muted/30"
-                                    )}
+                                    onPhaseClick?.(phase);
+                                  }}
+                                  className="flex items-center gap-2 flex-1 min-w-0"
+                                >
+                                  <Icon className="w-3.5 h-3.5 shrink-0" />
+                                  <span>{config.label}</span>
+                                </button>
+                                {isPastPhase && !isActivePhase && (
+                                  <CheckCircle className="w-3.5 h-3.5 shrink-0 text-emerald-500" />
+                                )}
+                                {canExpandChallenge && (
+                                  <button
+                                    onClick={() => setChallengeExpanded(!challengeExpanded)}
+                                    className="w-5 h-5 rounded flex items-center justify-center shrink-0 hover:bg-black/5 dark:hover:bg-white/5"
                                   >
-                                    <span className="w-4 h-4 rounded-full bg-current/10 flex items-center justify-center text-[10px] font-mono shrink-0">
-                                      {challengeIndex + 1}
-                                    </span>
-                                    <span className="truncate">
-                                      Challenge {challengeIndex + 1}
-                                    </span>
-                                    {isPastPhase && (
-                                      <CheckCircle className="w-3.5 h-3.5 ml-auto shrink-0 text-emerald-500" />
-                                    )}
+                                    <ChevronRight
+                                      className={cn(
+                                        "w-3.5 h-3.5 transition-transform duration-300 ease-out",
+                                        challengeExpanded && "rotate-90"
+                                      )}
+                                    />
                                   </button>
-                                );
-                              })}
+                                )}
+                              </div>
+
+                              {/* Challenge sub-items - animated */}
+                              {canExpandChallenge && (
+                                <div
+                                  className={cn(
+                                    "grid transition-all duration-300 ease-out",
+                                    challengeExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                                  )}
+                                >
+                                  <div className="overflow-hidden">
+                                    <div className="ml-5 mt-0.5 space-y-0.5">
+                                      {challenges.map((challenge, challengeIndex) => {
+                                        const isChallengeActive =
+                                          challenge.id === currentChallengeId &&
+                                          isActivePhase;
+                                        return (
+                                          <button
+                                            key={challenge.id}
+                                            onClick={() =>
+                                              onChallengeClick?.(challenge.id)
+                                            }
+                                            className={cn(
+                                              "w-full flex items-center gap-2 px-3 py-1 rounded-full text-left transition-all duration-200 text-sm",
+                                              isChallengeActive &&
+                                                "bg-[var(--postgres-blue)] text-white font-medium",
+                                              !isChallengeActive &&
+                                                "text-muted-foreground/80 hover:text-foreground hover:bg-muted/30"
+                                            )}
+                                          >
+                                            <span className="truncate">
+                                              Challenge {challengeIndex + 1}
+                                            </span>
+                                            {isPastPhase && (
+                                              <CheckCircle className="w-3.5 h-3.5 ml-auto shrink-0 text-emerald-500" />
+                                            )}
+                                          </button>
+                                        );
+                                      })}
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
                             </div>
-                          )}
-                        </div>
-                      );
-                    })}
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
@@ -239,7 +293,7 @@ export function Sidebar({
             onClick={() => onSelectLesson("project")}
             disabled={completedCount < lessons.length}
             className={cn(
-              "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-swiftui",
+              "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200",
               currentLessonId === "project" && "bg-[var(--postgres-blue)]/10",
               completedCount < lessons.length &&
                 "opacity-50 cursor-not-allowed",

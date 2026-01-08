@@ -1,14 +1,25 @@
-import { Metadata } from 'next';
-import { LearnProviders } from '@/components/learn/LearnProviders';
+import { Metadata } from "next";
+import { LearnProviders } from "@/components/learn/LearnProviders";
+import { LearnLayoutClient } from "@/components/learn/LearnLayoutClient";
 
 export const metadata: Metadata = {
-  title: 'Learn PostgreSQL - Free Interactive SQL Tutorial | PostgresGUI',
-  description: 'Master PostgreSQL with hands-on interactive lessons. Learn SQL basics, queries, JOINs, and database design - free tutorial for beginners.',
-  keywords: ['learn postgresql', 'sql tutorial', 'postgresql tutorial', 'learn sql', 'sql for beginners', 'interactive sql', 'database tutorial'],
+  title: "Learn PostgreSQL - Free Interactive SQL Tutorial | PostgresGUI",
+  description:
+    "Master PostgreSQL with hands-on interactive lessons. Learn SQL basics, queries, JOINs, and database design - free tutorial for beginners.",
+  keywords: [
+    "learn postgresql",
+    "sql tutorial",
+    "postgresql tutorial",
+    "learn sql",
+    "sql for beginners",
+    "interactive sql",
+    "database tutorial",
+  ],
   openGraph: {
-    title: 'Learn PostgreSQL - Free Interactive SQL Tutorial',
-    description: 'Master PostgreSQL with hands-on interactive lessons. Learn SQL basics, queries, and database design.',
-    type: 'website',
+    title: "Learn PostgreSQL - Free Interactive SQL Tutorial",
+    description:
+      "Master PostgreSQL with hands-on interactive lessons. Learn SQL basics, queries, and database design.",
+    type: "website",
   },
 };
 
@@ -19,7 +30,7 @@ export default function LearnLayout({
 }) {
   return (
     <LearnProviders>
-      {children}
+      <LearnLayoutClient>{children}</LearnLayoutClient>
     </LearnProviders>
   );
 }

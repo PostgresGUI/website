@@ -1,10 +1,10 @@
-import { JetBrains_Mono } from 'next/font/google';
-import '../globals.css';
+import { JetBrains_Mono } from "next/font/google";
+import "../globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
-  variable: '--font-jetbrains-mono',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 // Script to detect and apply dark mode before React hydration (prevents flash)
@@ -34,7 +34,9 @@ export default function LearnRootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: darkModeScript }} />
       </head>
-      <body className={`${jetbrainsMono.variable} antialiased h-full overflow-hidden`}>
+      <body
+        className={`${jetbrainsMono.variable} antialiased h-full overflow-hidden`}
+      >
         {children}
       </body>
     </html>
