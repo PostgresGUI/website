@@ -8,9 +8,6 @@ const STORAGE_KEY = 'postgresgui-learn-progress';
 const defaultProgress: UserProgress = {
   completedLessons: [],
   lessonProgress: {},
-  xp: 0,
-  coins: 100, // Start with some coins
-  savedCards: [],
   lastActiveLesson: null
 };
 
@@ -37,29 +34,6 @@ export function useProgress() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
     }
   }, [progress, isLoaded]);
-
-  const addXP = useCallback((amount: number) => {
-    setProgress(prev => ({
-      ...prev,
-      xp: prev.xp + amount
-    }));
-  }, []);
-
-  const addCoins = useCallback((amount: number) => {
-    setProgress(prev => ({
-      ...prev,
-      coins: prev.coins + amount
-    }));
-  }, []);
-
-  const spendCoins = useCallback((amount: number): boolean => {
-    if (progress.coins < amount) return false;
-    setProgress(prev => ({
-      ...prev,
-      coins: prev.coins - amount
-    }));
-    return true;
-  }, [progress.coins]);
 
   const markLessonComplete = useCallback((lessonId: string) => {
     setProgress(prev => ({
@@ -108,6 +82,25 @@ export function useProgress() {
     });
   }, []);
 
+  const markChallengeIncomplete = useCallback((lessonId: string, challengeId: string) => {
+    setProgress(prev => {
+      const lessonProg = prev.lessonProgress[lessonId];
+      if (!lessonProg) return prev;
+
+      const newCompleted = lessonProg.completedChallenges.filter(id => id !== challengeId);
+      return {
+        ...prev,
+        lessonProgress: {
+          ...prev.lessonProgress,
+          [lessonId]: {
+            ...lessonProg,
+            completedChallenges: newCompleted
+          }
+        }
+      };
+    });
+  }, []);
+
   const recordHintUsed = useCallback((lessonId: string, challengeId: string, tier: number) => {
     setProgress(prev => {
       const lessonProg = prev.lessonProgress[lessonId] || {
@@ -135,15 +128,6 @@ export function useProgress() {
     });
   }, []);
 
-  const saveCard = useCallback((cardId: string) => {
-    setProgress(prev => ({
-      ...prev,
-      savedCards: prev.savedCards.includes(cardId)
-        ? prev.savedCards
-        : [...prev.savedCards, cardId]
-    }));
-  }, []);
-
   const isLessonComplete = useCallback((lessonId: string) => {
     return progress.completedLessons.includes(lessonId);
   }, [progress.completedLessons]);
@@ -159,14 +143,11 @@ export function useProgress() {
   return {
     progress,
     isLoaded,
-    addXP,
-    addCoins,
-    spendCoins,
     markLessonComplete,
     updateLessonProgress,
     markChallengeComplete,
+    markChallengeIncomplete,
     recordHintUsed,
-    saveCard,
     isLessonComplete,
     isChallengeComplete,
     resetProgress

@@ -33,21 +33,9 @@ export function SchemaExplorer({ className }: SchemaExplorerProps) {
     return <Type className="w-3 h-3" />;
   };
 
+  // Don't render anything if there are no tables
   if (schema.length === 0) {
-    return (
-      <div className={cn(
-        'rounded-xl border border-border bg-card p-4 text-center',
-        className
-      )}>
-        <div className="w-10 h-10 rounded-xl bg-muted mx-auto mb-3 flex items-center justify-center">
-          <Table2 className="w-5 h-5 text-muted-foreground" />
-        </div>
-        <p className="text-sm text-muted-foreground">No tables yet</p>
-        <p className="text-xs text-muted-foreground/70 mt-1">
-          Create a table to see it here
-        </p>
-      </div>
-    );
+    return null;
   }
 
   return (

@@ -8,8 +8,6 @@ import {
   Check,
   CheckCircle,
   Lock,
-  Sparkles,
-  Coins,
   ChevronRight,
   BookOpen,
   MessageSquare,
@@ -42,7 +40,7 @@ interface SidebarProps {
   onSelectLesson: (lessonId: string) => void;
   currentPhase?: PhaseType;
   phases?: PhaseType[];
-  onPhaseClick?: (phase: PhaseType) => void;
+  onPhaseClick?: (phase: PhaseType, lessonId?: string) => void;
   challenges?: Challenge[];
   currentChallengeId?: string | null;
   onChallengeClick?: (challengeId: string) => void;
@@ -61,7 +59,7 @@ export function Sidebar({
   onChallengeClick,
   className,
 }: SidebarProps) {
-  const { progress, isLessonComplete } = useProgressContext();
+  const { isLessonComplete } = useProgressContext();
   const [expandedLessons, setExpandedLessons] = useState<Set<string>>(new Set());
   const [challengeExpanded, setChallengeExpanded] = useState(true);
 
@@ -209,7 +207,7 @@ export function Sidebar({
                                     if (!isCurrent) {
                                       onSelectLesson(lesson.id);
                                     }
-                                    onPhaseClick?.(phase);
+                                    onPhaseClick?.(phase, lesson.id);
                                   }}
                                   className="flex items-center gap-2 flex-1 min-w-0"
                                 >
@@ -322,31 +320,6 @@ export function Sidebar({
         </div>
       </div>
 
-      {/* XP and Coins */}
-      <div className="p-4 border-t border-border bg-muted/40">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-purple-500/15 flex items-center justify-center">
-              <Sparkles className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
-            </div>
-            <div>
-              <p className="text-xs text-muted-foreground">XP</p>
-              <p className="text-sm font-mono font-semibold">{progress.xp}</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-amber-500/15 flex items-center justify-center">
-              <Coins className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-            </div>
-            <div>
-              <p className="text-xs text-muted-foreground">Coins</p>
-              <p className="text-sm font-mono font-semibold">
-                {progress.coins}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
     </aside>
   );
 }

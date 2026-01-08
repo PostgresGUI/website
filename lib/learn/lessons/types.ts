@@ -55,8 +55,6 @@ export interface Challenge {
   title: string;
   description: string;
   difficulty: 'easy' | 'medium' | 'hard';
-  xpReward: number;
-  coinReward: number;
   setupSQL?: string;
   hints: [string, string, string];
   validate: (result: QueryResult, query: string) => ValidationResult;
@@ -109,9 +107,6 @@ export interface LessonProgress {
 export interface UserProgress {
   completedLessons: string[];
   lessonProgress: Record<string, LessonProgress>;
-  xp: number;
-  coins: number;
-  savedCards: string[];
   lastActiveLesson: string | null;
 }
 

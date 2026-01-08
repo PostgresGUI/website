@@ -20,7 +20,7 @@ interface SidebarMobileProps {
   onSelectLesson: (lessonId: string) => void;
   currentPhase?: PhaseType;
   phases?: PhaseType[];
-  onPhaseClick?: (phase: PhaseType) => void;
+  onPhaseClick?: (phase: PhaseType, lessonId?: string) => void;
   challenges?: Challenge[];
   currentChallengeId?: string | null;
   onChallengeClick?: (challengeId: string) => void;
@@ -67,8 +67,8 @@ export function SidebarMobile({
     onClose();
   };
 
-  const handlePhaseClick = (phase: PhaseType) => {
-    onPhaseClick?.(phase);
+  const handlePhaseClick = (phase: PhaseType, lessonId?: string) => {
+    onPhaseClick?.(phase, lessonId);
     onClose();
   };
 

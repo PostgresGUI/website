@@ -2,19 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Check, Sparkles } from 'lucide-react';
 
 interface SuccessCelebrationProps {
   show: boolean;
-  xpEarned?: number;
-  coinsEarned?: number;
   onComplete?: () => void;
 }
 
 export function SuccessCelebration({
   show,
-  xpEarned = 0,
-  coinsEarned = 0,
   onComplete
 }: SuccessCelebrationProps) {
   const [isVisible, setIsVisible] = useState(false);
@@ -87,30 +82,6 @@ export function SuccessCelebration({
         </div>
       </div>
 
-      {/* XP notification */}
-      {xpEarned > 0 && (
-        <div
-          className="absolute animate-xp-float"
-          style={{ top: 'calc(50% - 60px)', right: 'calc(50% - 80px)' }}
-        >
-          <div className="px-3 py-1.5 rounded-full bg-purple-500 text-white text-sm font-semibold flex items-center gap-1.5 shadow-lg">
-            <Sparkles className="w-4 h-4" />
-            +{xpEarned} XP
-          </div>
-        </div>
-      )}
-
-      {/* Coins notification */}
-      {coinsEarned > 0 && (
-        <div
-          className="absolute animate-xp-float"
-          style={{ top: 'calc(50% - 60px)', left: 'calc(50% - 80px)', animationDelay: '0.1s' }}
-        >
-          <div className="px-3 py-1.5 rounded-full bg-amber-500 text-white text-sm font-semibold flex items-center gap-1.5 shadow-lg">
-            +{coinsEarned} coins
-          </div>
-        </div>
-      )}
     </div>
   );
 }

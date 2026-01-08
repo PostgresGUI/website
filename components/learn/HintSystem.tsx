@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useProgressContext } from './LearnProviders';
-import { Lightbulb, Coins, ChevronDown, Lock } from 'lucide-react';
+import { Lightbulb, ChevronDown, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface HintSystemProps {
@@ -13,7 +13,6 @@ interface HintSystemProps {
   className?: string;
 }
 
-const HINT_COSTS = [10, 25, 50];
 const HINT_LABELS = ['Concept Hint', 'Syntax Hint', 'Solution'];
 
 export function HintSystem({
@@ -22,7 +21,7 @@ export function HintSystem({
   lessonId,
   className
 }: HintSystemProps) {
-  const { progress, spendCoins, recordHintUsed } = useProgressContext();
+  const { progress, recordHintUsed } = useProgressContext();
   const [unlockedTier, setUnlockedTier] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -32,12 +31,10 @@ export function HintSystem({
 
   const unlockHint = (tier: number) => {
     if (tier <= effectiveTier) return; // Already unlocked
+    if (tier > effectiveTier + 1) return; // Must unlock in order
 
-    const cost = HINT_COSTS[tier - 1];
-    if (spendCoins(cost)) {
-      setUnlockedTier(tier);
-      recordHintUsed(lessonId, challengeId, tier);
-    }
+    setUnlockedTier(tier);
+    recordHintUsed(lessonId, challengeId, tier);
   };
 
   return (
@@ -73,7 +70,7 @@ export function HintSystem({
           {hints.map((hint, index) => {
             const tier = index + 1;
             const isUnlocked = tier <= effectiveTier;
-            const cost = HINT_COSTS[index];
+            const canUnlock = tier === effectiveTier + 1;
 
             return (
               <div
@@ -94,19 +91,16 @@ export function HintSystem({
                       size="sm"
                       variant="ghost"
                       onClick={() => unlockHint(tier)}
-                      disabled={progress.coins < cost || tier > effectiveTier + 1}
+                      disabled={!canUnlock}
                       className="h-6 px-2 text-xs gap-1"
                     >
-                      {tier > effectiveTier + 1 ? (
+                      {!canUnlock ? (
                         <>
                           <Lock className="w-3 h-3" />
                           Unlock previous first
                         </>
                       ) : (
-                        <>
-                          <Coins className="w-3 h-3 text-amber-500" />
-                          {cost} coins
-                        </>
+                        'Reveal'
                       )}
                     </Button>
                   )}

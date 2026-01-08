@@ -1,10 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Lesson } from "@/lib/learn/lessons/types";
-import { useLessonContext, useSQLEngineContext } from "./LearnProviders";
+import { useLessonContext, useSQLEngineContext, useProgressContext } from "./LearnProviders";
 import { ContextPhase } from "./phases/ContextPhase";
 import { ConceptPhase } from "./phases/ConceptPhase";
 import { GuidedPhase } from "./phases/GuidedPhase";
@@ -26,9 +26,11 @@ export function LessonView({
 }: LessonViewProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { currentPhase, nextPhase, prevPhase, resetLesson } =
     useLessonContext();
   const { initSchema, resetDatabase } = useSQLEngineContext();
+  const { isChallengeComplete } = useProgressContext();
   const isInitialMount = useRef(true);
 
   // Initialize lesson schema
@@ -77,14 +79,67 @@ export function LessonView({
     }
   }, [currentPhase, pathname, router, lesson.phases.challenges]);
 
+  // Challenge navigation functions
+  const goToNextChallenge = useCallback(() => {
+    if (!pathname) return;
+    const challengeParam = searchParams?.get("challenge");
+    if (!challengeParam) return;
+    
+    const currentIndex = lesson.phases.challenges.findIndex(c => c.id === challengeParam);
+    if (currentIndex === -1) return;
+    
+    if (currentIndex < lesson.phases.challenges.length - 1) {
+      const nextChallengeId = lesson.phases.challenges[currentIndex + 1]?.id;
+      if (nextChallengeId) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("phase", "challenge");
+        url.searchParams.set("challenge", nextChallengeId);
+        router.replace(url.pathname + url.search, { scroll: false });
+      }
+    } else {
+      // Last challenge, go to next phase
+      nextPhase();
+    }
+  }, [pathname, searchParams, lesson, router, nextPhase]);
+
+  const goToPrevChallenge = useCallback(() => {
+    if (!pathname) return;
+    const challengeParam = searchParams?.get("challenge");
+    if (!challengeParam) return;
+    
+    const currentIndex = lesson.phases.challenges.findIndex(c => c.id === challengeParam);
+    if (currentIndex === -1) return;
+    
+    if (currentIndex > 0) {
+      const prevChallengeId = lesson.phases.challenges[currentIndex - 1]?.id;
+      if (prevChallengeId) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("phase", "challenge");
+        url.searchParams.set("challenge", prevChallengeId);
+        router.replace(url.pathname + url.search, { scroll: false });
+      }
+    } else {
+      // First challenge, go to previous phase
+      prevPhase();
+    }
+  }, [pathname, searchParams, lesson, router, prevPhase]);
+
   // Wrapper functions that update URL when phase changes
   const handleNextPhase = useCallback(() => {
-    nextPhase();
-  }, [nextPhase]);
+    if (currentPhase === "challenge") {
+      goToNextChallenge();
+    } else {
+      nextPhase();
+    }
+  }, [currentPhase, nextPhase, goToNextChallenge]);
 
   const handlePrevPhase = useCallback(() => {
-    prevPhase();
-  }, [prevPhase]);
+    if (currentPhase === "challenge") {
+      goToPrevChallenge();
+    } else {
+      prevPhase();
+    }
+  }, [currentPhase, prevPhase, goToPrevChallenge]);
 
   const renderPhase = useCallback(() => {
     switch (currentPhase) {
@@ -160,12 +215,31 @@ export function LessonView({
               <ArrowRight className="w-4 h-4 shrink-0" />
             </Button>
           )}
-          {currentPhase === "challenge" && (
-            <Button size="xl" onClick={handleNextPhase} className="min-w-0">
-              <span className="truncate">View Summary</span>
-              <ArrowRight className="w-4 h-4 shrink-0" />
-            </Button>
-          )}
+          {currentPhase === "challenge" && (() => {
+            const challengeParam = searchParams?.get("challenge");
+            const currentIndex = challengeParam 
+              ? lesson.phases.challenges.findIndex(c => c.id === challengeParam)
+              : -1;
+            const isLastChallenge = currentIndex === lesson.phases.challenges.length - 1;
+            const currentChallengeId = challengeParam || lesson.phases.challenges[0]?.id;
+            const isCurrentComplete = currentChallengeId 
+              ? isChallengeComplete(lesson.id, currentChallengeId)
+              : false;
+            
+            return (
+              <Button 
+                size="xl" 
+                onClick={handleNextPhase} 
+                className="min-w-0"
+                disabled={!isLastChallenge && !isCurrentComplete}
+              >
+                <span className="truncate">
+                  {isLastChallenge ? "View Summary" : "Next Challenge"}
+                </span>
+                <ArrowRight className="w-4 h-4 shrink-0" />
+              </Button>
+            );
+          })()}
           {currentPhase === "summary" && (
             <Button
               size="xl"

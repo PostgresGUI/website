@@ -30,25 +30,34 @@ export function SidebarNav() {
   );
 
   const handlePhaseClick = useCallback(
-    (phase: PhaseType) => {
-      if (lessonId) {
-        const url = new URL(window.location.href);
-        url.searchParams.set("phase", phase);
-        // If switching to challenge phase and no challenge param, set first challenge
-        if (phase === "challenge" && lesson) {
-          const firstChallengeId = lesson.phases.challenges[0]?.id;
-          if (firstChallengeId && !url.searchParams.get("challenge")) {
-            url.searchParams.set("challenge", firstChallengeId);
+    (phase: PhaseType, targetLessonId?: string) => {
+      const effectiveLessonId = targetLessonId || lessonId;
+      if (effectiveLessonId) {
+        // If navigating to a different lesson, use push; otherwise use replace
+        const isDifferentLesson = targetLessonId && targetLessonId !== lessonId;
+        const basePath = `/learn-sql/${effectiveLessonId}`;
+        const params = new URLSearchParams();
+        params.set("phase", phase);
+
+        if (phase === "challenge") {
+          // Find the lesson to get its challenges
+          const targetLesson = module1.lessons.find(l => l.id === effectiveLessonId);
+          const firstChallengeId = targetLesson?.phases.challenges[0]?.id;
+          if (firstChallengeId) {
+            params.set("challenge", firstChallengeId);
           }
-        } else {
-          // If leaving challenge phase, remove challenge param
-          url.searchParams.delete("challenge");
         }
-        router.replace(url.pathname + url.search, { scroll: false });
-        goToPhase(phase);
+
+        const newUrl = `${basePath}?${params.toString()}`;
+        if (isDifferentLesson) {
+          router.push(newUrl);
+        } else {
+          router.replace(newUrl, { scroll: false });
+          goToPhase(phase);
+        }
       }
     },
-    [lessonId, lesson, router, goToPhase]
+    [lessonId, router, goToPhase]
   );
 
   const handleChallengeClick = useCallback(

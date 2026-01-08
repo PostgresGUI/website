@@ -58,9 +58,7 @@ VALUES (1, 'Alice');`,
         title: 'Add a Product',
         description: 'Insert a product with id 1, name "Laptop", and price 999.99 into the products table',
         difficulty: 'easy',
-        xpReward: 50,
-        coinReward: 10,
-        hints: [
+                hints: [
           'Use INSERT INTO products (id, name, price) VALUES ...',
           'Remember: text needs quotes, numbers don\'t',
           "INSERT INTO products (id, name, price) VALUES (1, 'Laptop', 999.99);"
@@ -79,9 +77,7 @@ VALUES (1, 'Alice');`,
         title: 'Add Multiple Employees',
         description: 'Insert two employees at once: (2, "Bob", "Engineering") and (3, "Carol", "Marketing")',
         difficulty: 'medium',
-        xpReward: 75,
-        coinReward: 15,
-        hints: [
+                hints: [
           'You can insert multiple rows with VALUES (row1), (row2)',
           'Each row needs all three values: id, name, department',
           "INSERT INTO employees (id, name, department) VALUES (2, 'Bob', 'Engineering'), (3, 'Carol', 'Marketing');"
@@ -100,9 +96,7 @@ VALUES (1, 'Alice');`,
         title: 'Build a Product Catalog',
         description: 'Add 3 products to the products table with different names and prices of your choice',
         difficulty: 'medium',
-        xpReward: 75,
-        coinReward: 15,
-        hints: [
+                hints: [
           'Insert three rows with different product data',
           'Each product needs id, name, and price',
           'Use sequential ids like 2, 3, 4 (1 is taken)'

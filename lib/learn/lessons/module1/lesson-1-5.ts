@@ -79,9 +79,7 @@ GROUP BY status;`,
         title: 'Total Revenue',
         description: 'Calculate the total revenue from all orders (sum of the total column)',
         difficulty: 'easy',
-        xpReward: 50,
-        coinReward: 10,
-        hints: [
+                hints: [
           'Use SUM(total) to add up all order totals',
           'Query the orders table',
           'SELECT SUM(total) FROM orders;'
@@ -99,9 +97,7 @@ GROUP BY status;`,
         title: 'Average Order Value',
         description: 'Find the average order total',
         difficulty: 'easy',
-        xpReward: 50,
-        coinReward: 10,
-        hints: [
+                hints: [
           'Use AVG(total) for the average',
           'SELECT AVG(column) FROM table',
           'SELECT AVG(total) FROM orders;'
@@ -119,9 +115,7 @@ GROUP BY status;`,
         title: 'Orders by Status',
         description: 'Count how many orders are in each status (completed, pending, cancelled)',
         difficulty: 'medium',
-        xpReward: 75,
-        coinReward: 15,
-        hints: [
+                hints: [
           'SELECT status, COUNT(*) ... GROUP BY status',
           'GROUP BY splits results by unique status values',
           'SELECT status, COUNT(*) FROM orders GROUP BY status;'
@@ -139,9 +133,7 @@ GROUP BY status;`,
         title: 'Revenue by Product',
         description: 'Calculate total revenue for each product (product name and sum of totals)',
         difficulty: 'hard',
-        xpReward: 100,
-        coinReward: 20,
-        hints: [
+                hints: [
           'SELECT product, SUM(total) ... GROUP BY product',
           'Group by the product column',
           'SELECT product, SUM(total) FROM orders GROUP BY product;'

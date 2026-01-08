@@ -1,15 +1,14 @@
-'use client';
+"use client";
 
-import { useState, useCallback, useEffect } from 'react';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
-import { Challenge, QueryResult } from '@/lib/learn/lessons/types';
-import { QueryConsole } from '../QueryConsole';
-import { SchemaExplorer } from '../SchemaExplorer';
-import { HintSystem } from '../HintSystem';
-import { SuccessCelebration } from '../SuccessCelebration';
-import { useProgressContext } from '../LearnProviders';
-import { Trophy, Star, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useCallback, useEffect } from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { Challenge, QueryResult } from "@/lib/learn/lessons/types";
+import { QueryConsole } from "../QueryConsole";
+import { SchemaExplorer } from "../SchemaExplorer";
+import { SuccessCelebration } from "../SuccessCelebration";
+import { MentorMessage } from "../MentorMessage";
+import { useProgressContext } from "../LearnProviders";
 
 interface ChallengePhaseProps {
   challenges: Challenge[];
@@ -20,18 +19,22 @@ interface ChallengePhaseProps {
 export function ChallengePhase({
   challenges,
   lessonId,
-  className
+  className,
 }: ChallengePhaseProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { addXP, addCoins, markChallengeComplete, isChallengeComplete } = useProgressContext();
-  
+  const {
+    markChallengeComplete,
+    markChallengeIncomplete,
+    isChallengeComplete,
+  } = useProgressContext();
+
   // Find initial challenge index from URL or default to 0
-  const challengeParam = searchParams.get('challenge');
+  const challengeParam = searchParams.get("challenge");
   const getInitialIndex = useCallback(() => {
     if (challengeParam) {
-      const index = challenges.findIndex(c => c.id === challengeParam);
+      const index = challenges.findIndex((c) => c.id === challengeParam);
       return index >= 0 ? index : 0;
     }
     return 0;
@@ -39,23 +42,32 @@ export function ChallengePhase({
 
   const [currentIndex, setCurrentIndex] = useState(getInitialIndex);
   const [showCelebration, setShowCelebration] = useState(false);
-  const [lastReward, setLastReward] = useState({ xp: 0, coins: 0 });
+  const [validationMessage, setValidationMessage] = useState<string | null>(
+    null
+  );
+  const [hasShownError, setHasShownError] = useState(false);
+  const [shakeKey, setShakeKey] = useState(0);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   // Sync challenge index with URL query param on mount
   useEffect(() => {
-    const challengeFromUrl = searchParams.get('challenge');
+    const challengeFromUrl = searchParams.get("challenge");
     if (challengeFromUrl) {
-      const index = challenges.findIndex(c => c.id === challengeFromUrl);
+      const index = challenges.findIndex((c) => c.id === challengeFromUrl);
       if (index >= 0 && index !== currentIndex) {
         setCurrentIndex(index);
       }
-    } else if (pathname && pathname.includes('/learn-sql/') && challenges.length > 0) {
+    } else if (
+      pathname &&
+      pathname.includes("/learn-sql/") &&
+      challenges.length > 0
+    ) {
       // No challenge param but we're in challenge phase, set first challenge
       const firstChallengeId = challenges[0]?.id;
       if (firstChallengeId) {
         const url = new URL(window.location.href);
-        url.searchParams.set('phase', 'challenge');
-        url.searchParams.set('challenge', firstChallengeId);
+        url.searchParams.set("phase", "challenge");
+        url.searchParams.set("challenge", firstChallengeId);
         router.replace(url.pathname + url.search, { scroll: false });
       }
     }
@@ -63,93 +75,79 @@ export function ChallengePhase({
 
   // Update URL when challenge index changes
   useEffect(() => {
-    if (pathname && pathname.includes('/learn-sql/')) {
+    if (pathname && pathname.includes("/learn-sql/")) {
       const currentChallengeId = challenges[currentIndex]?.id;
       const url = new URL(window.location.href);
-      const currentChallengeParam = url.searchParams.get('challenge');
+      const currentChallengeParam = url.searchParams.get("challenge");
 
       if (currentChallengeId && currentChallengeParam !== currentChallengeId) {
-        url.searchParams.set('phase', 'challenge');
-        url.searchParams.set('challenge', currentChallengeId);
+        url.searchParams.set("phase", "challenge");
+        url.searchParams.set("challenge", currentChallengeId);
         router.replace(url.pathname + url.search, { scroll: false });
       }
     }
   }, [currentIndex, challenges, pathname, router]);
 
   const currentChallenge = challenges[currentIndex];
-  const isCurrentComplete = currentChallenge ? isChallengeComplete(lessonId, currentChallenge.id) : false;
-  const allComplete = challenges.every(c => isChallengeComplete(lessonId, c.id));
+  const isCurrentComplete = currentChallenge
+    ? isChallengeComplete(lessonId, currentChallenge.id)
+    : false;
 
-  const handleQueryResult = useCallback((result: QueryResult, query: string) => {
-    if (isCurrentComplete) return;
+  // Reset success message when challenge changes
+  useEffect(() => {
+    setShowSuccessMessage(false);
+  }, [currentIndex]);
 
-    const validation = currentChallenge.validate(result, query);
+  const handleQueryResult = useCallback(
+    (result: QueryResult, query: string) => {
+      // Always validate, even if challenge is already marked complete
+      // This allows re-evaluation if user runs a different query
+      const validation = currentChallenge.validate(result, query);
 
-    if (validation.correct) {
-      // Mark complete and award XP/coins
-      markChallengeComplete(lessonId, currentChallenge.id);
-      addXP(currentChallenge.xpReward);
-      addCoins(currentChallenge.coinReward);
-
-      setLastReward({
-        xp: currentChallenge.xpReward,
-        coins: currentChallenge.coinReward
-      });
-      setShowCelebration(true);
-    }
-  }, [currentChallenge, lessonId, isCurrentComplete, markChallengeComplete, addXP, addCoins]);
-
-  const goToNextChallenge = useCallback(() => {
-    if (currentIndex < challenges.length - 1) {
-      const nextIndex = currentIndex + 1;
-      const nextChallengeId = challenges[nextIndex]?.id;
-      if (nextChallengeId && pathname) {
-        const url = new URL(window.location.href);
-        url.searchParams.set('phase', 'challenge');
-        url.searchParams.set('challenge', nextChallengeId);
-        router.replace(url.pathname + url.search, { scroll: false });
+      if (validation.correct) {
+        setValidationMessage(null); // Clear error message on success
+        setHasShownError(false); // Reset error tracking on success
+        setShakeKey(0); // Reset shake key on success
+        if (!isCurrentComplete) {
+          markChallengeComplete(lessonId, currentChallenge.id);
+          setShowCelebration(true);
+          setShowSuccessMessage(true); // Show success message from mentor
+        }
+      } else {
+        // Hide success message on validation failure
+        setShowSuccessMessage(false);
+        // Check if this is a repeated error BEFORE updating state
+        // If hasShownError is already true, this is a repeated error - trigger shake
+        if (hasShownError) {
+          // Increment shakeKey to force animation re-trigger
+          setShakeKey((prev) => prev + 1);
+        }
+        // Show error message to user
+        setValidationMessage(validation.message);
+        // Mark that we've shown an error (for future repeated errors)
+        if (!hasShownError) {
+          setHasShownError(true);
+        }
+        // If validation fails and challenge was previously marked complete, unmark it
+        if (isCurrentComplete) {
+          markChallengeIncomplete(lessonId, currentChallenge.id);
+        }
       }
-    }
-  }, [currentIndex, challenges, pathname, router]);
-
-  const goToPrevChallenge = useCallback(() => {
-    if (currentIndex > 0) {
-      const prevIndex = currentIndex - 1;
-      const prevChallengeId = challenges[prevIndex]?.id;
-      if (prevChallengeId && pathname) {
-        const url = new URL(window.location.href);
-        url.searchParams.set('phase', 'challenge');
-        url.searchParams.set('challenge', prevChallengeId);
-        router.replace(url.pathname + url.search, { scroll: false });
-      }
-    }
-  }, [currentIndex, challenges, pathname, router]);
-
-  const goToChallenge = useCallback((index: number) => {
-    const challengeId = challenges[index]?.id;
-    if (challengeId && pathname) {
-      const url = new URL(window.location.href);
-      url.searchParams.set('phase', 'challenge');
-      url.searchParams.set('challenge', challengeId);
-      router.replace(url.pathname + url.search, { scroll: false });
-    }
-  }, [challenges, pathname, router]);
-
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'easy': return 'text-emerald-500 bg-emerald-500/10';
-      case 'medium': return 'text-amber-500 bg-amber-500/10';
-      case 'hard': return 'text-red-500 bg-red-500/10';
-      default: return 'text-muted-foreground bg-muted';
-    }
-  };
+    },
+    [
+      currentChallenge,
+      lessonId,
+      isCurrentComplete,
+      hasShownError,
+      markChallengeComplete,
+      markChallengeIncomplete,
+    ]
+  );
 
   return (
-    <div className={cn('animate-phase-enter space-y-6', className)}>
+    <div className={cn("animate-phase-enter space-y-6", className)}>
       <SuccessCelebration
         show={showCelebration}
-        xpEarned={lastReward.xp}
-        coinsEarned={lastReward.coins}
         onComplete={() => setShowCelebration(false)}
       />
 
@@ -161,39 +159,15 @@ export function ChallengePhase({
       </div>
 
       {/* Current challenge */}
-      <div className="rounded-xl border border-border bg-card shadow-swiftui overflow-hidden">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/30">
-          <div className="flex items-center gap-2">
-            <Trophy className="w-4 h-4 text-amber-500" />
-            <span className="font-semibold text-sm">{currentChallenge.title}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className={cn(
-              'text-xs px-2 py-0.5 rounded-full font-medium capitalize',
-              getDifficultyColor(currentChallenge.difficulty)
-            )}>
-              {currentChallenge.difficulty}
-            </span>
-            <div className="flex items-center gap-1 text-xs text-muted-foreground">
-              <Star className="w-3 h-3 text-amber-500" />
-              {currentChallenge.xpReward} XP
-            </div>
-          </div>
-        </div>
-
-        <div className="p-4">
-          <p className="text-sm text-foreground/90 mb-4">
-            {currentChallenge.description}
-          </p>
-
-          {isCurrentComplete && (
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 mb-4">
-              <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-              <span className="text-sm font-medium text-emerald-600 dark:text-emerald-400">Challenge completed!</span>
-            </div>
-          )}
-        </div>
-      </div>
+      <MentorMessage
+        variant="challenge"
+        challenge={{
+          title: currentChallenge.title,
+          description: currentChallenge.description,
+          difficulty: currentChallenge.difficulty,
+          isComplete: isCurrentComplete,
+        }}
+      />
 
       {/* Schema explorer */}
       <SchemaExplorer />
@@ -204,38 +178,33 @@ export function ChallengePhase({
         onQueryResult={handleQueryResult}
       />
 
-      {/* Hints */}
-      {!isCurrentComplete && (
-        <HintSystem
-          hints={currentChallenge.hints}
-          challengeId={currentChallenge.id}
-          lessonId={lessonId}
+      {/* Success message when challenge is completed */}
+      {showSuccessMessage && isCurrentComplete && (
+        <MentorMessage
+          message={{
+            name: "Ellie",
+            role: "Your SQL Mentor",
+            message:
+              "Excellent work! You've solved this challenge correctly. Keep it up!",
+          }}
+          variant="success"
+          animate={true}
         />
       )}
 
-      {/* Challenge navigation */}
-      {challenges.length > 1 && (
-        <div className="flex items-center justify-between pt-4">
-          <button
-            onClick={goToPrevChallenge}
-            disabled={currentIndex === 0}
-            className="flex items-center gap-1 px-3 py-2 text-sm text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            Previous
-          </button>
-          <span className="text-sm text-muted-foreground">
-            {challenges.filter(c => isChallengeComplete(lessonId, c.id)).length} of {challenges.length} complete
-          </span>
-          <button
-            onClick={goToNextChallenge}
-            disabled={currentIndex === challenges.length - 1 || !isCurrentComplete}
-            className="flex items-center gap-1 px-3 py-2 text-sm text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-          >
-            Next
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
+      {/* Validation error message */}
+      {validationMessage && !isCurrentComplete && (
+        <MentorMessage
+          key={shakeKey > 0 ? `shake-${shakeKey}` : "error-first"}
+          message={{
+            name: "Ellie",
+            role: "Your SQL Mentor",
+            message: validationMessage,
+          }}
+          variant="error"
+          animate={false}
+          className={shakeKey > 0 ? "animate-shake" : undefined}
+        />
       )}
     </div>
   );

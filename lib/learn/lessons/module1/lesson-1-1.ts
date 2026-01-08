@@ -57,9 +57,7 @@ REAL      -- Decimal numbers (3.14, 99.99)`,
         title: 'Create a Products Table',
         description: 'Create a table called "products" with three columns: id (INTEGER), name (TEXT), and price (REAL)',
         difficulty: 'easy',
-        xpReward: 50,
-        coinReward: 10,
-        hints: [
+                hints: [
           'Start with CREATE TABLE followed by the table name',
           'Each column needs a name and type, separated by commas',
           'CREATE TABLE products (id INTEGER, name TEXT, price REAL);'
@@ -80,9 +78,7 @@ REAL      -- Decimal numbers (3.14, 99.99)`,
         title: 'Create a Customers Table',
         description: 'Create a "customers" table with: id (INTEGER), email (TEXT), and age (INTEGER)',
         difficulty: 'easy',
-        xpReward: 50,
-        coinReward: 10,
-        hints: [
+                hints: [
           'Same pattern as before - CREATE TABLE table_name (...)',
           'age should be INTEGER since it\'s a whole number',
           'CREATE TABLE customers (id INTEGER, email TEXT, age INTEGER);'
@@ -101,9 +97,7 @@ REAL      -- Decimal numbers (3.14, 99.99)`,
         title: 'Design Your Own Table',
         description: 'Create a table called "orders" with at least 4 columns of your choice. Include at least 2 different data types.',
         difficulty: 'medium',
-        xpReward: 75,
-        coinReward: 15,
-        hints: [
+                hints: [
           'Think about what information an order might have: id, customer_id, total, date...',
           'Use INTEGER for IDs and counts, REAL for money, TEXT for descriptions',
           'Example: CREATE TABLE orders (id INTEGER, customer_id INTEGER, total REAL, status TEXT);'

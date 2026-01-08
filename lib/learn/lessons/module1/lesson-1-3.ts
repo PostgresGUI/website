@@ -73,9 +73,7 @@ WHERE state = 'CA';`,
         title: 'Get Customer Emails',
         description: 'Select only the name and email columns from the customers table',
         difficulty: 'easy',
-        xpReward: 50,
-        coinReward: 10,
-        hints: [
+                hints: [
           'List the column names separated by commas',
           'SELECT column1, column2 FROM table',
           'SELECT name, email FROM customers;'
@@ -94,9 +92,7 @@ WHERE state = 'CA';`,
         title: 'Find California Customers',
         description: 'Get all customers from California (state = \'CA\')',
         difficulty: 'easy',
-        xpReward: 50,
-        coinReward: 10,
-        hints: [
+                hints: [
           'Add WHERE state = \'CA\' after FROM customers',
           'Text values in conditions need single quotes',
           "SELECT * FROM customers WHERE state = 'CA';"
@@ -117,9 +113,7 @@ WHERE state = 'CA';`,
         title: 'Electronics Under $500',
         description: 'Find all Electronics products that cost less than $500',
         difficulty: 'medium',
-        xpReward: 75,
-        coinReward: 15,
-        hints: [
+                hints: [
           'You need two conditions: category AND price',
           'Use AND to combine conditions: WHERE cond1 AND cond2',
           "SELECT * FROM products WHERE category = 'Electronics' AND price < 500;"

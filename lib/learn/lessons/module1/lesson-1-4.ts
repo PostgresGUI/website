@@ -77,9 +77,7 @@ ORDER BY price DESC;`,
         title: 'Top 3 Expensive Products',
         description: 'Get the 3 most expensive products (name and price only)',
         difficulty: 'easy',
-        xpReward: 50,
-        coinReward: 10,
-        hints: [
+                hints: [
           'ORDER BY price DESC, then LIMIT 3',
           'Select only name and price columns',
           'SELECT name, price FROM products ORDER BY price DESC LIMIT 3;'
@@ -98,9 +96,7 @@ ORDER BY price DESC;`,
         title: 'Cheapest Office Supplies',
         description: 'Find the 2 cheapest Office products',
         difficulty: 'medium',
-        xpReward: 75,
-        coinReward: 15,
-        hints: [
+                hints: [
           'Filter with WHERE category = \'Office\' first',
           'Then ORDER BY price ASC (cheapest first) and LIMIT 2',
           "SELECT * FROM products WHERE category = 'Office' ORDER BY price ASC LIMIT 2;"
@@ -119,9 +115,7 @@ ORDER BY price DESC;`,
         title: 'Top Earners',
         description: 'Get the top 3 highest-paid employees (show name, department, salary)',
         difficulty: 'medium',
-        xpReward: 75,
-        coinReward: 15,
-        hints: [
+                hints: [
           'Query the employees table',
           'ORDER BY salary DESC, LIMIT 3',
           'SELECT name, department, salary FROM employees ORDER BY salary DESC LIMIT 3;'

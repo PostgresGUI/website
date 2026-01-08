@@ -37,13 +37,10 @@ export function useSQLEngineContext() {
 interface ProgressContextType {
   progress: UserProgress;
   isLoaded: boolean;
-  addXP: (amount: number) => void;
-  addCoins: (amount: number) => void;
-  spendCoins: (amount: number) => boolean;
   markLessonComplete: (lessonId: string) => void;
   markChallengeComplete: (lessonId: string, challengeId: string) => void;
+  markChallengeIncomplete: (lessonId: string, challengeId: string) => void;
   recordHintUsed: (lessonId: string, challengeId: string, tier: number) => void;
-  saveCard: (cardId: string) => void;
   isLessonComplete: (lessonId: string) => boolean;
   isChallengeComplete: (lessonId: string, challengeId: string) => boolean;
 }
