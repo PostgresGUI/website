@@ -62,7 +62,7 @@ GROUP BY status;`,
     ],
     guided: {
       prompt: 'Count the total number of orders in the orders table',
-      template: `SELECT _____(_____) FROM orders;`,
+      template: `SELECT COUNT(*) FROM orders;`,
       blanks: [
         { id: 'func', placeholder: 'function', answer: 'COUNT' },
         { id: 'arg', placeholder: 'arg', answer: '*' }

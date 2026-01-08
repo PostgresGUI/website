@@ -34,9 +34,9 @@ REAL      -- Decimal numbers (3.14, 99.99)`,
     ],
     guided: {
       prompt: 'Create a table called "employees" with columns for id (INTEGER) and name (TEXT)',
-      template: `CREATE TABLE _____ (
-  _____ _____,
-  _____ _____
+      template: `CREATE TABLE employees (
+  id INTEGER,
+  name TEXT
 );`,
       blanks: [
         { id: 'table', placeholder: 'table_name', answer: 'employees' },

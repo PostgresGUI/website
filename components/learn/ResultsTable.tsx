@@ -35,7 +35,7 @@ export function ResultsTable({
 
   return (
     <div className={cn(
-      'rounded-xl border border-border bg-card overflow-hidden shadow-swiftui',
+      'overflow-hidden',
       className
     )}>
       <div className="overflow-x-auto">

@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Challenge, QueryResult } from '@/lib/learn/lessons/types';
 import { QueryConsole } from '../QueryConsole';
@@ -8,31 +9,75 @@ import { SchemaExplorer } from '../SchemaExplorer';
 import { HintSystem } from '../HintSystem';
 import { SuccessCelebration } from '../SuccessCelebration';
 import { useProgressContext } from '../LearnProviders';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, ArrowLeft, Trophy, Star, CheckCircle2 } from 'lucide-react';
+import { Trophy, Star, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ChallengePhaseProps {
   challenges: Challenge[];
   lessonId: string;
-  onNext: () => void;
-  onPrev: () => void;
   className?: string;
 }
 
 export function ChallengePhase({
   challenges,
   lessonId,
-  onNext,
-  onPrev,
   className
 }: ChallengePhaseProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { addXP, addCoins, markChallengeComplete, isChallengeComplete } = useProgressContext();
-  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // Find initial challenge index from URL or default to 0
+  const challengeParam = searchParams.get('challenge');
+  const getInitialIndex = useCallback(() => {
+    if (challengeParam) {
+      const index = challenges.findIndex(c => c.id === challengeParam);
+      return index >= 0 ? index : 0;
+    }
+    return 0;
+  }, [challengeParam, challenges]);
+
+  const [currentIndex, setCurrentIndex] = useState(getInitialIndex);
   const [showCelebration, setShowCelebration] = useState(false);
   const [lastReward, setLastReward] = useState({ xp: 0, coins: 0 });
 
+  // Sync challenge index with URL query param on mount
+  useEffect(() => {
+    const challengeFromUrl = searchParams.get('challenge');
+    if (challengeFromUrl) {
+      const index = challenges.findIndex(c => c.id === challengeFromUrl);
+      if (index >= 0 && index !== currentIndex) {
+        setCurrentIndex(index);
+      }
+    } else if (pathname && pathname.includes('/learn-sql/') && challenges.length > 0) {
+      // No challenge param but we're in challenge phase, set first challenge
+      const firstChallengeId = challenges[0]?.id;
+      if (firstChallengeId) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('phase', 'challenge');
+        url.searchParams.set('challenge', firstChallengeId);
+        router.replace(url.pathname + url.search, { scroll: false });
+      }
+    }
+  }, [searchParams, challenges, currentIndex, pathname, router]);
+
+  // Update URL when challenge index changes
+  useEffect(() => {
+    if (pathname && pathname.includes('/learn-sql/')) {
+      const currentChallengeId = challenges[currentIndex]?.id;
+      const url = new URL(window.location.href);
+      const currentChallengeParam = url.searchParams.get('challenge');
+
+      if (currentChallengeId && currentChallengeParam !== currentChallengeId) {
+        url.searchParams.set('phase', 'challenge');
+        url.searchParams.set('challenge', currentChallengeId);
+        router.replace(url.pathname + url.search, { scroll: false });
+      }
+    }
+  }, [currentIndex, challenges, pathname, router]);
+
   const currentChallenge = challenges[currentIndex];
-  const isCurrentComplete = isChallengeComplete(lessonId, currentChallenge.id);
+  const isCurrentComplete = currentChallenge ? isChallengeComplete(lessonId, currentChallenge.id) : false;
   const allComplete = challenges.every(c => isChallengeComplete(lessonId, c.id));
 
   const handleQueryResult = useCallback((result: QueryResult, query: string) => {
@@ -54,17 +99,41 @@ export function ChallengePhase({
     }
   }, [currentChallenge, lessonId, isCurrentComplete, markChallengeComplete, addXP, addCoins]);
 
-  const goToNextChallenge = () => {
+  const goToNextChallenge = useCallback(() => {
     if (currentIndex < challenges.length - 1) {
-      setCurrentIndex(prev => prev + 1);
+      const nextIndex = currentIndex + 1;
+      const nextChallengeId = challenges[nextIndex]?.id;
+      if (nextChallengeId && pathname) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('phase', 'challenge');
+        url.searchParams.set('challenge', nextChallengeId);
+        router.replace(url.pathname + url.search, { scroll: false });
+      }
     }
-  };
+  }, [currentIndex, challenges, pathname, router]);
 
-  const goToPrevChallenge = () => {
+  const goToPrevChallenge = useCallback(() => {
     if (currentIndex > 0) {
-      setCurrentIndex(prev => prev - 1);
+      const prevIndex = currentIndex - 1;
+      const prevChallengeId = challenges[prevIndex]?.id;
+      if (prevChallengeId && pathname) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('phase', 'challenge');
+        url.searchParams.set('challenge', prevChallengeId);
+        router.replace(url.pathname + url.search, { scroll: false });
+      }
     }
-  };
+  }, [currentIndex, challenges, pathname, router]);
+
+  const goToChallenge = useCallback((index: number) => {
+    const challengeId = challenges[index]?.id;
+    if (challengeId && pathname) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('phase', 'challenge');
+      url.searchParams.set('challenge', challengeId);
+      router.replace(url.pathname + url.search, { scroll: false });
+    }
+  }, [challenges, pathname, router]);
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -89,33 +158,6 @@ export function ChallengePhase({
         <p className="text-sm text-muted-foreground">
           Put your knowledge to the test
         </p>
-      </div>
-
-      {/* Challenge progress */}
-      <div className="flex items-center justify-center gap-2 mb-6">
-        {challenges.map((c, i) => {
-          const complete = isChallengeComplete(lessonId, c.id);
-          const active = i === currentIndex;
-
-          return (
-            <button
-              key={c.id}
-              onClick={() => setCurrentIndex(i)}
-              className={cn(
-                'w-8 h-8 rounded-lg flex items-center justify-center transition-all',
-                complete && 'bg-emerald-500/10 text-emerald-500',
-                active && !complete && 'bg-[var(--postgres-blue)]/10 text-[var(--postgres-blue)] ring-2 ring-[var(--postgres-blue)]/30',
-                !active && !complete && 'bg-muted text-muted-foreground'
-              )}
-            >
-              {complete ? (
-                <CheckCircle2 className="w-4 h-4" />
-              ) : (
-                <span className="text-sm font-mono">{i + 1}</span>
-              )}
-            </button>
-          );
-        })}
       </div>
 
       {/* Current challenge */}
@@ -171,32 +213,30 @@ export function ChallengePhase({
         />
       )}
 
-      {/* Navigation */}
-      <div className="sticky bottom-0 flex justify-between pt-4 pb-2 bg-gradient-to-t from-card via-card to-transparent mt-8">
-        <div className="flex gap-2">
-          <Button size="xl" variant="outline" onClick={onPrev} className="gap-2">
-            <ArrowLeft className="w-4 h-4" />
-            Back
-          </Button>
-          {currentIndex > 0 && (
-            <Button size="xl" variant="outline" onClick={goToPrevChallenge}>
-              Prev Challenge
-            </Button>
-          )}
+      {/* Challenge navigation */}
+      {challenges.length > 1 && (
+        <div className="flex items-center justify-between pt-4">
+          <button
+            onClick={goToPrevChallenge}
+            disabled={currentIndex === 0}
+            className="flex items-center gap-1 px-3 py-2 text-sm text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            Previous
+          </button>
+          <span className="text-sm text-muted-foreground">
+            {challenges.filter(c => isChallengeComplete(lessonId, c.id)).length} of {challenges.length} complete
+          </span>
+          <button
+            onClick={goToNextChallenge}
+            disabled={currentIndex === challenges.length - 1 || !isCurrentComplete}
+            className="flex items-center gap-1 px-3 py-2 text-sm text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          >
+            Next
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
-
-        <div className="flex gap-2">
-          {currentIndex < challenges.length - 1 && isCurrentComplete && (
-            <Button size="xl" variant="outline" onClick={goToNextChallenge}>
-              Next Challenge
-            </Button>
-          )}
-          <Button size="xl" onClick={onNext} disabled={!allComplete} className="gap-2">
-            {allComplete ? 'Complete Lesson' : `${challenges.filter(c => isChallengeComplete(lessonId, c.id)).length}/${challenges.length} Complete`}
-            <ArrowRight className="w-4 h-4" />
-          </Button>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

@@ -60,7 +60,7 @@ LIMIT 5 OFFSET 10;    -- Skip 10, get next 5`,
     guided: {
       prompt: 'Get all products sorted by price from highest to lowest',
       template: `SELECT * FROM products
-ORDER BY _____ _____;`,
+ORDER BY price DESC;`,
       blanks: [
         { id: 'col', placeholder: 'column', answer: 'price' },
         { id: 'dir', placeholder: 'direction', answer: 'DESC' }

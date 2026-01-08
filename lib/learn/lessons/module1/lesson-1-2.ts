@@ -37,8 +37,8 @@ VALUES
     ],
     guided: {
       prompt: 'Insert an employee with id 1 and name "Alice" into the employees table',
-      template: `INSERT INTO _____ (_____, _____)
-VALUES (_____, _____);`,
+      template: `INSERT INTO employees (id, name)
+VALUES (1, 'Alice');`,
       blanks: [
         { id: 'table', placeholder: 'table', answer: 'employees' },
         { id: 'col1', placeholder: 'col1', answer: 'id' },

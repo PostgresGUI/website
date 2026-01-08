@@ -56,7 +56,7 @@ WHERE state = 'CA';`,
     ],
     guided: {
       prompt: 'Select all columns from the customers table',
-      template: `SELECT _____ FROM _____;`,
+      template: `SELECT * FROM customers;`,
       blanks: [
         { id: 'cols', placeholder: 'columns', answer: '*' },
         { id: 'table', placeholder: 'table', answer: 'customers' }

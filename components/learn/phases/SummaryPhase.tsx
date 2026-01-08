@@ -1,18 +1,16 @@
 'use client';
 
+import { useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { SyntaxCard as SyntaxCardType } from '@/lib/learn/lessons/types';
 import { SyntaxCard } from '../SyntaxCard';
 import { useProgressContext } from '../LearnProviders';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle2, PartyPopper } from 'lucide-react';
+import { CheckCircle2, PartyPopper } from 'lucide-react';
 
 interface SummaryPhaseProps {
   card: SyntaxCardType;
   lessonId: string;
   lessonTitle: string;
-  onPrev: () => void;
-  onComplete: () => void;
   className?: string;
 }
 
@@ -20,19 +18,16 @@ export function SummaryPhase({
   card,
   lessonId,
   lessonTitle,
-  onPrev,
-  onComplete,
   className
 }: SummaryPhaseProps) {
   const { markLessonComplete, isLessonComplete } = useProgressContext();
-  const alreadyComplete = isLessonComplete(lessonId);
 
-  const handleComplete = () => {
-    if (!alreadyComplete) {
+  // Auto-mark lesson complete when reaching summary
+  useEffect(() => {
+    if (!isLessonComplete(lessonId)) {
       markLessonComplete(lessonId);
     }
-    onComplete();
-  };
+  }, [lessonId, isLessonComplete, markLessonComplete]);
 
   return (
     <div className={cn('animate-phase-enter space-y-6', className)}>
@@ -71,17 +66,6 @@ export function SummaryPhase({
             </li>
           ))}
         </ul>
-      </div>
-
-      <div className="sticky bottom-0 flex justify-between pt-4 pb-2 bg-gradient-to-t from-card via-card to-transparent mt-8">
-        <Button size="xl" variant="outline" onClick={onPrev} className="gap-2">
-          <ArrowLeft className="w-4 h-4" />
-          Review
-        </Button>
-        <Button size="xl" onClick={handleComplete} className="gap-2">
-          {alreadyComplete ? 'Continue' : 'Complete & Continue'}
-          <CheckCircle2 className="w-4 h-4" />
-        </Button>
       </div>
     </div>
   );

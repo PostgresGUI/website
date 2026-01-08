@@ -5,8 +5,7 @@ import { cn } from '@/lib/utils';
 import { useSQLEngineContext } from './LearnProviders';
 import { ResultsTable } from './ResultsTable';
 import { QueryResult } from '@/lib/learn/lessons/types';
-import { Play, RotateCcw, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface QueryConsoleProps {
   initialQuery?: string;
@@ -64,81 +63,17 @@ export function QueryConsole({
   }, []);
 
   return (
-    <div className={cn('space-y-4', className)}>
-      {/* Query Input */}
-      <div className={cn(
-        'rounded-xl border bg-card overflow-hidden transition-all duration-300',
-        isExecuting && 'border-[var(--postgres-blue)] shadow-lg shadow-[var(--postgres-blue)]/10',
-        !isExecuting && 'border-border shadow-swiftui'
-      )}>
-        {/* Textarea */}
-        <div className="relative">
-          <textarea
-            ref={textareaRef}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder={placeholder}
-            readOnly={readOnly}
-            spellCheck={false}
-            className={cn(
-              'w-full h-32 p-4 font-mono text-sm bg-transparent resize-none focus:outline-none',
-              'placeholder:text-muted-foreground/50',
-              readOnly && 'cursor-default'
-            )}
-          />
-          {/* Line numbers decoration */}
-          <div className="absolute left-0 top-0 w-8 h-full bg-muted/30 border-r border-border pointer-events-none" />
-        </div>
-
-        {/* Action bar */}
-        <div className="flex items-center justify-between px-4 py-2.5 border-t border-border bg-muted/20">
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border font-mono">
-              {typeof navigator !== 'undefined' && navigator.platform?.includes('Mac') ? '⌘' : 'Ctrl'}
-            </kbd>
-            <span>+</span>
-            <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border font-mono">
-              Enter
-            </kbd>
-            <span className="ml-1">to run</span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleReset}
-              disabled={!query && !result}
-              className="h-8 px-3 text-xs"
-            >
-              <RotateCcw className="w-3.5 h-3.5 mr-1.5" />
-              Reset
-            </Button>
-            <Button
-              size="sm"
-              onClick={handleExecute}
-              disabled={!query.trim() || engineLoading || isExecuting}
-              className="h-8 px-4 text-xs"
-            >
-              {isExecuting ? (
-                <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
-              ) : (
-                <Play className="w-3.5 h-3.5 mr-1.5" />
-              )}
-              {isExecuting ? 'Running...' : 'Run Query'}
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Results */}
-      {result && (
-        <div key={resultKey} className="animate-phase-enter">
-          {result.success ? (
-            <div className="space-y-3">
-              {/* Success header */}
-              <div className="flex items-center gap-2 text-sm">
+    <div className={cn('rounded-xl border border-border p-3 bg-card shadow-swiftui', className)}>
+      <div className="space-y-3">
+        {/* Results - clean table UI (always visible) */}
+        <div key={resultKey} className="overflow-hidden">
+          {!result ? (
+            <div className="px-4 py-8 text-center text-sm text-muted-foreground">
+              Run a query to see results
+            </div>
+          ) : result.success ? (
+            <div>
+              <div className="flex items-center gap-2 text-sm px-4 py-3 border-b border-border">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                 <span className="text-emerald-600 dark:text-emerald-400 font-medium">Query executed successfully</span>
                 {result.rowCount !== undefined && (
@@ -148,28 +83,81 @@ export function QueryConsole({
                   </span>
                 )}
               </div>
-
-              {/* Results table */}
-              {result.columns && result.columns.length > 0 && result.rows && (
-                <ResultsTable
-                  columns={result.columns}
-                  rows={result.rows}
-                />
+              {result.columns && result.columns.length > 0 && result.rows ? (
+                <ResultsTable columns={result.columns} rows={result.rows} />
+              ) : (
+                <div className="px-4 py-6 text-center text-sm text-muted-foreground">
+                  Query completed with no results to display
+                </div>
               )}
             </div>
           ) : (
-            <div className="flex items-start gap-3 p-4 rounded-xl bg-destructive/5 border border-destructive/20">
+            <div className="flex items-start gap-3 p-4 bg-destructive/5">
               <AlertCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" />
               <div>
                 <p className="font-medium text-destructive text-sm">Query Error</p>
-                <p className="text-sm text-muted-foreground mt-1 font-mono">
-                  {result.error}
-                </p>
+                <p className="text-sm text-muted-foreground mt-1 font-mono">{result.error}</p>
               </div>
             </div>
           )}
         </div>
-      )}
+
+        {/* Terminal Editor */}
+        <div className="terminal-editor rounded-lg overflow-hidden border border-[#1a1a1a]">
+        <div className="bg-[#0a0a0a] relative">
+          {/* Scanlines */}
+          <div className="absolute inset-0 pointer-events-none z-10 opacity-50" style={{
+            backgroundImage: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px)'
+          }} />
+
+          {/* Editor area */}
+          <div className="relative z-0 p-4">
+            <div className="flex items-start gap-2 font-mono text-sm">
+              <span className="text-[#33ff33] shrink-0 select-none" style={{ textShadow: '0 0 5px rgba(51,255,51,0.5)' }}>
+                postgres=#
+              </span>
+              <textarea
+                ref={textareaRef}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Type your query here..."
+                readOnly={readOnly}
+                spellCheck={false}
+                className={cn(
+                  'flex-1 bg-transparent resize-none focus:outline-none min-h-[80px] text-[#33ff33] placeholder:text-[#33ff33]/30',
+                  readOnly && 'cursor-default'
+                )}
+                style={{ textShadow: '0 0 5px rgba(51,255,51,0.5)' }}
+              />
+            </div>
+          </div>
+
+          {/* Terminal action bar */}
+          <div className="flex items-center justify-between px-4 py-2.5 border-t border-[#2a2a2a] bg-[#0f0f0f]">
+            <span className="text-xs text-[#33ff33]/80 font-mono">
+              {typeof navigator !== 'undefined' && navigator.platform?.includes('Mac') ? '⌘' : 'Ctrl'}+Enter to run
+            </span>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handleReset}
+                disabled={!query && !result}
+                className="px-2 py-1 text-xs font-mono text-[#33ff33] hover:text-[#66ff66] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              >
+                [CLEAR]
+              </button>
+              <button
+                onClick={handleExecute}
+                disabled={!query.trim() || engineLoading || isExecuting}
+                className="px-3 py-1 text-xs font-mono text-[#0a0a0a] bg-[#33ff33] hover:bg-[#66ff66] disabled:opacity-40 disabled:cursor-not-allowed transition-colors rounded"
+              >
+                {isExecuting ? 'RUNNING...' : 'RUN QUERY'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { AppStoreBadge } from "@/components/app-store-badge";
 import { Highlights } from "@/components/highlights";
 import { ScreenshotGallery } from "@/components/screenshot-gallery";
@@ -9,12 +10,27 @@ import { FAQ } from "@/components/faq";
 import { FinalCTAV2 } from "@/components/final-cta-v2";
 import { FlowingData } from "@/components/hero-animations/flowing-data";
 import { INSTALLER_SIZE, INSTALLED_SIZE } from "@/lib/constants";
+import { ArrowRight } from "lucide-react";
 
 const APP_STORE_LINK = "https://apps.apple.com/us/app/postgresgui/id6756467181";
 
 export default function Home() {
   return (
     <>
+      {/* Learn SQL Banner */}
+      <Link
+        href="/learn-sql"
+        className="block bg-gradient-to-r from-stone-200 via-stone-100 to-stone-200 dark:from-stone-800 dark:via-stone-700 dark:to-stone-800 text-stone-700 dark:text-stone-200 py-2.5 px-4 text-center text-sm font-medium hover:opacity-90 transition-opacity border-b border-stone-200 dark:border-stone-700"
+      >
+        <span className="inline-flex items-center gap-2 group">
+          <span>🎓</span>
+          <span className="group-hover:underline">
+            New: Interactive SQL course
+          </span>
+          <ArrowRight className="w-4 h-4" />
+        </span>
+      </Link>
+
       {/* Hero Section */}
       <div
         id="hero-section"
@@ -73,7 +89,6 @@ export default function Home() {
               Open Source ↗
             </a>
           </div>
-
         </div>
       </div>
 
