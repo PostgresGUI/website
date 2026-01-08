@@ -128,7 +128,7 @@ export function Sidebar({
                 <div
                   className={cn(
                     "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 group",
-                    !isLocked && canExpand && "hover:bg-muted/50 cursor-pointer",
+                    !isLocked && canExpand && "hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer",
                     isLocked && "opacity-50 cursor-not-allowed"
                   )}
                   onClick={() => !isLocked && canExpand && toggleExpanded(lesson.id)}
@@ -183,7 +183,7 @@ export function Sidebar({
                     )}
                   >
                     <div className="overflow-hidden">
-                      <div className="ml-6 mt-1 mb-2 pl-3 border-l-2 border-[var(--postgres-blue)]/20 space-y-0.5">
+                      <div className="ml-6 mt-1 mb-2 pl-3 border-l-2 border-muted-foreground/20 space-y-0.5">
                         {phases.map((phase, phaseIndex) => {
                           const config = PHASE_CONFIG[phase];
                           const Icon = config.icon;
@@ -199,9 +199,9 @@ export function Sidebar({
                                   "w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-left transition-all duration-200 text-sm",
                                   isActivePhase &&
                                     !canExpandChallenge &&
-                                    "bg-[var(--postgres-blue)] text-white font-medium",
+                                    "bg-zinc-200 dark:bg-zinc-700 font-medium text-foreground",
                                   (!isActivePhase || canExpandChallenge) &&
-                                    "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                                    "text-muted-foreground hover:text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
                                 )}
                               >
                                 <button
@@ -257,9 +257,9 @@ export function Sidebar({
                                             className={cn(
                                               "w-full flex items-center gap-2 px-3 py-1 rounded-full text-left transition-all duration-200 text-sm",
                                               isChallengeActive &&
-                                                "bg-[var(--postgres-blue)] text-white font-medium",
+                                                "bg-zinc-200 dark:bg-zinc-700 font-medium text-foreground",
                                               !isChallengeActive &&
-                                                "text-muted-foreground/80 hover:text-foreground hover:bg-muted/30"
+                                                "text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
                                             )}
                                           >
                                             <span className="truncate">
@@ -294,12 +294,12 @@ export function Sidebar({
             disabled={completedCount < lessons.length}
             className={cn(
               "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200",
-              currentLessonId === "project" && "bg-[var(--postgres-blue)]/10",
+              currentLessonId === "project" && "bg-muted",
               completedCount < lessons.length &&
                 "opacity-50 cursor-not-allowed",
               completedCount >= lessons.length &&
                 currentLessonId !== "project" &&
-                "hover:bg-muted/50"
+                "hover:bg-zinc-100 dark:hover:bg-zinc-800"
             )}
           >
             <div

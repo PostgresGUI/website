@@ -65,43 +65,6 @@ export function QueryConsole({
   return (
     <div className={cn('rounded-xl border border-border p-3 bg-card shadow-swiftui', className)}>
       <div className="space-y-3">
-        {/* Results - clean table UI (always visible) */}
-        <div key={resultKey} className="overflow-hidden">
-          {!result ? (
-            <div className="px-4 py-8 text-center text-sm text-muted-foreground">
-              Run a query to see results
-            </div>
-          ) : result.success ? (
-            <div>
-              <div className="flex items-center gap-2 text-sm px-4 py-3 border-b border-border">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                <span className="text-emerald-600 dark:text-emerald-400 font-medium">Query executed successfully</span>
-                {result.rowCount !== undefined && (
-                  <span className="text-muted-foreground">
-                    · {result.rowCount} {result.rowCount === 1 ? 'row' : 'rows'}
-                    {result.columns && result.columns.length > 0 ? ' returned' : ' affected'}
-                  </span>
-                )}
-              </div>
-              {result.columns && result.columns.length > 0 && result.rows ? (
-                <ResultsTable columns={result.columns} rows={result.rows} />
-              ) : (
-                <div className="px-4 py-6 text-center text-sm text-muted-foreground">
-                  Query completed with no results to display
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="flex items-start gap-3 p-4 bg-destructive/5">
-              <AlertCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" />
-              <div>
-                <p className="font-medium text-destructive text-sm">Query Error</p>
-                <p className="text-sm text-muted-foreground mt-1 font-mono">{result.error}</p>
-              </div>
-            </div>
-          )}
-        </div>
-
         {/* Terminal Editor */}
         <div className="terminal-editor rounded-lg overflow-hidden border border-[#1a1a1a]">
         <div className="bg-[#0a0a0a] relative">
@@ -156,7 +119,44 @@ export function QueryConsole({
             </div>
           </div>
         </div>
-      </div>
+        </div>
+
+        {/* Results - clean table UI (always visible) */}
+        <div key={resultKey} className="overflow-hidden">
+          {!result ? (
+            <div className="px-4 py-8 text-center text-sm text-muted-foreground">
+              Run a query to see results
+            </div>
+          ) : result.success ? (
+            <div>
+              <div className="flex items-center gap-2 text-sm px-4 py-3 border-b border-border">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                <span className="text-emerald-600 dark:text-emerald-400 font-medium">Query executed successfully</span>
+                {result.rowCount !== undefined && (
+                  <span className="text-muted-foreground">
+                    · {result.rowCount} {result.rowCount === 1 ? 'row' : 'rows'}
+                    {result.columns && result.columns.length > 0 ? ' returned' : ' affected'}
+                  </span>
+                )}
+              </div>
+              {result.columns && result.columns.length > 0 && result.rows ? (
+                <ResultsTable columns={result.columns} rows={result.rows} />
+              ) : (
+                <div className="px-4 py-6 text-center text-sm text-muted-foreground">
+                  Query completed with no results to display
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="flex items-start gap-3 p-4 bg-destructive/5">
+              <AlertCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" />
+              <div>
+                <p className="font-medium text-destructive text-sm">Query Error</p>
+                <p className="text-sm text-muted-foreground mt-1 font-mono">{result.error}</p>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
