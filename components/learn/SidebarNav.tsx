@@ -1,20 +1,23 @@
 "use client";
 
 import { useCallback } from "react";
-import { useParams, useSearchParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { module1 } from "@/lib/learn/lessons/module1";
 import { useLessonContext } from "./LearnProviders";
 import { Sidebar } from "./Sidebar";
 import { PhaseType } from "@/lib/learn/lessons/types";
 
-export function SidebarNav() {
+interface SidebarNavProps {
+  challengeParam?: string | null;
+}
+
+export function SidebarNav({ challengeParam: initialChallengeParam }: SidebarNavProps = {}) {
   const params = useParams();
-  const searchParams = useSearchParams();
   const router = useRouter();
   const { lesson, goToPhase, currentPhase, phases } = useLessonContext();
 
   const lessonId = params?.lessonId as string | undefined;
-  const challengeParam = searchParams?.get("challenge") || null;
+  const challengeParam = initialChallengeParam || null;
 
   const lessons = module1.lessons.map((l) => ({
     id: l.id,

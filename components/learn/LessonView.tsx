@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Lesson } from "@/lib/learn/lessons/types";
 import { useLessonContext, useSQLEngineContext, useProgressContext } from "./LearnProviders";
@@ -17,16 +17,17 @@ interface LessonViewProps {
   lesson: Lesson;
   onLessonComplete: () => void;
   className?: string;
+  challengeParam?: string | null;
 }
 
 export function LessonView({
   lesson,
   onLessonComplete,
   className,
+  challengeParam,
 }: LessonViewProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const { currentPhase, nextPhase, prevPhase, resetLesson } =
     useLessonContext();
   const { initSchema, resetDatabase } = useSQLEngineContext();
@@ -116,9 +117,7 @@ export function LessonView({
 
   // Challenge navigation functions
   const goToNextChallenge = useCallback(() => {
-    if (!pathname) return;
-    const challengeParam = searchParams?.get("challenge");
-    if (!challengeParam) return;
+    if (!pathname || !challengeParam) return;
     
     const currentIndex = lesson.phases.challenges.findIndex(c => c.id === challengeParam);
     if (currentIndex === -1) return;
@@ -135,12 +134,10 @@ export function LessonView({
       // Last challenge, go to next phase
       nextPhase();
     }
-  }, [pathname, searchParams, lesson, router, nextPhase]);
+  }, [pathname, challengeParam, lesson, router, nextPhase]);
 
   const goToPrevChallenge = useCallback(() => {
-    if (!pathname) return;
-    const challengeParam = searchParams?.get("challenge");
-    if (!challengeParam) return;
+    if (!pathname || !challengeParam) return;
     
     const currentIndex = lesson.phases.challenges.findIndex(c => c.id === challengeParam);
     if (currentIndex === -1) return;
@@ -157,7 +154,7 @@ export function LessonView({
       // First challenge, go to previous phase
       prevPhase();
     }
-  }, [pathname, searchParams, lesson, router, prevPhase]);
+  }, [pathname, challengeParam, lesson, router, prevPhase]);
 
   // Wrapper functions that update URL when phase changes
   const handleNextPhase = useCallback(() => {
@@ -243,6 +240,7 @@ export function LessonView({
           <ChallengePhase
             challenges={lesson.phases.challenges}
             lessonId={lesson.id}
+            challengeParam={challengeParam}
           />
         );
       case "summary":
@@ -256,7 +254,7 @@ export function LessonView({
       default:
         return null;
     }
-  }, [currentPhase, lesson, conceptPhaseRef, contextPhaseRef, guidedPhaseRef, handleConceptAllComplete, handleConceptStateChange, handleContextComplete, handleContextStateChange, handleGuidedStateChange]);
+  }, [currentPhase, lesson, conceptPhaseRef, contextPhaseRef, guidedPhaseRef, challengeParam, handleConceptAllComplete, handleConceptStateChange, handleContextComplete, handleContextStateChange, handleGuidedStateChange]);
 
   return (
     <div
@@ -382,7 +380,6 @@ export function LessonView({
             );
           })()}
           {currentPhase === "challenge" && (() => {
-            const challengeParam = searchParams?.get("challenge");
             const currentIndex = challengeParam 
               ? lesson.phases.challenges.findIndex(c => c.id === challengeParam)
               : -1;

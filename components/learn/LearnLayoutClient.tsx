@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Menu } from "lucide-react";
 import { SidebarNav } from "./SidebarNav";
 import { SidebarMobile } from "./SidebarMobile";
-import { useParams, useSearchParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { module1 } from "@/lib/learn/lessons/module1";
 import { useLessonContext } from "./LearnProviders";
 import { PhaseType } from "@/lib/learn/lessons/types";
@@ -14,16 +14,30 @@ interface LearnLayoutClientProps {
   children: React.ReactNode;
 }
 
+// Helper function to get search params client-side only
+function useClientSearchParams() {
+  const [searchParams, setSearchParams] = useState<URLSearchParams | null>(null);
+
+  useEffect(() => {
+    // Only access search params on client side
+    if (typeof window !== "undefined") {
+      setSearchParams(new URLSearchParams(window.location.search));
+    }
+  }, []);
+
+  return searchParams;
+}
+
 export function LearnLayoutClient(props: LearnLayoutClientProps) {
   const { children } = props;
   const params = useParams();
-  const searchParams = useSearchParams();
   const router = useRouter();
   const { lesson, goToPhase, phases } = useLessonContext();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const searchParams = useClientSearchParams();
 
   const lessonId = params?.lessonId as string | undefined;
-  const currentPhase = searchParams?.get("phase") as PhaseType | null;
+  const currentPhase = (searchParams?.get("phase") as PhaseType | null) || null;
   const challengeParam = searchParams?.get("challenge") || null;
 
   const lessons = module1.lessons.map((l) => ({
@@ -81,7 +95,7 @@ export function LearnLayoutClient(props: LearnLayoutClientProps) {
     <div className="h-full overflow-hidden bg-muted/50">
       {/* Desktop Sidebar */}
       <aside className="hidden md:block fixed left-0 top-0 h-full w-[280px] z-30">
-        <SidebarNav />
+        <SidebarNav challengeParam={challengeParam} />
       </aside>
 
       {/* Mobile Header */}

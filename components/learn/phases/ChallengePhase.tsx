@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Challenge, QueryResult } from "@/lib/learn/lessons/types";
 import { QueryConsole } from "../QueryConsole";
@@ -14,16 +14,17 @@ interface ChallengePhaseProps {
   challenges: Challenge[];
   lessonId: string;
   className?: string;
+  challengeParam?: string | null;
 }
 
 export function ChallengePhase({
   challenges,
   lessonId,
   className,
+  challengeParam: initialChallengeParam,
 }: ChallengePhaseProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const {
     markChallengeComplete,
     markChallengeIncomplete,
@@ -31,7 +32,7 @@ export function ChallengePhase({
   } = useProgressContext();
 
   // Find initial challenge index from URL or default to 0
-  const challengeParam = searchParams.get("challenge");
+  const challengeParam = initialChallengeParam || null;
   const getInitialIndex = useCallback(() => {
     if (challengeParam) {
       const index = challenges.findIndex((c) => c.id === challengeParam);
@@ -51,7 +52,7 @@ export function ChallengePhase({
 
   // Sync challenge index with URL query param on mount
   useEffect(() => {
-    const challengeFromUrl = searchParams.get("challenge");
+    const challengeFromUrl = challengeParam;
     if (challengeFromUrl) {
       const index = challenges.findIndex((c) => c.id === challengeFromUrl);
       if (index >= 0 && index !== currentIndex) {
@@ -71,7 +72,7 @@ export function ChallengePhase({
         router.replace(url.pathname + url.search, { scroll: false });
       }
     }
-  }, [searchParams, challenges, currentIndex, pathname, router]);
+  }, [challengeParam, challenges, currentIndex, pathname, router]);
 
   // Update URL when challenge index changes
   useEffect(() => {

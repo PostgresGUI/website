@@ -1,22 +1,36 @@
 "use client";
 
-import { useEffect } from "react";
-import { useParams, useSearchParams, useRouter } from "next/navigation";
+import { useEffect, Suspense, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import { module1 } from "@/lib/learn/lessons/module1";
 import { useLessonContext } from "@/components/learn/LearnProviders";
 import { LessonView } from "@/components/learn/LessonView";
 import { PhaseType } from "@/lib/learn/lessons/types";
 import { useCallback } from "react";
 
-export function LessonPageClient() {
+// Helper function to get search params client-side only
+function useClientSearchParams() {
+  const [searchParams, setSearchParams] = useState<URLSearchParams | null>(null);
+
+  useEffect(() => {
+    // Only access search params on client side
+    if (typeof window !== "undefined") {
+      setSearchParams(new URLSearchParams(window.location.search));
+    }
+  }, []);
+
+  return searchParams;
+}
+
+function LessonPageContent() {
   const params = useParams();
-  const searchParams = useSearchParams();
   const router = useRouter();
   const { lesson, setLesson, goToPhase } = useLessonContext();
+  const searchParams = useClientSearchParams();
 
   const lessonId = params.lessonId as string;
-  const phaseParam = searchParams.get("phase");
-  const challengeParam = searchParams.get("challenge");
+  const phaseParam = searchParams?.get("phase") || null;
+  const challengeParam = searchParams?.get("challenge") || null;
 
   // Load lesson from URL on mount or when lessonId changes
   useEffect(() => {
@@ -86,6 +100,21 @@ export function LessonPageClient() {
       lesson={lesson}
       onLessonComplete={handleLessonComplete}
       className="h-full"
+      challengeParam={challengeParam}
     />
+  );
+}
+
+export function LessonPageClient() {
+  return (
+    <Suspense
+      fallback={
+        <div className="h-full flex items-center justify-center">
+          <div className="text-muted-foreground">Loading lesson...</div>
+        </div>
+      }
+    >
+      <LessonPageContent />
+    </Suspense>
   );
 }
