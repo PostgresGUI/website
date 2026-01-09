@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Lesson } from "@/lib/learn/lessons/types";
 import { useLessonContext, useSQLEngineContext, useProgressContext } from "./LearnProviders";
 import { ContextPhase } from "./phases/ContextPhase";
-import { ConceptPhase } from "./phases/ConceptPhase";
+import { ConceptPhase, ConceptPhaseRef } from "./phases/ConceptPhase";
 import { GuidedPhase } from "./phases/GuidedPhase";
 import { ChallengePhase } from "./phases/ChallengePhase";
 import { SummaryPhase } from "./phases/SummaryPhase";
@@ -33,6 +33,12 @@ export function LessonView({
   const { isChallengeComplete } = useProgressContext();
   const isInitialMount = useRef(true);
   const [isConceptPhaseComplete, setIsConceptPhaseComplete] = useState(false);
+  const conceptPhaseRef = useRef<ConceptPhaseRef>(null);
+  const [conceptPhaseState, setConceptPhaseState] = useState<{
+    canSkip: boolean;
+    canNext: boolean;
+    allComplete: boolean;
+  }>({ canSkip: true, canNext: false, allComplete: false });
 
   // Initialize lesson schema
   useEffect(() => {
@@ -50,6 +56,7 @@ export function LessonView({
   useEffect(() => {
     if (currentPhase !== "concept") {
       setIsConceptPhaseComplete(false);
+      setConceptPhaseState({ canSkip: true, canNext: false, allComplete: false });
     }
   }, [currentPhase]);
 
@@ -150,6 +157,19 @@ export function LessonView({
     }
   }, [currentPhase, prevPhase, goToPrevChallenge]);
 
+  // Stable callbacks for ConceptPhase
+  const handleConceptAllComplete = useCallback(() => {
+    setIsConceptPhaseComplete(true);
+  }, []);
+
+  const handleConceptStateChange = useCallback((state: {
+    canSkip: boolean;
+    canNext: boolean;
+    allComplete: boolean;
+  }) => {
+    setConceptPhaseState(state);
+  }, []);
+
   const renderPhase = useCallback(() => {
     switch (currentPhase) {
       case "context":
@@ -157,8 +177,10 @@ export function LessonView({
       case "concept":
         return (
           <ConceptPhase
+            ref={conceptPhaseRef}
             concepts={lesson.phases.concept}
-            onAllComplete={() => setIsConceptPhaseComplete(true)}
+            onAllComplete={handleConceptAllComplete}
+            onStateChange={handleConceptStateChange}
           />
         );
       case "guided":
@@ -181,7 +203,7 @@ export function LessonView({
       default:
         return null;
     }
-  }, [currentPhase, lesson]);
+  }, [currentPhase, lesson, conceptPhaseRef, handleConceptAllComplete, handleConceptStateChange]);
 
   return (
     <div
@@ -217,17 +239,39 @@ export function LessonView({
               <ArrowRight className="w-4 h-4 shrink-0" />
             </Button>
           )}
-          {currentPhase === "concept" && (
-            <Button
-              size="xl"
-              onClick={handleNextPhase}
-              className="min-w-0"
-              disabled={!isConceptPhaseComplete}
-            >
-              <span className="truncate">Try It Out</span>
-              <ArrowRight className="w-4 h-4 shrink-0" />
-            </Button>
-          )}
+          {currentPhase === "concept" && (() => {
+            const { canSkip, canNext, allComplete } = conceptPhaseState;
+            
+            const handleConceptButtonClick = () => {
+              if (canSkip) {
+                conceptPhaseRef.current?.handleSkip();
+              } else if (canNext) {
+                conceptPhaseRef.current?.handleNext();
+              } else if (allComplete) {
+                handleNextPhase();
+              }
+            };
+
+            const getButtonText = () => {
+              if (canSkip) return "Skip";
+              if (canNext) return "Next";
+              if (allComplete) return "Try It Out";
+              return "Try It Out";
+            };
+
+            return (
+              <Button
+                size="xl"
+                onClick={handleConceptButtonClick}
+                className="min-w-0"
+                disabled={!canSkip && !canNext && !allComplete}
+                variant={canSkip ? "outline" : "default"}
+              >
+                <span className="truncate">{getButtonText()}</span>
+                {!canSkip && <ArrowRight className="w-4 h-4 shrink-0" />}
+              </Button>
+            );
+          })()}
           {currentPhase === "guided" && (
             <Button size="xl" onClick={handleNextPhase} className="min-w-0">
               <span className="truncate">Take the Challenge</span>
