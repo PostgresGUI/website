@@ -132,16 +132,36 @@ export const lesson1_0: Lesson = {
         id: "getting-started-c2",
         title: "Display Text",
         description:
-          "Use SELECT to display your name (or any text) - remember to use single quotes around text!",
+          "Use SELECT to display your new company's name: 'NorthLoop' - remember single quotes around text!",
         difficulty: "easy",
         hints: [
           "Text in SQL must be wrapped in single quotes",
-          "Example format: SELECT 'your text here';",
-          "SELECT 'Ada';",
+          "Type NorthLoop inside single quotes",
+          "SELECT 'NorthLoop';",
         ],
         validate: (result: QueryResult, query: string): ValidationResult => {
-          const q = query.toLowerCase().trim();
-          if (q.startsWith("select") && q.includes("'") && result.success) {
+          if (!result.success) {
+            return {
+              correct: false,
+              message: "Your query has an error. Check your syntax!",
+            };
+          }
+          if (
+            !result.rows ||
+            result.rows.length === 0 ||
+            !result.rows[0] ||
+            result.rows[0].length === 0
+          ) {
+            return {
+              correct: false,
+              message: "Your query should return a result.",
+            };
+          }
+          const value = result.rows[0][0];
+          if (
+            typeof value === "string" &&
+            value.toLowerCase() === "northloop"
+          ) {
             return {
               correct: true,
               message: "Great! You displayed text using SQL.",
@@ -149,8 +169,7 @@ export const lesson1_0: Lesson = {
           }
           return {
             correct: false,
-            message:
-              "Use SELECT with text in single quotes, like: SELECT 'Hello';",
+            message: "Display the company name: SELECT 'NorthLoop';",
           };
         },
       },
