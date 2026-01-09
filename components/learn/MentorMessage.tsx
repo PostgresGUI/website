@@ -27,7 +27,7 @@ interface MentorMessageProps {
   // For challenge variant
   challenge?: ChallengeContent;
   syntax?: string;
-  variant?: "default" | "success" | "error" | "challenge";
+  variant?: "default" | "success" | "error" | "hint" | "challenge";
   className?: string;
   animate?: boolean;
 }
@@ -62,6 +62,7 @@ export function MentorMessage({
 }: MentorMessageProps) {
   const isSuccess = variant === "success";
   const isError = variant === "error";
+  const isHint = variant === "hint";
   const isChallenge = variant === "challenge" && challenge;
 
   const displayName = isChallenge ? "Ellie" : message?.name;
@@ -121,6 +122,8 @@ export function MentorMessage({
               "bg-white dark:bg-zinc-900 shadow-[inset_0_0_30px_rgba(34,197,94,0.35)]",
             isError &&
               "bg-white dark:bg-zinc-900 shadow-[inset_0_0_30px_rgba(239,68,68,0.35)]",
+            isHint &&
+              "bg-white dark:bg-zinc-900 shadow-[inset_0_0_30px_rgba(251,191,36,0.35)]",
             isChallenge && challenge?.isComplete && "ring-2 ring-emerald-500/30"
           )}
         >

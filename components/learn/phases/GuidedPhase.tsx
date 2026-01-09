@@ -30,6 +30,7 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
     const [queryComplete, setQueryComplete] = useState(false);
     const [hasPracticed, setHasPracticed] = useState(false);
     const [hasMarkedComplete, setHasMarkedComplete] = useState(false);
+    const [hintMessage, setHintMessage] = useState<string | null>(null);
     const textTypeRef = useRef<TextTypeRef>(null);
     const isSkippingRef = useRef(false);
     const onStateChangeRef = useRef<
@@ -47,6 +48,7 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
       setQueryComplete(false);
       setHasPracticed(false);
       setHasMarkedComplete(false);
+      setHintMessage(null);
       isSkippingRef.current = false;
       prevStateRef.current = null;
       isInitialMountRef.current = true;
@@ -83,14 +85,37 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
           markPhaseComplete(lessonId, 'guided');
         }
 
-        if (result.success) {
-          const normalized = query.toLowerCase().replace(/\s+/g, " ").trim();
-          const expected = practice.expectedQuery
-            .toLowerCase()
-            .replace(/\s+/g, " ")
-            .trim();
-          if (normalized.includes(expected.split(" ")[0]) && result.success) {
-            setQueryComplete(true);
+        // If query had an error, don't show our hint (SQL error is already shown)
+        if (!result.success) {
+          setHintMessage(null);
+          return;
+        }
+
+        const normalized = query.toLowerCase().replace(/\s+/g, " ").trim();
+        const expected = practice.expectedQuery
+          .toLowerCase()
+          .replace(/\s+/g, " ")
+          .trim();
+
+        // Check that the query contains the expected keyword (e.g., SELECT)
+        const hasExpectedKeyword = normalized.includes(expected.split(" ")[0]);
+
+        // Check that the result has actual data and isn't just an empty string
+        const hasValidResult = result.rows &&
+          result.rows.length > 0 &&
+          result.rows[0] &&
+          result.rows[0][0] !== '' &&
+          result.rows[0][0] !== null;
+
+        if (hasExpectedKeyword && hasValidResult) {
+          setQueryComplete(true);
+          setHintMessage(null);
+        } else {
+          // Show a helpful hint based on what went wrong
+          if (!hasExpectedKeyword) {
+            setHintMessage(`Almost there! Try using the ${expected.split(" ")[0].toUpperCase()} keyword to get started.`);
+          } else if (!hasValidResult) {
+            setHintMessage("Good start! Now try adding some actual content. An empty value won't work here — add a message between the quotes!");
           }
         }
       },
@@ -214,6 +239,19 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
               onQueryResult={handleQueryResult}
             />
           </div>
+        )}
+
+        {/* Hint message when query doesn't meet requirements */}
+        {hintMessage && !queryComplete && (
+          <MentorMessage
+            message={{
+              name: "Sam",
+              role: "Senior Database Engineer",
+              message: hintMessage,
+            }}
+            variant="hint"
+            animate={false}
+          />
         )}
 
         {/* Success message - no typing animation */}
