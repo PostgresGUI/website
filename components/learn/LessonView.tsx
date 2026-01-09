@@ -5,7 +5,7 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Lesson } from "@/lib/learn/lessons/types";
 import { useLessonContext, useSQLEngineContext, useProgressContext } from "./LearnProviders";
-import { ContextPhase } from "./phases/ContextPhase";
+import { ContextPhase, ContextPhaseRef } from "./phases/ContextPhase";
 import { ConceptPhase, ConceptPhaseRef } from "./phases/ConceptPhase";
 import { GuidedPhase } from "./phases/GuidedPhase";
 import { ChallengePhase } from "./phases/ChallengePhase";
@@ -39,6 +39,11 @@ export function LessonView({
     canNext: boolean;
     allComplete: boolean;
   }>({ canSkip: true, canNext: false, allComplete: false });
+  const contextPhaseRef = useRef<ContextPhaseRef>(null);
+  const [contextPhaseState, setContextPhaseState] = useState<{
+    canSkip: boolean;
+    isComplete: boolean;
+  }>({ canSkip: true, isComplete: false });
 
   // Initialize lesson schema
   useEffect(() => {
@@ -50,13 +55,17 @@ export function LessonView({
     resetLesson();
     isInitialMount.current = true;
     setIsConceptPhaseComplete(false);
+    setContextPhaseState({ canSkip: true, isComplete: false });
   }, [lesson.id, resetDatabase, initSchema, resetLesson]);
 
-  // Reset concept phase completion when leaving concept phase
+  // Reset phase completion when leaving phases
   useEffect(() => {
     if (currentPhase !== "concept") {
       setIsConceptPhaseComplete(false);
       setConceptPhaseState({ canSkip: true, canNext: false, allComplete: false });
+    }
+    if (currentPhase !== "context") {
+      setContextPhaseState({ canSkip: true, isComplete: false });
     }
   }, [currentPhase]);
 
@@ -170,10 +179,29 @@ export function LessonView({
     setConceptPhaseState(state);
   }, []);
 
+  // Stable callbacks for ContextPhase
+  const handleContextComplete = useCallback(() => {
+    // Context phase completion is handled via state
+  }, []);
+
+  const handleContextStateChange = useCallback((state: {
+    canSkip: boolean;
+    isComplete: boolean;
+  }) => {
+    setContextPhaseState(state);
+  }, []);
+
   const renderPhase = useCallback(() => {
     switch (currentPhase) {
       case "context":
-        return <ContextPhase message={lesson.phases.context} />;
+        return (
+          <ContextPhase
+            ref={contextPhaseRef}
+            message={lesson.phases.context}
+            onComplete={handleContextComplete}
+            onStateChange={handleContextStateChange}
+          />
+        );
       case "concept":
         return (
           <ConceptPhase
@@ -203,7 +231,7 @@ export function LessonView({
       default:
         return null;
     }
-  }, [currentPhase, lesson, conceptPhaseRef, handleConceptAllComplete, handleConceptStateChange]);
+  }, [currentPhase, lesson, conceptPhaseRef, contextPhaseRef, handleConceptAllComplete, handleConceptStateChange, handleContextComplete, handleContextStateChange]);
 
   return (
     <div
@@ -233,12 +261,36 @@ export function LessonView({
             <div />
           )}
 
-          {currentPhase === "context" && (
-            <Button size="xl" onClick={handleNextPhase} className="min-w-0">
-              <span className="truncate">Let&apos;s Learn</span>
-              <ArrowRight className="w-4 h-4 shrink-0" />
-            </Button>
-          )}
+          {currentPhase === "context" && (() => {
+            const { canSkip, isComplete } = contextPhaseState;
+
+            const handleContextButtonClick = () => {
+              if (canSkip) {
+                contextPhaseRef.current?.handleSkip();
+              } else if (isComplete) {
+                handleNextPhase();
+              }
+            };
+
+            const getButtonText = () => {
+              if (canSkip) return "Skip";
+              if (isComplete) return "Let's Learn";
+              return "Let's Learn";
+            };
+
+            return (
+              <Button
+                size="xl"
+                onClick={handleContextButtonClick}
+                className="min-w-0"
+                disabled={!canSkip && !isComplete}
+                variant={canSkip ? "outline" : "default"}
+              >
+                <span className="truncate">{getButtonText()}</span>
+                {!canSkip && <ArrowRight className="w-4 h-4 shrink-0" />}
+              </Button>
+            );
+          })()}
           {currentPhase === "concept" && (() => {
             const { canSkip, canNext, allComplete } = conceptPhaseState;
             
