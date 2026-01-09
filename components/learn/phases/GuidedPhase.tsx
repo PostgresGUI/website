@@ -32,6 +32,8 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
     const [hasPracticed, setHasPracticed] = useState(false);
     const [hasMarkedComplete, setHasMarkedComplete] = useState(false);
     const [hintMessage, setHintMessage] = useState<string | null>(null);
+    const [hasShownHint, setHasShownHint] = useState(false);
+    const [hintShakeKey, setHintShakeKey] = useState(0);
     const textTypeRef = useRef<TextTypeRef>(null);
     const isSkippingRef = useRef(false);
     const onStateChangeRef = useRef<
@@ -50,6 +52,8 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
       setHasPracticed(false);
       setHasMarkedComplete(false);
       setHintMessage(null);
+      setHasShownHint(false);
+      setHintShakeKey(0);
       isSkippingRef.current = false;
       prevStateRef.current = null;
       isInitialMountRef.current = true;
@@ -111,8 +115,18 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
         if (hasExpectedKeyword && hasValidResult) {
           setQueryComplete(true);
           setHintMessage(null);
+          setHasShownHint(false);
+          setHintShakeKey(0);
           playSound('success');
         } else {
+          // Reset success state if they got it wrong after getting it right
+          setQueryComplete(false);
+
+          // If hint was already shown, trigger shake animation
+          if (hasShownHint) {
+            setHintShakeKey((prev) => prev + 1);
+          }
+
           // Show a helpful hint based on what went wrong
           if (!hasExpectedKeyword) {
             setHintMessage(`Almost there! Try using the ${expected.split(" ")[0].toUpperCase()} keyword to get started.`);
@@ -121,9 +135,14 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
             setHintMessage("Good start! Now try adding some actual content. An empty value won't work here — add a message between the quotes!");
             playSound('hint');
           }
+
+          // Mark that we've shown a hint
+          if (!hasShownHint) {
+            setHasShownHint(true);
+          }
         }
       },
-      [practice.expectedQuery, hasMarkedComplete, lessonId, markPhaseComplete]
+      [practice.expectedQuery, hasMarkedComplete, lessonId, markPhaseComplete, hasShownHint]
     );
 
     const canSkip = !isTypingComplete;
@@ -248,6 +267,7 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
         {/* Hint message when query doesn't meet requirements */}
         {hintMessage && !queryComplete && (
           <MentorMessage
+            key={hintShakeKey > 0 ? `hint-shake-${hintShakeKey}` : "hint-first"}
             message={{
               name: "Sam",
               role: "Senior Database Engineer",
@@ -255,6 +275,7 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
             }}
             variant="hint"
             animate={false}
+            className={hintShakeKey > 0 ? "animate-shake" : undefined}
           />
         )}
 
