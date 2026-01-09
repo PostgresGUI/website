@@ -7,6 +7,7 @@ import { QueryConsole } from "../QueryConsole";
 import { MentorMessage } from "../MentorMessage";
 import { TextType, TextTypeRef } from "../TextType";
 import { useProgressContext } from "../LearnProviders";
+import { playSound } from "@/lib/sounds";
 import Image from "next/image";
 
 interface GuidedPhaseProps {
@@ -110,12 +111,15 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
         if (hasExpectedKeyword && hasValidResult) {
           setQueryComplete(true);
           setHintMessage(null);
+          playSound('success');
         } else {
           // Show a helpful hint based on what went wrong
           if (!hasExpectedKeyword) {
             setHintMessage(`Almost there! Try using the ${expected.split(" ")[0].toUpperCase()} keyword to get started.`);
+            playSound('hint');
           } else if (!hasValidResult) {
             setHintMessage("Good start! Now try adding some actual content. An empty value won't work here — add a message between the quotes!");
+            playSound('hint');
           }
         }
       },

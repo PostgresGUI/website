@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { TextType } from "./TextType";
-import { Check, Trophy, CheckCircle2, XCircle } from "lucide-react";
+import { Check, Trophy, CheckCircle2 } from "lucide-react";
 
 // Challenge content props
 interface ChallengeContent {
@@ -92,6 +92,10 @@ export function MentorMessage({
       });
     }
   }, [hasShakeAnimation]);
+
+  // Note: Sounds are played from the event handlers that trigger these messages
+  // (e.g., in GuidedPhase, ChallengePhase) to comply with browser autoplay policy.
+  // Sounds must be triggered from user gestures, not from useEffect.
 
   return (
     <div

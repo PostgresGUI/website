@@ -15,7 +15,7 @@ import { GuidedPhase, GuidedPhaseRef } from "./phases/GuidedPhase";
 import { ChallengePhase } from "./phases/ChallengePhase";
 import { SummaryPhase } from "./phases/SummaryPhase";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, FastForward } from "lucide-react";
 
 interface LessonViewProps {
   lesson: Lesson;
@@ -355,12 +355,6 @@ export function LessonView({
                 }
               };
 
-              const getButtonText = () => {
-                if (canSkip) return "Skip";
-                if (isComplete) return "Let's Learn";
-                return "Let's Learn";
-              };
-
               return (
                 <Button
                   size="xl"
@@ -369,8 +363,14 @@ export function LessonView({
                   disabled={!canSkip && !isComplete}
                   variant={canSkip ? "outline" : "default"}
                 >
-                  <span className="truncate">{getButtonText()}</span>
-                  {!canSkip && <ArrowRight className="w-4 h-4 shrink-0" />}
+                  {canSkip ? (
+                    <FastForward className="w-5 h-5" />
+                  ) : (
+                    <>
+                      <span className="truncate">Let's Learn</span>
+                      <ArrowRight className="w-4 h-4 shrink-0" />
+                    </>
+                  )}
                 </Button>
               );
             })()}
@@ -389,7 +389,6 @@ export function LessonView({
               };
 
               const getButtonText = () => {
-                if (canSkip) return "Skip";
                 if (canNext) return "Next";
                 if (allComplete) return "Try It Out";
                 return "Try It Out";
@@ -403,8 +402,14 @@ export function LessonView({
                   disabled={!canSkip && !canNext && !allComplete}
                   variant={canSkip ? "outline" : "default"}
                 >
-                  <span className="truncate">{getButtonText()}</span>
-                  {!canSkip && <ArrowRight className="w-4 h-4 shrink-0" />}
+                  {canSkip ? (
+                    <FastForward className="w-5 h-5" />
+                  ) : (
+                    <>
+                      <span className="truncate">{getButtonText()}</span>
+                      <ArrowRight className="w-4 h-4 shrink-0" />
+                    </>
+                  )}
                 </Button>
               );
             })()}
@@ -420,11 +425,6 @@ export function LessonView({
                 }
               };
 
-              const getButtonText = () => {
-                if (canSkip) return "Skip";
-                return "Take the Challenge";
-              };
-
               // Button is enabled only if typing is complete AND user has practiced
               const isButtonEnabled = !canSkip && hasPracticed;
 
@@ -436,9 +436,15 @@ export function LessonView({
                   disabled={!canSkip && !isButtonEnabled}
                   variant={canSkip || !hasPracticed ? "outline" : "default"}
                 >
-                  <span className="truncate">{getButtonText()}</span>
-                  {isButtonEnabled && (
-                    <ArrowRight className="w-4 h-4 shrink-0" />
+                  {canSkip ? (
+                    <FastForward className="w-5 h-5" />
+                  ) : (
+                    <>
+                      <span className="truncate">Take the Challenge</span>
+                      {isButtonEnabled && (
+                        <ArrowRight className="w-4 h-4 shrink-0" />
+                      )}
+                    </>
                   )}
                 </Button>
               );

@@ -9,6 +9,7 @@ import { SchemaExplorer } from "../SchemaExplorer";
 import { SuccessCelebration } from "../SuccessCelebration";
 import { MentorMessage } from "../MentorMessage";
 import { useProgressContext } from "../LearnProviders";
+import { playSound } from "@/lib/sounds";
 
 interface ChallengePhaseProps {
   challenges: Challenge[];
@@ -112,6 +113,7 @@ export function ChallengePhase({
           markChallengeComplete(lessonId, currentChallenge.id);
           setShowCelebration(true);
           setShowSuccessMessage(true); // Show success message from mentor
+          playSound('celebration');
         }
       } else {
         // Hide success message on validation failure
@@ -128,6 +130,7 @@ export function ChallengePhase({
         if (!hasShownError) {
           setHasShownError(true);
         }
+        playSound('error');
         // Note: We intentionally do NOT mark challenge incomplete on wrong answers
         // Challenge completion is permanent - wrong answers on revisit don't reset progress
       }
