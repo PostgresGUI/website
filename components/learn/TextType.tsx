@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useImperativeHandle, forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
 interface TextTypeProps {
@@ -10,15 +10,32 @@ interface TextTypeProps {
   onComplete?: () => void;
 }
 
-export function TextType({
+export interface TextTypeRef {
+  skip: () => void;
+  isComplete: boolean;
+}
+
+export const TextType = forwardRef<TextTypeRef, TextTypeProps>(function TextType({
   text,
   speed = 20,
   className,
   onComplete,
-}: TextTypeProps) {
+}, ref) {
   const [displayedText, setDisplayedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+
+  useImperativeHandle(ref, () => ({
+    skip: () => {
+      if (!isComplete) {
+        setDisplayedText(text);
+        setCurrentIndex(text.length);
+        setIsComplete(true);
+        onComplete?.();
+      }
+    },
+    isComplete,
+  }));
 
   useEffect(() => {
     // Reset when text changes
@@ -49,4 +66,4 @@ export function TextType({
       )}
     </span>
   );
-}
+});

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Lesson } from "@/lib/learn/lessons/types";
@@ -32,6 +32,7 @@ export function LessonView({
   const { initSchema, resetDatabase } = useSQLEngineContext();
   const { isChallengeComplete } = useProgressContext();
   const isInitialMount = useRef(true);
+  const [isConceptPhaseComplete, setIsConceptPhaseComplete] = useState(false);
 
   // Initialize lesson schema
   useEffect(() => {
@@ -42,7 +43,15 @@ export function LessonView({
     });
     resetLesson();
     isInitialMount.current = true;
+    setIsConceptPhaseComplete(false);
   }, [lesson.id, resetDatabase, initSchema, resetLesson]);
+
+  // Reset concept phase completion when leaving concept phase
+  useEffect(() => {
+    if (currentPhase !== "concept") {
+      setIsConceptPhaseComplete(false);
+    }
+  }, [currentPhase]);
 
   // Sync phase changes to URL query params
   useEffect(() => {
@@ -146,7 +155,12 @@ export function LessonView({
       case "context":
         return <ContextPhase message={lesson.phases.context} />;
       case "concept":
-        return <ConceptPhase concepts={lesson.phases.concept} />;
+        return (
+          <ConceptPhase
+            concepts={lesson.phases.concept}
+            onAllComplete={() => setIsConceptPhaseComplete(true)}
+          />
+        );
       case "guided":
         return <GuidedPhase practice={lesson.phases.guided} />;
       case "challenge":
@@ -204,7 +218,12 @@ export function LessonView({
             </Button>
           )}
           {currentPhase === "concept" && (
-            <Button size="xl" onClick={handleNextPhase} className="min-w-0">
+            <Button
+              size="xl"
+              onClick={handleNextPhase}
+              className="min-w-0"
+              disabled={!isConceptPhaseComplete}
+            >
               <span className="truncate">Try It Out</span>
               <ArrowRight className="w-4 h-4 shrink-0" />
             </Button>
