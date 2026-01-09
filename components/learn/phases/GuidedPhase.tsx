@@ -11,22 +11,26 @@ import Image from "next/image";
 interface GuidedPhaseProps {
   practice: GuidedPractice;
   className?: string;
-  onStateChange?: (state: { canSkip: boolean; isComplete: boolean }) => void;
+  onStateChange?: (state: { canSkip: boolean; isComplete: boolean; hasPracticed: boolean }) => void;
 }
 
 export interface GuidedPhaseRef {
   handleSkip: () => void;
   canSkip: boolean;
   isComplete: boolean;
+  hasPracticed: boolean;
 }
 
 export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
   function GuidedPhase({ practice, className, onStateChange }, ref) {
     const [isTypingComplete, setIsTypingComplete] = useState(false);
     const [queryComplete, setQueryComplete] = useState(false);
+    const [hasPracticed, setHasPracticed] = useState(false);
     const textTypeRef = useRef<TextTypeRef>(null);
     const isSkippingRef = useRef(false);
-    const onStateChangeRef = useRef(onStateChange);
+    const onStateChangeRef = useRef<
+      ((state: { canSkip: boolean; isComplete: boolean; hasPracticed: boolean }) => void) | undefined
+    >(onStateChange);
 
     // Keep the callback ref up to date
     useEffect(() => {
@@ -37,6 +41,7 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
     useEffect(() => {
       setIsTypingComplete(false);
       setQueryComplete(false);
+      setHasPracticed(false);
       isSkippingRef.current = false;
       prevStateRef.current = null;
       isInitialMountRef.current = true;
@@ -64,6 +69,9 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
 
     const handleQueryResult = useCallback(
       (result: QueryResult, query: string) => {
+        // Track that user has practiced (run any query)
+        setHasPracticed(true);
+        
         if (result.success) {
           const normalized = query.toLowerCase().replace(/\s+/g, " ").trim();
           const expected = practice.expectedQuery
@@ -84,6 +92,7 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
     const prevStateRef = useRef<{
       canSkip: boolean;
       isComplete: boolean;
+      hasPracticed: boolean;
     } | null>(null);
     const isInitialMountRef = useRef(true);
 
@@ -94,8 +103,9 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
         handleSkip,
         canSkip,
         isComplete: isTypingComplete,
+        hasPracticed,
       }),
-      [handleSkip, canSkip, isTypingComplete]
+      [handleSkip, canSkip, isTypingComplete, hasPracticed]
     );
 
     // Notify parent of state changes only when values actually change
@@ -103,6 +113,7 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
       const newState = {
         canSkip,
         isComplete: isTypingComplete,
+        hasPracticed,
       };
 
       // Skip on initial mount if values match default state (to avoid unnecessary update)
@@ -116,13 +127,14 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
         if (
           !prevStateRef.current ||
           prevStateRef.current.canSkip !== newState.canSkip ||
-          prevStateRef.current.isComplete !== newState.isComplete
+          prevStateRef.current.isComplete !== newState.isComplete ||
+          prevStateRef.current.hasPracticed !== newState.hasPracticed
         ) {
           prevStateRef.current = newState;
           onStateChangeRef.current?.(newState);
         }
       }
-    }, [canSkip, isTypingComplete]);
+    }, [canSkip, isTypingComplete, hasPracticed]);
 
     return (
       <div className={cn("animate-phase-enter space-y-6", className)}>

@@ -48,7 +48,8 @@ export function LessonView({
   const [guidedPhaseState, setGuidedPhaseState] = useState<{
     canSkip: boolean;
     isComplete: boolean;
-  }>({ canSkip: true, isComplete: false });
+    hasPracticed: boolean;
+  }>({ canSkip: true, isComplete: false, hasPracticed: false });
 
   // Initialize lesson schema
   useEffect(() => {
@@ -61,7 +62,7 @@ export function LessonView({
     isInitialMount.current = true;
     setIsConceptPhaseComplete(false);
     setContextPhaseState({ canSkip: true, isComplete: false });
-    setGuidedPhaseState({ canSkip: true, isComplete: false });
+    setGuidedPhaseState({ canSkip: true, isComplete: false, hasPracticed: false });
   }, [lesson.id, resetDatabase, initSchema, resetLesson]);
 
   // Reset phase completion when leaving phases
@@ -74,7 +75,7 @@ export function LessonView({
       setContextPhaseState({ canSkip: true, isComplete: false });
     }
     if (currentPhase !== "guided") {
-      setGuidedPhaseState({ canSkip: true, isComplete: false });
+      setGuidedPhaseState({ canSkip: true, isComplete: false, hasPracticed: false });
     }
   }, [currentPhase]);
 
@@ -204,6 +205,7 @@ export function LessonView({
   const handleGuidedStateChange = useCallback((state: {
     canSkip: boolean;
     isComplete: boolean;
+    hasPracticed: boolean;
   }) => {
     setGuidedPhaseState(state);
   }, []);
@@ -348,32 +350,34 @@ export function LessonView({
             );
           })()}
           {currentPhase === "guided" && (() => {
-            const { canSkip, isComplete } = guidedPhaseState;
+            const { canSkip, isComplete, hasPracticed } = guidedPhaseState;
 
             const handleGuidedButtonClick = () => {
               if (canSkip) {
                 guidedPhaseRef.current?.handleSkip();
-              } else if (isComplete) {
+              } else if (hasPracticed) {
                 handleNextPhase();
               }
             };
 
             const getButtonText = () => {
               if (canSkip) return "Skip";
-              if (isComplete) return "Take the Challenge";
               return "Take the Challenge";
             };
+
+            // Button is enabled only if typing is complete AND user has practiced
+            const isButtonEnabled = !canSkip && hasPracticed;
 
             return (
               <Button
                 size="xl"
                 onClick={handleGuidedButtonClick}
                 className="min-w-0"
-                disabled={!canSkip && !isComplete}
-                variant={canSkip ? "outline" : "default"}
+                disabled={!canSkip && !isButtonEnabled}
+                variant={canSkip || !hasPracticed ? "outline" : "default"}
               >
                 <span className="truncate">{getButtonText()}</span>
-                {!canSkip && <ArrowRight className="w-4 h-4 shrink-0" />}
+                {isButtonEnabled && <ArrowRight className="w-4 h-4 shrink-0" />}
               </Button>
             );
           })()}
