@@ -33,33 +33,35 @@ export function Navigation() {
 
   return (
     <nav
-      className="sticky top-0 z-50 bg-white dark:bg-stone-900 border-b border-border/20 shadow-sm"
+      className="sticky top-0 z-50 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md border-b border-border/20"
       aria-label="Main navigation"
     >
       <div className="max-w-7xl mx-auto px-6 py-3">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="flex items-center gap-3 hover:opacity-70 transition-opacity group"
-          >
-            <div className="relative">
-              <Image
-                src="/postgresgui-elephant.png"
-                alt="PostgresGUI Home"
-                width={32}
-                height={32}
-                className="object-contain"
-              />
-              <div className="absolute inset-0 bg-[var(--postgres-blue)] opacity-0 group-hover:opacity-10 transition-opacity rounded-lg"></div>
-            </div>
-            <span className="text-lg font-display tracking-tight text-gray-900 dark:text-white">
-              PostgresGUI
-            </span>
-          </Link>
+          {/* Logo - Left */}
+          <div className="flex-1">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-3 hover:opacity-70 transition-opacity group"
+            >
+              <div className="relative">
+                <Image
+                  src="/postgresgui-elephant.png"
+                  alt="PostgresGUI Home"
+                  width={32}
+                  height={32}
+                  className="object-contain"
+                />
+                <div className="absolute inset-0 bg-[var(--postgres-blue)] opacity-0 group-hover:opacity-10 transition-opacity rounded-lg"></div>
+              </div>
+              <span className="text-lg font-display tracking-tight text-gray-900 dark:text-white">
+                PostgresGUI
+              </span>
+            </Link>
+          </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
+          {/* Desktop Navigation - Center */}
+          <div className="hidden md:flex items-center justify-center gap-6 flex-1">
             {navLinks.map((link) => {
               // If link is a hash and we're not on home page, prepend "/" to navigate to home first
               const href =
@@ -71,7 +73,7 @@ export function Navigation() {
                 <Link
                   key={link.href}
                   href={href}
-                  className="text-sm font-semibold text-gray-900 dark:text-white hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-colors relative group"
+                  className="text-sm text-gray-900 dark:text-white hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-colors relative group"
                   onClick={(e) => {
                     if (link.href.startsWith("#") && pathname === "/") {
                       // Only prevent default and scroll if we're already on home page
@@ -86,6 +88,10 @@ export function Navigation() {
                 </Link>
               );
             })}
+          </div>
+
+          {/* GitHub - Right */}
+          <div className="hidden md:flex flex-1 justify-end">
             <a
               href={GITHUB_LINK}
               target="_blank"
@@ -96,7 +102,8 @@ export function Navigation() {
               <GitHubIcon width={18} height={18} />
               {starCount !== null && (
                 <span className="text-xs font-semibold tabular-nums">
-                  ⭐ {starCount >= 1000
+                  ⭐{" "}
+                  {starCount >= 1000
                     ? `${(starCount / 1000).toFixed(1)}k`
                     : starCount}
                 </span>
@@ -167,7 +174,8 @@ export function Navigation() {
               GitHub
               {starCount !== null && (
                 <span className="text-xs font-medium text-gray-500 dark:text-gray-400 tabular-nums">
-                  ⭐ {starCount >= 1000
+                  ⭐{" "}
+                  {starCount >= 1000
                     ? `${(starCount / 1000).toFixed(1)}k`
                     : starCount}
                 </span>

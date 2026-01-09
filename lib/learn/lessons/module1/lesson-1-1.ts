@@ -1,7 +1,7 @@
 import { Lesson, QueryResult, ValidationResult } from '../types';
 
 export const lesson1_1: Lesson = {
-  id: '1-1',
+  id: 'creating-tables',
   moduleId: '1',
   title: 'Creating Tables',
   shortTitle: 'CREATE TABLE',
@@ -53,7 +53,7 @@ REAL      -- Decimal numbers (3.14, 99.99)`,
     },
     challenges: [
       {
-        id: '1-1-c1',
+        id: 'creating-tables-c1',
         title: 'Create a Products Table',
         description: 'Create a table called "products" with three columns: id (INTEGER), name (TEXT), and price (REAL)',
         difficulty: 'easy',
@@ -74,7 +74,7 @@ REAL      -- Decimal numbers (3.14, 99.99)`,
         }
       },
       {
-        id: '1-1-c2',
+        id: 'creating-tables-c2',
         title: 'Create a Customers Table',
         description: 'Create a "customers" table with: id (INTEGER), email (TEXT), and age (INTEGER)',
         difficulty: 'easy',
@@ -93,7 +93,7 @@ REAL      -- Decimal numbers (3.14, 99.99)`,
         }
       },
       {
-        id: '1-1-c3',
+        id: 'creating-tables-c3',
         title: 'Design Your Own Table',
         description: 'Create a table called "orders" with at least 4 columns of your choice. Include at least 2 different data types.',
         difficulty: 'medium',
@@ -118,7 +118,7 @@ REAL      -- Decimal numbers (3.14, 99.99)`,
       }
     ],
     summary: {
-      id: 'card-1-1',
+      id: 'card-creating-tables',
       title: 'CREATE TABLE',
       syntax: `CREATE TABLE table_name (
   column1 datatype,

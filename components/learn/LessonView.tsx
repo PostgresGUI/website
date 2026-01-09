@@ -8,6 +8,7 @@ import {
   useLessonContext,
   useSQLEngineContext,
   useProgressContext,
+  useScrollContext,
 } from "./LearnProviders";
 import { ContextPhase, ContextPhaseRef } from "./phases/ContextPhase";
 import { ConceptPhase, ConceptPhaseRef } from "./phases/ConceptPhase";
@@ -36,6 +37,16 @@ export function LessonView({
     useLessonContext();
   const { initSchema, resetDatabase } = useSQLEngineContext();
   const { isChallengeComplete } = useProgressContext();
+  const { scrollContainerRef } = useScrollContext();
+  const mainRef = useRef<HTMLElement>(null);
+
+  // Register scroll container ref
+  useEffect(() => {
+    scrollContainerRef.current = mainRef.current;
+    return () => {
+      scrollContainerRef.current = null;
+    };
+  }, [scrollContainerRef]);
   const isInitialMount = useRef(true);
   const hasInitializedLesson = useRef<string | null>(null);
   const [isConceptPhaseComplete, setIsConceptPhaseComplete] = useState(false);
@@ -323,8 +334,10 @@ export function LessonView({
       )}
     >
       {/* Content - scrollable */}
-      <main className="h-full overflow-y-auto pb-24 md:pb-0">
-        <div className="max-w-2xl mx-auto px-4 py-6">{renderPhase()}</div>
+      <main ref={mainRef} className="h-full overflow-y-auto pb-24 md:pb-0">
+        <div className="max-w-2xl mx-auto px-4 pt-12 pb-40">
+          {renderPhase()}
+        </div>
       </main>
 
       {/* Footer - Fixed on mobile, static in grid on desktop */}
@@ -477,7 +490,9 @@ export function LessonView({
                   size="xl"
                   onClick={handleNextPhase}
                   className="min-w-0"
-                  disabled={hasNoChallenges || (!isLastChallenge && !isCurrentComplete)}
+                  disabled={
+                    hasNoChallenges || (!isLastChallenge && !isCurrentComplete)
+                  }
                 >
                   <span className="truncate">
                     {isLastChallenge ? "View Summary" : "Next Challenge"}

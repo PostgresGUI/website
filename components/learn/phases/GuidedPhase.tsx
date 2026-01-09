@@ -5,10 +5,9 @@ import { cn } from "@/lib/utils";
 import { GuidedPractice, QueryResult } from "@/lib/learn/lessons/types";
 import { QueryConsole } from "../QueryConsole";
 import { MentorMessage } from "../MentorMessage";
-import { TextType, TextTypeRef } from "../TextType";
+import { TextTypeRef } from "../TextType";
 import { useProgressContext } from "../LearnProviders";
 import { playSound } from "@/lib/sounds";
-import Image from "next/image";
 
 interface GuidedPhaseProps {
   practice: GuidedPractice;
@@ -205,53 +204,18 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
         </div>
 
         {/* Task prompt as chat bubble with typing animation */}
-        <div className="flex gap-1 animate-slide-in">
-          {/* Avatar */}
-          <div className="shrink-0 pt-1">
-            <Image
-              src="/postgresgui-elephant.png"
-              alt="Sam"
-              width={72}
-              height={72}
-              className="object-contain"
-            />
-          </div>
-
-          {/* Chat bubble */}
-          <div className="flex-1 min-w-0 max-w-2xl">
-            <div className="bg-muted rounded-2xl rounded-tl-md px-4 py-3 w-full relative">
-              {/* Name and role */}
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="font-semibold">Sam</span>
-                <span className="text-sm text-muted-foreground">
-                  Senior Database Engineer
-                </span>
-              </div>
-
-              {/* Message with typing animation */}
-              <p className="text-lg leading-relaxed text-foreground mb-3">
-                <TextType
-                  ref={textTypeRef}
-                  text={practice.prompt}
-                  speed={15}
-                  onComplete={handleTypingComplete}
-                />
-              </p>
-
-              {/* Example syntax - show after typing completes */}
-              {isTypingComplete && (
-                <div className="mt-3 rounded-lg bg-card border border-border p-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
-                    Example
-                  </p>
-                  <pre className="text-sm font-mono text-foreground whitespace-pre-wrap">
-                    {practice.template}
-                  </pre>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+        <MentorMessage
+          message={{
+            name: "Sam",
+            role: "Senior Database Engineer",
+            message: practice.prompt,
+          }}
+          syntax={practice.template}
+          showSyntax={isTypingComplete}
+          animate={true}
+          textTypeRef={textTypeRef}
+          onTypingComplete={handleTypingComplete}
+        />
 
         {/* Query console - only show after typing completes */}
         {isTypingComplete && (

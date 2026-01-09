@@ -1,9 +1,9 @@
 import { Lesson, QueryResult, ValidationResult } from "../types";
 
 export const lesson1_0: Lesson = {
-  id: "1-0",
+  id: "getting-started",
   moduleId: "1",
-  title: "Introduction to SQL & PostgreSQL",
+  title: "Introduction to SQL",
   shortTitle: "Introduction",
   description:
     "Learn what SQL is, what PostgreSQL is, and why it became so popular",
@@ -73,7 +73,7 @@ export const lesson1_0: Lesson = {
     },
     challenges: [
       {
-        id: "1-0-c1",
+        id: "getting-started-c1",
         title: "Your First Query",
         description: "Write a SELECT statement to display the number 42",
         difficulty: "easy",
@@ -129,7 +129,7 @@ export const lesson1_0: Lesson = {
         },
       },
       {
-        id: "1-0-c2",
+        id: "getting-started-c2",
         title: "Display Text",
         description:
           "Use SELECT to display your name (or any text) - remember to use single quotes around text!",
@@ -155,7 +155,7 @@ export const lesson1_0: Lesson = {
         },
       },
       {
-        id: "1-0-c3",
+        id: "getting-started-c3",
         title: "Simple Math",
         description: "SQL can do math! Use SELECT to calculate 10 + 5",
         difficulty: "easy",
@@ -188,7 +188,7 @@ export const lesson1_0: Lesson = {
       },
     ],
     summary: {
-      id: "card-1-0",
+      id: "card-getting-started",
       title: "SQL & PostgreSQL Basics",
       syntax: `-- SQL: The language for databases
 -- PostgreSQL: A powerful, free database

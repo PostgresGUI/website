@@ -1,7 +1,7 @@
 import { Lesson, QueryResult, ValidationResult } from '../types';
 
 export const lesson1_2: Lesson = {
-  id: '1-2',
+  id: 'inserting-rows',
   moduleId: '1',
   title: 'Inserting Data',
   shortTitle: 'INSERT INTO',
@@ -54,7 +54,7 @@ VALUES (1, 'Alice');`,
     },
     challenges: [
       {
-        id: '1-2-c1',
+        id: 'inserting-rows-c1',
         title: 'Add a Product',
         description: 'Insert a product with id 1, name "Laptop", and price 999.99 into the products table',
         difficulty: 'easy',
@@ -73,7 +73,7 @@ VALUES (1, 'Alice');`,
         }
       },
       {
-        id: '1-2-c2',
+        id: 'inserting-rows-c2',
         title: 'Add Multiple Employees',
         description: 'Insert two employees at once: (2, "Bob", "Engineering") and (3, "Carol", "Marketing")',
         difficulty: 'medium',
@@ -92,7 +92,7 @@ VALUES (1, 'Alice');`,
         }
       },
       {
-        id: '1-2-c3',
+        id: 'inserting-rows-c3',
         title: 'Build a Product Catalog',
         description: 'Add 3 products to the products table with different names and prices of your choice',
         difficulty: 'medium',
@@ -113,7 +113,7 @@ VALUES (1, 'Alice');`,
       }
     ],
     summary: {
-      id: 'card-1-2',
+      id: 'card-inserting-rows',
       title: 'INSERT INTO',
       syntax: `INSERT INTO table (col1, col2)
 VALUES (val1, val2);

@@ -7,6 +7,8 @@ import {
   useState,
   useCallback,
   useEffect,
+  useRef,
+  RefObject,
 } from "react";
 import { useSQLEngine } from "@/hooks/learn/useSQLEngine";
 import { useProgress } from "@/hooks/learn/useProgress";
@@ -93,6 +95,22 @@ export function useLessonContext() {
   return context;
 }
 
+// Scroll Context - for auto-scrolling when content expands
+interface ScrollContextType {
+  scrollContainerRef: RefObject<HTMLElement | null>;
+  scrollToBottom: () => void;
+}
+
+const ScrollContext = createContext<ScrollContextType | null>(null);
+
+export function useScrollContext() {
+  const context = useContext(ScrollContext);
+  if (!context) {
+    throw new Error("useScrollContext must be used within LearnProviders");
+  }
+  return context;
+}
+
 // Combined Provider
 interface LearnProvidersProps {
   children: ReactNode;
@@ -100,10 +118,22 @@ interface LearnProvidersProps {
 
 export function LearnProviders({ children }: LearnProvidersProps) {
   const [currentLesson, setCurrentLesson] = useState<Lesson | null>(null);
+  const scrollContainerRef = useRef<HTMLElement | null>(null);
 
   const sqlEngine = useSQLEngine();
   const progressHook = useProgress();
   const lessonHook = useLesson(currentLesson);
+
+  const scrollToBottom = useCallback(() => {
+    if (scrollContainerRef.current) {
+      requestAnimationFrame(() => {
+        scrollContainerRef.current?.scrollTo({
+          top: scrollContainerRef.current.scrollHeight,
+          behavior: "smooth",
+        });
+      });
+    }
+  }, []);
 
   // Initialize schema when lesson changes
   useEffect(() => {
@@ -139,7 +169,9 @@ export function LearnProviders({ children }: LearnProvidersProps) {
             ...lessonHook,
           }}
         >
-          {children}
+          <ScrollContext.Provider value={{ scrollContainerRef, scrollToBottom }}>
+            {children}
+          </ScrollContext.Provider>
         </LessonContext.Provider>
       </ProgressContext.Provider>
     </SQLEngineContext.Provider>

@@ -4,9 +4,8 @@ import { useState, useRef, useEffect, useImperativeHandle, forwardRef } from 're
 import { cn } from '@/lib/utils';
 import { MentorMessage as MentorMessageType } from '@/lib/learn/lessons/types';
 import { MentorMessage } from '../MentorMessage';
-import { TextType, TextTypeRef } from '../TextType';
+import { TextTypeRef } from '../TextType';
 import { useProgressContext } from '../LearnProviders';
-import Image from 'next/image';
 
 interface ContextPhaseProps {
   message: MentorMessageType;
@@ -132,41 +131,16 @@ export const ContextPhase = forwardRef<ContextPhaseRef, ContextPhaseProps>(
           </p>
         </div>
 
-        <div className="flex gap-1 animate-slide-in">
-          {/* Avatar */}
-          <div className="shrink-0 pt-1">
-            <Image
-              src="/postgresgui-elephant.png"
-              alt={message.name}
-              width={72}
-              height={72}
-              className="object-contain"
-            />
-          </div>
-
-          {/* Chat bubble */}
-          <div className="flex-1 min-w-0 max-w-2xl">
-            <div className="bg-muted rounded-2xl rounded-tl-md px-4 py-3 w-full relative">
-              {/* Name and role */}
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="font-semibold">{message.name}</span>
-                <span className="text-sm text-muted-foreground">
-                  {message.role}
-                </span>
-              </div>
-
-              {/* Message */}
-              <p className="text-lg leading-relaxed text-foreground">
-                <TextType
-                  ref={textTypeRef}
-                  text={message.message}
-                  speed={15}
-                  onComplete={handleTypingComplete}
-                />
-              </p>
-            </div>
-          </div>
-        </div>
+        <MentorMessage
+          message={{
+            name: message.name,
+            role: message.role,
+            message: message.message,
+          }}
+          animate={true}
+          textTypeRef={textTypeRef}
+          onTypingComplete={handleTypingComplete}
+        />
       </div>
     );
   }

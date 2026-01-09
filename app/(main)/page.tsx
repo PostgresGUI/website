@@ -17,18 +17,18 @@ const APP_STORE_LINK = "https://apps.apple.com/us/app/postgresgui/id6756467181";
 export default function Home() {
   return (
     <>
-      {/* Learn SQL Banner */}
+      {/* Learn SQL Floating Button */}
       <Link
         href="/learn-sql"
-        className="block bg-gradient-to-r from-stone-200 via-stone-100 to-stone-200 dark:from-stone-800 dark:via-stone-700 dark:to-stone-800 text-stone-700 dark:text-stone-200 py-2.5 px-4 text-center text-sm font-medium hover:opacity-90 transition-opacity border-b border-stone-200 dark:border-stone-700"
+        className="group fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/80 dark:bg-stone-800/80 backdrop-blur-md border border-stone-200/50 dark:border-stone-700/50 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
       >
-        <span className="inline-flex items-center gap-2 group">
-          <span>🎓</span>
-          <span className="group-hover:underline">
-            New: Interactive SQL course
-          </span>
-          <ArrowRight className="w-4 h-4" />
+        <span className="px-2 py-0.5 rounded-full bg-[var(--postgres-blue)]/15 text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] text-xs font-medium">
+          New
         </span>
+        <span className="text-sm text-gray-700 dark:text-gray-200">
+          Learn SQL
+        </span>
+        <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-[var(--postgres-blue)] group-hover:translate-x-0.5 transition-all" />
       </Link>
 
       {/* Hero Section */}

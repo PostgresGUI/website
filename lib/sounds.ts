@@ -189,17 +189,66 @@ function getSounds(): Record<SoundType, string> {
   return soundCache;
 }
 
+// Track if audio has been unlocked (played successfully at least once)
+let audioUnlocked = false;
+
 export function playSound(type: SoundType) {
+  // #region agent log
+  fetch('http://127.0.0.1:7248/ingest/51dada85-f72f-41d7-8b86-1e2e7f416560',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'sounds.ts:192',message:'playSound called',data:{type,audioUnlocked},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'G'})}).catch(()=>{});
+  // #endregion
+  
   if (typeof window === "undefined") return;
 
   try {
     const sounds = getSounds();
     const audio = new Audio(sounds[type]);
     audio.volume = 1.0;
-    audio.play().catch(() => {
-      // Autoplay blocked - ignore silently
-    });
-  } catch {
+    
+    // #region agent log
+    fetch('http://127.0.0.1:7248/ingest/51dada85-f72f-41d7-8b86-1e2e7f416560',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'sounds.ts:201',message:'audio created before play',data:{type,readyState:audio.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+    // #endregion
+    
+    const playPromise = audio.play();
+    
+    playPromise
+      .then(() => {
+        // #region agent log
+        fetch('http://127.0.0.1:7248/ingest/51dada85-f72f-41d7-8b86-1e2e7f416560',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'sounds.ts:207',message:'play succeeded',data:{type},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+        // #endregion
+        // Successfully played - mark as unlocked
+        if (!audioUnlocked) {
+          audioUnlocked = true;
+        }
+      })
+      .catch((e) => {
+        // #region agent log
+        fetch('http://127.0.0.1:7248/ingest/51dada85-f72f-41d7-8b86-1e2e7f416560',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'sounds.ts:214',message:'play failed',data:{type,errorName:e?.name,errorMessage:e?.message,audioUnlocked},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+        // #endregion
+        // If autoplay is blocked, try to unlock with a silent sound first
+        if (e.name === 'NotAllowedError' && !audioUnlocked) {
+          // Try to unlock with a very quiet sound
+          const unlockAudio = new Audio(sounds.message);
+          unlockAudio.volume = 0.01;
+          unlockAudio.play()
+            .then(() => {
+              audioUnlocked = true;
+              // #region agent log
+              fetch('http://127.0.0.1:7248/ingest/51dada85-f72f-41d7-8b86-1e2e7f416560',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'sounds.ts:223',message:'unlock succeeded, retrying play',data:{type},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+              // #endregion
+              // Now try playing the actual sound
+              audio.play().catch(() => {
+                // Still failed, ignore
+              });
+            })
+            .catch(() => {
+              // Unlock failed, ignore
+            });
+        }
+      });
+  } catch (e) {
+    // #region agent log
+    fetch('http://127.0.0.1:7248/ingest/51dada85-f72f-41d7-8b86-1e2e7f416560',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'sounds.ts:235',message:'exception in playSound',data:{type,errorName:(e as Error)?.name},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+    // #endregion
     // Sound generation failed - ignore
   }
 }

@@ -1,7 +1,7 @@
 import { Lesson, QueryResult, ValidationResult } from '../types';
 
 export const lesson1_4: Lesson = {
-  id: '1-4',
+  id: 'sort-and-limit',
   moduleId: '1',
   title: 'Sorting & Limiting',
   shortTitle: 'ORDER BY',
@@ -73,7 +73,7 @@ ORDER BY price DESC;`,
     },
     challenges: [
       {
-        id: '1-4-c1',
+        id: 'sort-and-limit-c1',
         title: 'Top 3 Expensive Products',
         description: 'Get the 3 most expensive products (name and price only)',
         difficulty: 'easy',
@@ -92,7 +92,7 @@ ORDER BY price DESC;`,
         }
       },
       {
-        id: '1-4-c2',
+        id: 'sort-and-limit-c2',
         title: 'Cheapest Office Supplies',
         description: 'Find the 2 cheapest Office products',
         difficulty: 'medium',
@@ -111,7 +111,7 @@ ORDER BY price DESC;`,
         }
       },
       {
-        id: '1-4-c3',
+        id: 'sort-and-limit-c3',
         title: 'Top Earners',
         description: 'Get the top 3 highest-paid employees (show name, department, salary)',
         difficulty: 'medium',
@@ -131,7 +131,7 @@ ORDER BY price DESC;`,
       }
     ],
     summary: {
-      id: 'card-1-4',
+      id: 'card-sort-and-limit',
       title: 'ORDER BY & LIMIT',
       syntax: `SELECT columns
 FROM table

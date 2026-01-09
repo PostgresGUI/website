@@ -1,7 +1,7 @@
 import { Lesson, QueryResult, ValidationResult } from '../types';
 
 export const lesson1_5: Lesson = {
-  id: '1-5',
+  id: 'aggregates',
   moduleId: '1',
   title: 'Aggregating Data',
   shortTitle: 'COUNT, SUM, AVG',
@@ -75,7 +75,7 @@ GROUP BY status;`,
     },
     challenges: [
       {
-        id: '1-5-c1',
+        id: 'aggregates-c1',
         title: 'Total Revenue',
         description: 'Calculate the total revenue from all orders (sum of the total column)',
         difficulty: 'easy',
@@ -93,7 +93,7 @@ GROUP BY status;`,
         }
       },
       {
-        id: '1-5-c2',
+        id: 'aggregates-c2',
         title: 'Average Order Value',
         description: 'Find the average order total',
         difficulty: 'easy',
@@ -111,7 +111,7 @@ GROUP BY status;`,
         }
       },
       {
-        id: '1-5-c3',
+        id: 'aggregates-c3',
         title: 'Orders by Status',
         description: 'Count how many orders are in each status (completed, pending, cancelled)',
         difficulty: 'medium',
@@ -129,7 +129,7 @@ GROUP BY status;`,
         }
       },
       {
-        id: '1-5-c4',
+        id: 'aggregates-c4',
         title: 'Revenue by Product',
         description: 'Calculate total revenue for each product (product name and sum of totals)',
         difficulty: 'hard',
@@ -149,7 +149,7 @@ GROUP BY status;`,
       }
     ],
     summary: {
-      id: 'card-1-5',
+      id: 'card-aggregates',
       title: 'Aggregates & GROUP BY',
       syntax: `SELECT category, COUNT(*), AVG(price)
 FROM products

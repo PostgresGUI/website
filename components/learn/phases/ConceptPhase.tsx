@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import {
   useState,
   useRef,
@@ -10,8 +9,9 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 import { SyntaxExample } from "@/lib/learn/lessons/types";
-import { TextType, TextTypeRef } from "../TextType";
-import { useProgressContext } from "../LearnProviders";
+import { TextTypeRef } from "../TextType";
+import { MentorMessage } from "../MentorMessage";
+import { useProgressContext, useScrollContext } from "../LearnProviders";
 
 interface ConceptPhaseProps {
   concepts: SyntaxExample[];
@@ -39,12 +39,28 @@ export const ConceptPhase = forwardRef<ConceptPhaseRef, ConceptPhaseProps>(
     ref
   ) {
     const { markPhaseComplete } = useProgressContext();
+    const { scrollContainerRef } = useScrollContext();
     const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
     const [isTypingComplete, setIsTypingComplete] = useState(false);
     const textTypeRef = useRef<TextTypeRef>(null);
     const [syntaxDisplayed, setSyntaxDisplayed] = useState(false);
     const [hasCalledOnComplete, setHasCalledOnComplete] = useState(false);
     const isSkippingRef = useRef(false);
+    const messageRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+    // Scroll to current message when it changes
+    useEffect(() => {
+      const currentRef = messageRefs.current[currentMessageIndex];
+      if (currentRef && scrollContainerRef.current) {
+        // Small delay to ensure the opacity transition has started
+        setTimeout(() => {
+          currentRef.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }, 50);
+      }
+    }, [currentMessageIndex, scrollContainerRef]);
 
     // Reset state when concepts change
     useEffect(() => {
@@ -57,7 +73,6 @@ export const ConceptPhase = forwardRef<ConceptPhaseRef, ConceptPhaseProps>(
       isInitialMountRef.current = true;
     }, [concepts]);
 
-    const currentConcept = concepts[currentMessageIndex];
     const isLastMessage = currentMessageIndex === concepts.length - 1;
     const allMessagesComplete =
       currentMessageIndex === concepts.length - 1 &&
@@ -189,80 +204,40 @@ export const ConceptPhase = forwardRef<ConceptPhaseRef, ConceptPhaseProps>(
         </div>
 
         <div className="space-y-4">
-          {/* Display all previous messages */}
-          {concepts.slice(0, currentMessageIndex).map((concept, index) => (
-            <div key={index} className="flex gap-3">
-              <div className="shrink-0 pt-1">
-                <Image
-                  src="/postgresgui-elephant.png"
-                  alt="Sam"
-                  width={72}
-                  height={72}
-                  className={cn("object-contain", index > 0 && "opacity-0")}
+          {/* Render all messages upfront with transparency */}
+          {concepts.map((concept, index) => {
+            const isPast = index < currentMessageIndex;
+            const isCurrent = index === currentMessageIndex;
+            const isFuture = index > currentMessageIndex;
+
+            return (
+              <div
+                key={index}
+                ref={(el) => { messageRefs.current[index] = el; }}
+                className={cn(
+                  "transition-opacity duration-500",
+                  isPast && "opacity-100",
+                  isCurrent && "opacity-100",
+                  isFuture && "opacity-0 pointer-events-none"
+                )}
+              >
+                <MentorMessage
+                  message={{
+                    name: concept.title,
+                    role: "",
+                    message: concept.explanation,
+                  }}
+                  syntax={concept.syntax}
+                  showSyntax={isPast || (isCurrent && syntaxDisplayed)}
+                  animate={isCurrent}
+                  textTypeRef={isCurrent ? textTypeRef : undefined}
+                  onTypingComplete={isCurrent ? handleTypingComplete : undefined}
+                  hideAvatar={index > 0}
+                  disableAutoScroll
                 />
               </div>
-
-              <div className="flex-1 min-w-0">
-                <div className="bg-muted rounded-2xl rounded-tl-md px-4 py-3">
-                  <div className="flex items-baseline gap-2 mb-2">
-                    <span className="font-semibold">{concept.title}</span>
-                  </div>
-
-                  <p className="text-lg leading-relaxed text-foreground mb-3">
-                    {concept.explanation}
-                  </p>
-
-                  <pre className="p-3 rounded-lg bg-card border border-border overflow-x-auto">
-                    <code className="text-sm font-mono text-foreground/90 whitespace-pre">
-                      {concept.syntax}
-                    </code>
-                  </pre>
-                </div>
-              </div>
-            </div>
-          ))}
-
-          {/* Current message with typing animation */}
-          <div className="flex gap-3">
-            <div className="shrink-0 pt-1">
-              <Image
-                src="/postgresgui-elephant.png"
-                alt="Sam"
-                width={72}
-                height={72}
-                className={cn(
-                  "object-contain",
-                  currentMessageIndex > 0 && "opacity-0"
-                )}
-              />
-            </div>
-
-            <div className="flex-1 min-w-0">
-              <div className="bg-muted rounded-2xl rounded-tl-md px-4 py-3">
-                <div className="flex items-baseline gap-2 mb-2">
-                  <span className="font-semibold">{currentConcept.title}</span>
-                </div>
-
-                <p className="text-lg leading-relaxed text-foreground mb-3">
-                  <TextType
-                    key={currentMessageIndex}
-                    ref={textTypeRef}
-                    text={currentConcept.explanation}
-                    speed={15}
-                    onComplete={handleTypingComplete}
-                  />
-                </p>
-
-                {syntaxDisplayed && (
-                  <pre className="p-3 rounded-lg bg-card border border-border overflow-x-auto animate-in fade-in slide-in-from-bottom-2 duration-300">
-                    <code className="text-sm font-mono text-foreground/90 whitespace-pre">
-                      {currentConcept.syntax}
-                    </code>
-                  </pre>
-                )}
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     );

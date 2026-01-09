@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { cn } from '@/lib/utils';
-import { useProgressContext } from './LearnProviders';
-import { Lightbulb, ChevronDown, Lock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
+import { useProgressContext, useScrollContext } from "./LearnProviders";
+import { Lightbulb, ChevronDown, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface HintSystemProps {
   hints: [string, string, string];
@@ -13,20 +13,32 @@ interface HintSystemProps {
   className?: string;
 }
 
-const HINT_LABELS = ['Concept Hint', 'Syntax Hint', 'Solution'];
+const HINT_LABELS = ["Concept Hint", "Syntax Hint", "Solution"];
 
 export function HintSystem({
   hints,
   challengeId,
   lessonId,
-  className
+  className,
 }: HintSystemProps) {
   const { progress, recordHintUsed } = useProgressContext();
+  const { scrollToBottom } = useScrollContext();
   const [unlockedTier, setUnlockedTier] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
 
+  // Auto-scroll when hints panel expands
+  useEffect(() => {
+    if (isExpanded) {
+      const timeout = setTimeout(() => {
+        scrollToBottom();
+      }, 50);
+      return () => clearTimeout(timeout);
+    }
+  }, [isExpanded, scrollToBottom]);
+
   // Check if hints were already used in progress
-  const savedTier = progress.lessonProgress[lessonId]?.hintsUsed[challengeId] || 0;
+  const savedTier =
+    progress.lessonProgress[lessonId]?.hintsUsed[challengeId] || 0;
   const effectiveTier = Math.max(unlockedTier, savedTier);
 
   const unlockHint = (tier: number) => {
@@ -38,10 +50,12 @@ export function HintSystem({
   };
 
   return (
-    <div className={cn(
-      'rounded-xl border border-border bg-card overflow-hidden shadow-swiftui',
-      className
-    )}>
+    <div
+      className={cn(
+        "rounded-xl border border-border bg-card overflow-hidden shadow-swiftui",
+        className
+      )}
+    >
       {/* Header - clickable to expand */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
@@ -58,10 +72,12 @@ export function HintSystem({
             </span>
           )}
         </div>
-        <ChevronDown className={cn(
-          'w-4 h-4 text-muted-foreground transition-transform',
-          isExpanded && 'rotate-180'
-        )} />
+        <ChevronDown
+          className={cn(
+            "w-4 h-4 text-muted-foreground transition-transform",
+            isExpanded && "rotate-180"
+          )}
+        />
       </button>
 
       {/* Hints content */}
@@ -76,10 +92,10 @@ export function HintSystem({
               <div
                 key={index}
                 className={cn(
-                  'rounded-lg border p-3 transition-all',
+                  "rounded-lg border p-3 transition-all",
                   isUnlocked
-                    ? 'border-amber-500/30 bg-amber-500/5'
-                    : 'border-border bg-muted/20'
+                    ? "border-amber-500/30 bg-amber-500/5"
+                    : "border-border bg-muted/20"
                 )}
               >
                 <div className="flex items-center justify-between mb-2">
@@ -100,7 +116,7 @@ export function HintSystem({
                           Unlock previous first
                         </>
                       ) : (
-                        'Reveal'
+                        "Reveal"
                       )}
                     </Button>
                   )}

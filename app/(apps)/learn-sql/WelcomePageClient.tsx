@@ -19,7 +19,7 @@ export function WelcomePageClient() {
 
   return (
     <div className="h-full overflow-y-auto">
-      <WelcomeScreen onStartLesson={() => handleSelectLesson("1-0")} />
+      <WelcomeScreen onStartLesson={() => handleSelectLesson("getting-started")} />
     </div>
   );
 }

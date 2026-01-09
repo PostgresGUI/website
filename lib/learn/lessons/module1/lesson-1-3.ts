@@ -1,7 +1,7 @@
 import { Lesson, QueryResult, ValidationResult } from '../types';
 
 export const lesson1_3: Lesson = {
-  id: '1-3',
+  id: 'querying-data',
   moduleId: '1',
   title: 'Basic Queries',
   shortTitle: 'SELECT',
@@ -69,7 +69,7 @@ WHERE state = 'CA';`,
     },
     challenges: [
       {
-        id: '1-3-c1',
+        id: 'querying-data-c1',
         title: 'Get Customer Emails',
         description: 'Select only the name and email columns from the customers table',
         difficulty: 'easy',
@@ -88,7 +88,7 @@ WHERE state = 'CA';`,
         }
       },
       {
-        id: '1-3-c2',
+        id: 'querying-data-c2',
         title: 'Find California Customers',
         description: 'Get all customers from California (state = \'CA\')',
         difficulty: 'easy',
@@ -109,7 +109,7 @@ WHERE state = 'CA';`,
         }
       },
       {
-        id: '1-3-c3',
+        id: 'querying-data-c3',
         title: 'Electronics Under $500',
         description: 'Find all Electronics products that cost less than $500',
         difficulty: 'medium',
@@ -129,7 +129,7 @@ WHERE state = 'CA';`,
       }
     ],
     summary: {
-      id: 'card-1-3',
+      id: 'card-querying-data',
       title: 'SELECT & WHERE',
       syntax: `SELECT column1, column2
 FROM table_name

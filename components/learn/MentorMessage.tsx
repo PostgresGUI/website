@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, RefObject } from "react";
 import { cn } from "@/lib/utils";
-import { TextType } from "./TextType";
+import { TextType, TextTypeRef } from "./TextType";
 import { Check, Trophy, CheckCircle2 } from "lucide-react";
+import { useScrollContext } from "./LearnProviders";
 
 // Challenge content props
 interface ChallengeContent {
@@ -27,9 +28,14 @@ interface MentorMessageProps {
   // For challenge variant
   challenge?: ChallengeContent;
   syntax?: string;
+  showSyntax?: boolean; // Control syntax visibility (for delayed display)
   variant?: "default" | "success" | "error" | "hint" | "challenge";
   className?: string;
   animate?: boolean;
+  textTypeRef?: RefObject<TextTypeRef | null>; // Ref to control TextType (for skip)
+  onTypingComplete?: () => void; // Callback when typing animation finishes
+  hideAvatar?: boolean; // Hide avatar (for stacked messages)
+  disableAutoScroll?: boolean; // Disable auto-scroll on mount (for pre-rendered messages)
 }
 
 const getDifficultyStyles = (difficulty: ChallengeContent["difficulty"]) => {
@@ -56,9 +62,14 @@ export function MentorMessage({
   message,
   challenge,
   syntax,
+  showSyntax = true,
   variant = "default",
   className,
   animate = true,
+  textTypeRef,
+  onTypingComplete,
+  hideAvatar = false,
+  disableAutoScroll = false,
 }: MentorMessageProps) {
   const isSuccess = variant === "success";
   const isError = variant === "error";
@@ -74,6 +85,7 @@ export function MentorMessage({
   const hasShakeAnimation = className?.includes("animate-shake") ?? false;
   const shouldSlideIn = !hasShakeAnimation;
   const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollToBottom } = useScrollContext();
 
   // Ensure shake animation triggers on mount when shake class is present
   useEffect(() => {
@@ -92,6 +104,16 @@ export function MentorMessage({
       });
     }
   }, [hasShakeAnimation]);
+
+  // Auto-scroll when message appears
+  useEffect(() => {
+    if (disableAutoScroll) return;
+    // Small delay to let the slide-in animation start
+    const timeout = setTimeout(() => {
+      scrollToBottom();
+    }, 100);
+    return () => clearTimeout(timeout);
+  }, [scrollToBottom, disableAutoScroll]);
 
   // Note: Sounds are played from the event handlers that trigger these messages
   // (e.g., in GuidedPhase, ChallengePhase) to comply with browser autoplay policy.
@@ -113,7 +135,7 @@ export function MentorMessage({
           alt={displayName || "Mentor"}
           width={72}
           height={72}
-          className="object-contain"
+          className={cn("object-contain", hideAvatar && "opacity-0")}
         />
       </div>
 
@@ -191,15 +213,20 @@ export function MentorMessage({
               {/* Message */}
               <p className="text-lg leading-relaxed text-foreground">
                 {animate ? (
-                  <TextType text={message.message} speed={15} />
+                  <TextType
+                    ref={textTypeRef}
+                    text={message.message}
+                    speed={15}
+                    onComplete={onTypingComplete}
+                  />
                 ) : (
                   message.message
                 )}
               </p>
 
               {/* Optional example block */}
-              {syntax && (
-                <div className="mt-3 rounded-lg bg-card border border-border p-3">
+              {syntax && showSyntax && (
+                <div className="mt-3 rounded-lg bg-card border border-border p-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
                     Example
                   </p>
