@@ -7,7 +7,7 @@ import { Lesson } from "@/lib/learn/lessons/types";
 import { useLessonContext, useSQLEngineContext, useProgressContext } from "./LearnProviders";
 import { ContextPhase, ContextPhaseRef } from "./phases/ContextPhase";
 import { ConceptPhase, ConceptPhaseRef } from "./phases/ConceptPhase";
-import { GuidedPhase } from "./phases/GuidedPhase";
+import { GuidedPhase, GuidedPhaseRef } from "./phases/GuidedPhase";
 import { ChallengePhase } from "./phases/ChallengePhase";
 import { SummaryPhase } from "./phases/SummaryPhase";
 import { Button } from "@/components/ui/button";
@@ -44,6 +44,11 @@ export function LessonView({
     canSkip: boolean;
     isComplete: boolean;
   }>({ canSkip: true, isComplete: false });
+  const guidedPhaseRef = useRef<GuidedPhaseRef>(null);
+  const [guidedPhaseState, setGuidedPhaseState] = useState<{
+    canSkip: boolean;
+    isComplete: boolean;
+  }>({ canSkip: true, isComplete: false });
 
   // Initialize lesson schema
   useEffect(() => {
@@ -56,6 +61,7 @@ export function LessonView({
     isInitialMount.current = true;
     setIsConceptPhaseComplete(false);
     setContextPhaseState({ canSkip: true, isComplete: false });
+    setGuidedPhaseState({ canSkip: true, isComplete: false });
   }, [lesson.id, resetDatabase, initSchema, resetLesson]);
 
   // Reset phase completion when leaving phases
@@ -66,6 +72,9 @@ export function LessonView({
     }
     if (currentPhase !== "context") {
       setContextPhaseState({ canSkip: true, isComplete: false });
+    }
+    if (currentPhase !== "guided") {
+      setGuidedPhaseState({ canSkip: true, isComplete: false });
     }
   }, [currentPhase]);
 
@@ -191,6 +200,14 @@ export function LessonView({
     setContextPhaseState(state);
   }, []);
 
+  // Stable callbacks for GuidedPhase
+  const handleGuidedStateChange = useCallback((state: {
+    canSkip: boolean;
+    isComplete: boolean;
+  }) => {
+    setGuidedPhaseState(state);
+  }, []);
+
   const renderPhase = useCallback(() => {
     switch (currentPhase) {
       case "context":
@@ -212,7 +229,13 @@ export function LessonView({
           />
         );
       case "guided":
-        return <GuidedPhase practice={lesson.phases.guided} />;
+        return (
+          <GuidedPhase
+            ref={guidedPhaseRef}
+            practice={lesson.phases.guided}
+            onStateChange={handleGuidedStateChange}
+          />
+        );
       case "challenge":
         return (
           <ChallengePhase
@@ -231,7 +254,7 @@ export function LessonView({
       default:
         return null;
     }
-  }, [currentPhase, lesson, conceptPhaseRef, contextPhaseRef, handleConceptAllComplete, handleConceptStateChange, handleContextComplete, handleContextStateChange]);
+  }, [currentPhase, lesson, conceptPhaseRef, contextPhaseRef, guidedPhaseRef, handleConceptAllComplete, handleConceptStateChange, handleContextComplete, handleContextStateChange, handleGuidedStateChange]);
 
   return (
     <div
@@ -324,12 +347,36 @@ export function LessonView({
               </Button>
             );
           })()}
-          {currentPhase === "guided" && (
-            <Button size="xl" onClick={handleNextPhase} className="min-w-0">
-              <span className="truncate">Take the Challenge</span>
-              <ArrowRight className="w-4 h-4 shrink-0" />
-            </Button>
-          )}
+          {currentPhase === "guided" && (() => {
+            const { canSkip, isComplete } = guidedPhaseState;
+
+            const handleGuidedButtonClick = () => {
+              if (canSkip) {
+                guidedPhaseRef.current?.handleSkip();
+              } else if (isComplete) {
+                handleNextPhase();
+              }
+            };
+
+            const getButtonText = () => {
+              if (canSkip) return "Skip";
+              if (isComplete) return "Take the Challenge";
+              return "Take the Challenge";
+            };
+
+            return (
+              <Button
+                size="xl"
+                onClick={handleGuidedButtonClick}
+                className="min-w-0"
+                disabled={!canSkip && !isComplete}
+                variant={canSkip ? "outline" : "default"}
+              >
+                <span className="truncate">{getButtonText()}</span>
+                {!canSkip && <ArrowRight className="w-4 h-4 shrink-0" />}
+              </Button>
+            );
+          })()}
           {currentPhase === "challenge" && (() => {
             const challengeParam = searchParams?.get("challenge");
             const currentIndex = challengeParam 
