@@ -59,7 +59,7 @@ export function Sidebar({
   onChallengeClick,
   className,
 }: SidebarProps) {
-  const { isLessonComplete } = useProgressContext();
+  const { isLessonComplete, isPhaseComplete, isChallengeComplete, progress } = useProgressContext();
   const [expandedLessons, setExpandedLessons] = useState<Set<string>>(
     new Set()
   );
@@ -69,6 +69,74 @@ export function Sidebar({
   const progressPercent = (completedCount / lessons.length) * 100;
 
   const currentPhaseIndex = phases.indexOf(currentPhase || "context");
+
+  // Helper function to check if a phase is accessible
+  const isPhaseAccessibleFn = (phaseIndex: number, lessonId: string): boolean => {
+    // If lesson is complete, all phases are accessible
+    if (isLessonComplete(lessonId)) {
+      return true;
+    }
+
+    // If not the current lesson, only accessible if previous lesson is complete
+    if (lessonId !== currentLessonId) {
+      const lessonIndex = lessons.findIndex(l => l.id === lessonId);
+      if (lessonIndex > 0) {
+        return isLessonComplete(lessons[lessonIndex - 1].id);
+      }
+      return lessonIndex === 0; // First lesson is always accessible
+    }
+
+    // For current lesson, check if previous phases are completed
+    // Context phase is always accessible
+    if (phaseIndex === 0) {
+      return true;
+    }
+
+    // For other phases, check if we've reached this phase OR previous phase is complete
+    // If current phase index is >= target phase index, it's accessible (user is there now)
+    if (currentPhaseIndex >= phaseIndex) {
+      return true;
+    }
+
+    // Check if previous phase is complete
+    const prevPhase = phases[phaseIndex - 1];
+    if (prevPhase === "challenge") {
+      // For phases after challenge, check if all challenges are complete
+      const allChallengesComplete = challenges.every(c =>
+        isChallengeComplete(lessonId, c.id)
+      );
+      return allChallengesComplete;
+    }
+
+    // Check if previous phase is marked complete
+    return isPhaseComplete(lessonId, prevPhase);
+  };
+
+  // Helper function to check if a challenge is accessible
+  const isChallengeAccessible = (challengeIndex: number, lessonId: string): boolean => {
+    // If lesson is complete, all challenges are accessible
+    if (isLessonComplete(lessonId)) {
+      return true;
+    }
+    
+    // If not current lesson, challenges are not accessible
+    if (lessonId !== currentLessonId) {
+      return false;
+    }
+    
+    // First challenge is accessible if we're in challenge phase
+    if (challengeIndex === 0) {
+      return currentPhase === "challenge";
+    }
+    
+    // Other challenges are accessible if previous challenge is complete
+    const previousChallenge = challenges[challengeIndex - 1];
+    if (previousChallenge) {
+      return isChallengeComplete(lessonId, previousChallenge.id);
+    }
+    
+    return false;
+  };
 
   // Auto-expand current lesson
   useEffect(() => {
@@ -212,6 +280,7 @@ export function Sidebar({
                             isChallengePhase &&
                             challenges.length > 0;
                           const canShowChallenges = hasChallenges;
+                          const isPhaseLocked = !isPhaseAccessibleFn(phaseIndex, lesson.id);
 
                           return (
                             <div key={phase}>
@@ -222,7 +291,10 @@ export function Sidebar({
                                     !hasChallenges &&
                                     "bg-zinc-200 dark:bg-zinc-700 font-medium text-foreground",
                                   (!isActivePhase || hasChallenges) &&
-                                    "text-muted-foreground hover:text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                                    !isPhaseLocked &&
+                                    "text-muted-foreground hover:text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800",
+                                  isPhaseLocked &&
+                                    "opacity-50 cursor-not-allowed text-muted-foreground"
                                 )}
                               >
                                 {hasChallenges ? (
@@ -260,17 +332,22 @@ export function Sidebar({
                                   <>
                                     <button
                                       onClick={() => {
+                                        if (isPhaseLocked) return;
                                         if (!isCurrent) {
                                           onSelectLesson(lesson.id);
                                         }
                                         onPhaseClick?.(phase, lesson.id);
                                       }}
+                                      disabled={isPhaseLocked}
                                       className="flex items-center gap-2 flex-1 min-w-0"
                                     >
                                       <Icon className="w-3.5 h-3.5 shrink-0" />
                                       <span>{config.label}</span>
                                     </button>
-                                    {isPastPhase && !isActivePhase && (
+                                    {isPhaseLocked && (
+                                      <Lock className="w-3.5 h-3.5 shrink-0 text-muted-foreground" />
+                                    )}
+                                    {isPastPhase && !isActivePhase && !isPhaseLocked && (
                                       <CheckCircle className="w-3.5 h-3.5 shrink-0 text-emerald-500" />
                                     )}
                                   </>
@@ -295,24 +372,38 @@ export function Sidebar({
                                             challenge.id ===
                                               currentChallengeId &&
                                             isActivePhase;
+                                          const isChallengeLocked = !isChallengeAccessible(challengeIndex, lesson.id);
+                                          // Only show checkmark for actually completed challenges
+                                          // Don't include isChallengeActive to avoid premature checkmark display
+                                          const isChallengeCompleted = isCurrent
+                                            ? progress.lessonProgress[lesson.id]?.completedChallenges?.includes(challenge.id) ?? false
+                                            : false;
                                           return (
                                             <button
                                               key={challenge.id}
-                                              onClick={() =>
-                                                onChallengeClick?.(challenge.id)
-                                              }
+                                              onClick={() => {
+                                                if (isChallengeLocked) return;
+                                                onChallengeClick?.(challenge.id);
+                                              }}
+                                              disabled={isChallengeLocked}
                                               className={cn(
                                                 "w-full flex items-center gap-2 px-3 py-1 rounded-full text-left transition-all duration-200 text-sm",
                                                 isChallengeActive &&
                                                   "bg-zinc-200 dark:bg-zinc-700 font-medium text-foreground",
                                                 !isChallengeActive &&
-                                                  "text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                                                  !isChallengeLocked &&
+                                                  "text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800",
+                                                isChallengeLocked &&
+                                                  "opacity-50 cursor-not-allowed text-muted-foreground/50"
                                               )}
                                             >
                                               <span className="truncate">
                                                 Challenge {challengeIndex + 1}
                                               </span>
-                                              {isPastPhase && (
+                                              {isChallengeLocked && (
+                                                <Lock className="w-3.5 h-3.5 ml-auto shrink-0 text-muted-foreground" />
+                                              )}
+                                              {isChallengeCompleted && !isChallengeLocked && (
                                                 <CheckCircle className="w-3.5 h-3.5 ml-auto shrink-0 text-emerald-500" />
                                               )}
                                             </button>

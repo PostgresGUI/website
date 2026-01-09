@@ -1,9 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { UserProgress, LessonProgress } from '@/lib/learn/lessons/types';
-
-const STORAGE_KEY = 'postgresgui-learn-progress';
 
 const defaultProgress: UserProgress = {
   completedLessons: [],
@@ -13,27 +11,6 @@ const defaultProgress: UserProgress = {
 
 export function useProgress() {
   const [progress, setProgress] = useState<UserProgress>(defaultProgress);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  // Load from localStorage on mount
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        setProgress(JSON.parse(stored));
-      }
-    } catch {
-      // Ignore parse errors
-    }
-    setIsLoaded(true);
-  }, []);
-
-  // Save to localStorage when progress changes
-  useEffect(() => {
-    if (isLoaded) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
-    }
-  }, [progress, isLoaded]);
 
   const markLessonComplete = useCallback((lessonId: string) => {
     setProgress(prev => ({
@@ -58,10 +35,38 @@ export function useProgress() {
     }));
   }, []);
 
+  const markPhaseComplete = useCallback((lessonId: string, phase: string) => {
+    setProgress(prev => {
+      const lessonProg = prev.lessonProgress[lessonId] || {
+        currentPhase: 0,
+        completedPhases: [],
+        completedChallenges: [],
+        hintsUsed: {},
+        startedAt: new Date().toISOString()
+      };
+
+      if (lessonProg.completedPhases?.includes(phase)) {
+        return prev; // Already complete
+      }
+
+      return {
+        ...prev,
+        lessonProgress: {
+          ...prev.lessonProgress,
+          [lessonId]: {
+            ...lessonProg,
+            completedPhases: [...(lessonProg.completedPhases || []), phase]
+          }
+        }
+      };
+    });
+  }, []);
+
   const markChallengeComplete = useCallback((lessonId: string, challengeId: string) => {
     setProgress(prev => {
       const lessonProg = prev.lessonProgress[lessonId] || {
         currentPhase: 0,
+        completedPhases: [],
         completedChallenges: [],
         hintsUsed: {},
         startedAt: new Date().toISOString()
@@ -105,6 +110,7 @@ export function useProgress() {
     setProgress(prev => {
       const lessonProg = prev.lessonProgress[lessonId] || {
         currentPhase: 0,
+        completedPhases: [],
         completedChallenges: [],
         hintsUsed: {},
         startedAt: new Date().toISOString()
@@ -132,6 +138,10 @@ export function useProgress() {
     return progress.completedLessons.includes(lessonId);
   }, [progress.completedLessons]);
 
+  const isPhaseComplete = useCallback((lessonId: string, phase: string) => {
+    return progress.lessonProgress[lessonId]?.completedPhases?.includes(phase) || false;
+  }, [progress.lessonProgress]);
+
   const isChallengeComplete = useCallback((lessonId: string, challengeId: string) => {
     return progress.lessonProgress[lessonId]?.completedChallenges.includes(challengeId) || false;
   }, [progress.lessonProgress]);
@@ -142,13 +152,14 @@ export function useProgress() {
 
   return {
     progress,
-    isLoaded,
     markLessonComplete,
     updateLessonProgress,
+    markPhaseComplete,
     markChallengeComplete,
     markChallengeIncomplete,
     recordHintUsed,
     isLessonComplete,
+    isPhaseComplete,
     isChallengeComplete,
     resetProgress
   };

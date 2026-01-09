@@ -1,7 +1,5 @@
-import { Suspense } from "react";
-import { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { module1 } from "@/lib/learn/lessons/module1";
-import { LessonPageClient } from "./LessonPageClient";
 
 // Required for static export - generates all lesson routes at build time
 export function generateStaticParams() {
@@ -10,63 +8,18 @@ export function generateStaticParams() {
   }));
 }
 
-// Generate metadata for each lesson
-export async function generateMetadata({
+// Redirect to context phase
+export default async function LessonPage({
   params,
 }: {
   params: Promise<{ lessonId: string }>;
-}): Promise<Metadata> {
+}) {
   const { lessonId } = await params;
   const lesson = module1.lessons.find((l) => l.id === lessonId);
 
   if (!lesson) {
-    return {
-      title: "Lesson Not Found | Learn PostgreSQL",
-      description: "The requested lesson could not be found.",
-    };
+    redirect("/learn-sql");
   }
 
-  const lessonNumber = module1.lessons.findIndex((l) => l.id === lesson.id) + 1;
-  const totalLessons = module1.lessons.length;
-
-  return {
-    title: `${lesson.title} - Learn PostgreSQL Lesson ${lessonNumber} | PostgresGUI`,
-    description: `${lesson.description} Part ${lessonNumber} of ${totalLessons} in our interactive PostgreSQL tutorial. Estimated time: ${lesson.estimatedMinutes} minutes.`,
-    keywords: [
-      "learn postgresql",
-      "sql tutorial",
-      "postgresql tutorial",
-      lesson.title.toLowerCase(),
-      "interactive sql",
-      "database tutorial",
-      "sql lesson",
-    ],
-    openGraph: {
-      title: `${lesson.title} - Learn PostgreSQL`,
-      description: lesson.description,
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${lesson.title} - Learn PostgreSQL`,
-      description: lesson.description,
-    },
-    alternates: {
-      canonical: `/learn-sql/${lesson.id}`,
-    },
-  };
-}
-
-export default function LessonPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="h-full flex items-center justify-center">
-          <div className="text-muted-foreground">Loading lesson...</div>
-        </div>
-      }
-    >
-      <LessonPageClient />
-    </Suspense>
-  );
+  redirect(`/learn-sql/${lessonId}/context`);
 }

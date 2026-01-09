@@ -1,17 +1,24 @@
-'use client';
+"use client";
 
-import { createContext, useContext, ReactNode, useState, useCallback, useEffect } from 'react';
-import { useSQLEngine } from '@/hooks/learn/useSQLEngine';
-import { useProgress } from '@/hooks/learn/useProgress';
-import { useLesson } from '@/hooks/learn/useLesson';
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
+import { useSQLEngine } from "@/hooks/learn/useSQLEngine";
+import { useProgress } from "@/hooks/learn/useProgress";
+import { useLesson } from "@/hooks/learn/useLesson";
 import {
   Lesson,
   PhaseType,
   QueryResult,
   TableInfo,
   UserProgress,
-  Challenge
-} from '@/lib/learn/lessons/types';
+  Challenge,
+} from "@/lib/learn/lessons/types";
 
 // SQL Engine Context
 interface SQLEngineContextType {
@@ -28,7 +35,7 @@ const SQLEngineContext = createContext<SQLEngineContextType | null>(null);
 export function useSQLEngineContext() {
   const context = useContext(SQLEngineContext);
   if (!context) {
-    throw new Error('useSQLEngineContext must be used within LearnProviders');
+    throw new Error("useSQLEngineContext must be used within LearnProviders");
   }
   return context;
 }
@@ -36,12 +43,13 @@ export function useSQLEngineContext() {
 // Progress Context
 interface ProgressContextType {
   progress: UserProgress;
-  isLoaded: boolean;
   markLessonComplete: (lessonId: string) => void;
+  markPhaseComplete: (lessonId: string, phase: string) => void;
   markChallengeComplete: (lessonId: string, challengeId: string) => void;
   markChallengeIncomplete: (lessonId: string, challengeId: string) => void;
   recordHintUsed: (lessonId: string, challengeId: string, tier: number) => void;
   isLessonComplete: (lessonId: string) => boolean;
+  isPhaseComplete: (lessonId: string, phase: string) => boolean;
   isChallengeComplete: (lessonId: string, challengeId: string) => boolean;
 }
 
@@ -50,7 +58,7 @@ const ProgressContext = createContext<ProgressContextType | null>(null);
 export function useProgressContext() {
   const context = useContext(ProgressContext);
   if (!context) {
-    throw new Error('useProgressContext must be used within LearnProviders');
+    throw new Error("useProgressContext must be used within LearnProviders");
   }
   return context;
 }
@@ -80,7 +88,7 @@ const LessonContext = createContext<LessonContextType | null>(null);
 export function useLessonContext() {
   const context = useContext(LessonContext);
   if (!context) {
-    throw new Error('useLessonContext must be used within LearnProviders');
+    throw new Error("useLessonContext must be used within LearnProviders");
   }
   return context;
 }
@@ -108,19 +116,29 @@ export function LearnProviders({ children }: LearnProvidersProps) {
     }
   }, [currentLesson?.id]);
 
-  const setLesson = useCallback((lesson: Lesson | null) => {
-    setCurrentLesson(lesson);
-    lessonHook.resetLesson();
-  }, [lessonHook.resetLesson]);
+  const setLesson = useCallback(
+    (lesson: Lesson | null) => {
+      // Only reset lesson state if this is a different lesson
+      // Don't reset if we're just loading the same lesson (e.g., on page refresh)
+      const isNewLesson = currentLesson?.id !== lesson?.id;
+      setCurrentLesson(lesson);
+      if (isNewLesson) {
+        lessonHook.resetLesson();
+      }
+    },
+    [currentLesson?.id, lessonHook.resetLesson]
+  );
 
   return (
     <SQLEngineContext.Provider value={sqlEngine}>
       <ProgressContext.Provider value={progressHook}>
-        <LessonContext.Provider value={{
-          lesson: currentLesson,
-          setLesson,
-          ...lessonHook
-        }}>
+        <LessonContext.Provider
+          value={{
+            lesson: currentLesson,
+            setLesson,
+            ...lessonHook,
+          }}
+        >
           {children}
         </LessonContext.Provider>
       </ProgressContext.Provider>

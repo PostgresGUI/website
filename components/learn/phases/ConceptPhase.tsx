@@ -11,9 +11,11 @@ import {
 import { cn } from "@/lib/utils";
 import { SyntaxExample } from "@/lib/learn/lessons/types";
 import { TextType, TextTypeRef } from "../TextType";
+import { useProgressContext } from "../LearnProviders";
 
 interface ConceptPhaseProps {
   concepts: SyntaxExample[];
+  lessonId: string;
   className?: string;
   onAllComplete?: () => void;
   onStateChange?: (state: {
@@ -33,9 +35,10 @@ export interface ConceptPhaseRef {
 
 export const ConceptPhase = forwardRef<ConceptPhaseRef, ConceptPhaseProps>(
   function ConceptPhase(
-    { concepts, className, onAllComplete, onStateChange },
+    { concepts, lessonId, className, onAllComplete, onStateChange },
     ref
   ) {
+    const { markPhaseComplete } = useProgressContext();
     const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
     const [isTypingComplete, setIsTypingComplete] = useState(false);
     const textTypeRef = useRef<TextTypeRef>(null);
@@ -144,9 +147,17 @@ export const ConceptPhase = forwardRef<ConceptPhaseRef, ConceptPhaseProps>(
     useEffect(() => {
       if (allMessagesComplete && !hasCalledOnComplete) {
         setHasCalledOnComplete(true);
+        // Mark phase complete
+        markPhaseComplete(lessonId, "concept");
         onAllComplete?.();
       }
-    }, [allMessagesComplete, hasCalledOnComplete, onAllComplete]);
+    }, [
+      allMessagesComplete,
+      hasCalledOnComplete,
+      onAllComplete,
+      lessonId,
+      markPhaseComplete,
+    ]);
 
     const handleTypingComplete = () => {
       // If we already skipped, don't update state again

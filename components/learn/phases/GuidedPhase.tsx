@@ -6,10 +6,12 @@ import { GuidedPractice, QueryResult } from "@/lib/learn/lessons/types";
 import { QueryConsole } from "../QueryConsole";
 import { MentorMessage } from "../MentorMessage";
 import { TextType, TextTypeRef } from "../TextType";
+import { useProgressContext } from "../LearnProviders";
 import Image from "next/image";
 
 interface GuidedPhaseProps {
   practice: GuidedPractice;
+  lessonId: string;
   className?: string;
   onStateChange?: (state: { canSkip: boolean; isComplete: boolean; hasPracticed: boolean }) => void;
 }
@@ -22,10 +24,12 @@ export interface GuidedPhaseRef {
 }
 
 export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
-  function GuidedPhase({ practice, className, onStateChange }, ref) {
+  function GuidedPhase({ practice, lessonId, className, onStateChange }, ref) {
+    const { markPhaseComplete } = useProgressContext();
     const [isTypingComplete, setIsTypingComplete] = useState(false);
     const [queryComplete, setQueryComplete] = useState(false);
     const [hasPracticed, setHasPracticed] = useState(false);
+    const [hasMarkedComplete, setHasMarkedComplete] = useState(false);
     const textTypeRef = useRef<TextTypeRef>(null);
     const isSkippingRef = useRef(false);
     const onStateChangeRef = useRef<
@@ -42,6 +46,7 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
       setIsTypingComplete(false);
       setQueryComplete(false);
       setHasPracticed(false);
+      setHasMarkedComplete(false);
       isSkippingRef.current = false;
       prevStateRef.current = null;
       isInitialMountRef.current = true;
@@ -71,7 +76,13 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
       (result: QueryResult, query: string) => {
         // Track that user has practiced (run any query)
         setHasPracticed(true);
-        
+
+        // Mark phase complete when user runs their first query
+        if (!hasMarkedComplete) {
+          setHasMarkedComplete(true);
+          markPhaseComplete(lessonId, 'guided');
+        }
+
         if (result.success) {
           const normalized = query.toLowerCase().replace(/\s+/g, " ").trim();
           const expected = practice.expectedQuery
@@ -83,7 +94,7 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
           }
         }
       },
-      [practice.expectedQuery]
+      [practice.expectedQuery, hasMarkedComplete, lessonId, markPhaseComplete]
     );
 
     const canSkip = !isTypingComplete;

@@ -27,7 +27,6 @@ export function ChallengePhase({
   const pathname = usePathname();
   const {
     markChallengeComplete,
-    markChallengeIncomplete,
     isChallengeComplete,
   } = useProgressContext();
 
@@ -129,10 +128,8 @@ export function ChallengePhase({
         if (!hasShownError) {
           setHasShownError(true);
         }
-        // If validation fails and challenge was previously marked complete, unmark it
-        if (isCurrentComplete) {
-          markChallengeIncomplete(lessonId, currentChallenge.id);
-        }
+        // Note: We intentionally do NOT mark challenge incomplete on wrong answers
+        // Challenge completion is permanent - wrong answers on revisit don't reset progress
       }
     },
     [
@@ -141,7 +138,6 @@ export function ChallengePhase({
       isCurrentComplete,
       hasShownError,
       markChallengeComplete,
-      markChallengeIncomplete,
     ]
   );
 

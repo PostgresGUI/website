@@ -98,6 +98,7 @@ export interface Module {
 // User progress tracking
 export interface LessonProgress {
   currentPhase: number;
+  completedPhases: string[];
   completedChallenges: string[];
   hintsUsed: Record<string, number>;
   startedAt: string;

@@ -4,7 +4,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Lesson } from "@/lib/learn/lessons/types";
-import { useLessonContext, useSQLEngineContext, useProgressContext } from "./LearnProviders";
+import {
+  useLessonContext,
+  useSQLEngineContext,
+  useProgressContext,
+} from "./LearnProviders";
 import { ContextPhase, ContextPhaseRef } from "./phases/ContextPhase";
 import { ConceptPhase, ConceptPhaseRef } from "./phases/ConceptPhase";
 import { GuidedPhase, GuidedPhaseRef } from "./phases/GuidedPhase";
@@ -33,6 +37,7 @@ export function LessonView({
   const { initSchema, resetDatabase } = useSQLEngineContext();
   const { isChallengeComplete } = useProgressContext();
   const isInitialMount = useRef(true);
+  const hasInitializedLesson = useRef<string | null>(null);
   const [isConceptPhaseComplete, setIsConceptPhaseComplete] = useState(false);
   const conceptPhaseRef = useRef<ConceptPhaseRef>(null);
   const [conceptPhaseState, setConceptPhaseState] = useState<{
@@ -54,158 +59,197 @@ export function LessonView({
 
   // Initialize lesson schema
   useEffect(() => {
+    // Only reset lesson state if this is a different lesson than we've seen
+    // Don't reset if we're just loading the same lesson (e.g., on page refresh)
+    const isNewLesson = hasInitializedLesson.current !== lesson.id;
+
+    if (isNewLesson) {
+      hasInitializedLesson.current = lesson.id;
+      resetLesson();
+    }
+
     resetDatabase().then(() => {
       if (lesson.initialSchema) {
         initSchema(lesson.initialSchema);
       }
     });
-    resetLesson();
+
     isInitialMount.current = true;
     setIsConceptPhaseComplete(false);
     setContextPhaseState({ canSkip: true, isComplete: false });
-    setGuidedPhaseState({ canSkip: true, isComplete: false, hasPracticed: false });
+    setGuidedPhaseState({
+      canSkip: true,
+      isComplete: false,
+      hasPracticed: false,
+    });
   }, [lesson.id, resetDatabase, initSchema, resetLesson]);
 
   // Reset phase completion when leaving phases
   useEffect(() => {
     if (currentPhase !== "concept") {
       setIsConceptPhaseComplete(false);
-      setConceptPhaseState({ canSkip: true, canNext: false, allComplete: false });
+      setConceptPhaseState({
+        canSkip: true,
+        canNext: false,
+        allComplete: false,
+      });
     }
     if (currentPhase !== "context") {
       setContextPhaseState({ canSkip: true, isComplete: false });
     }
     if (currentPhase !== "guided") {
-      setGuidedPhaseState({ canSkip: true, isComplete: false, hasPracticed: false });
+      setGuidedPhaseState({
+        canSkip: true,
+        isComplete: false,
+        hasPracticed: false,
+      });
     }
   }, [currentPhase]);
 
-  // Sync phase changes to URL query params
-  useEffect(() => {
-    // Skip on initial mount to avoid overriding URL phase param
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      return;
-    }
-
-    // Only update URL if we're on a lesson page (has lessonId in path)
-    if (pathname?.includes("/learn-sql/") && pathname !== "/learn-sql") {
-      const url = new URL(window.location.href);
-      const currentPhaseParam = url.searchParams.get("phase");
-
-      // Only update if phase actually changed
-      if (currentPhaseParam !== currentPhase) {
-        url.searchParams.set("phase", currentPhase);
-        // If switching to challenge phase and no challenge param, set first challenge
-        if (
-          currentPhase === "challenge" &&
-          !url.searchParams.get("challenge")
-        ) {
-          const firstChallengeId = lesson.phases.challenges[0]?.id;
-          if (firstChallengeId) {
-            url.searchParams.set("challenge", firstChallengeId);
-          }
-        }
-        // If leaving challenge phase, remove challenge param
-        if (currentPhase !== "challenge" && url.searchParams.get("challenge")) {
-          url.searchParams.delete("challenge");
-        }
-        router.replace(url.pathname + url.search, { scroll: false });
+  // Helper function to get phase route
+  const getPhaseRoute = useCallback(
+    (phase: string, challengeId?: string | null) => {
+      const basePath = `/learn-sql/${lesson.id}`;
+      if (phase === "challenge" && challengeId) {
+        return `${basePath}/challenge/${challengeId}`;
       }
-    }
-  }, [currentPhase, pathname, router, lesson.phases.challenges]);
+      // Map "guided" phase to "practice" route
+      if (phase === "guided") {
+        return `${basePath}/practice`;
+      }
+      return `${basePath}/${phase}`;
+    },
+    [lesson.id]
+  );
 
   // Challenge navigation functions
   const goToNextChallenge = useCallback(() => {
-    if (!pathname || !challengeParam) return;
-    
-    const currentIndex = lesson.phases.challenges.findIndex(c => c.id === challengeParam);
+    if (!challengeParam) return;
+
+    const currentIndex = lesson.phases.challenges.findIndex(
+      (c) => c.id === challengeParam
+    );
     if (currentIndex === -1) return;
-    
+
     if (currentIndex < lesson.phases.challenges.length - 1) {
       const nextChallengeId = lesson.phases.challenges[currentIndex + 1]?.id;
       if (nextChallengeId) {
-        const url = new URL(window.location.href);
-        url.searchParams.set("phase", "challenge");
-        url.searchParams.set("challenge", nextChallengeId);
-        router.replace(url.pathname + url.search, { scroll: false });
+        router.push(getPhaseRoute("challenge", nextChallengeId));
       }
     } else {
-      // Last challenge, go to next phase
-      nextPhase();
+      // Last challenge, go to summary phase
+      router.push(getPhaseRoute("summary"));
     }
-  }, [pathname, challengeParam, lesson, router, nextPhase]);
+  }, [challengeParam, lesson, router, getPhaseRoute]);
 
   const goToPrevChallenge = useCallback(() => {
-    if (!pathname || !challengeParam) return;
-    
-    const currentIndex = lesson.phases.challenges.findIndex(c => c.id === challengeParam);
+    if (!challengeParam) return;
+
+    const currentIndex = lesson.phases.challenges.findIndex(
+      (c) => c.id === challengeParam
+    );
     if (currentIndex === -1) return;
-    
+
     if (currentIndex > 0) {
       const prevChallengeId = lesson.phases.challenges[currentIndex - 1]?.id;
       if (prevChallengeId) {
-        const url = new URL(window.location.href);
-        url.searchParams.set("phase", "challenge");
-        url.searchParams.set("challenge", prevChallengeId);
-        router.replace(url.pathname + url.search, { scroll: false });
+        router.push(getPhaseRoute("challenge", prevChallengeId));
       }
     } else {
-      // First challenge, go to previous phase
-      prevPhase();
+      // First challenge, go to practice phase
+      router.push(getPhaseRoute("practice"));
     }
-  }, [pathname, challengeParam, lesson, router, prevPhase]);
+  }, [challengeParam, lesson, router, getPhaseRoute]);
 
-  // Wrapper functions that update URL when phase changes
+  // Wrapper functions that navigate to routes when phase changes
   const handleNextPhase = useCallback(() => {
     if (currentPhase === "challenge") {
       goToNextChallenge();
     } else {
-      nextPhase();
+      const phaseOrder: Record<string, string> = {
+        context: "concept",
+        concept: "practice",
+        guided: "challenge",
+        challenge: "summary",
+        summary: "summary",
+      };
+      const nextPhase = phaseOrder[currentPhase] || "context";
+      if (nextPhase === "challenge") {
+        // Navigate to first challenge
+        const firstChallengeId = lesson.phases.challenges[0]?.id;
+        if (firstChallengeId) {
+          router.push(getPhaseRoute("challenge", firstChallengeId));
+        } else {
+          router.push(getPhaseRoute("summary"));
+        }
+      } else {
+        router.push(getPhaseRoute(nextPhase));
+      }
     }
-  }, [currentPhase, nextPhase, goToNextChallenge]);
+  }, [currentPhase, router, lesson, getPhaseRoute, goToNextChallenge]);
 
   const handlePrevPhase = useCallback(() => {
     if (currentPhase === "challenge") {
       goToPrevChallenge();
     } else {
-      prevPhase();
+      const phaseOrder: Record<string, string> = {
+        context: "context",
+        concept: "context",
+        guided: "concept",
+        challenge: "practice",
+        summary: "challenge",
+      };
+      const prevPhase = phaseOrder[currentPhase] || "context";
+      if (prevPhase === "challenge") {
+        // Navigate to last challenge
+        const lastChallengeId =
+          lesson.phases.challenges[lesson.phases.challenges.length - 1]?.id;
+        if (lastChallengeId) {
+          router.push(getPhaseRoute("challenge", lastChallengeId));
+        } else {
+          router.push(getPhaseRoute("practice"));
+        }
+      } else {
+        router.push(getPhaseRoute(prevPhase));
+      }
     }
-  }, [currentPhase, prevPhase, goToPrevChallenge]);
+  }, [currentPhase, router, lesson, getPhaseRoute, goToPrevChallenge]);
 
   // Stable callbacks for ConceptPhase
   const handleConceptAllComplete = useCallback(() => {
     setIsConceptPhaseComplete(true);
   }, []);
 
-  const handleConceptStateChange = useCallback((state: {
-    canSkip: boolean;
-    canNext: boolean;
-    allComplete: boolean;
-  }) => {
-    setConceptPhaseState(state);
-  }, []);
+  const handleConceptStateChange = useCallback(
+    (state: { canSkip: boolean; canNext: boolean; allComplete: boolean }) => {
+      setConceptPhaseState(state);
+    },
+    []
+  );
 
   // Stable callbacks for ContextPhase
   const handleContextComplete = useCallback(() => {
     // Context phase completion is handled via state
   }, []);
 
-  const handleContextStateChange = useCallback((state: {
-    canSkip: boolean;
-    isComplete: boolean;
-  }) => {
-    setContextPhaseState(state);
-  }, []);
+  const handleContextStateChange = useCallback(
+    (state: { canSkip: boolean; isComplete: boolean }) => {
+      setContextPhaseState(state);
+    },
+    []
+  );
 
   // Stable callbacks for GuidedPhase
-  const handleGuidedStateChange = useCallback((state: {
-    canSkip: boolean;
-    isComplete: boolean;
-    hasPracticed: boolean;
-  }) => {
-    setGuidedPhaseState(state);
-  }, []);
+  const handleGuidedStateChange = useCallback(
+    (state: {
+      canSkip: boolean;
+      isComplete: boolean;
+      hasPracticed: boolean;
+    }) => {
+      setGuidedPhaseState(state);
+    },
+    []
+  );
 
   const renderPhase = useCallback(() => {
     switch (currentPhase) {
@@ -214,6 +258,7 @@ export function LessonView({
           <ContextPhase
             ref={contextPhaseRef}
             message={lesson.phases.context}
+            lessonId={lesson.id}
             onComplete={handleContextComplete}
             onStateChange={handleContextStateChange}
           />
@@ -223,6 +268,7 @@ export function LessonView({
           <ConceptPhase
             ref={conceptPhaseRef}
             concepts={lesson.phases.concept}
+            lessonId={lesson.id}
             onAllComplete={handleConceptAllComplete}
             onStateChange={handleConceptStateChange}
           />
@@ -232,6 +278,7 @@ export function LessonView({
           <GuidedPhase
             ref={guidedPhaseRef}
             practice={lesson.phases.guided}
+            lessonId={lesson.id}
             onStateChange={handleGuidedStateChange}
           />
         );
@@ -254,7 +301,19 @@ export function LessonView({
       default:
         return null;
     }
-  }, [currentPhase, lesson, conceptPhaseRef, contextPhaseRef, guidedPhaseRef, challengeParam, handleConceptAllComplete, handleConceptStateChange, handleContextComplete, handleContextStateChange, handleGuidedStateChange]);
+  }, [
+    currentPhase,
+    lesson,
+    conceptPhaseRef,
+    contextPhaseRef,
+    guidedPhaseRef,
+    challengeParam,
+    handleConceptAllComplete,
+    handleConceptStateChange,
+    handleContextComplete,
+    handleContextStateChange,
+    handleGuidedStateChange,
+  ]);
 
   return (
     <div
@@ -284,125 +343,143 @@ export function LessonView({
             <div />
           )}
 
-          {currentPhase === "context" && (() => {
-            const { canSkip, isComplete } = contextPhaseState;
+          {currentPhase === "context" &&
+            (() => {
+              const { canSkip, isComplete } = contextPhaseState;
 
-            const handleContextButtonClick = () => {
-              if (canSkip) {
-                contextPhaseRef.current?.handleSkip();
-              } else if (isComplete) {
-                handleNextPhase();
-              }
-            };
+              const handleContextButtonClick = () => {
+                if (canSkip) {
+                  contextPhaseRef.current?.handleSkip();
+                } else if (isComplete) {
+                  handleNextPhase();
+                }
+              };
 
-            const getButtonText = () => {
-              if (canSkip) return "Skip";
-              if (isComplete) return "Let's Learn";
-              return "Let's Learn";
-            };
+              const getButtonText = () => {
+                if (canSkip) return "Skip";
+                if (isComplete) return "Let's Learn";
+                return "Let's Learn";
+              };
 
-            return (
-              <Button
-                size="xl"
-                onClick={handleContextButtonClick}
-                className="min-w-0"
-                disabled={!canSkip && !isComplete}
-                variant={canSkip ? "outline" : "default"}
-              >
-                <span className="truncate">{getButtonText()}</span>
-                {!canSkip && <ArrowRight className="w-4 h-4 shrink-0" />}
-              </Button>
-            );
-          })()}
-          {currentPhase === "concept" && (() => {
-            const { canSkip, canNext, allComplete } = conceptPhaseState;
-            
-            const handleConceptButtonClick = () => {
-              if (canSkip) {
-                conceptPhaseRef.current?.handleSkip();
-              } else if (canNext) {
-                conceptPhaseRef.current?.handleNext();
-              } else if (allComplete) {
-                handleNextPhase();
-              }
-            };
+              return (
+                <Button
+                  size="xl"
+                  onClick={handleContextButtonClick}
+                  className="min-w-0"
+                  disabled={!canSkip && !isComplete}
+                  variant={canSkip ? "outline" : "default"}
+                >
+                  <span className="truncate">{getButtonText()}</span>
+                  {!canSkip && <ArrowRight className="w-4 h-4 shrink-0" />}
+                </Button>
+              );
+            })()}
+          {currentPhase === "concept" &&
+            (() => {
+              const { canSkip, canNext, allComplete } = conceptPhaseState;
 
-            const getButtonText = () => {
-              if (canSkip) return "Skip";
-              if (canNext) return "Next";
-              if (allComplete) return "Try It Out";
-              return "Try It Out";
-            };
+              const handleConceptButtonClick = () => {
+                if (canSkip) {
+                  conceptPhaseRef.current?.handleSkip();
+                } else if (canNext) {
+                  conceptPhaseRef.current?.handleNext();
+                } else if (allComplete) {
+                  handleNextPhase();
+                }
+              };
 
-            return (
-              <Button
-                size="xl"
-                onClick={handleConceptButtonClick}
-                className="min-w-0"
-                disabled={!canSkip && !canNext && !allComplete}
-                variant={canSkip ? "outline" : "default"}
-              >
-                <span className="truncate">{getButtonText()}</span>
-                {!canSkip && <ArrowRight className="w-4 h-4 shrink-0" />}
-              </Button>
-            );
-          })()}
-          {currentPhase === "guided" && (() => {
-            const { canSkip, isComplete, hasPracticed } = guidedPhaseState;
+              const getButtonText = () => {
+                if (canSkip) return "Skip";
+                if (canNext) return "Next";
+                if (allComplete) return "Try It Out";
+                return "Try It Out";
+              };
 
-            const handleGuidedButtonClick = () => {
-              if (canSkip) {
-                guidedPhaseRef.current?.handleSkip();
-              } else if (hasPracticed) {
-                handleNextPhase();
-              }
-            };
+              return (
+                <Button
+                  size="xl"
+                  onClick={handleConceptButtonClick}
+                  className="min-w-0"
+                  disabled={!canSkip && !canNext && !allComplete}
+                  variant={canSkip ? "outline" : "default"}
+                >
+                  <span className="truncate">{getButtonText()}</span>
+                  {!canSkip && <ArrowRight className="w-4 h-4 shrink-0" />}
+                </Button>
+              );
+            })()}
+          {currentPhase === "guided" &&
+            (() => {
+              const { canSkip, isComplete, hasPracticed } = guidedPhaseState;
 
-            const getButtonText = () => {
-              if (canSkip) return "Skip";
-              return "Take the Challenge";
-            };
+              const handleGuidedButtonClick = () => {
+                if (canSkip) {
+                  guidedPhaseRef.current?.handleSkip();
+                } else if (hasPracticed) {
+                  handleNextPhase();
+                }
+              };
 
-            // Button is enabled only if typing is complete AND user has practiced
-            const isButtonEnabled = !canSkip && hasPracticed;
+              const getButtonText = () => {
+                if (canSkip) return "Skip";
+                return "Take the Challenge";
+              };
 
-            return (
-              <Button
-                size="xl"
-                onClick={handleGuidedButtonClick}
-                className="min-w-0"
-                disabled={!canSkip && !isButtonEnabled}
-                variant={canSkip || !hasPracticed ? "outline" : "default"}
-              >
-                <span className="truncate">{getButtonText()}</span>
-                {isButtonEnabled && <ArrowRight className="w-4 h-4 shrink-0" />}
-              </Button>
-            );
-          })()}
-          {currentPhase === "challenge" && (() => {
-            const currentIndex = challengeParam 
-              ? lesson.phases.challenges.findIndex(c => c.id === challengeParam)
-              : -1;
-            const isLastChallenge = currentIndex === lesson.phases.challenges.length - 1;
-            const currentChallengeId = challengeParam || lesson.phases.challenges[0]?.id;
-            const isCurrentComplete = currentChallengeId 
-              ? isChallengeComplete(lesson.id, currentChallengeId)
-              : false;
-            
-            return (
-              <Button 
-                size="xl" 
-                onClick={handleNextPhase} 
-                className="min-w-0"
-                disabled={!isLastChallenge && !isCurrentComplete}
-              >
-                <span className="truncate">
-                  {isLastChallenge ? "View Summary" : "Next Challenge"}
-                </span>
-                <ArrowRight className="w-4 h-4 shrink-0" />
-              </Button>
-            );
-          })()}
+              // Button is enabled only if typing is complete AND user has practiced
+              const isButtonEnabled = !canSkip && hasPracticed;
+
+              return (
+                <Button
+                  size="xl"
+                  onClick={handleGuidedButtonClick}
+                  className="min-w-0"
+                  disabled={!canSkip && !isButtonEnabled}
+                  variant={canSkip || !hasPracticed ? "outline" : "default"}
+                >
+                  <span className="truncate">{getButtonText()}</span>
+                  {isButtonEnabled && (
+                    <ArrowRight className="w-4 h-4 shrink-0" />
+                  )}
+                </Button>
+              );
+            })()}
+          {currentPhase === "challenge" &&
+            (() => {
+              // Safely get current index, defaulting to 0 if not found or not provided
+              const rawIndex = challengeParam
+                ? lesson.phases.challenges.findIndex(
+                    (c) => c.id === challengeParam
+                  )
+                : 0;
+              // If challengeParam was invalid (not found), treat as first challenge
+              const safeCurrentIndex = rawIndex === -1 ? 0 : rawIndex;
+              const isLastChallenge =
+                safeCurrentIndex === lesson.phases.challenges.length - 1;
+              const currentChallengeId =
+                lesson.phases.challenges[safeCurrentIndex]?.id;
+              const isCurrentComplete = currentChallengeId
+                ? isChallengeComplete(lesson.id, currentChallengeId)
+                : false;
+
+              // Button should be disabled if:
+              // 1. Not on last challenge AND current challenge not complete
+              // 2. No challenges exist
+              const hasNoChallenges = lesson.phases.challenges.length === 0;
+
+              return (
+                <Button
+                  size="xl"
+                  onClick={handleNextPhase}
+                  className="min-w-0"
+                  disabled={hasNoChallenges || (!isLastChallenge && !isCurrentComplete)}
+                >
+                  <span className="truncate">
+                    {isLastChallenge ? "View Summary" : "Next Challenge"}
+                  </span>
+                  <ArrowRight className="w-4 h-4 shrink-0" />
+                </Button>
+              );
+            })()}
           {currentPhase === "summary" && (
             <Button
               size="xl"

@@ -5,10 +5,12 @@ import { cn } from '@/lib/utils';
 import { MentorMessage as MentorMessageType } from '@/lib/learn/lessons/types';
 import { MentorMessage } from '../MentorMessage';
 import { TextType, TextTypeRef } from '../TextType';
+import { useProgressContext } from '../LearnProviders';
 import Image from 'next/image';
 
 interface ContextPhaseProps {
   message: MentorMessageType;
+  lessonId: string;
   className?: string;
   onComplete?: () => void;
   onStateChange?: (state: { canSkip: boolean; isComplete: boolean }) => void;
@@ -21,13 +23,17 @@ export interface ContextPhaseRef {
 }
 
 export const ContextPhase = forwardRef<ContextPhaseRef, ContextPhaseProps>(
-  function ContextPhase({ message, className, onComplete, onStateChange }, ref) {
+  function ContextPhase({ message, lessonId, className, onComplete, onStateChange }, ref) {
+    const { markPhaseComplete, isPhaseComplete } = useProgressContext();
     const [isTypingComplete, setIsTypingComplete] = useState(false);
     const textTypeRef = useRef<TextTypeRef>(null);
     const [hasCalledOnComplete, setHasCalledOnComplete] = useState(false);
     const isSkippingRef = useRef(false);
     const onStateChangeRef = useRef(onStateChange);
     const onCompleteRef = useRef(onComplete);
+
+    // Check if phase is already complete
+    const isAlreadyComplete = isPhaseComplete(lessonId, 'context');
 
     // Keep the callback refs up to date
     useEffect(() => {
@@ -111,9 +117,11 @@ export const ContextPhase = forwardRef<ContextPhaseRef, ContextPhaseProps>(
 
       if (isTypingComplete && !hasCalledOnComplete) {
         setHasCalledOnComplete(true);
+        // Mark phase complete
+        markPhaseComplete(lessonId, 'context');
         onCompleteRef.current?.();
       }
-    }, [canSkip, isTypingComplete, hasCalledOnComplete]);
+    }, [canSkip, isTypingComplete, hasCalledOnComplete, lessonId, markPhaseComplete]);
 
     return (
       <div className={cn('animate-phase-enter', className)}>

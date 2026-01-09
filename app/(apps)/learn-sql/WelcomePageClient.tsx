@@ -12,7 +12,7 @@ export function WelcomePageClient() {
 
   const handleSelectLesson = useCallback(
     (lessonId: string) => {
-      router.push(`/learn-sql/${lessonId}`);
+      router.push(`/learn-sql/${lessonId}/context`);
     },
     [router]
   );
