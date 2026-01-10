@@ -1,10 +1,17 @@
-export function AppStoreBadge() {
+type AppStoreBadgeProps = {
+  scale?: number;
+};
+
+export function AppStoreBadge({ scale = 1 }: AppStoreBadgeProps) {
+  const width = 119.66407 * scale;
+  const height = 40 * scale;
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       id="livetype"
-      width="119.66407"
-      height="40"
+      width={width}
+      height={height}
       viewBox="0 0 119.66407 40"
     >
       <title>Download_on_the_App_Store_Badge_US-UK_RGB_blk_4SVG_092917</title>
