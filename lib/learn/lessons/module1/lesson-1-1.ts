@@ -11,7 +11,7 @@ export const lesson1_1: Lesson = {
     context: {
       name: 'Sam',
       role: 'Senior Database Engineer',
-      message: "Welcome to NorthLoop! For your first task, we need to set up a new database table to track our employees. I'll walk you through how to create tables in SQL. This is fundamental - everything in a database starts with tables!",
+      message: "Welcome to PostgresGUI Inc! For your first task, we need to set up a new database table to track our employees. I'll walk you through how to create tables in SQL. This is fundamental - everything in a database starts with tables!",
       timestamp: 'Just now'
     },
     concept: [

@@ -34,7 +34,7 @@ export default function Home() {
       {/* Hero Section */}
       <div
         id="hero-section"
-        className="flex-1 flex items-center justify-center grid-bg relative overflow-hidden"
+        className="flex-1 flex items-center justify-center grid-bg hero-gradient relative overflow-hidden"
       >
         {/* Flowing Data Streams Background */}
         <FlowingData />
@@ -42,36 +42,17 @@ export default function Home() {
         {/* Accent Element */}
         <div className="absolute w-[800px] h-[600px] bg-gradient-to-br from-[var(--postgres-blue)] to-blue-400 opacity-5 blur-3xl rounded-full"></div>
 
-        <div className="text-center px-6 pt-12 pb-16 md:pb-24 relative z-10">
-          {/* Logo Image */}
-          <div className="flex justify-center mb-2 animate-slide-in">
-            <div className="relative">
-              <Image
-                src="/postgresgui-elephant.png"
-                alt="PostgresGUI - Lightweight PostgreSQL Client"
-                width={240}
-                height={240}
-                className="object-contain md:w-[320px] md:h-[320px]"
-                priority
-              />
-            </div>
-          </div>
-
-          {/* Product Name */}
-          {/* <h1 className="text-6xl md:text-8xl lg:text-9xl font-display mb-6 md:mb-8 animate-slide-in stagger-1 tracking-tight">
-            PostgresGUI
-          </h1> */}
-
+        <div className="text-center px-6 pt-16 pb-16 md:pt-24 md:pb-24 relative z-10">
           {/* Main Tagline */}
           <h1
-            className="text-5xl lg:text-6xl max-w-lg mx-auto mb-8 md:mb-10 animate-slide-in stagger-2 leading-tight"
+            className="text-5xl lg:text-6xl max-w-lg mx-auto mb-10 md:mb-12 animate-slide-in stagger-1 leading-tight"
             style={{ fontFamily: "'Oswald', sans-serif", fontWeight: 600 }}
           >
             The Best PostgreSQL GUI for Mac
           </h1>
 
           {/* CTA Button */}
-          <div className="flex flex-col items-center justify-center gap-8 mb-8 md:mb-10 animate-slide-in stagger-4">
+          <div className="flex flex-col items-center justify-center gap-8 mb-8 md:mb-10 animate-slide-in stagger-3">
             <a
               href={APP_STORE_LINK}
               target="_blank"
@@ -88,6 +69,28 @@ export default function Home() {
             >
               Open Source ↗
             </a>
+          </div>
+
+          {/* Hero Screenshot */}
+          <div className="w-full max-w-4xl mx-auto mb-10 md:mb-12 animate-slide-in stagger-2">
+            <div className="relative rounded-xl overflow-hidden shadow-2xl border border-stone-200/50 dark:border-stone-700/50">
+              <Image
+                src="/screenshots2/PostgresGUI - Run complex query and see query results.png"
+                alt="PostgresGUI - Query editor with results"
+                width={1176}
+                height={750}
+                className="w-full h-auto dark:hidden"
+                priority
+              />
+              <Image
+                src="/screenshots2/PostgresGUI - Dark mode.png"
+                alt="PostgresGUI - Query editor with results (Dark mode)"
+                width={1176}
+                height={750}
+                className="w-full h-auto hidden dark:block"
+                priority
+              />
+            </div>
           </div>
         </div>
       </div>

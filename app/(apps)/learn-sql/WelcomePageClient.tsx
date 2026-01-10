@@ -9,8 +9,8 @@ import { TextType, TextTypeRef } from "@/components/learn/TextType";
 
 const messages = [
   "Congratulations! 😊",
-  "You just landed the job as a Junior Data Analyst at NorthLoop! Your first assignment is to help the team collect and organize information about our products and customers.",
-  "There are many ways to collect data — you could use Excel spreadsheets, Google Sheets, or even write things down with pen and paper. But here at NorthLoop, we use something more powerful: a database. Let me show you why, and teach you SQL — the language we use to talk to it.",
+  "You just landed the job as a Junior Data Analyst at PostgresGUI Inc! Your first assignment is to help the team collect and organize information about our products and customers.",
+  "There are many ways to collect data — you could use Excel spreadsheets, Google Sheets, or even write things down with pen and paper. But here at PostgresGUI Inc, we use something more powerful: a database. Let me show you why, and teach you SQL — the language we use to talk to it.",
 ];
 
 export function WelcomePageClient() {

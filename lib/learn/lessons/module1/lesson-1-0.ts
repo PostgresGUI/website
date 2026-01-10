@@ -13,7 +13,7 @@ export const lesson1_0: Lesson = {
       name: "Sam",
       role: "Senior Database Engineer",
       message:
-        "Hey, welcome aboard! Before we dive into building databases, let me give you a quick overview of what we'll be working with. SQL is the language we use to talk to databases, and PostgreSQL is one of the most powerful database systems out there. Let me explain why we chose it here at NorthLoop.",
+        "Hey, welcome aboard! Before we dive into building databases, let me give you a quick overview of what we'll be working with. SQL is the language we use to talk to databases, and PostgreSQL is one of the most powerful database systems out there. Let me explain why we chose it here at PostgresGUI Inc.",
       timestamp: "Just now",
     },
     concept: [
@@ -132,12 +132,12 @@ export const lesson1_0: Lesson = {
         id: "getting-started-c2",
         title: "Display Text",
         description:
-          "Use SELECT to display your new company's name: 'NorthLoop' - remember single quotes around text!",
+          "Use SELECT to display your new company's name: 'PostgresGUI' - remember single quotes around text!",
         difficulty: "easy",
         hints: [
           "Text in SQL must be wrapped in single quotes",
-          "Type NorthLoop inside single quotes",
-          "SELECT 'NorthLoop';",
+          "Type PostgresGUI inside single quotes",
+          "SELECT 'PostgresGUI';",
         ],
         validate: (result: QueryResult, query: string): ValidationResult => {
           if (!result.success) {
@@ -160,7 +160,7 @@ export const lesson1_0: Lesson = {
           const value = result.rows[0][0];
           if (
             typeof value === "string" &&
-            value.toLowerCase() === "northloop"
+            value.toLowerCase() === "postgresgui"
           ) {
             return {
               correct: true,
@@ -169,14 +169,15 @@ export const lesson1_0: Lesson = {
           }
           return {
             correct: false,
-            message: "Display the company name: SELECT 'NorthLoop';",
+            message: "Display the company name: SELECT 'PostgresGUI';",
           };
         },
       },
       {
         id: "getting-started-c3",
         title: "Simple Math",
-        description: "SQL can do math! Use SELECT to calculate 10 + 5",
+        description:
+          "SQL can do math! Use SELECT to calculate 10 + 5. Example: SELECT 2 + 2;",
         difficulty: "easy",
         hints: [
           "SQL can evaluate mathematical expressions",

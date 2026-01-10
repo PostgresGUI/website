@@ -49,6 +49,8 @@ export function ChallengePhase({
   const [hasShownError, setHasShownError] = useState(false);
   const [shakeKey, setShakeKey] = useState(0);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  // Local visual state for completion badge - resets on wrong answers
+  const [showAsComplete, setShowAsComplete] = useState(false);
 
   // Sync challenge index with URL query param on mount
   useEffect(() => {
@@ -94,10 +96,14 @@ export function ChallengePhase({
     ? isChallengeComplete(lessonId, currentChallenge.id)
     : false;
 
-  // Reset success message when challenge changes
+  // Reset UI state when challenge changes
   useEffect(() => {
     setShowSuccessMessage(false);
-  }, [currentIndex]);
+    setShowAsComplete(isCurrentComplete);
+    setValidationMessage(null);
+    setHasShownError(false);
+    setShakeKey(0);
+  }, [currentIndex, isCurrentComplete]);
 
   const handleQueryResult = useCallback(
     (result: QueryResult, query: string) => {
@@ -109,13 +115,23 @@ export function ChallengePhase({
         setValidationMessage(null); // Clear error message on success
         setHasShownError(false); // Reset error tracking on success
         setShakeKey(0); // Reset shake key on success
+
+        // Show success message if first completion OR recovering from error
+        if (!isCurrentComplete || !showAsComplete) {
+          setShowSuccessMessage(true);
+        }
+
+        setShowAsComplete(true); // Show completion badge
+
+        // Only celebrate on first completion
         if (!isCurrentComplete) {
           markChallengeComplete(lessonId, currentChallenge.id);
           setShowCelebration(true);
-          setShowSuccessMessage(true); // Show success message from mentor
           playSound('celebration');
         }
       } else {
+        // Reset visual completion state on wrong answer
+        setShowAsComplete(false);
         // Hide success message on validation failure
         setShowSuccessMessage(false);
         // Check if this is a repeated error BEFORE updating state
@@ -131,14 +147,13 @@ export function ChallengePhase({
           setHasShownError(true);
         }
         playSound('error');
-        // Note: We intentionally do NOT mark challenge incomplete on wrong answers
-        // Challenge completion is permanent - wrong answers on revisit don't reset progress
       }
     },
     [
       currentChallenge,
       lessonId,
       isCurrentComplete,
+      showAsComplete,
       hasShownError,
       markChallengeComplete,
     ]
@@ -165,7 +180,7 @@ export function ChallengePhase({
           title: currentChallenge.title,
           description: currentChallenge.description,
           difficulty: currentChallenge.difficulty,
-          isComplete: isCurrentComplete,
+          isComplete: showAsComplete,
         }}
       />
 
@@ -179,7 +194,7 @@ export function ChallengePhase({
       />
 
       {/* Success message when challenge is completed */}
-      {showSuccessMessage && isCurrentComplete && (
+      {showSuccessMessage && showAsComplete && (
         <MentorMessage
           message={{
             name: "Ellie",
@@ -193,7 +208,7 @@ export function ChallengePhase({
       )}
 
       {/* Validation error message */}
-      {validationMessage && !isCurrentComplete && (
+      {validationMessage && (
         <MentorMessage
           key={shakeKey > 0 ? `shake-${shakeKey}` : "error-first"}
           message={{

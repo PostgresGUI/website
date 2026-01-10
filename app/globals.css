@@ -379,6 +379,31 @@ body {
   .animate-shake {
     animation: shake 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
+
+  /* Hero gradient - bottom to top fade */
+  .hero-gradient {
+    position: relative;
+  }
+
+  .hero-gradient::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgb(37 99 235 / 0.06) 0%,
+      transparent 50%
+    );
+    pointer-events: none;
+  }
+
+  .dark .hero-gradient::after {
+    background: linear-gradient(
+      to top,
+      rgb(59 130 246 / 0.08) 0%,
+      transparent 50%
+    );
+  }
 }
 
 :root {
