@@ -88,6 +88,28 @@ const seoData: Record<Locale, LocaleSEO> = {
     ogLocale: "fr_FR",
     canonical: "https://postgresgui.com/fr",
   },
+  ja: {
+    title: "PostgresGUI - Mac向け最高のPostgreSQL GUI | オープンソース",
+    description:
+      "Mac用最高のPostgreSQL GUI。オープンソース、ネイティブmacOSアプリ。軽量、高速クエリ、ダークモード対応。Mac開発者に愛されるPostgreSQLクライアント。",
+    keywords: [
+      "postgresql gui mac",
+      "postgres クライアント mac",
+      "postgresql macos",
+      "PostgreSQL",
+      "Postgres",
+      "SQL",
+      "データベース",
+      "クライアント",
+      "クエリ",
+      "エディタ",
+      "macOS",
+      "Mac",
+      "postgresql gui 日本語",
+    ],
+    ogLocale: "ja_JP",
+    canonical: "https://postgresgui.com/ja",
+  },
 };
 
 export function getLocaleMetadata(locale: Locale): Metadata {
@@ -185,6 +207,21 @@ const downloadSeoData: Record<Locale, LocaleSEO> = {
     ],
     ogLocale: "fr_FR",
     canonical: "https://postgresgui.com/fr/download",
+  },
+  ja: {
+    title: "PostgresGUIをダウンロード - Mac用PostgreSQL GUI | 無料ダウンロード",
+    description:
+      "Mac用PostgresGUIをダウンロード。軽量でオープンソースのPostgreSQLクライアント。ダークモード対応のネイティブmacOSアプリ。App Storeで無料入手。",
+    keywords: [
+      "postgresql gui mac ダウンロード",
+      "postgresql クライアント ダウンロード",
+      "postgresgui ダウンロード",
+      "postgres gui mac 無料",
+      "postgresql mac アプリ",
+      "データベース gui mac",
+    ],
+    ogLocale: "ja_JP",
+    canonical: "https://postgresgui.com/ja/download",
   },
 };
 

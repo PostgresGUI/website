@@ -8,11 +8,15 @@ type FooterProps = {
 export function Footer({ locale = "en" }: FooterProps) {
   const t = getTranslations(locale);
 
+  // Get locale prefix for links
+  const localePrefix = locale === "en" ? "" : `/${locale}`;
+  const homeUrl = localePrefix || "/";
+
   const productLinks = [
-    { href: "/#features", label: t.footer.features },
-    { href: "/#screenshots", label: t.footer.screenshots },
-    { href: "/#pricing", label: t.footer.pricing },
-    { href: "/#faq", label: t.footer.faq },
+    { href: `${homeUrl}#features`, label: t.footer.features },
+    { href: `${homeUrl}#screenshots`, label: t.footer.screenshots },
+    { href: `${homeUrl}#pricing`, label: t.footer.pricing },
+    { href: `${homeUrl}#faq`, label: t.footer.faq },
   ];
 
   const supportLinks = [

@@ -1,6 +1,6 @@
 import { INSTALLER_SIZE, INSTALLED_SIZE, PRICE } from "@/lib/constants";
 
-export type Locale = "en" | "de" | "fr";
+export type Locale = "en" | "de" | "fr" | "ja";
 
 export type Translations = {
   // Hero
@@ -508,12 +508,153 @@ const fr: Translations = {
   },
 };
 
-const translations: Record<Locale, Translations> = { en, de, fr };
+const ja: Translations = {
+  hero: {
+    badge: "新着",
+    learnSql: "SQLを学ぶ",
+    headline: "Mac向け最高のPostgreSQL GUI",
+    openSource: "オープンソース",
+    heroImageAlt: "PostgresGUI - クエリエディタと結果",
+    heroImageDarkAlt: "PostgresGUI - クエリエディタと結果（ダークモード）",
+  },
+  images: {
+    logoAlt: "PostgresGUI - Mac用PostgreSQLクライアント",
+    screenshotAlts: [
+      "PostgresGUI ウェルカム画面",
+      "PostgresGUI 接続作成ダイアログ",
+      "PostgresGUI 接続文字列入力",
+      "PostgresGUI データベースブラウザ",
+      "PostgresGUI クエリ結果テーブル",
+      "PostgresGUI 行編集ダイアログ",
+      "PostgresGUI フィルタと検索",
+      "PostgresGUI 列のソート",
+      "PostgresGUI JSONビューとCSVエクスポート",
+      "PostgresGUI 複数クエリタブ",
+      "PostgresGUI ダークモードインターフェース",
+      "PostgresGUI 保存済みクエリフォルダ",
+    ],
+  },
+  sections: {
+    features: "機能",
+    whyPostgresGUI: "なぜPostgresGUI？",
+    featuresTagline: "// 高速、ネイティブ、無駄のないPostgreSQL",
+    screenshots: "スクリーンショット",
+    screenshotsHeadline: "使いやすさを追求",
+    faq: "よくある質問",
+    faqHeadline: "質問と回答",
+  },
+  highlights: {
+    openSource: {
+      title: "オープンソース",
+      description: "コードを見る",
+      linkText: "GitHub",
+    },
+    native: {
+      title: "ネイティブ",
+      line1: "Swiftで開発",
+      line2: "Electron不使用",
+    },
+    lightweight: {
+      title: "軽量",
+      installer: `${INSTALLER_SIZE}のインストーラ`,
+      installed: `${INSTALLED_SIZE}インストール後`,
+    },
+    noSubscription: {
+      title: "サブスク不要",
+      description: "一度買えば永久に使える",
+    },
+    noDataCollection: {
+      title: "データ収集なし",
+      description: "すべてのデータはMacにローカル保存",
+    },
+    minimalisticUI: {
+      title: "ミニマルなUI",
+      description: "余計な機能なし",
+    },
+  },
+  screenshots: {
+    items: [
+      { title: "ウェルカム画面", description: "クリーンでミニマルなインターフェースですぐに開始。" },
+      { title: "DB接続を作成", description: "ワンクリックでPostgreSQLサーバーに接続。" },
+      { title: "接続文字列で接続", description: "接続文字列を使用して任意のサーバーに接続。" },
+      { title: "データベースを閲覧", description: "データベース一覧を表示してクリックで接続。" },
+      { title: "クエリを実行", description: "SQLクエリを実行し、きれいなテーブルで結果を表示。" },
+      { title: "行を編集", description: "インライン編集でテーブルの行を直接編集。" },
+      { title: "フィルタ＆検索", description: "クエリ結果をフィルタリングして検索。" },
+      { title: "列をソート", description: "ワンクリックで任意の列でデータをソート。" },
+      { title: "CSVエクスポート＆JSON表示", description: "結果をJSONで表示し、CSVにエクスポート。" },
+      { title: "複数タブ", description: "別々のタブで複数のクエリを操作。" },
+      { title: "ダークモード", description: "完全なダークモードサポートで目に優しい。" },
+      { title: "保存済みクエリ", description: "クエリをフォルダに整理して簡単にアクセス。" },
+    ],
+    previous: "前へ",
+    next: "次へ",
+  },
+  faq: [
+    {
+      question: "対応しているmacOSのバージョンは？",
+      answer: "PostgresGUIはmacOS 26.0以降が必要です。Apple Silicon向けに最適化されていますが、Intel Macでも動作します。",
+    },
+    {
+      question: "サブスクリプションは必要ですか？",
+      answer: `いいえ。PostgresGUIは買い切り型です。${PRICE}を一度支払えば永久に使えます。月額料金、継続課金、隠れたコストは一切ありません。`,
+    },
+    {
+      question: "データを収集していますか？",
+      answer: "いいえ。PostgresGUIはテレメトリ、アナリティクス、使用状況データを一切収集しません。データベース接続やクエリはすべてMac上にローカル保存されます。",
+    },
+    {
+      question: "PostgreSQL以外のデータベースに対応していますか？",
+      answer: "いいえ。PostgresGUIはPostgreSQL専用に設計されています。MySQL、SQLite、MongoDBなど他のデータベースシステムには対応していません。",
+    },
+    {
+      question: "TablePlusと比べてどうですか？",
+      answer: "TablePlusはコードレビュー、プラグインシステム、インライン編集、高度なフィルタ、15種類以上のデータベースサポートなど、高度な機能を備えた強力なマルチデータベースツールです。PostgresGUIは多機能よりもシンプルさと軽量設計を優先しています。よりクリーンなインターフェースを提供し、オープンソースです。",
+    },
+  ],
+  cta: {
+    availableNow: "今すぐ入手可能",
+  },
+  nav: {
+    features: "機能",
+    screenshots: "スクリーンショット",
+    support: "サポート",
+  },
+  footer: {
+    tagline: "Mac用軽量PostgreSQLクライアント",
+    product: "製品",
+    features: "機能",
+    screenshots: "スクリーンショット",
+    pricing: "価格",
+    faq: "よくある質問",
+    support: "サポート",
+    supportLink: "サポート",
+    githubIssues: "GitHub Issues",
+    email: "メール",
+    legal: "法的情報",
+    privacyPolicy: "プライバシーポリシー",
+    copyright: "2025 PostgresGUI",
+  },
+  download: {
+    title: "PostgresGUIをダウンロード",
+    subtitle: "Mac向け最高のPostgreSQL GUI",
+    downloadNow: "App Storeでダウンロード",
+    systemRequirements: "システム要件",
+    macOSVersion: "macOS 26.0以降",
+    appleSilicon: "Apple Silicon向けに最適化",
+    intelSupport: "Intel Macでも動作",
+    appSize: `${INSTALLER_SIZE} サイズ`,
+    openSource: "オープンソース",
+    viewOnGitHub: "GitHubでソースを見る",
+  },
+};
+
+const translations: Record<Locale, Translations> = { en, de, fr, ja };
 
 export function getTranslations(locale: Locale = "en"): Translations {
   return translations[locale] || translations.en;
 }
 
 export function isValidLocale(locale: string): locale is Locale {
-  return ["en", "de", "fr"].includes(locale);
+  return ["en", "de", "fr", "ja"].includes(locale);
 }

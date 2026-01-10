@@ -1,10 +1,8 @@
-import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
-import "../globals.css";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { CookieConsent } from "@/components/cookie-consent";
-import { getLocaleMetadata } from "@/lib/seo";
+import { Locale } from "@/lib/translations";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -12,24 +10,20 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://postgresgui.com"),
-  ...getLocaleMetadata("de"),
+export type RootLayoutProps = {
+  children: React.ReactNode;
+  lang: Locale;
 };
 
-export default function GermanLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export function RootLayout({ children, lang }: RootLayoutProps) {
   return (
-    <html lang="de">
+    <html lang={lang}>
       <body
         className={`${jetbrainsMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <Navigation locale="de" />
+        <Navigation locale={lang} />
         {children}
-        <Footer locale="de" />
+        <Footer locale={lang} />
         <CookieConsent gtmId="G-B50JK5C700" />
       </body>
     </html>

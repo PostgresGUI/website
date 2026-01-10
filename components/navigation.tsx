@@ -20,6 +20,10 @@ export function Navigation({ locale = "en" }: NavigationProps) {
   const pathname = usePathname();
   const t = getTranslations(locale);
 
+  // Get locale prefix for links
+  const localePrefix = locale === "en" ? "" : `/${locale}`;
+  const homeUrl = localePrefix || "/";
+
   useEffect(() => {
     fetch(GITHUB_API)
       .then((res) => res.json())
@@ -47,7 +51,7 @@ export function Navigation({ locale = "en" }: NavigationProps) {
           {/* Logo - Left */}
           <div className="flex-1">
             <Link
-              href="/"
+              href={homeUrl}
               className="inline-flex items-center gap-3 hover:opacity-70 transition-opacity group"
             >
               <div className="relative">
@@ -69,11 +73,15 @@ export function Navigation({ locale = "en" }: NavigationProps) {
           {/* Desktop Navigation - Center */}
           <div className="hidden md:flex items-center justify-center gap-6 flex-1">
             {navLinks.map((link) => {
-              // If link is a hash and we're not on home page, prepend "/" to navigate to home first
-              const href =
-                link.href.startsWith("#") && pathname !== "/"
-                  ? `/${link.href}`
-                  : link.href;
+              // Check if we're on the home page for this locale
+              const isOnHomePage = pathname === homeUrl || pathname === `${localePrefix}/`;
+
+              // If link is a hash and we're not on home page, prepend locale home URL
+              const href = link.href.startsWith("#")
+                ? isOnHomePage
+                  ? link.href
+                  : `${homeUrl}${link.href}`
+                : link.href;
 
               return (
                 <Link
@@ -81,7 +89,7 @@ export function Navigation({ locale = "en" }: NavigationProps) {
                   href={href}
                   className="text-sm text-gray-900 dark:text-white hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-colors relative group"
                   onClick={(e) => {
-                    if (link.href.startsWith("#") && pathname === "/") {
+                    if (link.href.startsWith("#") && isOnHomePage) {
                       e.preventDefault();
                       const element = document.querySelector(link.href);
                       element?.scrollIntoView({ behavior: "smooth" });
@@ -143,10 +151,12 @@ export function Navigation({ locale = "en" }: NavigationProps) {
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 space-y-3 border-t border-border/30 pt-4 bg-white dark:bg-stone-900">
             {navLinks.map((link) => {
-              const href =
-                link.href.startsWith("#") && pathname !== "/"
-                  ? `/${link.href}`
-                  : link.href;
+              const isOnHomePage = pathname === homeUrl || pathname === `${localePrefix}/`;
+              const href = link.href.startsWith("#")
+                ? isOnHomePage
+                  ? link.href
+                  : `${homeUrl}${link.href}`
+                : link.href;
 
               return (
                 <Link
@@ -154,7 +164,7 @@ export function Navigation({ locale = "en" }: NavigationProps) {
                   href={href}
                   className="block font-semibold text-sm text-gray-900 dark:text-white hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-swiftui py-2 px-3 hover:bg-accent/50 rounded-lg"
                   onClick={(e) => {
-                    if (link.href.startsWith("#") && pathname === "/") {
+                    if (link.href.startsWith("#") && isOnHomePage) {
                       e.preventDefault();
                       const element = document.querySelector(link.href);
                       element?.scrollIntoView({ behavior: "smooth" });

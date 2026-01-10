@@ -11,6 +11,7 @@ export const locales: LocaleConfig[] = [
   { code: "en-GB", hreflang: "en-GB", language: "en", country: "United Kingdom", path: "/uk" },
   { code: "de-DE", hreflang: "de-DE", language: "de", country: "Germany", path: "/de" },
   { code: "fr-FR", hreflang: "fr-FR", language: "fr", country: "France", path: "/fr" },
+  { code: "ja-JP", hreflang: "ja-JP", language: "ja", country: "Japan", path: "/ja" },
   { code: "en-NL", hreflang: "en-NL", language: "en", country: "Netherlands", path: "/nl" },
   { code: "en-AU", hreflang: "en-AU", language: "en", country: "Australia", path: "/au" },
 ];

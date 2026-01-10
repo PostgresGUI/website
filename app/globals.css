@@ -380,6 +380,64 @@ body {
     animation: shake 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
+  /* Skeuomorphic Screenshot Shadow - Elevated with realistic depth */
+  .shadow-screenshot-elevated {
+    position: relative;
+    /* Multi-layer shadow system for realistic elevation */
+    box-shadow:
+      /* Tight contact shadow - crisp edge definition */
+      0 1px 2px rgb(0 0 0 / 0.08),
+      /* Primary drop shadow - main elevation cue */
+      0 8px 16px rgb(0 0 0 / 0.12),
+      /* Mid-range diffuse shadow */
+      0 20px 40px rgb(0 0 0 / 0.12),
+      /* Large ambient shadow - creates floating effect */
+      0 40px 80px rgb(0 0 0 / 0.1),
+      /* Extra soft glow for depth */
+      0 60px 100px -20px rgb(0 0 0 / 0.08);
+  }
+
+  .shadow-screenshot-elevated::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    /* Subtle inner highlight - simulates light catching the edge */
+    background: linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 0.15) 0%,
+      transparent 3%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .dark .shadow-screenshot-elevated {
+    box-shadow:
+      /* Tight contact shadow */
+      0 1px 2px rgb(0 0 0 / 0.25),
+      /* Primary drop shadow */
+      0 8px 16px rgb(0 0 0 / 0.35),
+      /* Mid-range diffuse shadow */
+      0 20px 40px rgb(0 0 0 / 0.3),
+      /* Large ambient shadow */
+      0 40px 80px rgb(0 0 0 / 0.25),
+      /* Extra depth for dark mode */
+      0 60px 100px -20px rgb(0 0 0 / 0.2),
+      /* Subtle blue ambient glow - brand connection */
+      0 0 80px -10px rgb(59 130 246 / 0.08);
+  }
+
+  .dark .shadow-screenshot-elevated::before {
+    background: linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 0.08) 0%,
+      transparent 3%,
+      transparent 100%
+    );
+  }
+
   /* Hero gradient - bottom to top fade */
   .hero-gradient {
     position: relative;
