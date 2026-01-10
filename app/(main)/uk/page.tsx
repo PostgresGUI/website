@@ -10,5 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function UKHome() {
-  return <Homepage appStoreLink="https://apps.apple.com/gb/app/postgresgui/id6756467181" />;
+  return <Homepage appStoreLink="https://apps.apple.com/app/postgresgui/id6756467181" />;
 }

@@ -14,6 +14,6 @@ export const metadata: Metadata = {
 
 export default function UKDownload() {
   return (
-    <DownloadPage appStoreLink="https://apps.apple.com/gb/app/postgresgui/id6756467181" />
+    <DownloadPage appStoreLink="https://apps.apple.com/app/postgresgui/id6756467181" />
   );
 }

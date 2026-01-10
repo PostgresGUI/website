@@ -9,7 +9,7 @@ import { FlowingData } from "@/components/hero-animations/flowing-data";
 import { ArrowRight } from "lucide-react";
 import { getTranslations, Locale } from "@/lib/translations";
 
-const APP_STORE_LINK = "https://apps.apple.com/us/app/postgresgui/id6756467181";
+const APP_STORE_LINK = "https://apps.apple.com/app/postgresgui/id6756467181";
 
 export type HomepageProps = {
   appStoreLink?: string;

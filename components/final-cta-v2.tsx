@@ -1,7 +1,7 @@
 import { AppStoreBadge } from "@/components/app-store-badge";
 import { getTranslations, Locale } from "@/lib/translations";
 
-const APP_STORE_LINK = "https://apps.apple.com/us/app/postgresgui/id6756467181";
+const APP_STORE_LINK = "https://apps.apple.com/app/postgresgui/id6756467181";
 
 type FinalCTAV2Props = {
   locale?: Locale;

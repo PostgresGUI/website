@@ -4,7 +4,7 @@ import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import { getTranslations, Locale } from "@/lib/translations";
 import { Download, Cpu, HardDrive, Github } from "lucide-react";
 
-const APP_STORE_LINK = "https://apps.apple.com/us/app/postgresgui/id6756467181";
+const APP_STORE_LINK = "https://apps.apple.com/app/postgresgui/id6756467181";
 
 export type DownloadPageProps = {
   appStoreLink?: string;

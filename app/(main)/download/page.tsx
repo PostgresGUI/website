@@ -6,6 +6,6 @@ export const metadata: Metadata = getDownloadPageMetadata("en");
 
 export default function Download() {
   return (
-    <DownloadPage appStoreLink="https://apps.apple.com/us/app/postgresgui/id6756467181" />
+    <DownloadPage appStoreLink="https://apps.apple.com/app/postgresgui/id6756467181" />
   );
 }
