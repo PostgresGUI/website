@@ -16,10 +16,12 @@ export default function PrivacyPage() {
       <div className="max-w-2xl mx-auto prose dark:prose-invert">
         <header className="border-b border-gray-200 dark:border-gray-800">
           <h1>Privacy Policy</h1>
-          <p>Last Updated: December 1, 2025</p>
+          <p>Last Updated: January 9, 2026</p>
         </header>
 
         <div>
+          <h2>The PostgresGUI App</h2>
+
           <p>
             PostgresGUI is a local-only PostgreSQL macOS client. We do not
             collect, transmit, store, or share any of your personal information
@@ -38,10 +40,9 @@ export default function PrivacyPage() {
           <p>
             The only network connections made by PostgresGUI are directly to the
             PostgreSQL database servers you explicitly configure and connect to.
-            We are not an intermediary in these connections. PostgresGUI does
-            not use any third-party services including analytics platforms,
-            crash reporting services, advertising networks, or cloud storage
-            services.
+            We are not an intermediary in these connections. The app does not
+            use any third-party services including analytics platforms, crash
+            reporting services, advertising networks, or cloud storage services.
           </p>
 
           <p>
@@ -53,6 +54,29 @@ export default function PrivacyPage() {
             because no data was ever sent to us.
           </p>
 
+          <h2>This Website</h2>
+
+          <p>
+            This website (postgresgui.com) uses Google Analytics to understand
+            how visitors find and use our site. For visitors in the European
+            Union, we ask for consent before collecting any data.
+          </p>
+
+          <p>
+            Analytics may collect: pages visited, referring site, device type,
+            browser, and approximate geographic region. This data is used solely
+            to improve our website and is not sold to third parties.
+          </p>
+
+          <p>
+            You can decline analytics via the cookie consent banner (EU
+            visitors), or use browser privacy settings to block tracking. This
+            website analytics is completely separate from the PostgresGUI app,
+            which collects no data whatsoever.
+          </p>
+
+          <h2>Future Changes</h2>
+
           <p>
             If we ever introduce features that involve data collection, cloud
             synchronization, or online services in the future, this Privacy
@@ -60,6 +84,8 @@ export default function PrivacyPage() {
             you purchased the app, and any such features will be optional and
             require explicit consent.
           </p>
+
+          <h2>Contact</h2>
 
           <p>
             If you have questions about this Privacy Policy, contact us at
