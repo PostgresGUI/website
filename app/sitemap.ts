@@ -49,15 +49,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
+  // Generate localized alternatives/tableplus routes
+  const alternativesTablePlusLocales = ["", "/de", "/fr", "/ja"];
+  const localizedAlternatives = alternativesTablePlusLocales.map((path) => ({
+    url: `${baseUrl}${path}/alternatives/tableplus`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.9,
+  }));
+
   return [
     ...localizedHomepages,
     ...localizedDownloads,
-    {
-      url: `${baseUrl}/alternatives/tableplus`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
+    ...localizedAlternatives,
     {
       url: `${baseUrl}/privacy`,
       lastModified: new Date(),
