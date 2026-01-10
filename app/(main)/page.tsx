@@ -72,7 +72,7 @@ export default function Home() {
           </div>
 
           {/* Hero Screenshot */}
-          <div className="w-full max-w-4xl mx-auto mb-10 md:mb-12 animate-slide-in stagger-2">
+          <div className="w-full max-w-5xl mx-auto mb-10 md:mb-12 animate-slide-in stagger-2">
             <div className="relative rounded-xl overflow-hidden shadow-2xl border border-stone-200/50 dark:border-stone-700/50">
               <Image
                 src="/screenshots2/PostgresGUI - Run complex query and see query results.png"
