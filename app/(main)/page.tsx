@@ -45,7 +45,7 @@ export default function Home() {
         <div className="text-center px-6 pt-16 pb-16 md:pt-24 md:pb-24 relative z-10">
           {/* Main Tagline */}
           <h1
-            className="text-5xl lg:text-6xl max-w-lg mx-auto mb-10 md:mb-12 animate-slide-in stagger-1 leading-tight"
+            className="text-6xl max-w-lg mx-auto mb-10 md:mb-12 animate-slide-in stagger-1 leading-tight"
             style={{ fontFamily: "'Oswald', sans-serif", fontWeight: 600 }}
           >
             The Best PostgreSQL GUI for Mac
