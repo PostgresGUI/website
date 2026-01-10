@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { locales } from "@/lib/locales";
 
 export const dynamic = "force-static";
 
@@ -32,13 +33,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
+  // Generate localized homepage routes
+  const localizedHomepages = locales.map((locale) => ({
+    url: `${baseUrl}${locale.path}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: locale.path === "" ? 1 : 0.9,
+  }));
+
   return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
+    ...localizedHomepages,
     {
       url: `${baseUrl}/privacy`,
       lastModified: new Date(),

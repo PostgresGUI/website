@@ -4,6 +4,7 @@ import "../globals.css";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { GoogleTagManager } from "@next/third-parties/google";
+import { getHreflangAlternates } from "@/lib/locales";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -35,6 +36,10 @@ export const metadata: Metadata = {
     "admin",
   ],
   authors: [{ name: "PostgresGUI" }],
+  alternates: {
+    canonical: "https://postgresgui.com",
+    languages: getHreflangAlternates(),
+  },
   openGraph: {
     title: "PostgresGUI – Best PostgreSQL GUI for Mac",
     description:
