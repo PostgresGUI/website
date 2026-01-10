@@ -3,7 +3,7 @@ import { JetBrains_Mono } from "next/font/google";
 import "../globals.css";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { CookieConsent } from "@/components/cookie-consent";
 import { getHreflangAlternates } from "@/lib/locales";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -84,13 +84,13 @@ export default function MainLayout({
 }>) {
   return (
     <html lang="en">
-      <GoogleTagManager gtmId="G-B50JK5C700" />
       <body
         className={`${jetbrainsMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <Navigation />
         {children}
         <Footer />
+        <CookieConsent gtmId="G-B50JK5C700" />
       </body>
     </html>
   );

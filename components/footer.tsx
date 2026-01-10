@@ -1,24 +1,31 @@
 import Link from "next/link";
+import { getTranslations, Locale } from "@/lib/translations";
 
-export function Footer() {
+type FooterProps = {
+  locale?: Locale;
+};
+
+export function Footer({ locale = "en" }: FooterProps) {
+  const t = getTranslations(locale);
+
   const productLinks = [
-    { href: "/#features", label: "Features" },
-    { href: "/#screenshots", label: "Screenshots" },
-    { href: "/#pricing", label: "Pricing" },
-    { href: "/#faq", label: "FAQ" },
+    { href: "/#features", label: t.footer.features },
+    { href: "/#screenshots", label: t.footer.screenshots },
+    { href: "/#pricing", label: t.footer.pricing },
+    { href: "/#faq", label: t.footer.faq },
   ];
 
   const supportLinks = [
-    { href: "/support", label: "Support" },
+    { href: "/support", label: t.footer.supportLink },
     {
       href: "https://github.com/postgresgui/postgresgui/issues",
-      label: "GitHub Issues",
+      label: t.footer.githubIssues,
       external: true,
     },
-    { href: "mailto:fikri@mghazi.com", label: "Email", external: true },
+    { href: "mailto:fikri@mghazi.com", label: t.footer.email, external: true },
   ];
 
-  const legalLinks = [{ href: "/privacy", label: "Privacy Policy" }];
+  const legalLinks = [{ href: "/privacy", label: t.footer.privacyPolicy }];
 
   const socialLinks = [
     {
@@ -40,13 +47,13 @@ export function Footer() {
           <div className="md:col-span-1">
             <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">PostgresGUI</h3>
             <p className="text-sm text-gray-600 dark:text-white">
-              Lightweight PostgreSQL client for Mac
+              {t.footer.tagline}
             </p>
           </div>
 
           {/* Product Links */}
           <div>
-            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">Product</h4>
+            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">{t.footer.product}</h4>
             <nav aria-label="Product navigation">
               <ul className="space-y-2">
                 {productLinks.map((link) => (
@@ -65,7 +72,7 @@ export function Footer() {
 
           {/* Support Links */}
           <div>
-            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">Support</h4>
+            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">{t.footer.support}</h4>
             <nav aria-label="Support navigation">
               <ul className="space-y-2">
                 {supportLinks.map((link) => (
@@ -89,7 +96,7 @@ export function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">Legal</h4>
+            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">{t.footer.legal}</h4>
             <nav aria-label="Legal navigation">
               <ul className="space-y-2">
                 {legalLinks.map((link) => (
@@ -128,7 +135,7 @@ export function Footer() {
 
             {/* Copyright */}
             <p className="text-sm text-gray-600 dark:text-white">
-              &copy; 2025 PostgresGUI
+              &copy; {t.footer.copyright}
             </p>
           </div>
         </div>

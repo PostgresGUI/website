@@ -7,14 +7,18 @@ import { FAQ } from "@/components/faq";
 import { FinalCTAV2 } from "@/components/final-cta-v2";
 import { FlowingData } from "@/components/hero-animations/flowing-data";
 import { ArrowRight } from "lucide-react";
+import { getTranslations, Locale } from "@/lib/translations";
 
 const APP_STORE_LINK = "https://apps.apple.com/us/app/postgresgui/id6756467181";
 
 export type HomepageProps = {
   appStoreLink?: string;
+  locale?: Locale;
 };
 
-export function Homepage({ appStoreLink = APP_STORE_LINK }: HomepageProps) {
+export function Homepage({ appStoreLink = APP_STORE_LINK, locale = "en" }: HomepageProps) {
+  const t = getTranslations(locale);
+
   return (
     <>
       {/* Learn SQL Floating Button */}
@@ -23,10 +27,10 @@ export function Homepage({ appStoreLink = APP_STORE_LINK }: HomepageProps) {
         className="group fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/80 dark:bg-stone-800/80 backdrop-blur-md border border-stone-200/50 dark:border-stone-700/50 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
       >
         <span className="px-2 py-0.5 rounded-full bg-[var(--postgres-blue)]/15 text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] text-xs font-medium">
-          New
+          {t.hero.badge}
         </span>
         <span className="text-sm text-gray-700 dark:text-gray-200">
-          Learn SQL
+          {t.hero.learnSql}
         </span>
         <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-[var(--postgres-blue)] group-hover:translate-x-0.5 transition-all" />
       </Link>
@@ -48,7 +52,7 @@ export function Homepage({ appStoreLink = APP_STORE_LINK }: HomepageProps) {
             className="text-6xl max-w-lg mx-auto mb-10 md:mb-12 animate-slide-in stagger-1 leading-tight"
             style={{ fontFamily: "'Oswald', sans-serif", fontWeight: 600 }}
           >
-            The Best PostgreSQL GUI for Mac
+            {t.hero.headline}
           </h1>
 
           {/* CTA Button */}
@@ -67,7 +71,7 @@ export function Homepage({ appStoreLink = APP_STORE_LINK }: HomepageProps) {
               rel="noopener noreferrer"
               className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] text-sm font-medium hover:underline"
             >
-              Open Source ↗
+              {t.hero.openSource} ↗
             </a>
           </div>
 
@@ -76,7 +80,7 @@ export function Homepage({ appStoreLink = APP_STORE_LINK }: HomepageProps) {
             <div className="relative rounded-xl overflow-hidden shadow-2xl border border-stone-200/50 dark:border-stone-700/50">
               <Image
                 src="/screenshots2/PostgresGUI - Run complex query and see query results.png"
-                alt="PostgresGUI - Query editor with results"
+                alt={t.hero.heroImageAlt}
                 width={1176}
                 height={750}
                 className="w-full h-auto dark:hidden"
@@ -84,7 +88,7 @@ export function Homepage({ appStoreLink = APP_STORE_LINK }: HomepageProps) {
               />
               <Image
                 src="/screenshots2/PostgresGUI - Dark mode.png"
-                alt="PostgresGUI - Query editor with results (Dark mode)"
+                alt={t.hero.heroImageDarkAlt}
                 width={1176}
                 height={750}
                 className="w-full h-auto hidden dark:block"
@@ -104,17 +108,17 @@ export function Homepage({ appStoreLink = APP_STORE_LINK }: HomepageProps) {
           <div className="mb-12 md:mb-16">
             <div className="mb-4">
               <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
-                Features
+                {t.sections.features}
               </span>
             </div>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-display mb-4 tracking-tight">
-              Why PostgresGUI?
+              {t.sections.whyPostgresGUI}
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl font-mono">
-              // Fast, native PostgreSQL without the bloat
+              {t.sections.featuresTagline}
             </p>
           </div>
-          <Highlights />
+          <Highlights locale={locale} />
         </div>
       </section>
 
@@ -127,14 +131,14 @@ export function Homepage({ appStoreLink = APP_STORE_LINK }: HomepageProps) {
           <div className="mb-12">
             <div className="mb-4">
               <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
-                Screenshots
+                {t.sections.screenshots}
               </span>
             </div>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-display mb-4 tracking-tight">
-              Crafted for Ease of Use
+              {t.sections.screenshotsHeadline}
             </h2>
           </div>
-          <ScreenshotGallery />
+          <ScreenshotGallery locale={locale} />
         </div>
       </section>
 
@@ -147,20 +151,20 @@ export function Homepage({ appStoreLink = APP_STORE_LINK }: HomepageProps) {
           <div className="mb-12">
             <div className="mb-4">
               <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
-                FAQ
+                {t.sections.faq}
               </span>
             </div>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-display mb-4 tracking-tight">
-              Questions & Answers
+              {t.sections.faqHeadline}
             </h2>
           </div>
-          <FAQ />
+          <FAQ locale={locale} />
         </div>
       </section>
 
       {/* Final CTA Section */}
       <section className="border-t border-border/20">
-        <FinalCTAV2 />
+        <FinalCTAV2 locale={locale} />
       </section>
     </>
   );

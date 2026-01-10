@@ -2,34 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDownIcon } from "@/components/icons";
-import { PRICE } from "@/lib/constants";
-
-const faqs = [
-  {
-    question: "What macOS versions are supported?",
-    answer:
-      "PostgresGUI requires macOS 26.0 or later. It's optimized for Apple Silicon but also works on Intel Macs.",
-  },
-  {
-    question: "Do I need a subscription?",
-    answer: `No. PostgresGUI is a one-time purchase. Pay ${PRICE} once and use it forever. No monthly fees, no recurring charges, no hidden costs.`,
-  },
-  {
-    question: "Do you collect my data?",
-    answer:
-      "No. PostgresGUI does not collect any telemetry, analytics, or usage data. All your database connections and queries stay completely local on your Mac.",
-  },
-  {
-    question: "Does PostgresGUI support other databases besides PostgreSQL?",
-    answer:
-      "No. PostgresGUI is designed specifically for PostgreSQL only. It does not support MySQL, SQLite, MongoDB, or other database systems.",
-  },
-  {
-    question: "How does PostgresGUI compare to TablePlus?",
-    answer:
-      "TablePlus is a powerful multi-database tool with advanced features like code review, plugin systems, inline editing, advanced filters, and support for 15+ database types. PostgresGUI prioritizes simplicity and a lightweight design over many features. It offers a cleaner interface and is open source.",
-  },
-];
+import { getTranslations, Locale } from "@/lib/translations";
 
 function FAQItem({
   question,
@@ -67,10 +40,16 @@ function FAQItem({
   );
 }
 
-export function FAQ() {
+type FAQProps = {
+  locale?: Locale;
+};
+
+export function FAQ({ locale = "en" }: FAQProps) {
+  const t = getTranslations(locale);
+
   return (
     <div className="max-w-3xl mx-auto">
-      {faqs.map((faq) => (
+      {t.faq.map((faq) => (
         <FAQItem
           key={faq.question}
           question={faq.question}

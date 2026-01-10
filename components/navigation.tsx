@@ -5,14 +5,20 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { MenuIcon, XIcon, GitHubIcon } from "@/components/icons";
+import { getTranslations, Locale } from "@/lib/translations";
 
 const GITHUB_LINK = "https://github.com/postgresgui/postgresgui";
 const GITHUB_API = "https://api.github.com/repos/postgresgui/postgresgui";
 
-export function Navigation() {
+type NavigationProps = {
+  locale?: Locale;
+};
+
+export function Navigation({ locale = "en" }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [starCount, setStarCount] = useState<number | null>(null);
   const pathname = usePathname();
+  const t = getTranslations(locale);
 
   useEffect(() => {
     fetch(GITHUB_API)
@@ -26,9 +32,9 @@ export function Navigation() {
   }, []);
 
   const navLinks = [
-    { href: "#features", label: "Features" },
-    { href: "#screenshots", label: "Screenshots" },
-    { href: "/support", label: "Support" },
+    { href: "#features", label: t.nav.features },
+    { href: "#screenshots", label: t.nav.screenshots },
+    { href: "/support", label: t.nav.support },
   ];
 
   return (
@@ -47,7 +53,7 @@ export function Navigation() {
               <div className="relative">
                 <Image
                   src="/postgresgui-elephant.png"
-                  alt="PostgresGUI Home"
+                  alt={t.images.logoAlt}
                   width={32}
                   height={32}
                   className="object-contain"
@@ -76,7 +82,6 @@ export function Navigation() {
                   className="text-sm text-gray-900 dark:text-white hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-colors relative group"
                   onClick={(e) => {
                     if (link.href.startsWith("#") && pathname === "/") {
-                      // Only prevent default and scroll if we're already on home page
                       e.preventDefault();
                       const element = document.querySelector(link.href);
                       element?.scrollIntoView({ behavior: "smooth" });
@@ -138,7 +143,6 @@ export function Navigation() {
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 space-y-3 border-t border-border/30 pt-4 bg-white dark:bg-stone-900">
             {navLinks.map((link) => {
-              // If link is a hash and we're not on home page, prepend "/" to navigate to home first
               const href =
                 link.href.startsWith("#") && pathname !== "/"
                   ? `/${link.href}`
@@ -151,7 +155,6 @@ export function Navigation() {
                   className="block font-semibold text-sm text-gray-900 dark:text-white hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-swiftui py-2 px-3 hover:bg-accent/50 rounded-lg"
                   onClick={(e) => {
                     if (link.href.startsWith("#") && pathname === "/") {
-                      // Only prevent default and scroll if we're already on home page
                       e.preventDefault();
                       const element = document.querySelector(link.href);
                       element?.scrollIntoView({ behavior: "smooth" });
