@@ -21,7 +21,7 @@ export function Homepage({ appStoreLink = APP_STORE_LINK, locale = "en" }: Homep
 
   return (
     <>
-      {/* Learn SQL Floating Button */}
+      {/* Learn SQL Floating Button - Hidden for now
       <Link
         href="/learn-sql"
         className="group fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/80 dark:bg-stone-800/80 backdrop-blur-md border border-stone-200/50 dark:border-stone-700/50 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
@@ -34,6 +34,7 @@ export function Homepage({ appStoreLink = APP_STORE_LINK, locale = "en" }: Homep
         </span>
         <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-[var(--postgres-blue)] group-hover:translate-x-0.5 transition-all" />
       </Link>
+      */}
 
       {/* Hero Section */}
       <div
