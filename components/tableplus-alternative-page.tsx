@@ -372,6 +372,40 @@ export function TablePlusAlternativePage({
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+            {/* Choose PostgresGUI */}
+            <div className="p-6 md:p-8 rounded-2xl bg-emerald-50/10 border border-emerald-500/30 dark:bg-emerald-500/10">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="rounded-xl flex items-center justify-center">
+                  <Image
+                    src="/postgresgui-elephant.png"
+                    alt="PostgresGUI"
+                    width={60}
+                    height={60}
+                    className="rounded"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">
+                    Choose PostgresGUI if...
+                  </h3>
+                  <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400">
+                    Recommended
+                  </span>
+                </div>
+              </div>
+              <ul className="space-y-3">
+                {choosePostgresGUI.map((item, index) => (
+                  <li
+                    key={index}
+                    className="flex items-start gap-3 text-pretty"
+                  >
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                    <span className="">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             {/* Choose TablePlus */}
             <div className="p-6 md:p-8 rounded-2xl border border-border/50 bg-card">
               <div className="flex items-center gap-3 mb-6">
@@ -393,37 +427,6 @@ export function TablePlusAlternativePage({
                     <span className="text-sm text-muted-foreground">
                       {item}
                     </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Choose PostgresGUI */}
-            <div className="p-6 md:p-8 rounded-2xl border-2 border-[var(--postgres-blue)]/30 bg-[var(--postgres-blue)]/5 dark:bg-[var(--postgres-blue)]/10">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-xl bg-[var(--postgres-blue)] flex items-center justify-center">
-                  <Image
-                    src="/logo.png"
-                    alt="PostgresGUI"
-                    width={24}
-                    height={24}
-                    className="rounded"
-                  />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg">
-                    Choose PostgresGUI if...
-                  </h3>
-                  <span className="text-xs font-mono text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
-                    Recommended
-                  </span>
-                </div>
-              </div>
-              <ul className="space-y-3">
-                {choosePostgresGUI.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] shrink-0 mt-0.5" />
-                    <span className="text-sm">{item}</span>
                   </li>
                 ))}
               </ul>
