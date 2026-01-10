@@ -1,10 +1,10 @@
-import { JetBrains_Mono } from "next/font/google";
+import { Oswald } from "next/font/google";
 import "../globals.css";
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+const oswald = Oswald({
+  variable: "--font-oswald",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
 // Script to detect and apply dark mode before React hydration (prevents flash)
@@ -35,7 +35,7 @@ export default function LearnRootLayout({
         <script dangerouslySetInnerHTML={{ __html: darkModeScript }} />
       </head>
       <body
-        className={`${jetbrainsMono.variable} antialiased h-full overflow-hidden`}
+        className={`${oswald.variable} antialiased h-full overflow-hidden`}
       >
         {children}
       </body>

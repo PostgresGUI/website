@@ -1,13 +1,13 @@
-import { JetBrains_Mono } from "next/font/google";
+import { Oswald } from "next/font/google";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { CookieConsent } from "@/components/cookie-consent";
 import { Locale } from "@/lib/translations";
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+const oswald = Oswald({
+  variable: "--font-oswald",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export type RootLayoutProps = {
@@ -19,7 +19,7 @@ export function RootLayout({ children, lang }: RootLayoutProps) {
   return (
     <html lang={lang}>
       <body
-        className={`${jetbrainsMono.variable} antialiased flex flex-col min-h-screen`}
+        className={`${oswald.variable} antialiased flex flex-col min-h-screen`}
       >
         <Navigation locale={lang} />
         {children}
