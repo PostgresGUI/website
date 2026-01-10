@@ -53,6 +53,7 @@ export type Translations = {
     features: string;
     screenshots: string;
     support: string;
+    download: string;
   };
   // Footer
   footer: {
@@ -289,6 +290,7 @@ const en: Translations = {
     features: "Features",
     screenshots: "Screenshots",
     support: "Support",
+    download: "Download",
   },
   footer: {
     tagline: "Lightweight PostgreSQL client for Mac",
@@ -595,6 +597,7 @@ const de: Translations = {
     features: "Funktionen",
     screenshots: "Screenshots",
     support: "Support",
+    download: "Download",
   },
   footer: {
     tagline: "Leichtgewichtiger PostgreSQL-Client für Mac",
@@ -907,6 +910,7 @@ const fr: Translations = {
     features: "Fonctionnalités",
     screenshots: "Captures",
     support: "Support",
+    download: "Télécharger",
   },
   footer: {
     tagline: "Client PostgreSQL léger pour Mac",
@@ -1205,6 +1209,7 @@ const ja: Translations = {
     features: "機能",
     screenshots: "スクリーンショット",
     support: "サポート",
+    download: "ダウンロード",
   },
   footer: {
     tagline: "Mac用軽量PostgreSQLクライアント",

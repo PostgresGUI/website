@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { AppStoreBadge } from "@/components/app-store-badge";
 import { TablePlusComparison } from "@/components/tableplus-comparison";
-import { FinalCTAV2 } from "@/components/final-cta-v2";
 import {
   DollarSign,
   Layers,
@@ -455,10 +454,6 @@ export function TablePlusAlternativePage({
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="border-t border-border/30">
-        <FinalCTAV2 locale={locale} />
-      </section>
     </>
   );
 }

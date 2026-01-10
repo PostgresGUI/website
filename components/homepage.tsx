@@ -4,7 +4,6 @@ import { AppStoreBadge } from "@/components/app-store-badge";
 import { Highlights } from "@/components/highlights";
 import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import { FAQ } from "@/components/faq";
-import { FinalCTAV2 } from "@/components/final-cta-v2";
 import { FlowingData } from "@/components/hero-animations/flowing-data";
 import { ArrowRight } from "lucide-react";
 import { getTranslations, Locale } from "@/lib/translations";
@@ -166,10 +165,6 @@ export function Homepage({
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="border-t border-border/20">
-        <FinalCTAV2 locale={locale} />
-      </section>
     </>
   );
 }
