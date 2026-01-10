@@ -31,3 +31,16 @@ export function getHreflangAlternates() {
 
   return languages;
 }
+
+export function getDownloadHreflangAlternates() {
+  const languages: Record<string, string> = {};
+
+  for (const locale of locales) {
+    languages[locale.hreflang] = `${baseUrl}${locale.path}/download`;
+  }
+
+  // Add x-default pointing to the US download page
+  languages["x-default"] = `${baseUrl}/download`;
+
+  return languages;
+}

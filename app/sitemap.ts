@@ -41,8 +41,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: locale.path === "" ? 1 : 0.9,
   }));
 
+  // Generate localized download page routes
+  const localizedDownloads = locales.map((locale) => ({
+    url: `${baseUrl}${locale.path}/download`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.9,
+  }));
+
   return [
     ...localizedHomepages,
+    ...localizedDownloads,
     {
       url: `${baseUrl}/privacy`,
       lastModified: new Date(),

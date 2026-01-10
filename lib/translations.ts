@@ -70,6 +70,19 @@ export type Translations = {
     privacyPolicy: string;
     copyright: string;
   };
+  // Download page
+  download: {
+    title: string;
+    subtitle: string;
+    downloadNow: string;
+    systemRequirements: string;
+    macOSVersion: string;
+    appleSilicon: string;
+    intelSupport: string;
+    appSize: string;
+    openSource: string;
+    viewOnGitHub: string;
+  };
 };
 
 const en: Translations = {
@@ -198,6 +211,18 @@ const en: Translations = {
     legal: "Legal",
     privacyPolicy: "Privacy Policy",
     copyright: "2025 PostgresGUI",
+  },
+  download: {
+    title: "Download PostgresGUI",
+    subtitle: "The best PostgreSQL GUI for Mac",
+    downloadNow: "Download on the App Store",
+    systemRequirements: "System Requirements",
+    macOSVersion: "macOS 26.0 or later",
+    appleSilicon: "Optimized for Apple Silicon",
+    intelSupport: "Also works on Intel Macs",
+    appSize: `${INSTALLER_SIZE} download`,
+    openSource: "Open Source",
+    viewOnGitHub: "View source on GitHub",
   },
 };
 
@@ -328,6 +353,18 @@ const de: Translations = {
     privacyPolicy: "Datenschutz",
     copyright: "2025 PostgresGUI",
   },
+  download: {
+    title: "PostgresGUI herunterladen",
+    subtitle: "Die beste PostgreSQL GUI für Mac",
+    downloadNow: "Im App Store laden",
+    systemRequirements: "Systemanforderungen",
+    macOSVersion: "macOS 26.0 oder neuer",
+    appleSilicon: "Optimiert für Apple Silicon",
+    intelSupport: "Funktioniert auch auf Intel Macs",
+    appSize: `${INSTALLER_SIZE} Download`,
+    openSource: "Open Source",
+    viewOnGitHub: "Quellcode auf GitHub ansehen",
+  },
 };
 
 const fr: Translations = {
@@ -456,6 +493,18 @@ const fr: Translations = {
     legal: "Mentions légales",
     privacyPolicy: "Politique de confidentialité",
     copyright: "2025 PostgresGUI",
+  },
+  download: {
+    title: "Télécharger PostgresGUI",
+    subtitle: "La meilleure GUI PostgreSQL pour Mac",
+    downloadNow: "Télécharger sur l'App Store",
+    systemRequirements: "Configuration requise",
+    macOSVersion: "macOS 26.0 ou ultérieur",
+    appleSilicon: "Optimisé pour Apple Silicon",
+    intelSupport: "Fonctionne aussi sur Mac Intel",
+    appSize: `${INSTALLER_SIZE} téléchargement`,
+    openSource: "Open Source",
+    viewOnGitHub: "Voir le code source sur GitHub",
   },
 };
 
