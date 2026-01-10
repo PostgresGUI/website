@@ -2,7 +2,7 @@ import Link from "next/link";
 import { AppStoreBadge } from "@/components/app-store-badge";
 import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import { getTranslations, Locale } from "@/lib/translations";
-import { Download, Cpu, HardDrive, Github } from "lucide-react";
+import { Download, HardDrive, Github } from "lucide-react";
 
 const APP_STORE_LINK = "https://apps.apple.com/app/postgresgui/id6756467181";
 
@@ -96,43 +96,6 @@ export function DownloadPage({
         </div>
       </section>
 
-      {/* System Requirements Section */}
-      <div className="bg-stone-100 dark:bg-stone-950 py-16 px-6">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-8 text-center">
-            {t.download.systemRequirements}
-          </h2>
-
-          <div className="space-y-4">
-            <div className="flex items-center gap-4 p-4 bg-white dark:bg-stone-800 rounded-lg">
-              <Cpu className="w-5 h-5 text-[var(--postgres-blue)] flex-shrink-0" />
-              <span className="text-gray-700 dark:text-gray-300">
-                {t.download.appleSilicon}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-4 p-4 bg-white dark:bg-stone-800 rounded-lg">
-              <Cpu className="w-5 h-5 text-gray-400 flex-shrink-0" />
-              <span className="text-gray-700 dark:text-gray-300">
-                {t.download.intelSupport}
-              </span>
-            </div>
-          </div>
-
-          {/* GitHub Link */}
-          <div className="mt-8 text-center">
-            <Link
-              href="https://github.com/postgresgui/postgresgui"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-[var(--postgres-blue)] hover:underline"
-            >
-              <Github className="w-4 h-4" />
-              {t.download.viewOnGitHub}
-            </Link>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
