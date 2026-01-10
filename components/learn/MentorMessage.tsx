@@ -227,7 +227,7 @@ export function MentorMessage({
               {/* Optional example block */}
               {syntax && showSyntax && (
                 <div className="mt-3 rounded-lg bg-card border border-border p-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2 font-mono">
                     Example
                   </p>
                   <pre className="text-sm font-mono text-foreground whitespace-pre-wrap">

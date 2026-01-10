@@ -9,7 +9,8 @@
   --color-foreground: var(--foreground);
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display",
     "SF Pro Text", "Segoe UI", system-ui, sans-serif;
-  --font-mono: var(--font-oswald);
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
   --font-display: var(--font-oswald);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -213,19 +214,40 @@ body {
     animation: rowSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   }
 
-  .row-delay-1 { animation-delay: 0ms; }
-  .row-delay-2 { animation-delay: 40ms; }
-  .row-delay-3 { animation-delay: 80ms; }
-  .row-delay-4 { animation-delay: 120ms; }
-  .row-delay-5 { animation-delay: 160ms; }
-  .row-delay-6 { animation-delay: 200ms; }
-  .row-delay-7 { animation-delay: 240ms; }
-  .row-delay-8 { animation-delay: 280ms; }
-  .row-delay-9 { animation-delay: 320ms; }
-  .row-delay-10 { animation-delay: 360ms; }
+  .row-delay-1 {
+    animation-delay: 0ms;
+  }
+  .row-delay-2 {
+    animation-delay: 40ms;
+  }
+  .row-delay-3 {
+    animation-delay: 80ms;
+  }
+  .row-delay-4 {
+    animation-delay: 120ms;
+  }
+  .row-delay-5 {
+    animation-delay: 160ms;
+  }
+  .row-delay-6 {
+    animation-delay: 200ms;
+  }
+  .row-delay-7 {
+    animation-delay: 240ms;
+  }
+  .row-delay-8 {
+    animation-delay: 280ms;
+  }
+  .row-delay-9 {
+    animation-delay: 320ms;
+  }
+  .row-delay-10 {
+    animation-delay: 360ms;
+  }
 
   @keyframes successPulse {
-    0%, 100% {
+    0%,
+    100% {
       transform: scale(1);
       box-shadow: 0 0 0 0 rgb(16 185 129 / 0.4);
     }
@@ -364,13 +386,21 @@ body {
   }
 
   @keyframes shake {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateX(0);
     }
-    10%, 30%, 50%, 70%, 90% {
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
       transform: translateX(-8px);
     }
-    20%, 40%, 60%, 80% {
+    20%,
+    40%,
+    60%,
+    80% {
       transform: translateX(8px);
     }
   }
@@ -384,16 +414,14 @@ body {
     position: relative;
     /* Multi-layer shadow system for realistic elevation */
     box-shadow:
-      /* Tight contact shadow - crisp edge definition */
-      0 1px 2px rgb(0 0 0 / 0.08),
-      /* Primary drop shadow - main elevation cue */
-      0 8px 16px rgb(0 0 0 / 0.12),
-      /* Mid-range diffuse shadow */
-      0 20px 40px rgb(0 0 0 / 0.12),
-      /* Large ambient shadow - creates floating effect */
-      0 40px 80px rgb(0 0 0 / 0.1),
-      /* Extra soft glow for depth */
-      0 60px 100px -20px rgb(0 0 0 / 0.08);
+      /* Tight contact shadow - crisp edge definition */ 0 1px
+        2px rgb(0 0 0 / 0.08),
+      /* Primary drop shadow - main elevation cue */ 0 8px 16px
+        rgb(0 0 0 / 0.12),
+      /* Mid-range diffuse shadow */ 0 20px 40px rgb(0 0 0 / 0.12),
+      /* Large ambient shadow - creates floating effect */ 0 40px 80px
+        rgb(0 0 0 / 0.1),
+      /* Extra soft glow for depth */ 0 60px 100px -20px rgb(0 0 0 / 0.08);
   }
 
   .shadow-screenshot-elevated::before {
@@ -414,18 +442,13 @@ body {
 
   .dark .shadow-screenshot-elevated {
     box-shadow:
-      /* Tight contact shadow */
-      0 1px 2px rgb(0 0 0 / 0.25),
-      /* Primary drop shadow */
-      0 8px 16px rgb(0 0 0 / 0.35),
-      /* Mid-range diffuse shadow */
-      0 20px 40px rgb(0 0 0 / 0.3),
-      /* Large ambient shadow */
-      0 40px 80px rgb(0 0 0 / 0.25),
-      /* Extra depth for dark mode */
-      0 60px 100px -20px rgb(0 0 0 / 0.2),
-      /* Subtle blue ambient glow - brand connection */
-      0 0 80px -10px rgb(59 130 246 / 0.08);
+      /* Tight contact shadow */ 0 1px 2px rgb(0 0 0 / 0.25),
+      /* Primary drop shadow */ 0 8px 16px rgb(0 0 0 / 0.35),
+      /* Mid-range diffuse shadow */ 0 20px 40px rgb(0 0 0 / 0.3),
+      /* Large ambient shadow */ 0 40px 80px rgb(0 0 0 / 0.25),
+      /* Extra depth for dark mode */ 0 60px 100px -20px rgb(0 0 0 / 0.2),
+      /* Subtle blue ambient glow - brand connection */ 0 0 80px -10px rgb(59
+            130 246 / 0.08);
   }
 
   .dark .shadow-screenshot-elevated::before {
