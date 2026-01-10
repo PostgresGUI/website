@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const CONSENT_KEY = "cookie-consent";
 type ConsentState = "pending" | "accepted" | "declined";
@@ -58,11 +59,6 @@ export function CookieConsent({ gtmId }: CookieConsentProps) {
     }
   }, []);
 
-  useEffect(() => {
-    if (consent === "accepted") {
-      loadGTM(gtmId);
-    }
-  }, [consent, gtmId]);
 
   const handleAccept = () => {
     setIsClosing(true);
@@ -82,10 +78,16 @@ export function CookieConsent({ gtmId }: CookieConsentProps) {
     }, 300);
   };
 
-  if (!isVisible || consent !== "pending") return null;
+  // Show GA when consent is accepted (or non-EU auto-accepted)
+  const showAnalytics = consent === "accepted";
+
+  if (!isVisible || consent !== "pending") {
+    return showAnalytics ? <GoogleAnalytics gaId={gtmId} /> : null;
+  }
 
   return (
     <>
+      {showAnalytics && <GoogleAnalytics gaId={gtmId} />}
       <style>{`
         @keyframes cookie-slide-up {
           from {
@@ -220,27 +222,3 @@ export function CookieConsent({ gtmId }: CookieConsentProps) {
   );
 }
 
-function loadGTM(gtmId: string) {
-  if (typeof window === "undefined") return;
-  if (window.dataLayer) return; // Already loaded
-
-  // Initialize dataLayer
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    "gtm.start": new Date().getTime(),
-    event: "gtm.js",
-  });
-
-  // Load GTM script
-  const script = document.createElement("script");
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtm.js?id=${gtmId}`;
-  document.head.appendChild(script);
-}
-
-// Extend Window interface for TypeScript
-declare global {
-  interface Window {
-    dataLayer: Record<string, unknown>[];
-  }
-}
