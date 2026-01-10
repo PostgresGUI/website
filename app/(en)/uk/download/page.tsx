@@ -1,19 +1,11 @@
 import { Metadata } from "next";
 import { DownloadPage } from "@/components/download-page";
-import { getDownloadHreflangAlternates } from "@/lib/locales";
+import { getDownloadPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Download PostgresGUI - PostgreSQL GUI for Mac | Free Download",
-  description:
-    "Download PostgresGUI for Mac. Lightweight, open-source PostgreSQL client. Native macOS app with dark mode support. Get it free on the App Store.",
-  alternates: {
-    canonical: "https://postgresgui.com/uk/download",
-    languages: getDownloadHreflangAlternates(),
-  },
-};
+export const metadata: Metadata = getDownloadPageMetadata("uk");
 
 export default function UKDownload() {
   return (
-    <DownloadPage appStoreLink="https://apps.apple.com/app/postgresgui/id6756467181" />
+    <DownloadPage appStoreLink="https://apps.apple.com/gb/app/postgresgui/id6756467181" />
   );
 }

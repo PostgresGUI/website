@@ -1,6 +1,6 @@
 import { INSTALLER_SIZE, INSTALLED_SIZE, PRICE } from "@/lib/constants";
 
-export type Locale = "en" | "de" | "fr" | "ja";
+export type Locale = "en" | "uk" | "de" | "fr" | "ja";
 
 export type Translations = {
   // Hero
@@ -649,12 +649,15 @@ const ja: Translations = {
   },
 };
 
-const translations: Record<Locale, Translations> = { en, de, fr, ja };
+// UK uses the same translations as EN
+const uk: Translations = en;
+
+const translations: Record<Locale, Translations> = { en, uk, de, fr, ja };
 
 export function getTranslations(locale: Locale = "en"): Translations {
   return translations[locale] || translations.en;
 }
 
 export function isValidLocale(locale: string): locale is Locale {
-  return ["en", "de", "fr", "ja"].includes(locale);
+  return ["en", "uk", "de", "fr", "ja"].includes(locale);
 }
