@@ -85,6 +85,57 @@ export type Translations = {
     openSource: string;
     viewOnGitHub: string;
   };
+  // TablePlus Alternative page
+  tablePlusAlternative: {
+    breadcrumb: string;
+    headline: string;
+    highlightWord: string; // The word "Alternative" in each language to highlight
+    subheadline: string;
+    viewSourceOnGitHub: string;
+    commonFrustrations: string;
+    whyDevelopersSearch: string;
+    whyDevelopersSearchDescription: string;
+    painPoints: {
+      highCost: { title: string; description: string };
+      tabLimit: { title: string; description: string };
+      closedSource: { title: string; description: string };
+      largerFootprint: { title: string; description: string };
+    };
+    theAlternative: string;
+    builtDifferent: string;
+    builtDifferentDescription: string;
+    advantages: {
+      openSource: { title: string; description: string; highlight: string };
+      lightweight: { title: string; description: string; highlight: string };
+      oneTimePurchase: { title: string; description: string; highlight: string };
+      privacyFirst: { title: string; description: string; highlight: string };
+    };
+    sideBySide: string;
+    comparisonTitle: string;
+    comparisonDescription: string;
+    sources: string;
+    honestAssessment: string;
+    whichToolIsRight: string;
+    whichToolIsRightDescription: string;
+    choosePostgresGUIIf: string;
+    recommended: string;
+    choosePostgresGUIReasons: string[];
+    chooseTablePlusIf: string;
+    chooseTablePlusReasons: string[];
+    faq: string;
+    commonQuestions: string;
+    faqItems: Array<{ question: string; answer: string }>;
+    comparison: {
+      feature: string;
+      price: string;
+      updates: string;
+      size: string;
+      oneTime: string;
+      perDevice: string;
+      freeForever: string;
+      yearlyRenewal: string;
+    };
+  };
 };
 
 const en: Translations = {
@@ -267,6 +318,124 @@ const en: Translations = {
     appSize: `${INSTALLER_SIZE} size`,
     openSource: "Open Source",
     viewOnGitHub: "View source on GitHub",
+  },
+  tablePlusAlternative: {
+    breadcrumb: "TablePlus Alternative",
+    headline: "Looking for a TablePlus Alternative for Mac?",
+    highlightWord: "Alternative",
+    subheadline:
+      "PostgresGUI is a lightweight, open source PostgreSQL client built natively for Mac. No subscription, no bloat, no data collection.",
+    viewSourceOnGitHub: "View Source on GitHub",
+    commonFrustrations: "Common Frustrations",
+    whyDevelopersSearch: "Why developers search for TablePlus alternatives",
+    whyDevelopersSearchDescription:
+      "TablePlus is a capable tool, but it's not the right fit for everyone. Here's what drives developers to look for alternatives.",
+    painPoints: {
+      highCost: {
+        title: "High Cost",
+        description:
+          "TablePlus costs $99 per device with a $59/year renewal for updates. That adds up fast across multiple machines.",
+      },
+      tabLimit: {
+        title: "2 Tab Limit",
+        description:
+          "The free version is limited to 2 tabs and 2 windows, which can feel restrictive when working with multiple queries or databases.",
+      },
+      closedSource: {
+        title: "Closed Source",
+        description:
+          "Some developers prefer open source tools where they can inspect the code, and have full transparency.",
+      },
+      largerFootprint: {
+        title: "Larger Footprint",
+        description:
+          "At ~140MB installed, TablePlus is over 5x the size of PostgresGUI due to multi-database support.",
+      },
+    },
+    theAlternative: "The Alternative",
+    builtDifferent: "PostgresGUI: Built different",
+    builtDifferentDescription:
+      "A native Mac app that does one thing well: PostgreSQL. No multi-database complexity, no Electron overhead, no subscription.",
+    advantages: {
+      openSource: {
+        title: "Open Source",
+        description: "Full source code on GitHub for full transparency and trust.",
+        highlight: "github.com/postgresgui",
+      },
+      lightweight: {
+        title: "Lightweight",
+        description: `Just ${INSTALLER_SIZE}. macOS Native. SwiftUI. No Electron.`,
+        highlight: "10x smaller",
+      },
+      oneTimePurchase: {
+        title: "One-Time Purchase",
+        description: `Pay ${PRICE} once. Free updates forever. No subscription.`,
+        highlight: "No renewal fees",
+      },
+      privacyFirst: {
+        title: "Privacy First",
+        description:
+          "Zero telemetry, zero analytics. Your data never leaves your Mac.",
+        highlight: "No data collection",
+      },
+    },
+    sideBySide: "Side by Side",
+    comparisonTitle: "PostgresGUI vs TablePlus",
+    comparisonDescription:
+      "A transparent comparison to help you make the right choice for your workflow.",
+    sources: "Sources",
+    honestAssessment: "Honest Assessment",
+    whichToolIsRight: "Which tool is right for you?",
+    whichToolIsRightDescription:
+      "Different tools for different needs. Here's an honest look at when each option makes sense.",
+    choosePostgresGUIIf: "Choose PostgresGUI if...",
+    recommended: "Recommended",
+    choosePostgresGUIReasons: [
+      "You work primarily with PostgreSQL",
+      "You use Mac as your main development machine",
+      "You value open source software you can trust and audit",
+      "You want a lightweight, fast tool without subscription fees",
+      "You care about privacy and want zero data collection",
+    ],
+    chooseTablePlusIf: "Choose TablePlus if...",
+    chooseTablePlusReasons: [
+      "You need to work with MySQL, Redis, SQLite, MongoDB, or other databases",
+      "You work primarily on Windows or Linux",
+      "You need an iOS companion app for mobile access",
+      "You require advanced features like ER diagrams or plugins",
+    ],
+    faq: "FAQ",
+    commonQuestions: "Common Questions",
+    faqItems: [
+      {
+        question: "Is PostgresGUI really free?",
+        answer: `PostgresGUI is open source and the code is freely available on GitHub. The App Store version costs ${PRICE} as a one-time purchase to support development. There are no subscriptions, no renewal fees, and updates are free forever.`,
+      },
+      {
+        question: "Can PostgresGUI connect to MySQL or other databases?",
+        answer:
+          "No. PostgresGUI is designed exclusively for PostgreSQL. This focus allows us to build a better, more lightweight tool without the complexity of supporting multiple database engines.",
+      },
+      {
+        question: "Does PostgresGUI work on Windows or Linux?",
+        answer:
+          "PostgresGUI is a native Mac app built with Swift. It's designed exclusively for macOS. If you need cross-platform support, TablePlus or DBeaver might be better options for you.",
+      },
+      {
+        question: "How does PostgresGUI stay so small?",
+        answer: `PostgresGUI is built with native Swift and doesn't bundle a web browser engine like Electron apps do. It only includes what's needed for PostgreSQL, keeping the install size at just ${INSTALLER_SIZE}.`,
+      },
+    ],
+    comparison: {
+      feature: "Feature",
+      price: "Price",
+      updates: "Updates",
+      size: "Size",
+      oneTime: "one-time",
+      perDevice: "/device",
+      freeForever: "Free forever",
+      yearlyRenewal: "$59/year renewal",
+    },
   },
 };
 
@@ -455,6 +624,124 @@ const de: Translations = {
     appSize: `${INSTALLER_SIZE} Größe`,
     openSource: "Open Source",
     viewOnGitHub: "Quellcode auf GitHub ansehen",
+  },
+  tablePlusAlternative: {
+    breadcrumb: "TablePlus Alternative",
+    headline: "Suchen Sie eine TablePlus Alternative für Mac?",
+    highlightWord: "Alternative",
+    subheadline:
+      "PostgresGUI ist ein leichtgewichtiger, quelloffener PostgreSQL-Client, nativ für Mac entwickelt. Kein Abo, kein Ballast, keine Datensammlung.",
+    viewSourceOnGitHub: "Quellcode auf GitHub ansehen",
+    commonFrustrations: "Häufige Frustrationen",
+    whyDevelopersSearch: "Warum Entwickler nach TablePlus Alternativen suchen",
+    whyDevelopersSearchDescription:
+      "TablePlus ist ein leistungsfähiges Tool, aber nicht für jeden geeignet. Hier sind die Gründe, warum Entwickler nach Alternativen suchen.",
+    painPoints: {
+      highCost: {
+        title: "Hohe Kosten",
+        description:
+          "TablePlus kostet $99 pro Gerät mit einer jährlichen Verlängerung von $59 für Updates. Das summiert sich schnell bei mehreren Geräten.",
+      },
+      tabLimit: {
+        title: "2-Tab-Limit",
+        description:
+          "Die kostenlose Version ist auf 2 Tabs und 2 Fenster beschränkt, was bei der Arbeit mit mehreren Abfragen oder Datenbanken einschränkend sein kann.",
+      },
+      closedSource: {
+        title: "Closed Source",
+        description:
+          "Einige Entwickler bevorzugen Open-Source-Tools, bei denen sie den Code einsehen können und volle Transparenz haben.",
+      },
+      largerFootprint: {
+        title: "Größerer Speicherbedarf",
+        description:
+          "Mit ~140MB installiert ist TablePlus mehr als 5x so groß wie PostgresGUI, bedingt durch Multi-Datenbank-Unterstützung.",
+      },
+    },
+    theAlternative: "Die Alternative",
+    builtDifferent: "PostgresGUI: Anders gebaut",
+    builtDifferentDescription:
+      "Eine native Mac-App, die eine Sache gut macht: PostgreSQL. Keine Multi-Datenbank-Komplexität, kein Electron-Overhead, kein Abo.",
+    advantages: {
+      openSource: {
+        title: "Open Source",
+        description: "Vollständiger Quellcode auf GitHub für volle Transparenz und Vertrauen.",
+        highlight: "github.com/postgresgui",
+      },
+      lightweight: {
+        title: "Leichtgewichtig",
+        description: `Nur ${INSTALLER_SIZE}. macOS-nativ. SwiftUI. Kein Electron.`,
+        highlight: "10x kleiner",
+      },
+      oneTimePurchase: {
+        title: "Einmalkauf",
+        description: `Zahle ${PRICE} einmal. Kostenlose Updates für immer. Kein Abo.`,
+        highlight: "Keine Verlängerungsgebühren",
+      },
+      privacyFirst: {
+        title: "Privatsphäre zuerst",
+        description:
+          "Keine Telemetrie, keine Analysen. Deine Daten verlassen niemals deinen Mac.",
+        highlight: "Keine Datensammlung",
+      },
+    },
+    sideBySide: "Seite an Seite",
+    comparisonTitle: "PostgresGUI vs TablePlus",
+    comparisonDescription:
+      "Ein transparenter Vergleich, um dir bei der richtigen Wahl für deinen Workflow zu helfen.",
+    sources: "Quellen",
+    honestAssessment: "Ehrliche Bewertung",
+    whichToolIsRight: "Welches Tool ist das richtige für dich?",
+    whichToolIsRightDescription:
+      "Verschiedene Tools für verschiedene Bedürfnisse. Hier ist ein ehrlicher Blick darauf, wann welche Option sinnvoll ist.",
+    choosePostgresGUIIf: "Wähle PostgresGUI, wenn...",
+    recommended: "Empfohlen",
+    choosePostgresGUIReasons: [
+      "Du hauptsächlich mit PostgreSQL arbeitest",
+      "Du den Mac als Hauptentwicklungsmaschine nutzt",
+      "Du Open-Source-Software schätzt, der du vertrauen und die du prüfen kannst",
+      "Du ein leichtgewichtiges, schnelles Tool ohne Abogebühren möchtest",
+      "Dir Privatsphäre wichtig ist und du keine Datensammlung möchtest",
+    ],
+    chooseTablePlusIf: "Wähle TablePlus, wenn...",
+    chooseTablePlusReasons: [
+      "Du mit MySQL, Redis, SQLite, MongoDB oder anderen Datenbanken arbeiten musst",
+      "Du hauptsächlich auf Windows oder Linux arbeitest",
+      "Du eine iOS-Begleit-App für mobilen Zugriff brauchst",
+      "Du erweiterte Funktionen wie ER-Diagramme oder Plugins benötigst",
+    ],
+    faq: "FAQ",
+    commonQuestions: "Häufige Fragen",
+    faqItems: [
+      {
+        question: "Ist PostgresGUI wirklich kostenlos?",
+        answer: `PostgresGUI ist Open Source und der Code ist auf GitHub frei verfügbar. Die App Store Version kostet ${PRICE} als Einmalkauf zur Unterstützung der Entwicklung. Es gibt keine Abos, keine Verlängerungsgebühren, und Updates sind für immer kostenlos.`,
+      },
+      {
+        question: "Kann PostgresGUI sich mit MySQL oder anderen Datenbanken verbinden?",
+        answer:
+          "Nein. PostgresGUI ist ausschließlich für PostgreSQL konzipiert. Dieser Fokus ermöglicht es uns, ein besseres, leichtgewichtigeres Tool zu bauen, ohne die Komplexität mehrerer Datenbank-Engines.",
+      },
+      {
+        question: "Funktioniert PostgresGUI auf Windows oder Linux?",
+        answer:
+          "PostgresGUI ist eine native Mac-App, gebaut mit Swift. Sie ist ausschließlich für macOS konzipiert. Wenn du plattformübergreifende Unterstützung brauchst, sind TablePlus oder DBeaver möglicherweise bessere Optionen.",
+      },
+      {
+        question: "Wie bleibt PostgresGUI so klein?",
+        answer: `PostgresGUI ist mit nativem Swift gebaut und enthält keine Web-Browser-Engine wie Electron-Apps. Es enthält nur das, was für PostgreSQL benötigt wird, und hält die Installationsgröße bei nur ${INSTALLER_SIZE}.`,
+      },
+    ],
+    comparison: {
+      feature: "Funktion",
+      price: "Preis",
+      updates: "Updates",
+      size: "Größe",
+      oneTime: "einmalig",
+      perDevice: "/Gerät",
+      freeForever: "Für immer kostenlos",
+      yearlyRenewal: "$59/Jahr Verlängerung",
+    },
   },
 };
 
@@ -650,6 +937,124 @@ const fr: Translations = {
     openSource: "Open Source",
     viewOnGitHub: "Voir le code source sur GitHub",
   },
+  tablePlusAlternative: {
+    breadcrumb: "Alternative à TablePlus",
+    headline: "Vous cherchez une alternative à TablePlus pour Mac ?",
+    highlightWord: "alternative",
+    subheadline:
+      "PostgresGUI est un client PostgreSQL léger et open source, construit nativement pour Mac. Sans abonnement, sans superflu, sans collecte de données.",
+    viewSourceOnGitHub: "Voir le code source sur GitHub",
+    commonFrustrations: "Frustrations courantes",
+    whyDevelopersSearch: "Pourquoi les développeurs cherchent des alternatives à TablePlus",
+    whyDevelopersSearchDescription:
+      "TablePlus est un outil capable, mais il ne convient pas à tout le monde. Voici ce qui pousse les développeurs à chercher des alternatives.",
+    painPoints: {
+      highCost: {
+        title: "Coût élevé",
+        description:
+          "TablePlus coûte $99 par appareil avec un renouvellement de $59/an pour les mises à jour. Cela s'accumule rapidement sur plusieurs machines.",
+      },
+      tabLimit: {
+        title: "Limite de 2 onglets",
+        description:
+          "La version gratuite est limitée à 2 onglets et 2 fenêtres, ce qui peut être restrictif quand on travaille avec plusieurs requêtes ou bases de données.",
+      },
+      closedSource: {
+        title: "Code fermé",
+        description:
+          "Certains développeurs préfèrent les outils open source où ils peuvent inspecter le code et avoir une transparence totale.",
+      },
+      largerFootprint: {
+        title: "Empreinte plus importante",
+        description:
+          "Avec ~140Mo installé, TablePlus est plus de 5 fois la taille de PostgresGUI en raison du support multi-bases de données.",
+      },
+    },
+    theAlternative: "L'alternative",
+    builtDifferent: "PostgresGUI : Construit différemment",
+    builtDifferentDescription:
+      "Une application Mac native qui fait une chose bien : PostgreSQL. Pas de complexité multi-bases, pas de surcharge Electron, pas d'abonnement.",
+    advantages: {
+      openSource: {
+        title: "Open Source",
+        description: "Code source complet sur GitHub pour une transparence et une confiance totales.",
+        highlight: "github.com/postgresgui",
+      },
+      lightweight: {
+        title: "Léger",
+        description: `Seulement ${INSTALLER_SIZE}. macOS natif. SwiftUI. Sans Electron.`,
+        highlight: "10x plus petit",
+      },
+      oneTimePurchase: {
+        title: "Achat unique",
+        description: `Payez ${PRICE} une fois. Mises à jour gratuites pour toujours. Sans abonnement.`,
+        highlight: "Pas de frais de renouvellement",
+      },
+      privacyFirst: {
+        title: "Confidentialité d'abord",
+        description:
+          "Zéro télémétrie, zéro analyse. Vos données ne quittent jamais votre Mac.",
+        highlight: "Aucune collecte de données",
+      },
+    },
+    sideBySide: "Côte à côte",
+    comparisonTitle: "PostgresGUI vs TablePlus",
+    comparisonDescription:
+      "Une comparaison transparente pour vous aider à faire le bon choix pour votre flux de travail.",
+    sources: "Sources",
+    honestAssessment: "Évaluation honnête",
+    whichToolIsRight: "Quel outil vous convient ?",
+    whichToolIsRightDescription:
+      "Différents outils pour différents besoins. Voici un regard honnête sur quand chaque option a du sens.",
+    choosePostgresGUIIf: "Choisissez PostgresGUI si...",
+    recommended: "Recommandé",
+    choosePostgresGUIReasons: [
+      "Vous travaillez principalement avec PostgreSQL",
+      "Vous utilisez Mac comme machine de développement principale",
+      "Vous appréciez les logiciels open source que vous pouvez auditer",
+      "Vous voulez un outil léger et rapide sans frais d'abonnement",
+      "La confidentialité vous importe et vous ne voulez aucune collecte de données",
+    ],
+    chooseTablePlusIf: "Choisissez TablePlus si...",
+    chooseTablePlusReasons: [
+      "Vous devez travailler avec MySQL, Redis, SQLite, MongoDB ou d'autres bases de données",
+      "Vous travaillez principalement sur Windows ou Linux",
+      "Vous avez besoin d'une application iOS compagnon pour l'accès mobile",
+      "Vous avez besoin de fonctionnalités avancées comme les diagrammes ER ou les plugins",
+    ],
+    faq: "FAQ",
+    commonQuestions: "Questions fréquentes",
+    faqItems: [
+      {
+        question: "PostgresGUI est-il vraiment gratuit ?",
+        answer: `PostgresGUI est open source et le code est librement disponible sur GitHub. La version App Store coûte ${PRICE} en achat unique pour soutenir le développement. Il n'y a pas d'abonnements, pas de frais de renouvellement, et les mises à jour sont gratuites pour toujours.`,
+      },
+      {
+        question: "PostgresGUI peut-il se connecter à MySQL ou d'autres bases de données ?",
+        answer:
+          "Non. PostgresGUI est conçu exclusivement pour PostgreSQL. Cette concentration nous permet de construire un outil meilleur et plus léger sans la complexité de supporter plusieurs moteurs de base de données.",
+      },
+      {
+        question: "PostgresGUI fonctionne-t-il sur Windows ou Linux ?",
+        answer:
+          "PostgresGUI est une application Mac native construite avec Swift. Elle est conçue exclusivement pour macOS. Si vous avez besoin d'un support multiplateforme, TablePlus ou DBeaver pourraient être de meilleures options pour vous.",
+      },
+      {
+        question: "Comment PostgresGUI reste-t-il si petit ?",
+        answer: `PostgresGUI est construit avec Swift natif et n'inclut pas de moteur de navigateur web comme les applications Electron. Il inclut seulement ce qui est nécessaire pour PostgreSQL, gardant la taille d'installation à seulement ${INSTALLER_SIZE}.`,
+      },
+    ],
+    comparison: {
+      feature: "Fonctionnalité",
+      price: "Prix",
+      updates: "Mises à jour",
+      size: "Taille",
+      oneTime: "unique",
+      perDevice: "/appareil",
+      freeForever: "Gratuites pour toujours",
+      yearlyRenewal: "$59/an renouvellement",
+    },
+  },
 };
 
 const ja: Translations = {
@@ -829,6 +1234,124 @@ const ja: Translations = {
     appSize: `${INSTALLER_SIZE} サイズ`,
     openSource: "オープンソース",
     viewOnGitHub: "GitHubでソースを見る",
+  },
+  tablePlusAlternative: {
+    breadcrumb: "TablePlusの代替",
+    headline: "Mac向けTablePlusの代替をお探しですか？",
+    highlightWord: "代替",
+    subheadline:
+      "PostgresGUIは、Mac向けにネイティブで構築された軽量でオープンソースのPostgreSQLクライアントです。サブスク不要、無駄なし、データ収集なし。",
+    viewSourceOnGitHub: "GitHubでソースを見る",
+    commonFrustrations: "よくある不満",
+    whyDevelopersSearch: "なぜ開発者はTablePlusの代替を探すのか",
+    whyDevelopersSearchDescription:
+      "TablePlusは優れたツールですが、すべての人に最適というわけではありません。開発者が代替を探す理由をご紹介します。",
+    painPoints: {
+      highCost: {
+        title: "高コスト",
+        description:
+          "TablePlusはデバイスあたり$99で、アップデートには年間$59の更新料がかかります。複数のマシンでは急速に費用が増加します。",
+      },
+      tabLimit: {
+        title: "2タブ制限",
+        description:
+          "無料版は2タブと2ウィンドウに制限されており、複数のクエリやデータベースを扱う場合は制約を感じることがあります。",
+      },
+      closedSource: {
+        title: "クローズドソース",
+        description:
+          "コードを検査でき、完全な透明性を持つオープンソースツールを好む開発者もいます。",
+      },
+      largerFootprint: {
+        title: "大きなファイルサイズ",
+        description:
+          "TablePlusはインストール後約140MBで、マルチデータベースサポートのためPostgresGUIの5倍以上のサイズです。",
+      },
+    },
+    theAlternative: "代替ソリューション",
+    builtDifferent: "PostgresGUI：異なるアプローチ",
+    builtDifferentDescription:
+      "PostgreSQLという一つのことを上手くこなすネイティブMacアプリ。マルチデータベースの複雑さなし、Electronのオーバーヘッドなし、サブスクなし。",
+    advantages: {
+      openSource: {
+        title: "オープンソース",
+        description: "完全な透明性と信頼のために、GitHubで完全なソースコードを公開。",
+        highlight: "github.com/postgresgui",
+      },
+      lightweight: {
+        title: "軽量",
+        description: `わずか${INSTALLER_SIZE}。macOSネイティブ。SwiftUI。Electron不使用。`,
+        highlight: "10倍小さい",
+      },
+      oneTimePurchase: {
+        title: "買い切り",
+        description: `${PRICE}を一度だけ。アップデートは永久無料。サブスクなし。`,
+        highlight: "更新料なし",
+      },
+      privacyFirst: {
+        title: "プライバシー優先",
+        description:
+          "テレメトリゼロ、アナリティクスゼロ。データがMacから出ることはありません。",
+        highlight: "データ収集なし",
+      },
+    },
+    sideBySide: "並べて比較",
+    comparisonTitle: "PostgresGUI vs TablePlus",
+    comparisonDescription:
+      "ワークフローに最適な選択をするための透明な比較。",
+    sources: "出典",
+    honestAssessment: "正直な評価",
+    whichToolIsRight: "どちらのツールが適していますか？",
+    whichToolIsRightDescription:
+      "異なるニーズには異なるツール。それぞれのオプションがいつ意味を持つか、正直に見ていきます。",
+    choosePostgresGUIIf: "PostgresGUIを選ぶべき場合...",
+    recommended: "推奨",
+    choosePostgresGUIReasons: [
+      "主にPostgreSQLで作業している",
+      "Macをメインの開発マシンとして使用している",
+      "信頼でき、監査可能なオープンソースソフトウェアを重視している",
+      "サブスク料金なしの軽量で高速なツールが欲しい",
+      "プライバシーを重視し、データ収集ゼロを望んでいる",
+    ],
+    chooseTablePlusIf: "TablePlusを選ぶべき場合...",
+    chooseTablePlusReasons: [
+      "MySQL、Redis、SQLite、MongoDB、その他のデータベースで作業する必要がある",
+      "主にWindowsまたはLinuxで作業している",
+      "モバイルアクセス用のiOSコンパニオンアプリが必要",
+      "ERダイアグラムやプラグインなどの高度な機能が必要",
+    ],
+    faq: "FAQ",
+    commonQuestions: "よくある質問",
+    faqItems: [
+      {
+        question: "PostgresGUIは本当に無料ですか？",
+        answer: `PostgresGUIはオープンソースで、コードはGitHubで自由に利用できます。App Store版は開発をサポートするために${PRICE}の買い切りです。サブスクリプションなし、更新料なし、アップデートは永久無料です。`,
+      },
+      {
+        question: "PostgresGUIはMySQLや他のデータベースに接続できますか？",
+        answer:
+          "いいえ。PostgresGUIはPostgreSQL専用に設計されています。この集中により、複数のデータベースエンジンをサポートする複雑さなしに、より良く、より軽量なツールを構築できます。",
+      },
+      {
+        question: "PostgresGUIはWindowsやLinuxで動作しますか？",
+        answer:
+          "PostgresGUIはSwiftで構築されたネイティブMacアプリです。macOS専用に設計されています。クロスプラットフォームサポートが必要な場合は、TablePlusやDBeaverがより良い選択肢かもしれません。",
+      },
+      {
+        question: "PostgresGUIはなぜこんなに小さいのですか？",
+        answer: `PostgresGUIはネイティブSwiftで構築され、Electronアプリのようにウェブブラウザエンジンをバンドルしていません。PostgreSQLに必要なものだけを含んでおり、インストールサイズをわずか${INSTALLER_SIZE}に抑えています。`,
+      },
+    ],
+    comparison: {
+      feature: "機能",
+      price: "価格",
+      updates: "アップデート",
+      size: "サイズ",
+      oneTime: "買い切り",
+      perDevice: "/デバイス",
+      freeForever: "永久無料",
+      yearlyRenewal: "$59/年 更新料",
+    },
   },
 };
 

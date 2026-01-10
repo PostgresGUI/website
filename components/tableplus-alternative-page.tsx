@@ -15,47 +15,9 @@ import {
   CheckCircle2,
   ExternalLink,
 } from "lucide-react";
-import { PRICE, INSTALLER_SIZE } from "@/lib/constants";
+import { getTranslations, Locale } from "@/lib/translations";
 
 const APP_STORE_LINK = "https://apps.apple.com/app/postgresgui/id6756467181";
-
-const painPoints = [
-  {
-    icon: DollarSign,
-    title: "High Cost",
-    description:
-      "TablePlus costs $99 per device with a $59/year renewal for updates. That adds up fast across multiple machines.",
-    color: "text-amber-500",
-    bgColor: "bg-amber-500/10",
-    sourceNum: 1,
-  },
-  {
-    icon: Layers,
-    title: "2 Tab Limit",
-    description:
-      "The free version is limited to 2 tabs and 2 windows, which can feel restrictive when working with multiple queries or databases.",
-    color: "text-rose-500",
-    bgColor: "bg-rose-500/10",
-    sourceNum: 1,
-  },
-  {
-    icon: Lock,
-    title: "Closed Source",
-    description:
-      "Some developers prefer open source tools where they can inspect the code, and have full transparency.",
-    color: "text-purple-500",
-    bgColor: "bg-purple-500/10",
-  },
-  {
-    icon: Gauge,
-    title: "Larger Footprint",
-    description:
-      "At ~140MB installed, TablePlus is over 5x the size of PostgresGUI due to multi-database support.",
-    color: "text-cyan-500",
-    bgColor: "bg-cyan-500/10",
-    sourceNum: 2,
-  },
-];
 
 const sources = [
   {
@@ -70,64 +32,86 @@ const sources = [
   },
 ];
 
-const advantages = [
-  {
-    icon: Code2,
-    title: "Open Source",
-    description: "Full source code on GitHub for full transparency and trust.",
-    highlight: "github.com/postgresgui",
-    color: "text-emerald-500",
-    bgColor: "bg-emerald-500/10",
-  },
-  {
-    icon: Feather,
-    title: "Lightweight",
-    description: `Just ${INSTALLER_SIZE}. macOS Native. SwiftUI. No Electron.`,
-    highlight: "10x smaller",
-    color: "text-amber-500",
-    bgColor: "bg-amber-500/10",
-  },
-  {
-    icon: DollarSign,
-    title: "One-Time Purchase",
-    description: `Pay ${PRICE} once. Free updates forever. No subscription.`,
-    highlight: "No renewal fees",
-    color: "text-violet-500",
-    bgColor: "bg-violet-500/10",
-  },
-  {
-    icon: Lock,
-    title: "Privacy First",
-    description:
-      "Zero telemetry, zero analytics. Your data never leaves your Mac.",
-    highlight: "No data collection",
-    color: "text-cyan-500",
-    bgColor: "bg-cyan-500/10",
-  },
-];
-
-const chooseTablePlus = [
-  "You need to work with MySQL, Redis, SQLite, MongoDB, or other databases",
-  "You work primarily on Windows or Linux",
-  "You need an iOS companion app for mobile access",
-  "You require advanced features like ER diagrams or plugins",
-];
-
-const choosePostgresGUI = [
-  "You work primarily with PostgreSQL",
-  "You use Mac as your main development machine",
-  "You value open source software you can trust and audit",
-  "You want a lightweight, fast tool without subscription fees",
-  "You care about privacy and want zero data collection",
-];
-
 export type TablePlusAlternativePageProps = {
   appStoreLink?: string;
+  locale?: Locale;
 };
 
 export function TablePlusAlternativePage({
   appStoreLink = APP_STORE_LINK,
+  locale = "en",
 }: TablePlusAlternativePageProps) {
+  const t = getTranslations(locale).tablePlusAlternative;
+
+  const painPoints = [
+    {
+      icon: DollarSign,
+      title: t.painPoints.highCost.title,
+      description: t.painPoints.highCost.description,
+      color: "text-amber-500",
+      bgColor: "bg-amber-500/10",
+      sourceNum: 1,
+    },
+    {
+      icon: Layers,
+      title: t.painPoints.tabLimit.title,
+      description: t.painPoints.tabLimit.description,
+      color: "text-rose-500",
+      bgColor: "bg-rose-500/10",
+      sourceNum: 1,
+    },
+    {
+      icon: Lock,
+      title: t.painPoints.closedSource.title,
+      description: t.painPoints.closedSource.description,
+      color: "text-purple-500",
+      bgColor: "bg-purple-500/10",
+    },
+    {
+      icon: Gauge,
+      title: t.painPoints.largerFootprint.title,
+      description: t.painPoints.largerFootprint.description,
+      color: "text-cyan-500",
+      bgColor: "bg-cyan-500/10",
+      sourceNum: 2,
+    },
+  ];
+
+  const advantages = [
+    {
+      icon: Code2,
+      title: t.advantages.openSource.title,
+      description: t.advantages.openSource.description,
+      highlight: t.advantages.openSource.highlight,
+      color: "text-emerald-500",
+      bgColor: "bg-emerald-500/10",
+    },
+    {
+      icon: Feather,
+      title: t.advantages.lightweight.title,
+      description: t.advantages.lightweight.description,
+      highlight: t.advantages.lightweight.highlight,
+      color: "text-amber-500",
+      bgColor: "bg-amber-500/10",
+    },
+    {
+      icon: DollarSign,
+      title: t.advantages.oneTimePurchase.title,
+      description: t.advantages.oneTimePurchase.description,
+      highlight: t.advantages.oneTimePurchase.highlight,
+      color: "text-violet-500",
+      bgColor: "bg-violet-500/10",
+    },
+    {
+      icon: Lock,
+      title: t.advantages.privacyFirst.title,
+      description: t.advantages.privacyFirst.description,
+      highlight: t.advantages.privacyFirst.highlight,
+      color: "text-cyan-500",
+      bgColor: "bg-cyan-500/10",
+    },
+  ];
+
   return (
     <>
       {/* Hero Section */}
@@ -146,7 +130,7 @@ export function TablePlusAlternativePage({
               Home
             </Link>
             <span>/</span>
-            <span className="text-foreground">TablePlus Alternative</span>
+            <span className="text-foreground">{t.breadcrumb}</span>
           </nav>
 
           {/* Main Heading */}
@@ -154,16 +138,28 @@ export function TablePlusAlternativePage({
             className="text-4xl md:text-5xl lg:text-6xl max-w-3xl mb-6 animate-slide-in stagger-1 leading-[1.1] tracking-tight"
             style={{ fontFamily: "'Oswald', sans-serif", fontWeight: 600 }}
           >
-            Looking for a{" "}
-            <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
-              TablePlus Alternative
-            </span>{" "}
-            for Mac?
+            {(() => {
+              // Split by both TablePlus and the highlight word (Alternative/代替/etc)
+              const highlightClass = "text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]";
+              const parts = t.headline.split(/(TablePlus)/);
+              return parts.map((part, i) => {
+                if (part === "TablePlus") {
+                  return <span key={i} className={highlightClass}>{part}</span>;
+                }
+                // Further split this part by the highlight word
+                const subParts = part.split(new RegExp(`(${t.highlightWord})`, 'i'));
+                return subParts.map((subPart, j) => {
+                  if (subPart.toLowerCase() === t.highlightWord.toLowerCase()) {
+                    return <span key={`${i}-${j}`} className={highlightClass}>{subPart}</span>;
+                  }
+                  return <span key={`${i}-${j}`}>{subPart}</span>;
+                });
+              });
+            })()}
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 animate-slide-in stagger-2">
-            PostgresGUI is a lightweight, open source PostgreSQL client built
-            natively for Mac. No subscription, no bloat, no data collection.
+            {t.subheadline}
           </p>
 
           {/* CTA */}
@@ -183,7 +179,7 @@ export function TablePlusAlternativePage({
               className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               <Github className="w-4 h-4" />
-              View Source on GitHub
+              {t.viewSourceOnGitHub}
               <ArrowRight className="w-3 h-3" />
             </a>
           </div>
@@ -195,14 +191,13 @@ export function TablePlusAlternativePage({
         <div className="max-w-5xl mx-auto">
           <div className="mb-12">
             <span className="text-xs font-mono font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] uppercase tracking-wider">
-              Common Frustrations
+              {t.commonFrustrations}
             </span>
             <h2 className="text-3xl md:text-4xl font-display mt-3 mb-4 tracking-tight">
-              Why developers search for TablePlus alternatives
+              {t.whyDevelopersSearch}
             </h2>
             <p className="text-muted-foreground max-w-2xl">
-              TablePlus is a capable tool, but it's not the right fit for
-              everyone. Here's what drives developers to look for alternatives.
+              {t.whyDevelopersSearchDescription}
             </p>
           </div>
 
@@ -246,14 +241,13 @@ export function TablePlusAlternativePage({
         <div className="max-w-5xl mx-auto">
           <div className="mb-12">
             <span className="text-xs font-mono font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] uppercase tracking-wider">
-              The Alternative
+              {t.theAlternative}
             </span>
             <h2 className="text-3xl md:text-4xl font-display mt-3 mb-4 tracking-tight">
-              PostgresGUI: Built different
+              {t.builtDifferent}
             </h2>
             <p className="text-muted-foreground max-w-2xl">
-              A native Mac app that does one thing well: PostgreSQL. No
-              multi-database complexity, no Electron overhead, no subscription.
+              {t.builtDifferentDescription}
             </p>
           </div>
 
@@ -310,19 +304,18 @@ export function TablePlusAlternativePage({
         <div className="max-w-5xl mx-auto">
           <div className="mb-12">
             <span className="text-xs font-mono font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] uppercase tracking-wider">
-              Side by Side
+              {t.sideBySide}
             </span>
             <h2 className="text-3xl md:text-4xl font-display mt-3 mb-4 tracking-tight">
-              PostgresGUI vs TablePlus
+              {t.comparisonTitle}
             </h2>
             <p className="text-muted-foreground max-w-2xl">
-              A transparent comparison to help you make the right choice for
-              your workflow.
+              {t.comparisonDescription}
             </p>
           </div>
 
           <div className="border-y overflow-hidden bg-card">
-            <TablePlusComparison />
+            <TablePlusComparison locale={locale} />
           </div>
 
           {/* Sources */}
@@ -330,7 +323,7 @@ export function TablePlusAlternativePage({
             <div className="flex items-center gap-2 mb-3">
               <ExternalLink className="w-4 h-4 text-muted-foreground" />
               <span className="text-xs font-mono font-semibold text-muted-foreground uppercase tracking-wider">
-                Sources
+                {t.sources}
               </span>
             </div>
             <ul className="space-y-1.5">
@@ -360,14 +353,13 @@ export function TablePlusAlternativePage({
         <div className="max-w-5xl mx-auto">
           <div className="mb-12 text-center">
             <span className="text-xs font-mono font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] uppercase tracking-wider">
-              Honest Assessment
+              {t.honestAssessment}
             </span>
             <h2 className="text-3xl md:text-4xl font-display mt-3 mb-4 tracking-tight">
-              Which tool is right for you?
+              {t.whichToolIsRight}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Different tools for different needs. Here's an honest look at when
-              each option makes sense.
+              {t.whichToolIsRightDescription}
             </p>
           </div>
 
@@ -386,15 +378,15 @@ export function TablePlusAlternativePage({
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">
-                    Choose PostgresGUI if...
+                    {t.choosePostgresGUIIf}
                   </h3>
                   <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400">
-                    Recommended
+                    {t.recommended}
                   </span>
                 </div>
               </div>
               <ul className="space-y-3">
-                {choosePostgresGUI.map((item, index) => (
+                {t.choosePostgresGUIReasons.map((item, index) => (
                   <li
                     key={index}
                     className="flex items-start gap-3 text-pretty"
@@ -416,12 +408,12 @@ export function TablePlusAlternativePage({
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">
-                    Choose TablePlus if...
+                    {t.chooseTablePlusIf}
                   </h3>
                 </div>
               </div>
               <ul className="space-y-3">
-                {chooseTablePlus.map((item, index) => (
+                {t.chooseTablePlusReasons.map((item, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-muted-foreground shrink-0 mt-0.5" />
                     <span className="text-sm text-muted-foreground">
@@ -440,66 +432,32 @@ export function TablePlusAlternativePage({
         <div className="max-w-3xl mx-auto">
           <div className="mb-12 text-center">
             <span className="text-xs font-mono font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] uppercase tracking-wider">
-              FAQ
+              {t.faq}
             </span>
             <h2 className="text-3xl md:text-4xl font-display mt-3 tracking-tight">
-              Common Questions
+              {t.commonQuestions}
             </h2>
           </div>
 
           <div className="space-y-6">
-            <div className="p-6 rounded-xl border border-border/50 bg-card">
-              <h3 className="font-semibold mb-2">
-                Is PostgresGUI really free?
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                PostgresGUI is open source and the code is freely available on
-                GitHub. The App Store version costs {PRICE} as a one-time
-                purchase to support development. There are no subscriptions, no
-                renewal fees, and updates are free forever.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl border border-border/50 bg-card">
-              <h3 className="font-semibold mb-2">
-                Can PostgresGUI connect to MySQL or other databases?
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                No. PostgresGUI is designed exclusively for PostgreSQL. This
-                focus allows us to build a better, more lightweight tool without
-                the complexity of supporting multiple database engines.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl border border-border/50 bg-card">
-              <h3 className="font-semibold mb-2">
-                Does PostgresGUI work on Windows or Linux?
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                PostgresGUI is a native Mac app built with Swift. It's designed
-                exclusively for macOS. If you need cross-platform support,
-                TablePlus or DBeaver might be better options for you.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl border border-border/50 bg-card">
-              <h3 className="font-semibold mb-2">
-                How does PostgresGUI stay so small?
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                PostgresGUI is built with native Swift and doesn't bundle a web
-                browser engine like Electron apps do. It only includes what's
-                needed for PostgreSQL, keeping the install size at just{" "}
-                {INSTALLER_SIZE}.
-              </p>
-            </div>
+            {t.faqItems.map((item, index) => (
+              <div
+                key={index}
+                className="p-6 rounded-xl border border-border/50 bg-card"
+              >
+                <h3 className="font-semibold mb-2">{item.question}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {item.answer}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Final CTA */}
       <section className="border-t border-border/30">
-        <FinalCTAV2 locale="en" />
+        <FinalCTAV2 locale={locale} />
       </section>
     </>
   );

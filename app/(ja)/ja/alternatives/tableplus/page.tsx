@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { TablePlusAlternativePage } from "@/components/tableplus-alternative-page";
 import { getTablePlusAlternativeMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = getTablePlusAlternativeMetadata();
+export const metadata: Metadata = getTablePlusAlternativeMetadata("ja");
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -11,7 +11,7 @@ const jsonLd = {
   operatingSystem: "macOS",
   applicationCategory: "DeveloperApplication",
   description:
-    "A lightweight, open source PostgreSQL client for Mac. Native Swift app with no subscription fees.",
+    "Mac向けの軽量でオープンソースのPostgreSQLクライアント。ネイティブSwiftアプリ、サブスクリプション不要。",
   offers: {
     "@type": "Offer",
     price: "4.99",
@@ -24,14 +24,14 @@ const jsonLd = {
   },
 };
 
-export default function TablePlusAlternative() {
+export default function TablePlusAlternativeJA() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <TablePlusAlternativePage appStoreLink="https://apps.apple.com/app/postgresgui/id6756467181" locale="en" />
+      <TablePlusAlternativePage appStoreLink="https://apps.apple.com/jp/app/postgresgui/id6756467181" locale="ja" />
     </>
   );
 }

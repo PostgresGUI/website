@@ -3,8 +3,16 @@ import { Locale } from "./translations";
 import { getHreflangAlternates, getDownloadHreflangAlternates } from "./locales";
 
 // TablePlus Alternative Page SEO
-export function getTablePlusAlternativeMetadata(): Metadata {
-  return {
+type TablePlusAlternativeSEO = {
+  title: string;
+  description: string;
+  keywords: string[];
+  ogLocale: string;
+  canonical: string;
+};
+
+const tablePlusAlternativeSeoData: Record<Locale, TablePlusAlternativeSEO> = {
+  en: {
     title: "TablePlus Alternative for Mac - PostgresGUI | Open Source PostgreSQL Client",
     description:
       "Looking for a TablePlus alternative? PostgresGUI is a lightweight, open source PostgreSQL client for Mac. Native Swift app, one-time purchase, no subscription, no data collection.",
@@ -22,27 +30,117 @@ export function getTablePlusAlternativeMetadata(): Metadata {
       "tableplus too expensive",
       "tableplus subscription alternative",
     ],
+    ogLocale: "en_US",
+    canonical: "https://postgresgui.com/alternatives/tableplus",
+  },
+  uk: {
+    title: "TablePlus Alternative for Mac - PostgresGUI | Open Source PostgreSQL Client",
+    description:
+      "Looking for a TablePlus alternative? PostgresGUI is a lightweight, open source PostgreSQL client for Mac. Native Swift app, one-time purchase, no subscription, no data collection.",
+    keywords: [
+      "tableplus alternative",
+      "tableplus alternative mac",
+      "tableplus alternative free",
+      "tableplus alternative open source",
+      "best postgresql gui mac",
+      "native postgresql client mac",
+      "tableplus vs postgresgui",
+      "lightweight database gui mac",
+      "postgresql client mac",
+      "postgres gui mac",
+    ],
+    ogLocale: "en_GB",
+    canonical: "https://postgresgui.com/uk/alternatives/tableplus",
+  },
+  de: {
+    title: "TablePlus Alternative für Mac - PostgresGUI | Open Source PostgreSQL Client",
+    description:
+      "Suchen Sie eine TablePlus Alternative? PostgresGUI ist ein leichtgewichtiger, quelloffener PostgreSQL-Client für Mac. Native Swift-App, Einmalkauf, kein Abo, keine Datensammlung.",
+    keywords: [
+      "tableplus alternative",
+      "tableplus alternative mac",
+      "tableplus alternative kostenlos",
+      "tableplus alternative open source",
+      "beste postgresql gui mac",
+      "nativer postgresql client mac",
+      "tableplus vs postgresgui",
+      "leichtgewichtige datenbank gui mac",
+      "postgresql client mac",
+      "postgres gui mac deutsch",
+      "tableplus zu teuer",
+    ],
+    ogLocale: "de_DE",
+    canonical: "https://postgresgui.com/de/alternatives/tableplus",
+  },
+  fr: {
+    title: "Alternative à TablePlus pour Mac - PostgresGUI | Client PostgreSQL Open Source",
+    description:
+      "Vous cherchez une alternative à TablePlus ? PostgresGUI est un client PostgreSQL léger et open source pour Mac. App Swift native, achat unique, sans abonnement, sans collecte de données.",
+    keywords: [
+      "alternative tableplus",
+      "alternative tableplus mac",
+      "alternative tableplus gratuit",
+      "alternative tableplus open source",
+      "meilleure gui postgresql mac",
+      "client postgresql natif mac",
+      "tableplus vs postgresgui",
+      "gui base de données légère mac",
+      "client postgresql mac",
+      "postgres gui mac français",
+      "tableplus trop cher",
+    ],
+    ogLocale: "fr_FR",
+    canonical: "https://postgresgui.com/fr/alternatives/tableplus",
+  },
+  ja: {
+    title: "Mac向けTablePlus代替 - PostgresGUI | オープンソースPostgreSQLクライアント",
+    description:
+      "TablePlusの代替をお探しですか？PostgresGUIはMac向けの軽量でオープンソースのPostgreSQLクライアントです。ネイティブSwiftアプリ、買い切り、サブスクなし、データ収集なし。",
+    keywords: [
+      "tableplus 代替",
+      "tableplus 代替 mac",
+      "tableplus 代替 無料",
+      "tableplus 代替 オープンソース",
+      "最高の postgresql gui mac",
+      "ネイティブ postgresql クライアント mac",
+      "tableplus vs postgresgui",
+      "軽量 データベース gui mac",
+      "postgresql クライアント mac",
+      "postgres gui mac 日本語",
+      "tableplus 高い",
+    ],
+    ogLocale: "ja_JP",
+    canonical: "https://postgresgui.com/ja/alternatives/tableplus",
+  },
+};
+
+export function getTablePlusAlternativeMetadata(locale: Locale = "en"): Metadata {
+  const seo = tablePlusAlternativeSeoData[locale] || tablePlusAlternativeSeoData.en;
+
+  return {
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
     alternates: {
-      canonical: "https://postgresgui.com/alternatives/tableplus",
+      canonical: seo.canonical,
     },
     other: {
       "og:price:amount": "4.99",
       "og:price:currency": "USD",
     },
     openGraph: {
-      title: "TablePlus Alternative for Mac - PostgresGUI",
-      description:
-        "Looking for a TablePlus alternative? PostgresGUI is a lightweight, open source PostgreSQL client for Mac. Native Swift, one-time purchase, no subscription.",
+      title: seo.title,
+      description: seo.description,
       type: "website",
-      url: "https://postgresgui.com/alternatives/tableplus",
+      url: seo.canonical,
       siteName: "PostgresGUI",
-      locale: "en_US",
+      locale: seo.ogLocale,
       images: [
         {
           url: "https://postgresgui.com/postgresgui-og-image.jpg",
           width: 1200,
           height: 630,
-          alt: "PostgresGUI - TablePlus Alternative for Mac",
+          alt: seo.title,
         },
       ],
     },
@@ -50,13 +148,12 @@ export function getTablePlusAlternativeMetadata(): Metadata {
       site: "@postgresgui",
       creator: "@postgresgui",
       card: "summary_large_image",
-      title: "TablePlus Alternative for Mac - PostgresGUI",
-      description:
-        "Looking for a TablePlus alternative? PostgresGUI is a lightweight, open source PostgreSQL client for Mac.",
+      title: seo.title,
+      description: seo.description,
       images: [
         {
           url: "https://postgresgui.com/postgresgui-og-image.jpg",
-          alt: "PostgresGUI - TablePlus Alternative for Mac",
+          alt: seo.title,
         },
       ],
     },

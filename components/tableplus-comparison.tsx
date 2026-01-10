@@ -2,6 +2,7 @@
 
 import { Check, X, Minus } from "lucide-react";
 import { PRICE, INSTALLER_SIZE } from "@/lib/constants";
+import { getTranslations, Locale } from "@/lib/translations";
 
 type ComparisonValue =
   | { type: "check" }
@@ -12,33 +13,9 @@ type ComparisonValue =
 
 type ComparisonRow = {
   feature: string;
-  description?: string;
   postgresgui: ComparisonValue;
   tableplus: ComparisonValue;
 };
-
-const comparisonData: ComparisonRow[] = [
-  {
-    feature: "Price",
-    postgresgui: {
-      type: "price",
-      value: PRICE,
-      note: "one-time",
-      highlight: true,
-    },
-    tableplus: { type: "price", value: "$99", note: "/device" },
-  },
-  {
-    feature: "Updates",
-    postgresgui: { type: "text", value: "Free forever", highlight: true },
-    tableplus: { type: "text", value: "$59/year renewal" },
-  },
-  {
-    feature: "Size",
-    postgresgui: { type: "text", value: INSTALLER_SIZE, highlight: true },
-    tableplus: { type: "text", value: "~140 MB" },
-  },
-];
 
 function ComparisonCell({ value }: { value: ComparisonValue }) {
   switch (value.type) {
@@ -96,7 +73,36 @@ function ComparisonCell({ value }: { value: ComparisonValue }) {
   }
 }
 
-export function TablePlusComparison() {
+export type TablePlusComparisonProps = {
+  locale?: Locale;
+};
+
+export function TablePlusComparison({ locale = "en" }: TablePlusComparisonProps) {
+  const t = getTranslations(locale).tablePlusAlternative.comparison;
+
+  const comparisonData: ComparisonRow[] = [
+    {
+      feature: t.price,
+      postgresgui: {
+        type: "price",
+        value: PRICE,
+        note: t.oneTime,
+        highlight: true,
+      },
+      tableplus: { type: "price", value: "$99", note: t.perDevice },
+    },
+    {
+      feature: t.updates,
+      postgresgui: { type: "text", value: t.freeForever, highlight: true },
+      tableplus: { type: "text", value: t.yearlyRenewal },
+    },
+    {
+      feature: t.size,
+      postgresgui: { type: "text", value: INSTALLER_SIZE, highlight: true },
+      tableplus: { type: "text", value: "~140 MB" },
+    },
+  ];
+
   return (
     <div className="w-full">
       {/* Desktop Table */}
@@ -111,7 +117,7 @@ export function TablePlusComparison() {
                 scope="col"
                 className="text-left p-4 font-mono text-xs uppercase tracking-wider text-muted-foreground border-b border-border/50"
               >
-                Feature
+                {t.feature}
               </th>
               <th
                 scope="col"
