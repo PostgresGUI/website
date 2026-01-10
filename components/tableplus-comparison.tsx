@@ -20,7 +20,12 @@ type ComparisonRow = {
 const comparisonData: ComparisonRow[] = [
   {
     feature: "Price",
-    postgresgui: { type: "price", value: PRICE, note: "one-time", highlight: true },
+    postgresgui: {
+      type: "price",
+      value: PRICE,
+      note: "one-time",
+      highlight: true,
+    },
     tableplus: { type: "price", value: "$99", note: "/device" },
   },
   {
@@ -29,54 +34,9 @@ const comparisonData: ComparisonRow[] = [
     tableplus: { type: "text", value: "$59/year renewal" },
   },
   {
-    feature: "Free Version Limits",
-    postgresgui: { type: "text", value: "Open source, full features", highlight: true },
-    tableplus: { type: "text", value: "2 tabs, 2 windows" },
-  },
-  {
-    feature: "App Size",
+    feature: "Size",
     postgresgui: { type: "text", value: INSTALLER_SIZE, highlight: true },
     tableplus: { type: "text", value: "~140 MB" },
-  },
-  {
-    feature: "Technology",
-    postgresgui: { type: "text", value: "Native Swift", highlight: true },
-    tableplus: { type: "text", value: "Multi-platform" },
-  },
-  {
-    feature: "Open Source",
-    postgresgui: { type: "check" },
-    tableplus: { type: "x" },
-  },
-  {
-    feature: "Data Collection",
-    postgresgui: { type: "text", value: "None", highlight: true },
-    tableplus: { type: "text", value: "Unknown" },
-  },
-  {
-    feature: "Databases Supported",
-    postgresgui: { type: "text", value: "PostgreSQL" },
-    tableplus: { type: "text", value: "15+ types" },
-  },
-  {
-    feature: "Platforms",
-    postgresgui: { type: "text", value: "Mac" },
-    tableplus: { type: "text", value: "Mac, Windows, Linux, iOS" },
-  },
-  {
-    feature: "Dark Mode",
-    postgresgui: { type: "check" },
-    tableplus: { type: "check" },
-  },
-  {
-    feature: "Query Editor",
-    postgresgui: { type: "check" },
-    tableplus: { type: "check" },
-  },
-  {
-    feature: "Inline Editing",
-    postgresgui: { type: "check" },
-    tableplus: { type: "check" },
   },
 ];
 
@@ -147,7 +107,10 @@ export function TablePlusComparison() {
           </caption>
           <thead>
             <tr>
-              <th scope="col" className="text-left p-4 font-mono text-xs uppercase tracking-wider text-muted-foreground border-b border-border/50">
+              <th
+                scope="col"
+                className="text-left p-4 font-mono text-xs uppercase tracking-wider text-muted-foreground border-b border-border/50"
+              >
                 Feature
               </th>
               <th
@@ -160,7 +123,10 @@ export function TablePlusComparison() {
                   </span>
                 </div>
               </th>
-              <th scope="col" className="p-4 text-center font-mono text-xs uppercase tracking-wider border-b border-border/50 text-muted-foreground">
+              <th
+                scope="col"
+                className="p-4 text-center font-mono text-xs uppercase tracking-wider border-b border-border/50 text-muted-foreground"
+              >
                 TablePlus
               </th>
             </tr>

@@ -321,7 +321,7 @@ export function TablePlusAlternativePage({
             </p>
           </div>
 
-          <div className="rounded-2xl border border-border/50 overflow-hidden bg-card">
+          <div className="border-y overflow-hidden bg-card">
             <TablePlusComparison />
           </div>
 
