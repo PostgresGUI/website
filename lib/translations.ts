@@ -447,7 +447,7 @@ const de: Translations = {
   download: {
     title: "PostgresGUI herunterladen",
     subtitle: "Die beste PostgreSQL GUI für Mac",
-    downloadNow: "Im App Store laden",
+    downloadNow: "Laden im App Store",
     systemRequirements: "Systemanforderungen",
     macOSVersion: "macOS 26.0 oder neuer",
     appleSilicon: "Optimiert für Apple Silicon",
@@ -641,7 +641,7 @@ const fr: Translations = {
   download: {
     title: "Télécharger PostgresGUI",
     subtitle: "La meilleure GUI PostgreSQL pour Mac",
-    downloadNow: "Télécharger sur l'App Store",
+    downloadNow: "Télécharger dans l'App Store",
     systemRequirements: "Configuration requise",
     macOSVersion: "macOS 26.0 ou ultérieur",
     appleSilicon: "Optimisé pour Apple Silicon",
@@ -821,7 +821,7 @@ const ja: Translations = {
   download: {
     title: "PostgresGUIをダウンロード",
     subtitle: "Mac向け最高のPostgreSQL GUI",
-    downloadNow: "App Storeでダウンロード",
+    downloadNow: "App Storeからダウンロード",
     systemRequirements: "システム要件",
     macOSVersion: "macOS 26.0以降",
     appleSilicon: "Apple Silicon向けに最適化",
