@@ -99,9 +99,7 @@ export function Highlights({ locale = "en" }: HighlightProps) {
       {highlights.map((highlight, index) => (
         <div
           key={highlight.title}
-          className={`group p-6 md:p-8 rounded-2xl border border-opacity-20 transition-swiftui hover:-translate-y-2 hover:scale-[1.02] shadow-swiftui gradient-overlay ${
-            highlight.bgColor
-          } ${highlight.borderColor} ${
+          className={`group p-6 md:p-8 rounded-2xl border border-stone-200 dark:border-stone-700 transition-swiftui hover:-translate-y-2 hover:scale-[1.02] bg-white dark:bg-stone-800 ${
             index === 0 ? "md:col-span-2 lg:col-span-1" : ""
           }`}
         >
@@ -113,9 +111,7 @@ export function Highlights({ locale = "en" }: HighlightProps) {
               <p className="leading-relaxed">{highlight.description}</p>
             </div>
             <div>
-              <div
-                className={`p-3 rounded-xl ${highlight.iconBg} shadow-sm shrink-0`}
-              >
+              <div className={`p-3 rounded-xl ${highlight.iconBg} shrink-0`}>
                 <highlight.icon
                   height={24}
                   width={24}
