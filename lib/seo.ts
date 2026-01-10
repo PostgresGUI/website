@@ -25,6 +25,10 @@ export function getTablePlusAlternativeMetadata(): Metadata {
     alternates: {
       canonical: "https://postgresgui.com/alternatives/tableplus",
     },
+    other: {
+      "og:price:amount": "4.99",
+      "og:price:currency": "USD",
+    },
     openGraph: {
       title: "TablePlus Alternative for Mac - PostgresGUI",
       description:

@@ -167,12 +167,12 @@ export function TablePlusAlternativePage({
           </p>
 
           {/* CTA */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 animate-slide-in stagger-3">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8 animate-slide-in">
             <a
               href={appStoreLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block scale-125 origin-left transition-transform hover:scale-[1.28]"
+              className="inline-block transition-transform hover:scale-105 [&_svg]:w-[150px] [&_svg]:h-auto"
             >
               <AppStoreBadge />
             </a>
