@@ -8,7 +8,10 @@ type FinalCTAV2Props = {
   appStoreLink?: string;
 };
 
-export function FinalCTAV2({ locale = "en", appStoreLink = APP_STORE_LINK }: FinalCTAV2Props) {
+export function FinalCTAV2({
+  locale = "en",
+  appStoreLink = APP_STORE_LINK,
+}: FinalCTAV2Props) {
   const t = getTranslations(locale);
 
   return (
@@ -21,9 +24,9 @@ export function FinalCTAV2({ locale = "en", appStoreLink = APP_STORE_LINK }: Fin
           href={appStoreLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block scale-150 transition-transform hover:scale-[1.55]"
+          className="inline-block transition-transform hover:scale-105"
         >
-          <AppStoreBadge />
+          <AppStoreBadge scale={1.5} />
         </a>
       </div>
     </div>

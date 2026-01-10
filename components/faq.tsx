@@ -20,13 +20,13 @@ function FAQItem({
         className="w-full flex items-center justify-between p-5 text-left transition-swiftui text-gray-900 dark:text-white"
         aria-expanded={isOpen}
       >
-        <span className="text-base font-display pr-8 tracking-tight">
+        <span className="text-lg font-semibold pr-8 tracking-tight">
           {question}
         </span>
         <ChevronDownIcon
           width={20}
           height={20}
-          className={`flex-shrink-0 transition-transform text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] ${
+          className={`flex-shrink-0 transition-transform ${
             isOpen ? "rotate-180" : ""
           }`}
         />

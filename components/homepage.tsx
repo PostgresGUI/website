@@ -65,9 +65,9 @@ export function Homepage({
               href={appStoreLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block scale-150 transition-transform hover:scale-[1.55]"
+              className="inline-block transition-transform hover:scale-105"
             >
-              <AppStoreBadge />
+              <AppStoreBadge scale={1.5} />
             </a>
             <a
               href="https://github.com/postgresgui/postgresgui"

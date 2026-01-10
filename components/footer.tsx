@@ -29,6 +29,10 @@ export function Footer({ locale = "en" }: FooterProps) {
     { href: "mailto:fikri@mghazi.com", label: t.footer.email, external: true },
   ];
 
+  const compareLinks = [
+    { href: "/alternatives/tableplus", label: t.footer.tablePlusAlternative },
+  ];
+
   const legalLinks = [{ href: "/privacy", label: t.footer.privacyPolicy }];
 
   const socialLinks = [
@@ -46,10 +50,12 @@ export function Footer({ locale = "en" }: FooterProps) {
     >
       <div className="max-w-6xl mx-auto">
         {/* Top Section */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
           {/* Brand */}
           <div className="md:col-span-1">
-            <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">PostgresGUI</h3>
+            <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">
+              PostgresGUI
+            </h3>
             <p className="text-sm text-gray-600 dark:text-white">
               {t.footer.tagline}
             </p>
@@ -57,7 +63,9 @@ export function Footer({ locale = "en" }: FooterProps) {
 
           {/* Product Links */}
           <div>
-            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">{t.footer.product}</h4>
+            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">
+              {t.footer.product}
+            </h4>
             <nav aria-label="Product navigation">
               <ul className="space-y-2">
                 {productLinks.map((link) => (
@@ -76,7 +84,9 @@ export function Footer({ locale = "en" }: FooterProps) {
 
           {/* Support Links */}
           <div>
-            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">{t.footer.support}</h4>
+            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">
+              {t.footer.support}
+            </h4>
             <nav aria-label="Support navigation">
               <ul className="space-y-2">
                 {supportLinks.map((link) => (
@@ -98,9 +108,32 @@ export function Footer({ locale = "en" }: FooterProps) {
             </nav>
           </div>
 
+          {/* Compare Links */}
+          <div>
+            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">
+              {t.footer.compare}
+            </h4>
+            <nav aria-label="Compare navigation">
+              <ul className="space-y-2">
+                {compareLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-white transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+
           {/* Legal Links */}
           <div>
-            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">{t.footer.legal}</h4>
+            <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">
+              {t.footer.legal}
+            </h4>
             <nav aria-label="Legal navigation">
               <ul className="space-y-2">
                 {legalLinks.map((link) => (

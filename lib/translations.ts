@@ -66,6 +66,8 @@ export type Translations = {
     supportLink: string;
     githubIssues: string;
     email: string;
+    compare: string;
+    tablePlusAlternative: string;
     legal: string;
     privacyPolicy: string;
     copyright: string;
@@ -151,18 +153,54 @@ const en: Translations = {
   },
   screenshots: {
     items: [
-      { title: "Welcome Screen", description: "Get started quickly with a clean, minimal interface." },
-      { title: "Create DB Connection", description: "Connect to your PostgreSQL server in one click." },
-      { title: "Connect Via Connection String", description: "Connect to any server using a connection string." },
-      { title: "Browse Databases", description: "See your database list and click to connect." },
-      { title: "Run Queries", description: "Execute SQL queries and view results in a clean table." },
-      { title: "Edit Rows", description: "Edit table rows directly with inline editing." },
-      { title: "Filter & Search", description: "Filter and search through your query results." },
-      { title: "Sort Columns", description: "Sort your data by any column with a single click." },
-      { title: "Export CSV & View JSON", description: "View results as JSON and export to CSV." },
-      { title: "Multiple Tabs", description: "Work with multiple queries in separate tabs." },
-      { title: "Dark Mode", description: "Easy on the eyes with full dark mode support." },
-      { title: "Saved Queries", description: "Organize your queries into folders for easy access." },
+      {
+        title: "Welcome Screen",
+        description: "Get started quickly with a clean, minimal interface.",
+      },
+      {
+        title: "Create DB Connection",
+        description: "Connect to your PostgreSQL server in one click.",
+      },
+      {
+        title: "Connect Via Connection String",
+        description: "Connect to any server using a connection string.",
+      },
+      {
+        title: "Browse Databases",
+        description: "See your database list and click to connect.",
+      },
+      {
+        title: "Run Queries",
+        description: "Execute SQL queries and view results in a clean table.",
+      },
+      {
+        title: "Edit Rows",
+        description: "Edit table rows directly with inline editing.",
+      },
+      {
+        title: "Filter & Search",
+        description: "Filter and search through your query results.",
+      },
+      {
+        title: "Sort Columns",
+        description: "Sort your data by any column with a single click.",
+      },
+      {
+        title: "Export CSV & View JSON",
+        description: "View results as JSON and export to CSV.",
+      },
+      {
+        title: "Multiple Tabs",
+        description: "Work with multiple queries in separate tabs.",
+      },
+      {
+        title: "Dark Mode",
+        description: "Easy on the eyes with full dark mode support.",
+      },
+      {
+        title: "Saved Queries",
+        description: "Organize your queries into folders for easy access.",
+      },
     ],
     previous: "Previous",
     next: "Next",
@@ -170,7 +208,8 @@ const en: Translations = {
   faq: [
     {
       question: "What macOS versions are supported?",
-      answer: "PostgresGUI requires macOS 26.0 or later. It's optimized for Apple Silicon but also works on Intel Macs.",
+      answer:
+        "PostgresGUI requires macOS 26.0 or later. It's optimized for Apple Silicon but also works on Intel Macs.",
     },
     {
       question: "Do I need a subscription?",
@@ -178,15 +217,18 @@ const en: Translations = {
     },
     {
       question: "Do you collect my data?",
-      answer: "No. PostgresGUI does not collect any telemetry, analytics, or usage data. All your database connections and queries stay completely local on your Mac.",
+      answer:
+        "No. PostgresGUI does not collect any telemetry, analytics, or usage data. All your database connections and queries stay completely local on your Mac.",
     },
     {
       question: "Does PostgresGUI support other databases besides PostgreSQL?",
-      answer: "No. PostgresGUI is designed specifically for PostgreSQL only. It does not support MySQL, SQLite, MongoDB, or other database systems.",
+      answer:
+        "No. PostgresGUI is designed specifically for PostgreSQL only. It does not support MySQL, SQLite, MongoDB, or other database systems.",
     },
     {
       question: "How does PostgresGUI compare to TablePlus?",
-      answer: "TablePlus is a powerful multi-database tool with advanced features like code review, plugin systems, inline editing, advanced filters, and support for 15+ database types. PostgresGUI prioritizes simplicity and a lightweight design over many features. It offers a cleaner interface and is open source.",
+      answer:
+        "TablePlus is a powerful multi-database tool with advanced features like code review, plugin systems, inline editing, advanced filters, and support for 15+ database types. PostgresGUI prioritizes simplicity and a lightweight design over many features. It offers a cleaner interface and is open source.",
     },
   ],
   cta: {
@@ -208,6 +250,8 @@ const en: Translations = {
     supportLink: "Support",
     githubIssues: "GitHub Issues",
     email: "Email",
+    compare: "Compare",
+    tablePlusAlternative: "TablePlus",
     legal: "Legal",
     privacyPolicy: "Privacy Policy",
     copyright: "2025 PostgresGUI",
@@ -233,7 +277,8 @@ const de: Translations = {
     headline: "Die beste PostgreSQL GUI für Mac",
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Abfrage-Editor mit Ergebnissen",
-    heroImageDarkAlt: "PostgresGUI - Abfrage-Editor mit Ergebnissen (Dunkelmodus)",
+    heroImageDarkAlt:
+      "PostgresGUI - Abfrage-Editor mit Ergebnissen (Dunkelmodus)",
   },
   images: {
     logoAlt: "PostgresGUI - PostgreSQL-Client für Mac",
@@ -292,18 +337,58 @@ const de: Translations = {
   },
   screenshots: {
     items: [
-      { title: "Willkommensbildschirm", description: "Starte schnell mit einer sauberen, minimalen Oberfläche." },
-      { title: "DB-Verbindung erstellen", description: "Verbinde dich mit einem Klick zu deinem PostgreSQL-Server." },
-      { title: "Per Connection-String verbinden", description: "Verbinde dich mit jedem Server per Connection-String." },
-      { title: "Datenbanken durchsuchen", description: "Sieh deine Datenbankliste und klicke zum Verbinden." },
-      { title: "Abfragen ausführen", description: "Führe SQL-Abfragen aus und sieh die Ergebnisse in einer übersichtlichen Tabelle." },
-      { title: "Zeilen bearbeiten", description: "Bearbeite Tabellenzeilen direkt mit Inline-Bearbeitung." },
-      { title: "Filtern & Suchen", description: "Filtere und durchsuche deine Abfrageergebnisse." },
-      { title: "Spalten sortieren", description: "Sortiere deine Daten mit einem Klick nach jeder Spalte." },
-      { title: "CSV exportieren & JSON anzeigen", description: "Ergebnisse als JSON anzeigen und als CSV exportieren." },
-      { title: "Mehrere Tabs", description: "Arbeite mit mehreren Abfragen in separaten Tabs." },
-      { title: "Dunkelmodus", description: "Augenschonend mit vollständiger Dunkelmodus-Unterstützung." },
-      { title: "Gespeicherte Abfragen", description: "Organisiere deine Abfragen in Ordnern für einfachen Zugriff." },
+      {
+        title: "Willkommensbildschirm",
+        description: "Starte schnell mit einer sauberen, minimalen Oberfläche.",
+      },
+      {
+        title: "DB-Verbindung erstellen",
+        description:
+          "Verbinde dich mit einem Klick zu deinem PostgreSQL-Server.",
+      },
+      {
+        title: "Per Connection-String verbinden",
+        description: "Verbinde dich mit jedem Server per Connection-String.",
+      },
+      {
+        title: "Datenbanken durchsuchen",
+        description: "Sieh deine Datenbankliste und klicke zum Verbinden.",
+      },
+      {
+        title: "Abfragen ausführen",
+        description:
+          "Führe SQL-Abfragen aus und sieh die Ergebnisse in einer übersichtlichen Tabelle.",
+      },
+      {
+        title: "Zeilen bearbeiten",
+        description: "Bearbeite Tabellenzeilen direkt mit Inline-Bearbeitung.",
+      },
+      {
+        title: "Filtern & Suchen",
+        description: "Filtere und durchsuche deine Abfrageergebnisse.",
+      },
+      {
+        title: "Spalten sortieren",
+        description: "Sortiere deine Daten mit einem Klick nach jeder Spalte.",
+      },
+      {
+        title: "CSV exportieren & JSON anzeigen",
+        description: "Ergebnisse als JSON anzeigen und als CSV exportieren.",
+      },
+      {
+        title: "Mehrere Tabs",
+        description: "Arbeite mit mehreren Abfragen in separaten Tabs.",
+      },
+      {
+        title: "Dunkelmodus",
+        description:
+          "Augenschonend mit vollständiger Dunkelmodus-Unterstützung.",
+      },
+      {
+        title: "Gespeicherte Abfragen",
+        description:
+          "Organisiere deine Abfragen in Ordnern für einfachen Zugriff.",
+      },
     ],
     previous: "Zurück",
     next: "Weiter",
@@ -311,7 +396,8 @@ const de: Translations = {
   faq: [
     {
       question: "Welche macOS-Versionen werden unterstützt?",
-      answer: "PostgresGUI erfordert macOS 26.0 oder neuer. Es ist für Apple Silicon optimiert, funktioniert aber auch auf Intel Macs.",
+      answer:
+        "PostgresGUI erfordert macOS 26.0 oder neuer. Es ist für Apple Silicon optimiert, funktioniert aber auch auf Intel Macs.",
     },
     {
       question: "Brauche ich ein Abonnement?",
@@ -319,15 +405,18 @@ const de: Translations = {
     },
     {
       question: "Sammelt ihr meine Daten?",
-      answer: "Nein. PostgresGUI sammelt keine Telemetrie-, Analyse- oder Nutzungsdaten. Alle deine Datenbankverbindungen und Abfragen bleiben vollständig lokal auf deinem Mac.",
+      answer:
+        "Nein. PostgresGUI sammelt keine Telemetrie-, Analyse- oder Nutzungsdaten. Alle deine Datenbankverbindungen und Abfragen bleiben vollständig lokal auf deinem Mac.",
     },
     {
       question: "Unterstützt PostgresGUI andere Datenbanken außer PostgreSQL?",
-      answer: "Nein. PostgresGUI ist speziell nur für PostgreSQL entwickelt. Es unterstützt weder MySQL, SQLite, MongoDB noch andere Datenbanksysteme.",
+      answer:
+        "Nein. PostgresGUI ist speziell nur für PostgreSQL entwickelt. Es unterstützt weder MySQL, SQLite, MongoDB noch andere Datenbanksysteme.",
     },
     {
       question: "Wie schneidet PostgresGUI im Vergleich zu TablePlus ab?",
-      answer: "TablePlus ist ein leistungsstarkes Multi-Datenbank-Tool mit erweiterten Funktionen wie Code-Review, Plugin-Systemen, Inline-Bearbeitung, erweiterten Filtern und Unterstützung für 15+ Datenbanktypen. PostgresGUI priorisiert Einfachheit und ein leichtgewichtiges Design gegenüber vielen Funktionen. Es bietet eine sauberere Oberfläche und ist Open Source.",
+      answer:
+        "TablePlus ist ein leistungsstarkes Multi-Datenbank-Tool mit erweiterten Funktionen wie Code-Review, Plugin-Systemen, Inline-Bearbeitung, erweiterten Filtern und Unterstützung für 15+ Datenbanktypen. PostgresGUI priorisiert Einfachheit und ein leichtgewichtiges Design gegenüber vielen Funktionen. Es bietet eine sauberere Oberfläche und ist Open Source.",
     },
   ],
   cta: {
@@ -349,6 +438,8 @@ const de: Translations = {
     supportLink: "Support",
     githubIssues: "GitHub Issues",
     email: "E-Mail",
+    compare: "Vergleich",
+    tablePlusAlternative: "TablePlus",
     legal: "Rechtliches",
     privacyPolicy: "Datenschutz",
     copyright: "2025 PostgresGUI",
@@ -374,7 +465,8 @@ const fr: Translations = {
     headline: "La meilleure GUI PostgreSQL pour Mac",
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Éditeur de requêtes avec résultats",
-    heroImageDarkAlt: "PostgresGUI - Éditeur de requêtes avec résultats (Mode sombre)",
+    heroImageDarkAlt:
+      "PostgresGUI - Éditeur de requêtes avec résultats (Mode sombre)",
   },
   images: {
     logoAlt: "PostgresGUI - Client PostgreSQL pour Mac",
@@ -433,18 +525,63 @@ const fr: Translations = {
   },
   screenshots: {
     items: [
-      { title: "Écran d'accueil", description: "Démarrez rapidement avec une interface épurée et minimale." },
-      { title: "Créer une connexion", description: "Connectez-vous à votre serveur PostgreSQL en un clic." },
-      { title: "Connexion par chaîne", description: "Connectez-vous à n'importe quel serveur via une chaîne de connexion." },
-      { title: "Parcourir les bases", description: "Voyez votre liste de bases de données et cliquez pour vous connecter." },
-      { title: "Exécuter des requêtes", description: "Exécutez des requêtes SQL et visualisez les résultats dans un tableau clair." },
-      { title: "Modifier les lignes", description: "Modifiez les lignes de table directement avec l'édition en ligne." },
-      { title: "Filtrer & Rechercher", description: "Filtrez et recherchez dans vos résultats de requête." },
-      { title: "Trier les colonnes", description: "Triez vos données par n'importe quelle colonne en un clic." },
-      { title: "Exporter CSV & Voir JSON", description: "Affichez les résultats en JSON et exportez en CSV." },
-      { title: "Onglets multiples", description: "Travaillez avec plusieurs requêtes dans des onglets séparés." },
-      { title: "Mode sombre", description: "Agréable pour les yeux avec le support complet du mode sombre." },
-      { title: "Requêtes sauvegardées", description: "Organisez vos requêtes dans des dossiers pour un accès facile." },
+      {
+        title: "Écran d'accueil",
+        description:
+          "Démarrez rapidement avec une interface épurée et minimale.",
+      },
+      {
+        title: "Créer une connexion",
+        description: "Connectez-vous à votre serveur PostgreSQL en un clic.",
+      },
+      {
+        title: "Connexion par chaîne",
+        description:
+          "Connectez-vous à n'importe quel serveur via une chaîne de connexion.",
+      },
+      {
+        title: "Parcourir les bases",
+        description:
+          "Voyez votre liste de bases de données et cliquez pour vous connecter.",
+      },
+      {
+        title: "Exécuter des requêtes",
+        description:
+          "Exécutez des requêtes SQL et visualisez les résultats dans un tableau clair.",
+      },
+      {
+        title: "Modifier les lignes",
+        description:
+          "Modifiez les lignes de table directement avec l'édition en ligne.",
+      },
+      {
+        title: "Filtrer & Rechercher",
+        description: "Filtrez et recherchez dans vos résultats de requête.",
+      },
+      {
+        title: "Trier les colonnes",
+        description:
+          "Triez vos données par n'importe quelle colonne en un clic.",
+      },
+      {
+        title: "Exporter CSV & Voir JSON",
+        description: "Affichez les résultats en JSON et exportez en CSV.",
+      },
+      {
+        title: "Onglets multiples",
+        description:
+          "Travaillez avec plusieurs requêtes dans des onglets séparés.",
+      },
+      {
+        title: "Mode sombre",
+        description:
+          "Agréable pour les yeux avec le support complet du mode sombre.",
+      },
+      {
+        title: "Requêtes sauvegardées",
+        description:
+          "Organisez vos requêtes dans des dossiers pour un accès facile.",
+      },
     ],
     previous: "Précédent",
     next: "Suivant",
@@ -452,7 +589,8 @@ const fr: Translations = {
   faq: [
     {
       question: "Quelles versions de macOS sont supportées ?",
-      answer: "PostgresGUI nécessite macOS 26.0 ou ultérieur. Il est optimisé pour Apple Silicon mais fonctionne aussi sur les Mac Intel.",
+      answer:
+        "PostgresGUI nécessite macOS 26.0 ou ultérieur. Il est optimisé pour Apple Silicon mais fonctionne aussi sur les Mac Intel.",
     },
     {
       question: "Ai-je besoin d'un abonnement ?",
@@ -460,15 +598,19 @@ const fr: Translations = {
     },
     {
       question: "Collectez-vous mes données ?",
-      answer: "Non. PostgresGUI ne collecte aucune télémétrie, analyse ou donnée d'utilisation. Toutes vos connexions et requêtes de base de données restent entièrement locales sur votre Mac.",
+      answer:
+        "Non. PostgresGUI ne collecte aucune télémétrie, analyse ou donnée d'utilisation. Toutes vos connexions et requêtes de base de données restent entièrement locales sur votre Mac.",
     },
     {
-      question: "PostgresGUI supporte-t-il d'autres bases de données que PostgreSQL ?",
-      answer: "Non. PostgresGUI est conçu spécifiquement pour PostgreSQL uniquement. Il ne supporte pas MySQL, SQLite, MongoDB ou d'autres systèmes de base de données.",
+      question:
+        "PostgresGUI supporte-t-il d'autres bases de données que PostgreSQL ?",
+      answer:
+        "Non. PostgresGUI est conçu spécifiquement pour PostgreSQL uniquement. Il ne supporte pas MySQL, SQLite, MongoDB ou d'autres systèmes de base de données.",
     },
     {
       question: "Comment PostgresGUI se compare-t-il à TablePlus ?",
-      answer: "TablePlus est un outil multi-base de données puissant avec des fonctionnalités avancées comme la revue de code, les systèmes de plugins, l'édition en ligne, les filtres avancés et le support de plus de 15 types de bases de données. PostgresGUI privilégie la simplicité et un design léger plutôt que de nombreuses fonctionnalités. Il offre une interface plus épurée et est open source.",
+      answer:
+        "TablePlus est un outil multi-base de données puissant avec des fonctionnalités avancées comme la revue de code, les systèmes de plugins, l'édition en ligne, les filtres avancés et le support de plus de 15 types de bases de données. PostgresGUI privilégie la simplicité et un design léger plutôt que de nombreuses fonctionnalités. Il offre une interface plus épurée et est open source.",
     },
   ],
   cta: {
@@ -490,6 +632,8 @@ const fr: Translations = {
     supportLink: "Support",
     githubIssues: "GitHub Issues",
     email: "E-mail",
+    compare: "Comparer",
+    tablePlusAlternative: "TablePlus",
     legal: "Mentions légales",
     privacyPolicy: "Politique de confidentialité",
     copyright: "2025 PostgresGUI",
@@ -574,18 +718,51 @@ const ja: Translations = {
   },
   screenshots: {
     items: [
-      { title: "ウェルカム画面", description: "クリーンでミニマルなインターフェースですぐに開始。" },
-      { title: "DB接続を作成", description: "ワンクリックでPostgreSQLサーバーに接続。" },
-      { title: "接続文字列で接続", description: "接続文字列を使用して任意のサーバーに接続。" },
-      { title: "データベースを閲覧", description: "データベース一覧を表示してクリックで接続。" },
-      { title: "クエリを実行", description: "SQLクエリを実行し、きれいなテーブルで結果を表示。" },
-      { title: "行を編集", description: "インライン編集でテーブルの行を直接編集。" },
-      { title: "フィルタ＆検索", description: "クエリ結果をフィルタリングして検索。" },
-      { title: "列をソート", description: "ワンクリックで任意の列でデータをソート。" },
-      { title: "CSVエクスポート＆JSON表示", description: "結果をJSONで表示し、CSVにエクスポート。" },
+      {
+        title: "ウェルカム画面",
+        description: "クリーンでミニマルなインターフェースですぐに開始。",
+      },
+      {
+        title: "DB接続を作成",
+        description: "ワンクリックでPostgreSQLサーバーに接続。",
+      },
+      {
+        title: "接続文字列で接続",
+        description: "接続文字列を使用して任意のサーバーに接続。",
+      },
+      {
+        title: "データベースを閲覧",
+        description: "データベース一覧を表示してクリックで接続。",
+      },
+      {
+        title: "クエリを実行",
+        description: "SQLクエリを実行し、きれいなテーブルで結果を表示。",
+      },
+      {
+        title: "行を編集",
+        description: "インライン編集でテーブルの行を直接編集。",
+      },
+      {
+        title: "フィルタ＆検索",
+        description: "クエリ結果をフィルタリングして検索。",
+      },
+      {
+        title: "列をソート",
+        description: "ワンクリックで任意の列でデータをソート。",
+      },
+      {
+        title: "CSVエクスポート＆JSON表示",
+        description: "結果をJSONで表示し、CSVにエクスポート。",
+      },
       { title: "複数タブ", description: "別々のタブで複数のクエリを操作。" },
-      { title: "ダークモード", description: "完全なダークモードサポートで目に優しい。" },
-      { title: "保存済みクエリ", description: "クエリをフォルダに整理して簡単にアクセス。" },
+      {
+        title: "ダークモード",
+        description: "完全なダークモードサポートで目に優しい。",
+      },
+      {
+        title: "保存済みクエリ",
+        description: "クエリをフォルダに整理して簡単にアクセス。",
+      },
     ],
     previous: "前へ",
     next: "次へ",
@@ -593,7 +770,8 @@ const ja: Translations = {
   faq: [
     {
       question: "対応しているmacOSのバージョンは？",
-      answer: "PostgresGUIはmacOS 26.0以降が必要です。Apple Silicon向けに最適化されていますが、Intel Macでも動作します。",
+      answer:
+        "PostgresGUIはmacOS 26.0以降が必要です。Apple Silicon向けに最適化されていますが、Intel Macでも動作します。",
     },
     {
       question: "サブスクリプションは必要ですか？",
@@ -601,15 +779,18 @@ const ja: Translations = {
     },
     {
       question: "データを収集していますか？",
-      answer: "いいえ。PostgresGUIはテレメトリ、アナリティクス、使用状況データを一切収集しません。データベース接続やクエリはすべてMac上にローカル保存されます。",
+      answer:
+        "いいえ。PostgresGUIはテレメトリ、アナリティクス、使用状況データを一切収集しません。データベース接続やクエリはすべてMac上にローカル保存されます。",
     },
     {
       question: "PostgreSQL以外のデータベースに対応していますか？",
-      answer: "いいえ。PostgresGUIはPostgreSQL専用に設計されています。MySQL、SQLite、MongoDBなど他のデータベースシステムには対応していません。",
+      answer:
+        "いいえ。PostgresGUIはPostgreSQL専用に設計されています。MySQL、SQLite、MongoDBなど他のデータベースシステムには対応していません。",
     },
     {
       question: "TablePlusと比べてどうですか？",
-      answer: "TablePlusはコードレビュー、プラグインシステム、インライン編集、高度なフィルタ、15種類以上のデータベースサポートなど、高度な機能を備えた強力なマルチデータベースツールです。PostgresGUIは多機能よりもシンプルさと軽量設計を優先しています。よりクリーンなインターフェースを提供し、オープンソースです。",
+      answer:
+        "TablePlusはコードレビュー、プラグインシステム、インライン編集、高度なフィルタ、15種類以上のデータベースサポートなど、高度な機能を備えた強力なマルチデータベースツールです。PostgresGUIは多機能よりもシンプルさと軽量設計を優先しています。よりクリーンなインターフェースを提供し、オープンソースです。",
     },
   ],
   cta: {
@@ -631,6 +812,8 @@ const ja: Translations = {
     supportLink: "サポート",
     githubIssues: "GitHub Issues",
     email: "メール",
+    compare: "比較",
+    tablePlusAlternative: "TablePlus",
     legal: "法的情報",
     privacyPolicy: "プライバシーポリシー",
     copyright: "2025 PostgresGUI",
