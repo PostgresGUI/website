@@ -143,7 +143,7 @@ const en: Translations = {
   hero: {
     badge: "New",
     learnSql: "Learn SQL",
-    headline: "The Best PostgreSQL GUI for Mac",
+    headline: "Best Looking PostgreSQL GUI for Mac",
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Query editor with results",
     heroImageDarkAlt: "PostgresGUI - Query editor with results (Dark mode)",
@@ -311,7 +311,7 @@ const en: Translations = {
   },
   download: {
     title: "Download PostgresGUI",
-    subtitle: "The best PostgreSQL GUI for Mac",
+    subtitle: "Best looking PostgreSQL GUI for Mac",
     downloadNow: "Download on the App Store",
     systemRequirements: "System Requirements",
     macOSVersion: "macOS 26.0 or later",
@@ -445,7 +445,7 @@ const de: Translations = {
   hero: {
     badge: "Neu",
     learnSql: "SQL lernen",
-    headline: "Die beste PostgreSQL GUI für Mac",
+    headline: "Die schönste PostgreSQL GUI für Mac",
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Abfrage-Editor mit Ergebnissen",
     heroImageDarkAlt:
@@ -618,7 +618,7 @@ const de: Translations = {
   },
   download: {
     title: "PostgresGUI herunterladen",
-    subtitle: "Die beste PostgreSQL GUI für Mac",
+    subtitle: "Die schönste PostgreSQL GUI für Mac",
     downloadNow: "Laden im App Store",
     systemRequirements: "Systemanforderungen",
     macOSVersion: "macOS 26.0 oder neuer",
@@ -752,7 +752,7 @@ const fr: Translations = {
   hero: {
     badge: "Nouveau",
     learnSql: "Apprendre SQL",
-    headline: "La meilleure GUI PostgreSQL pour Mac",
+    headline: "La plus belle GUI PostgreSQL pour Mac",
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Éditeur de requêtes avec résultats",
     heroImageDarkAlt:
@@ -931,7 +931,7 @@ const fr: Translations = {
   },
   download: {
     title: "Télécharger PostgresGUI",
-    subtitle: "La meilleure GUI PostgreSQL pour Mac",
+    subtitle: "La plus belle GUI PostgreSQL pour Mac",
     downloadNow: "Télécharger dans l'App Store",
     systemRequirements: "Configuration requise",
     macOSVersion: "macOS 26.0 ou ultérieur",
@@ -1065,7 +1065,7 @@ const ja: Translations = {
   hero: {
     badge: "新着",
     learnSql: "SQLを学ぶ",
-    headline: "Mac向け最高のPostgreSQL GUI",
+    headline: "Mac向け最も美しいPostgreSQL GUI",
     openSource: "オープンソース",
     heroImageAlt: "PostgresGUI - クエリエディタと結果",
     heroImageDarkAlt: "PostgresGUI - クエリエディタと結果（ダークモード）",
@@ -1230,7 +1230,7 @@ const ja: Translations = {
   },
   download: {
     title: "PostgresGUIをダウンロード",
-    subtitle: "Mac向け最高のPostgreSQL GUI",
+    subtitle: "Mac向け最も美しいPostgreSQL GUI",
     downloadNow: "App Storeからダウンロード",
     systemRequirements: "システム要件",
     macOSVersion: "macOS 26.0以降",

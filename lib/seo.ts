@@ -176,7 +176,7 @@ const seoData: Record<Locale, LocaleSEO> = {
   en: {
     title: "PostgresGUI – Best PostgreSQL GUI for Mac | Open Source",
     description:
-      "The best PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
+      "Best looking PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
     keywords: [
       "postgresql gui mac",
       "best postgres gui",
@@ -201,7 +201,7 @@ const seoData: Record<Locale, LocaleSEO> = {
   uk: {
     title: "PostgresGUI – Best PostgreSQL GUI for Mac | Open Source",
     description:
-      "The best PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
+      "Best looking PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
     keywords: [
       "postgresql client",
       "database gui",

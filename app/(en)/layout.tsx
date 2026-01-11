@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://postgresgui.com"),
   title: "PostgresGUI – Best PostgreSQL GUI for Mac | Open Source",
   description:
-    "The best PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
+    "Best looking PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
   keywords: [
     "postgresql gui mac",
     "best postgres gui",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "PostgresGUI – Best PostgreSQL GUI for Mac",
     description:
-      "The best PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
+      "Best looking PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
     type: "website",
     url: "https://postgresgui.com",
     siteName: "PostgresGUI",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "PostgresGUI – Best PostgreSQL GUI for Mac",
     description:
-      "The best PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
+      "Best looking PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
     images: [
       {
         url: "https://postgresgui.com/postgresgui-og-image.jpg",
