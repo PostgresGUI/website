@@ -105,7 +105,7 @@ export function Highlights({ locale = "en" }: HighlightProps) {
         >
           <div className="flex justify-between gap-4">
             <div className="space-y-2">
-              <h3 className="text-base md:text-lg font-display tracking-tight">
+              <h3 className="text-2xl font-display tracking-tight">
                 {highlight.title}
               </h3>
               <p className="leading-relaxed">{highlight.description}</p>
