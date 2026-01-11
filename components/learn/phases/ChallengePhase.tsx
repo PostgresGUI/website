@@ -96,14 +96,16 @@ export function ChallengePhase({
     ? isChallengeComplete(lessonId, currentChallenge.id)
     : false;
 
-  // Reset UI state when challenge changes
+  // Reset UI state when navigating to a different challenge
   useEffect(() => {
     setShowSuccessMessage(false);
-    setShowAsComplete(isCurrentComplete);
     setValidationMessage(null);
     setHasShownError(false);
     setShakeKey(0);
-  }, [currentIndex, isCurrentComplete]);
+    // Set initial completion state based on whether challenge was already completed
+    setShowAsComplete(isChallengeComplete(lessonId, challenges[currentIndex]?.id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex]);
 
   const handleQueryResult = useCallback(
     (result: QueryResult, query: string) => {
@@ -116,11 +118,8 @@ export function ChallengePhase({
         setHasShownError(false); // Reset error tracking on success
         setShakeKey(0); // Reset shake key on success
 
-        // Show success message if first completion OR recovering from error
-        if (!isCurrentComplete || !showAsComplete) {
-          setShowSuccessMessage(true);
-        }
-
+        // Always show success message on correct submission
+        setShowSuccessMessage(true);
         setShowAsComplete(true); // Show completion badge
 
         // Only celebrate on first completion
@@ -128,6 +127,9 @@ export function ChallengePhase({
           markChallengeComplete(lessonId, currentChallenge.id);
           setShowCelebration(true);
           playSound('celebration');
+        } else {
+          // Play a subtle success sound for re-submissions
+          playSound('success');
         }
       } else {
         // Reset visual completion state on wrong answer
@@ -153,7 +155,6 @@ export function ChallengePhase({
       currentChallenge,
       lessonId,
       isCurrentComplete,
-      showAsComplete,
       hasShownError,
       markChallengeComplete,
     ]

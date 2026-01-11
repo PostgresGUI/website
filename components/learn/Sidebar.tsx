@@ -59,7 +59,7 @@ export function Sidebar({
   onChallengeClick,
   className,
 }: SidebarProps) {
-  const { isLessonComplete, isPhaseComplete, isChallengeComplete, progress } = useProgressContext();
+  const { isLessonComplete } = useProgressContext();
   const [expandedLessons, setExpandedLessons] = useState<Set<string>>(
     new Set()
   );
@@ -70,72 +70,51 @@ export function Sidebar({
 
   const currentPhaseIndex = phases.indexOf(currentPhase || "context");
 
-  // Helper function to check if a phase is accessible
-  const isPhaseAccessibleFn = (phaseIndex: number, lessonId: string): boolean => {
-    // If lesson is complete, all phases are accessible
-    if (isLessonComplete(lessonId)) {
-      return true;
-    }
+  // Find current challenge index
+  const currentChallengeIndex = currentChallengeId
+    ? challenges.findIndex(c => c.id === currentChallengeId)
+    : -1;
 
-    // If not the current lesson, only accessible if previous lesson is complete
+  // Simple linear progression:
+  // - Everything above current = completed
+  // - Current = active
+  // - Everything below = locked
+
+  const getPhaseState = (phaseIndex: number, lessonId: string): 'completed' | 'active' | 'locked' => {
+    // If not current lesson
     if (lessonId !== currentLessonId) {
       const lessonIndex = lessons.findIndex(l => l.id === lessonId);
-      if (lessonIndex > 0) {
-        return isLessonComplete(lessons[lessonIndex - 1].id);
+      const currentLessonIndex = lessons.findIndex(l => l.id === currentLessonId);
+
+      if (lessonIndex < currentLessonIndex) {
+        return 'completed'; // Previous lessons are complete
       }
-      return lessonIndex === 0; // First lesson is always accessible
+      return 'locked'; // Future lessons are locked
     }
 
-    // For current lesson, check if previous phases are completed
-    // Context phase is always accessible
-    if (phaseIndex === 0) {
-      return true;
+    // Current lesson - simple linear check
+    if (phaseIndex < currentPhaseIndex) {
+      return 'completed';
     }
-
-    // For other phases, check if we've reached this phase OR previous phase is complete
-    // If current phase index is >= target phase index, it's accessible (user is there now)
-    if (currentPhaseIndex >= phaseIndex) {
-      return true;
+    if (phaseIndex === currentPhaseIndex) {
+      return 'active';
     }
-
-    // Check if previous phase is complete
-    const prevPhase = phases[phaseIndex - 1];
-    if (prevPhase === "challenge") {
-      // For phases after challenge, check if all challenges are complete
-      const allChallengesComplete = challenges.every(c =>
-        isChallengeComplete(lessonId, c.id)
-      );
-      return allChallengesComplete;
-    }
-
-    // Check if previous phase is marked complete
-    return isPhaseComplete(lessonId, prevPhase);
+    return 'locked';
   };
 
-  // Helper function to check if a challenge is accessible
-  const isChallengeAccessible = (challengeIndex: number, lessonId: string): boolean => {
-    // If lesson is complete, all challenges are accessible
-    if (isLessonComplete(lessonId)) {
-      return true;
+  const getChallengeState = (challengeIndex: number): 'completed' | 'active' | 'locked' => {
+    // Only relevant for current lesson in challenge phase
+    if (currentPhase !== 'challenge') {
+      return 'locked';
     }
-    
-    // If not current lesson, challenges are not accessible
-    if (lessonId !== currentLessonId) {
-      return false;
+
+    if (challengeIndex < currentChallengeIndex) {
+      return 'completed';
     }
-    
-    // First challenge is accessible if we're in challenge phase
-    if (challengeIndex === 0) {
-      return currentPhase === "challenge";
+    if (challengeIndex === currentChallengeIndex) {
+      return 'active';
     }
-    
-    // Other challenges are accessible if previous challenge is complete
-    const previousChallenge = challenges[challengeIndex - 1];
-    if (previousChallenge) {
-      return isChallengeComplete(lessonId, previousChallenge.id);
-    }
-    
-    return false;
+    return 'locked';
   };
 
   // Auto-expand current lesson
@@ -270,17 +249,16 @@ export function Sidebar({
                         {phases.map((phase, phaseIndex) => {
                           const config = PHASE_CONFIG[phase];
                           const Icon = config.icon;
-                          const isActivePhase =
-                            isCurrent && phase === currentPhase;
-                          const isPastPhase =
-                            isCurrent && phaseIndex < currentPhaseIndex;
+                          const phaseState = getPhaseState(phaseIndex, lesson.id);
+                          const isActivePhase = phaseState === 'active';
+                          const isCompleted = phaseState === 'completed';
+                          const isPhaseLocked = phaseState === 'locked';
                           const isChallengePhase = phase === "challenge";
                           const hasChallenges =
                             isCurrent &&
                             isChallengePhase &&
                             challenges.length > 0;
                           const canShowChallenges = hasChallenges;
-                          const isPhaseLocked = !isPhaseAccessibleFn(phaseIndex, lesson.id);
 
                           return (
                             <div key={phase}>
@@ -290,7 +268,7 @@ export function Sidebar({
                                   isActivePhase &&
                                     !hasChallenges &&
                                     "bg-zinc-200 dark:bg-zinc-700 font-medium text-foreground",
-                                  (!isActivePhase || hasChallenges) &&
+                                  !isActivePhase &&
                                     !isPhaseLocked &&
                                     "text-muted-foreground hover:text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800",
                                   isPhaseLocked &&
@@ -308,9 +286,6 @@ export function Sidebar({
                                       <Icon className="w-3.5 h-3.5 shrink-0" />
                                       <span>{config.label}</span>
                                     </button>
-                                    {isPastPhase && !isActivePhase && (
-                                      <CheckCircle className="w-3.5 h-3.5 shrink-0 text-emerald-500" />
-                                    )}
                                     <button
                                       onClick={(e) => {
                                         e.stopPropagation();
@@ -347,7 +322,7 @@ export function Sidebar({
                                     {isPhaseLocked && (
                                       <Lock className="w-3.5 h-3.5 shrink-0 text-muted-foreground" />
                                     )}
-                                    {isPastPhase && !isActivePhase && !isPhaseLocked && (
+                                    {isCompleted && (
                                       <CheckCircle className="w-3.5 h-3.5 shrink-0 text-emerald-500" />
                                     )}
                                   </>
@@ -368,16 +343,11 @@ export function Sidebar({
                                     <div className="ml-5 mt-0.5 space-y-0.5">
                                       {challenges.map(
                                         (challenge, challengeIndex) => {
-                                          const isChallengeActive =
-                                            challenge.id ===
-                                              currentChallengeId &&
-                                            isActivePhase;
-                                          const isChallengeLocked = !isChallengeAccessible(challengeIndex, lesson.id);
-                                          // Only show checkmark for actually completed challenges
-                                          // Don't include isChallengeActive to avoid premature checkmark display
-                                          const isChallengeCompleted = isCurrent
-                                            ? progress.lessonProgress[lesson.id]?.completedChallenges?.includes(challenge.id) ?? false
-                                            : false;
+                                          const challengeState = getChallengeState(challengeIndex);
+                                          const isChallengeActive = challengeState === 'active';
+                                          const isChallengeCompleted = challengeState === 'completed';
+                                          const isChallengeLocked = challengeState === 'locked';
+
                                           return (
                                             <button
                                               key={challenge.id}
@@ -403,7 +373,7 @@ export function Sidebar({
                                               {isChallengeLocked && (
                                                 <Lock className="w-3.5 h-3.5 ml-auto shrink-0 text-muted-foreground" />
                                               )}
-                                              {isChallengeCompleted && !isChallengeLocked && (
+                                              {isChallengeCompleted && (
                                                 <CheckCircle className="w-3.5 h-3.5 ml-auto shrink-0 text-emerald-500" />
                                               )}
                                             </button>
