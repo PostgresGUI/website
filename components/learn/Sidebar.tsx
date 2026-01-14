@@ -44,6 +44,7 @@ interface SidebarProps {
   challenges?: Challenge[];
   currentChallengeId?: string | null;
   onChallengeClick?: (challengeId: string) => void;
+  isChallengeComplete?: (lessonId: string, challengeId: string) => boolean;
   className?: string;
 }
 
@@ -57,9 +58,13 @@ export function Sidebar({
   challenges = [],
   currentChallengeId,
   onChallengeClick,
+  isChallengeComplete,
   className,
 }: SidebarProps) {
-  const { isLessonComplete } = useProgressContext();
+  const { isLessonComplete, isChallengeComplete: isChallengeCompleteFromContext } = useProgressContext();
+
+  // Use context version as fallback if prop not provided
+  const checkChallengeComplete = isChallengeComplete || isChallengeCompleteFromContext;
   const [expandedLessons, setExpandedLessons] = useState<Set<string>>(
     new Set()
   );
@@ -102,17 +107,35 @@ export function Sidebar({
     return 'locked';
   };
 
-  const getChallengeState = (challengeIndex: number): 'completed' | 'active' | 'locked' => {
-    // Only relevant for current lesson in challenge phase
+  const getChallengeState = (challengeIndex: number, challenge: Challenge): 'completed' | 'active' | 'locked' => {
+    // Check actual completion status from progress first
+    const isCompleted = currentLessonId && checkChallengeComplete(currentLessonId, challenge.id);
+
+    if (isCompleted) {
+      return 'completed';
+    }
+
+    // If we're past the challenge phase (on summary), show challenges as completed
+    // This matches the behavior of other phases which show as complete when passed
+    if (currentPhase === 'summary') {
+      return 'completed';
+    }
+
+    // If not in challenge phase yet, challenges are locked
     if (currentPhase !== 'challenge') {
       return 'locked';
     }
 
-    if (challengeIndex < currentChallengeIndex) {
-      return 'completed';
-    }
     if (challengeIndex === currentChallengeIndex) {
       return 'active';
+    }
+    // Check if previous challenge is complete (to determine if this one is accessible)
+    if (challengeIndex > 0) {
+      const prevChallenge = challenges[challengeIndex - 1];
+      const prevCompleted = currentLessonId && checkChallengeComplete(currentLessonId, prevChallenge.id);
+      if (!prevCompleted) {
+        return 'locked';
+      }
     }
     return 'locked';
   };
@@ -343,7 +366,7 @@ export function Sidebar({
                                     <div className="ml-5 mt-0.5 space-y-0.5">
                                       {challenges.map(
                                         (challenge, challengeIndex) => {
-                                          const challengeState = getChallengeState(challengeIndex);
+                                          const challengeState = getChallengeState(challengeIndex, challenge);
                                           const isChallengeActive = challengeState === 'active';
                                           const isChallengeCompleted = challengeState === 'completed';
                                           const isChallengeLocked = challengeState === 'locked';

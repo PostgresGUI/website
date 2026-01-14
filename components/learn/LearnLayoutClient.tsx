@@ -187,6 +187,7 @@ export function LearnLayoutClient(props: LearnLayoutClientProps) {
         challenges={lesson?.phases.challenges}
         currentChallengeId={challengeParam}
         onChallengeClick={handleChallengeClick}
+        isChallengeComplete={isChallengeComplete}
       />
 
       {/* Main Content - Elevated Panel */}

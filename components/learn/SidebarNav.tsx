@@ -130,6 +130,7 @@ export function SidebarNav({ challengeParam: initialChallengeParam }: SidebarNav
       challenges={lesson?.phases.challenges || []}
       currentChallengeId={challengeParam}
       onChallengeClick={handleChallengeClick}
+      isChallengeComplete={isChallengeComplete}
       className="h-full"
     />
   );

@@ -228,6 +228,7 @@ export const ConceptPhase = forwardRef<ConceptPhaseRef, ConceptPhaseProps>(
                     message: concept.explanation,
                   }}
                   syntax={concept.syntax}
+                  syntaxLabel="Reference"
                   showSyntax={isPast || (isCurrent && syntaxDisplayed)}
                   animate={isCurrent}
                   textTypeRef={isCurrent ? textTypeRef : undefined}

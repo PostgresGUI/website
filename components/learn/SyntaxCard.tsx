@@ -142,7 +142,7 @@ export function SyntaxCard({ card, className }: SyntaxCardProps) {
             {card.tips.map((tip, i) => (
               <li
                 key={i}
-                className="text-xs text-foreground/70 flex items-start gap-2"
+                className="flex items-start gap-2"
               >
                 <span className="text-[var(--postgres-blue)]">•</span>
                 {tip}

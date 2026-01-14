@@ -22,12 +22,15 @@ interface ChatContent {
   message: string;
 }
 
+type SyntaxBlockLabel = "Example" | "Syntax" | "Reference";
+
 interface MentorMessageProps {
   // For chat variant
   message?: ChatContent;
   // For challenge variant
   challenge?: ChallengeContent;
   syntax?: string;
+  syntaxLabel?: SyntaxBlockLabel; // Label for the syntax block
   showSyntax?: boolean; // Control syntax visibility (for delayed display)
   variant?: "default" | "success" | "error" | "hint" | "challenge";
   className?: string;
@@ -62,6 +65,7 @@ export function MentorMessage({
   message,
   challenge,
   syntax,
+  syntaxLabel = "Syntax",
   showSyntax = true,
   variant = "default",
   className,
@@ -224,11 +228,11 @@ export function MentorMessage({
                 )}
               </p>
 
-              {/* Optional example block */}
+              {/* Optional syntax/reference block */}
               {syntax && showSyntax && (
                 <div className="mt-3 rounded-lg bg-card border border-border p-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2 font-mono">
-                    Example
+                    {syntaxLabel}
                   </p>
                   <pre className="text-sm font-mono text-foreground whitespace-pre-wrap">
                     {syntax}

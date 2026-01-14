@@ -24,6 +24,7 @@ interface SidebarMobileProps {
   challenges?: Challenge[];
   currentChallengeId?: string | null;
   onChallengeClick?: (challengeId: string) => void;
+  isChallengeComplete?: (lessonId: string, challengeId: string) => boolean;
 }
 
 export function SidebarMobile({
@@ -37,7 +38,8 @@ export function SidebarMobile({
   onPhaseClick,
   challenges,
   currentChallengeId,
-  onChallengeClick
+  onChallengeClick,
+  isChallengeComplete
 }: SidebarMobileProps) {
   // Prevent body scroll when open
   useEffect(() => {
@@ -114,6 +116,7 @@ export function SidebarMobile({
             challenges={challenges}
             currentChallengeId={currentChallengeId}
             onChallengeClick={handleChallengeClick}
+            isChallengeComplete={isChallengeComplete}
             className="h-full"
           />
         </div>
