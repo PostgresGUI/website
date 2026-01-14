@@ -172,7 +172,7 @@ const en: Translations = {
     screenshots: "Screenshots",
     screenshotsHeadline: "Crafted for Ease of Use",
     faq: "FAQ",
-    faqHeadline: "Questions & Answers",
+    faqHeadline: "Questions? Answers.",
   },
   highlights: {
     openSource: {
@@ -480,7 +480,7 @@ const de: Translations = {
     screenshots: "Screenshots",
     screenshotsHeadline: "Entwickelt für einfache Bedienung",
     faq: "FAQ",
-    faqHeadline: "Fragen & Antworten",
+    faqHeadline: "Fragen? Antworten.",
   },
   highlights: {
     openSource: {
@@ -792,7 +792,7 @@ const fr: Translations = {
     screenshots: "Captures d'écran",
     screenshotsHeadline: "Conçu pour la simplicité",
     faq: "FAQ",
-    faqHeadline: "Questions & Réponses",
+    faqHeadline: "Questions? Réponses.",
   },
   highlights: {
     openSource: {
@@ -1109,7 +1109,7 @@ const ja: Translations = {
     screenshots: "スクリーンショット",
     screenshotsHeadline: "使いやすさを追求",
     faq: "よくある質問",
-    faqHeadline: "質問と回答",
+    faqHeadline: "質問？回答。",
   },
   highlights: {
     openSource: {
