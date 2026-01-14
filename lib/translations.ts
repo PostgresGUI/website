@@ -282,6 +282,11 @@ const en: Translations = {
       answer:
         "TablePlus is a powerful multi-database tool with advanced features like code review, plugin systems, inline editing, advanced filters, and support for 15+ database types. PostgresGUI prioritizes simplicity and a lightweight design over many features. It offers a cleaner interface and is open source.",
     },
+    {
+      question: "Does PostgresGUI have automatic query history?",
+      answer:
+        "Not yet. What we do have is saved queries with folder organization and search, so you can keep your frequently-used queries organized and findable. The editor also auto-saves as you type.",
+    },
   ],
   cta: {
     availableNow: "Available Now",
@@ -588,6 +593,11 @@ const de: Translations = {
       question: "Wie schneidet PostgresGUI im Vergleich zu TablePlus ab?",
       answer:
         "TablePlus ist ein leistungsstarkes Multi-Datenbank-Tool mit erweiterten Funktionen wie Code-Review, Plugin-Systemen, Inline-Bearbeitung, erweiterten Filtern und Unterstützung für 15+ Datenbanktypen. PostgresGUI priorisiert Einfachheit und ein leichtgewichtiges Design gegenüber vielen Funktionen. Es bietet eine sauberere Oberfläche und ist Open Source.",
+    },
+    {
+      question: "Hat PostgresGUI eine automatische Abfrage-Historie?",
+      answer:
+        "Noch nicht. Was wir haben, sind gespeicherte Abfragen mit Ordnerorganisation und Suche, damit du deine häufig verwendeten Abfragen organisiert und auffindbar halten kannst. Der Editor speichert auch automatisch während du tippst.",
     },
   ],
   cta: {
@@ -902,6 +912,11 @@ const fr: Translations = {
       answer:
         "TablePlus est un outil multi-base de données puissant avec des fonctionnalités avancées comme la revue de code, les systèmes de plugins, l'édition en ligne, les filtres avancés et le support de plus de 15 types de bases de données. PostgresGUI privilégie la simplicité et un design léger plutôt que de nombreuses fonctionnalités. Il offre une interface plus épurée et est open source.",
     },
+    {
+      question: "PostgresGUI a-t-il un historique automatique des requêtes ?",
+      answer:
+        "Pas encore. Ce que nous avons, ce sont des requêtes sauvegardées avec une organisation en dossiers et une recherche, pour que vous puissiez garder vos requêtes fréquentes organisées et faciles à trouver. L'éditeur sauvegarde aussi automatiquement pendant que vous tapez.",
+    },
   ],
   cta: {
     availableNow: "Disponible maintenant",
@@ -1200,6 +1215,11 @@ const ja: Translations = {
       question: "TablePlusと比べてどうですか？",
       answer:
         "TablePlusはコードレビュー、プラグインシステム、インライン編集、高度なフィルタ、15種類以上のデータベースサポートなど、高度な機能を備えた強力なマルチデータベースツールです。PostgresGUIは多機能よりもシンプルさと軽量設計を優先しています。よりクリーンなインターフェースを提供し、オープンソースです。",
+    },
+    {
+      question: "PostgresGUIには自動クエリ履歴がありますか？",
+      answer:
+        "まだありません。現在あるのは、フォルダ整理と検索機能付きの保存済みクエリです。よく使うクエリを整理して見つけやすく保管できます。また、エディタは入力中に自動保存します。",
     },
   ],
   cta: {
