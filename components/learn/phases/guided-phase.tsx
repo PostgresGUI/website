@@ -3,10 +3,10 @@
 import { useState, useCallback, useRef, useEffect, useImperativeHandle, forwardRef } from "react";
 import { cn } from "@/lib/utils";
 import { GuidedPractice, QueryResult } from "@/lib/learn/lessons/types";
-import { QueryConsole } from "../QueryConsole";
-import { MentorMessage } from "../MentorMessage";
-import { TextTypeRef } from "../TextType";
-import { useProgressContext } from "../LearnProviders";
+import { QueryConsole } from "../query-console";
+import { MentorMessage } from "../mentor-message";
+import { TextTypeRef } from "../text-type";
+import { useProgressContext } from "../learn-providers";
 import { playSound } from "@/lib/sounds";
 import { validateGuidedQuery } from "@/lib/learn/guided-validation";
 

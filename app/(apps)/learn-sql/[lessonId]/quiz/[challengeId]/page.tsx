@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import { generateChallengeStaticParams } from "@/lib/learn/static-params";
 import { generateChallengeMetadata as generateMetadataUtil } from "@/lib/learn/metadata";
-import { LoadingFallback } from "@/components/learn/LoadingFallback";
-import { PhasePageClient } from "../../PhasePageClient";
+import { LoadingFallback } from "@/components/learn/loading-fallback";
+import { PhasePageClient } from "../../phase-page-client";
 
 export const generateStaticParams = generateChallengeStaticParams;
 

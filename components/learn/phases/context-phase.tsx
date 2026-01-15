@@ -3,9 +3,9 @@
 import { useState, useRef, useEffect, useImperativeHandle, forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 import { MentorMessage as MentorMessageType } from '@/lib/learn/lessons/types';
-import { MentorMessage } from '../MentorMessage';
-import { TextTypeRef } from '../TextType';
-import { useProgressContext } from '../LearnProviders';
+import { MentorMessage } from '../mentor-message';
+import { TextTypeRef } from '../text-type';
+import { useProgressContext } from '../learn-providers';
 import { BookOpen } from 'lucide-react';
 
 interface ContextPhaseProps {

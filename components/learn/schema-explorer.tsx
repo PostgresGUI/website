@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { useSQLEngineContext } from './LearnProviders';
+import { useSQLEngineContext } from './learn-providers';
 import { ChevronDown, ChevronRight, Table2, Key, Hash, Type, ToggleLeft } from 'lucide-react';
 
 interface SchemaExplorerProps {

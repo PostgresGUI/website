@@ -3,11 +3,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Menu } from "lucide-react";
-import { SidebarNav } from "./SidebarNav";
-import { SidebarMobile } from "./SidebarMobile";
+import { SidebarNav } from "./sidebar-nav";
+import { SidebarMobile } from "./sidebar-mobile";
 import { useParams, useRouter, usePathname } from "next/navigation";
 import { module1 } from "@/lib/learn/lessons/module1";
-import { useLessonContext, useProgressContext } from "./LearnProviders";
+import { useLessonContext, useProgressContext } from "./learn-providers";
 import { PhaseType } from "@/lib/learn/lessons/types";
 
 interface LearnLayoutClientProps {

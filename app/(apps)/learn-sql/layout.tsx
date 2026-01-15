@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { LearnProviders } from "@/components/learn/LearnProviders";
-import { LearnLayoutClient } from "@/components/learn/LearnLayoutClient";
+import { LearnProviders } from "@/components/learn/learn-providers";
+import { LearnLayoutClient } from "@/components/learn/learn-layout-client";
 
 export const metadata: Metadata = {
   title: "Learn PostgreSQL - Free Interactive SQL Tutorial | PostgresGUI",

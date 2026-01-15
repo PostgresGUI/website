@@ -9,12 +9,12 @@ import {
   useSQLEngineContext,
   useProgressContext,
   useScrollContext,
-} from "./LearnProviders";
-import { ContextPhase, ContextPhaseRef } from "./phases/ContextPhase";
-import { ConceptPhase, ConceptPhaseRef } from "./phases/ConceptPhase";
-import { GuidedPhase, GuidedPhaseRef } from "./phases/GuidedPhase";
-import { ChallengePhase } from "./phases/ChallengePhase";
-import { SummaryPhase } from "./phases/SummaryPhase";
+} from "./learn-providers";
+import { ContextPhase, ContextPhaseRef } from "./phases/context-phase";
+import { ConceptPhase, ConceptPhaseRef } from "./phases/concept-phase";
+import { GuidedPhase, GuidedPhaseRef } from "./phases/guided-phase";
+import { ChallengePhase } from "./phases/challenge-phase";
+import { SummaryPhase } from "./phases/summary-phase";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, CheckCircle2, FastForward } from "lucide-react";
 

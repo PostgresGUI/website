@@ -3,8 +3,8 @@
 import { useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { module1 } from "@/lib/learn/lessons/module1";
-import { useLessonContext, useProgressContext } from "./LearnProviders";
-import { Sidebar } from "./Sidebar";
+import { useLessonContext, useProgressContext } from "./learn-providers";
+import { Sidebar } from "./sidebar";
 import { PhaseType } from "@/lib/learn/lessons/types";
 
 interface SidebarNavProps {

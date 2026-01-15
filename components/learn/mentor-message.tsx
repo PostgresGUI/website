@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { useEffect, useRef, RefObject } from "react";
 import { cn } from "@/lib/utils";
-import { TextType, TextTypeRef } from "./TextType";
+import { TextType, TextTypeRef } from "./text-type";
 import { Check, Trophy, CheckCircle2 } from "lucide-react";
-import { useScrollContext } from "./LearnProviders";
+import { useScrollContext } from "./learn-providers";
 
 // Challenge content props
 interface ChallengeContent {

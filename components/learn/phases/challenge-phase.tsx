@@ -4,11 +4,11 @@ import { useState, useCallback, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Challenge, QueryResult } from "@/lib/learn/lessons/types";
-import { QueryConsole } from "../QueryConsole";
-import { SchemaExplorer } from "../SchemaExplorer";
-import { SuccessCelebration } from "../SuccessCelebration";
-import { MentorMessage } from "../MentorMessage";
-import { useProgressContext } from "../LearnProviders";
+import { QueryConsole } from "../query-console";
+import { SchemaExplorer } from "../schema-explorer";
+import { SuccessCelebration } from "../success-celebration";
+import { MentorMessage } from "../mentor-message";
+import { useProgressContext } from "../learn-providers";
 import { playSound } from "@/lib/sounds";
 
 interface ChallengePhaseProps {

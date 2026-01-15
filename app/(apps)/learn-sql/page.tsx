@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { WelcomePageClient } from "./WelcomePageClient";
+import { WelcomePageClient } from "./welcome-page-client";
 
 export const metadata: Metadata = {
   title: "Learn PostgreSQL - Free Interactive SQL Tutorial",

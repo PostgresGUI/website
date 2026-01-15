@@ -9,9 +9,9 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 import { SyntaxExample } from "@/lib/learn/lessons/types";
-import { TextTypeRef } from "../TextType";
-import { MentorMessage } from "../MentorMessage";
-import { useProgressContext, useScrollContext } from "../LearnProviders";
+import { TextTypeRef } from "../text-type";
+import { MentorMessage } from "../mentor-message";
+import { useProgressContext, useScrollContext } from "../learn-providers";
 
 interface ConceptPhaseProps {
   concepts: SyntaxExample[];

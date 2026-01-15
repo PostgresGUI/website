@@ -3,9 +3,9 @@
 import { useState } from "react";
 import type { Theme, ResultTab } from "../_lib/types";
 import { defaultQuery } from "../_lib/data";
-import { SettingsDropdown } from "./SettingsDropdown";
-import { PlatinumTheme } from "./themes/PlatinumTheme";
-import { AquaTheme } from "./themes/AquaTheme";
+import { SettingsDropdown } from "./settings-dropdown";
+import { PlatinumTheme } from "./themes/platinum-theme";
+import { AquaTheme } from "./themes/aqua-theme";
 
 export function Playground() {
   const [theme, setTheme] = useState<Theme>("platinum");

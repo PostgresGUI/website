@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { useProgressContext, useScrollContext } from "./LearnProviders";
+import { useProgressContext, useScrollContext } from "./learn-providers";
 import { Lightbulb, ChevronDown, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 

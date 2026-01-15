@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { SyntaxCard as SyntaxCardType } from "@/lib/learn/lessons/types";
-import { SyntaxCard } from "../SyntaxCard";
-import { useProgressContext } from "../LearnProviders";
+import { SyntaxCard } from "../syntax-card";
+import { useProgressContext } from "../learn-providers";
 import { CheckCircle2, PartyPopper } from "lucide-react";
 
 interface SummaryPhaseProps {

@@ -3,8 +3,8 @@
 import { useEffect, Suspense, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { module1 } from "@/lib/learn/lessons/module1";
-import { useLessonContext } from "@/components/learn/LearnProviders";
-import { LessonView } from "@/components/learn/LessonView";
+import { useLessonContext } from "@/components/learn/learn-providers";
+import { LessonView } from "@/components/learn/lesson-view";
 import { PhaseType } from "@/lib/learn/lessons/types";
 import { useCallback } from "react";
 

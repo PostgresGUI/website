@@ -2,8 +2,8 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { useSQLEngineContext } from "./LearnProviders";
-import { ResultsTable } from "./ResultsTable";
+import { useSQLEngineContext } from "./learn-providers";
+import { ResultsTable } from "./results-table";
 import { QueryResult } from "@/lib/learn/lessons/types";
 import { AlertCircle } from "lucide-react";
 

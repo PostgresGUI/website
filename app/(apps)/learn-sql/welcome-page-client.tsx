@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ArrowRight, FastForward } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { TextType, TextTypeRef } from "@/components/learn/TextType";
+import { TextType, TextTypeRef } from "@/components/learn/text-type";
 
 const messages = [
   "Congratulations! 😊",

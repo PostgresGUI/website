@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { Sidebar } from './Sidebar';
+import { Sidebar } from './sidebar';
 import { X } from 'lucide-react';
 import { PhaseType, Challenge } from '@/lib/learn/lessons/types';
 

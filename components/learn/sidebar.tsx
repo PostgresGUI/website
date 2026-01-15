@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { ProgressRing } from "./ProgressRing";
-import { useProgressContext } from "./LearnProviders";
+import { ProgressRing } from "./progress-ring";
+import { useProgressContext } from "./learn-providers";
 import {
   Check,
   CheckCircle,
