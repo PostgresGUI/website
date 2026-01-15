@@ -21,10 +21,10 @@ export function SettingsDropdown({ theme, setTheme }: Props) {
     <div className="fixed top-4 right-4 z-50">
       <button
         onClick={() => setShowSettings(!showSettings)}
-        className={`flex items-center gap-2 px-3 py-2 text-[13px] font-medium rounded-lg shadow-lg transition-all ${
+        className={`flex items-center gap-2 px-3 py-2 text-[13px] font-medium shadow-lg transition-all ${
           theme === "platinum"
             ? "bg-[#dddddd] border-2 border-t-white border-l-white border-b-black border-r-black text-black hover:bg-[#cccccc]"
-            : "bg-white/90 backdrop-blur border border-gray-300 text-gray-700 hover:bg-white"
+            : "bg-white/90 backdrop-blur border border-gray-300 text-gray-700 hover:bg-white rounded"
         }`}
         style={{
           fontFamily:
@@ -32,27 +32,18 @@ export function SettingsDropdown({ theme, setTheme }: Props) {
         }}
       >
         <Settings className="w-4 h-4" />
-        Settings
+        Theme
       </button>
 
       {showSettings && (
         <div
-          className={`absolute top-full right-0 mt-2 w-48 rounded-lg shadow-xl overflow-hidden ${
+          className={`absolute top-full right-0 mt-2 w-48 shadow-xl overflow-hidden ${
             theme === "platinum"
               ? "bg-[#dddddd] border-2 border-black"
-              : "bg-white/95 backdrop-blur border border-gray-200"
+              : "bg-white/95 backdrop-blur border border-gray-200 rounded"
           }`}
         >
-          <div
-            className={`px-3 py-2 text-[11px] font-bold uppercase tracking-wide ${
-              theme === "platinum"
-                ? "bg-[#cccccc] border-b border-[#888]"
-                : "bg-gray-100 border-b text-gray-500"
-            }`}
-          >
-            Theme
-          </div>
-          <div className="p-1">
+          <div className="p-2 flex flex-col gap-1">
             {themeOptions.map((opt) => (
               <button
                 key={opt.value}
@@ -60,12 +51,12 @@ export function SettingsDropdown({ theme, setTheme }: Props) {
                   setTheme(opt.value);
                   setShowSettings(false);
                 }}
-                className={`w-full text-left px-3 py-2 text-[13px] rounded ${
+                className={`w-full text-left px-3 py-2 text-[13px] ${
                   theme === opt.value
                     ? opt.value === "platinum"
                       ? "bg-black text-white"
-                      : "bg-[#3399ff] text-white"
-                    : "hover:bg-gray-100"
+                      : "bg-[#3399ff] text-white rounded"
+                    : "hover:bg-gray-100 rounded"
                 }`}
                 style={{ fontFamily: opt.font }}
               >
