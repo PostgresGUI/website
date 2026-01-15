@@ -1,16 +1,29 @@
 "use client";
 
-import { useState } from "react";
-import type { Theme, ResultTab } from "../_lib/types";
+import { useState, useEffect } from "react";
+import type { Theme } from "../_lib/types";
 import { defaultQuery } from "../_lib/data";
 import { SettingsDropdown } from "./settings-dropdown";
 import { PlatinumTheme } from "./themes/platinum-theme";
 import { AquaTheme } from "./themes/aqua-theme";
 
+const THEME_STORAGE_KEY = "sql-playground-theme";
+
 export function Playground() {
   const [theme, setTheme] = useState<Theme>("platinum");
+
+  useEffect(() => {
+    const saved = localStorage.getItem(THEME_STORAGE_KEY);
+    if (saved === "aqua" || saved === "platinum") {
+      setTheme(saved);
+    }
+  }, []);
+
+  const handleSetTheme = (newTheme: Theme) => {
+    setTheme(newTheme);
+    localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+  };
   const [query, setQuery] = useState(defaultQuery);
-  const [activeTab, setActiveTab] = useState<ResultTab>("results");
   const [expandedTables, setExpandedTables] = useState<string[]>(["users"]);
   const [selectedDb, setSelectedDb] = useState("ecommerce");
   const [isExecuting, setIsExecuting] = useState(false);
@@ -27,33 +40,25 @@ export function Playground() {
     setIsExecuting(true);
     setTimeout(() => {
       setIsExecuting(false);
-      setActiveTab("results");
     }, 800);
-  };
-
-  const handleClear = () => {
-    setQuery("");
   };
 
   const sharedProps = {
     query,
     setQuery,
-    activeTab,
-    setActiveTab,
     expandedTables,
     toggleTable,
     selectedDb,
     setSelectedDb,
     isExecuting,
     handleRun,
-    handleClear,
   };
 
   const ThemeComponent = theme === "platinum" ? PlatinumTheme : AquaTheme;
 
   return (
     <>
-      <SettingsDropdown theme={theme} setTheme={setTheme} />
+      <SettingsDropdown theme={theme} setTheme={handleSetTheme} />
       <ThemeComponent {...sharedProps} />
     </>
   );

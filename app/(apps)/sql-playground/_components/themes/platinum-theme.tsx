@@ -2,11 +2,9 @@
 
 import {
   Play,
-  Trash2,
   ChevronRight,
   ChevronDown,
   Table2,
-  CheckCircle2,
   Loader2,
 } from "lucide-react";
 import type { PlaygroundState } from "../../_lib/types";
@@ -20,15 +18,12 @@ type Props = Omit<PlaygroundState, "theme" | "setTheme">;
 export function PlatinumTheme({
   query,
   setQuery,
-  activeTab,
-  setActiveTab,
   expandedTables,
   toggleTable,
   selectedDb,
   setSelectedDb,
   isExecuting,
   handleRun,
-  handleClear,
 }: Props) {
   return (
     <div
@@ -53,7 +48,7 @@ export function PlatinumTheme({
           </div>
 
           {/* Toolbar */}
-          <div className="flex items-center justify-between px-4 py-3 bg-[#dddddd] border-b-2 border-[#888]">
+          <div className="flex items-center px-4 py-3 bg-[#dddddd] border-b-2 border-[#888]">
             <div className="flex items-center gap-3">
               <span className="text-[14px] font-medium">Database:</span>
               <select
@@ -67,28 +62,6 @@ export function PlatinumTheme({
                   </option>
                 ))}
               </select>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={handleClear}
-                className="platinum-btn flex items-center gap-1"
-              >
-                <Trash2 className="w-3 h-3" />
-                Clear
-              </button>
-              <button
-                onClick={handleRun}
-                disabled={isExecuting}
-                className="platinum-btn platinum-btn-default flex items-center gap-1"
-              >
-                {isExecuting ? (
-                  <Loader2 className="w-3 h-3 animate-spin" />
-                ) : (
-                  <Play className="w-3 h-3" />
-                )}
-                {isExecuting ? "Running..." : "Run Query"}
-              </button>
             </div>
           </div>
 
@@ -136,109 +109,103 @@ export function PlatinumTheme({
               </div>
             </aside>
 
-            {/* Editor and Results */}
+            {/* Results and Editor */}
             <main className="flex-1 flex flex-col min-w-0">
-              {/* SQL Editor */}
-              <div className="flex-1 min-h-[150px] border-b-2 border-[#888] bg-[#dddddd] p-2">
-                <div className="h-full platinum-inset flex">
-                  <div
-                    className="py-2 px-2 text-right text-[14px] text-[#666] select-none bg-[#eeeeee] border-r border-[#888]"
-                    style={{ fontFamily: 'Monaco, "Courier New", monospace' }}
-                  >
-                    {query.split("\n").map((_, i) => (
-                      <div key={i} className="leading-[20px]">
-                        {i + 1}
-                      </div>
-                    ))}
-                  </div>
-                  <textarea
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    spellCheck={false}
-                    className="flex-1 h-full py-2 px-2 bg-white text-[14px] leading-[20px] resize-none focus:outline-none text-[#000]"
-                    style={{ fontFamily: 'Monaco, "Courier New", monospace' }}
-                  />
-                </div>
-              </div>
-
               {/* Results Panel */}
               <div className="flex-1 min-h-[150px] flex flex-col bg-[#dddddd]">
-                {/* Tabs */}
+                {/* Header */}
                 <div className="flex items-center px-2 pt-2 bg-[#cccccc] border-b border-[#888]">
-                  <button
-                    onClick={() => setActiveTab("results")}
-                    className={`platinum-tab ${activeTab === "results" ? "platinum-tab-active" : ""}`}
-                  >
+                  <span className="platinum-tab platinum-tab-active">
                     Results
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("messages")}
-                    className={`platinum-tab ${activeTab === "messages" ? "platinum-tab-active" : ""}`}
-                  >
-                    Messages
-                  </button>
+                  </span>
                   <div className="flex-1" />
                   <span className="text-[13px] text-[#000]">
                     5 rows • 0.023s
                   </span>
                 </div>
 
-                {/* Tab Content */}
+                {/* Content */}
                 <div className="flex-1 overflow-auto platinum-scroll bg-[#ffffff] m-2 platinum-inset">
-                  {activeTab === "results" ? (
-                    <table className="w-full text-[14px] border-collapse">
-                      <thead>
-                        <tr className="bg-[#dddddd]">
-                          <th className="px-4 py-2 text-left font-bold border-r border-b border-[#888]">
-                            id
-                          </th>
-                          <th className="px-4 py-2 text-left font-bold border-r border-b border-[#888]">
-                            name
-                          </th>
-                          <th className="px-4 py-2 text-left font-bold border-r border-b border-[#888]">
-                            email
-                          </th>
-                          <th className="px-4 py-2 text-left font-bold border-b border-[#888]">
-                            created_at
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {mockResults.map((row, index) => (
-                          <tr
-                            key={row.id}
-                            className={`${index % 2 === 1 ? "bg-[#eeeeee]" : "bg-white"} hover:bg-[#000] hover:text-[#fff]`}
+                  <table className="w-full text-[14px] border-collapse">
+                    <thead>
+                      <tr className="bg-[#dddddd]">
+                        <th className="px-4 py-2 text-left font-bold border-r border-b border-[#888]">
+                          id
+                        </th>
+                        <th className="px-4 py-2 text-left font-bold border-r border-b border-[#888]">
+                          name
+                        </th>
+                        <th className="px-4 py-2 text-left font-bold border-r border-b border-[#888]">
+                          email
+                        </th>
+                        <th className="px-4 py-2 text-left font-bold border-b border-[#888]">
+                          created_at
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {mockResults.map((row, index) => (
+                        <tr
+                          key={row.id}
+                          className={`${index % 2 === 1 ? "bg-[#eeeeee]" : "bg-white"} hover:bg-[#000] hover:text-[#fff]`}
+                        >
+                          <td
+                            className="px-4 py-1.5 border-r border-[#ddd]"
+                            style={{ fontFamily: "Monaco, monospace" }}
                           >
-                            <td
-                              className="px-4 py-1.5 border-r border-[#ddd]"
-                              style={{ fontFamily: "Monaco, monospace" }}
-                            >
-                              {row.id}
-                            </td>
-                            <td className="px-4 py-1.5 border-r border-[#ddd]">
-                              {row.name}
-                            </td>
-                            <td className="px-4 py-1.5 border-r border-[#ddd]">
-                              {row.email}
-                            </td>
-                            <td className="px-4 py-1.5">{row.created_at}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  ) : (
-                    <div className="p-4">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-5 h-5" />
-                        <span className="text-[14px] font-bold">
-                          Query executed successfully
-                        </span>
-                      </div>
-                      <p className="mt-2 text-[14px]">
-                        5 rows returned in 0.023 seconds
-                      </p>
+                            {row.id}
+                          </td>
+                          <td className="px-4 py-1.5 border-r border-[#ddd]">
+                            {row.name}
+                          </td>
+                          <td className="px-4 py-1.5 border-r border-[#ddd]">
+                            {row.email}
+                          </td>
+                          <td className="px-4 py-1.5">{row.created_at}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* SQL Editor */}
+              <div className="flex-1 min-h-[150px] border-t-2 border-[#888] flex flex-col">
+                {/* Editor Toolbar */}
+                <div className="flex items-center px-2 py-2 bg-[#dddddd]">
+                  <button
+                    onClick={handleRun}
+                    disabled={isExecuting}
+                    className="platinum-btn flex items-center gap-1"
+                  >
+                    {isExecuting ? (
+                      <Loader2 className="w-3 h-3 animate-spin" />
+                    ) : (
+                      <Play className="w-3 h-3" />
+                    )}
+                    {isExecuting ? "Running..." : "Run Query"}
+                  </button>
+                </div>
+                <div className="flex-1 bg-[#1e1e1e] p-2">
+                  <div className="h-full flex">
+                    <div
+                      className="py-2 px-2 text-right text-[14px] text-[#6e7681] select-none bg-[#252526] border-r border-[#3c3c3c]"
+                      style={{ fontFamily: 'Monaco, "Courier New", monospace' }}
+                    >
+                      {query.split("\n").map((_, i) => (
+                        <div key={i} className="leading-[20px]">
+                          {i + 1}
+                        </div>
+                      ))}
                     </div>
-                  )}
+                    <textarea
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      spellCheck={false}
+                      className="flex-1 h-full py-2 px-2 bg-[#1e1e1e] text-[14px] leading-[20px] resize-none focus:outline-none text-[#d4d4d4]"
+                      style={{ fontFamily: 'Monaco, "Courier New", monospace' }}
+                    />
+                  </div>
                 </div>
               </div>
             </main>
