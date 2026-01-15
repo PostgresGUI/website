@@ -1,0 +1,290 @@
+/* Aqua Theme - Mac OS X 2001 */
+
+.aqua-pinstripe {
+  background: repeating-linear-gradient(
+    #e8e8e8,
+    #e8e8e8 2px,
+    #f8f8f8 2px,
+    #f8f8f8 4px
+  );
+}
+
+.aqua-btn-primary {
+  font-family: -apple-system, "Lucida Grande", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  height: 32px;
+  padding: 0 24px;
+  min-width: 100px;
+  border-radius: 1000px;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  outline: none;
+  background: linear-gradient(
+    rgba(0, 65, 184, 0.7),
+    rgba(45, 115, 199, 0.7),
+    rgba(33, 160, 196, 0.7)
+  );
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.35),
+    0 2px 2px rgba(0, 78, 187, 0.5),
+    inset 0 2px 4px rgba(0, 17, 49, 0.8),
+    inset 0 4px 6px 3px rgba(0, 78, 187, 0.75);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.aqua-btn-primary::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 35%;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.3)
+  );
+  width: calc(100% - 10px);
+  border-radius: 20px 20px 6px 6px;
+  top: 4%;
+  filter: blur(1px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.aqua-btn-primary::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 35%;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.5)
+  );
+  width: calc(100% - 12px);
+  border-radius: 8px;
+  bottom: 8%;
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.aqua-btn-primary span {
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 3px rgba(0, 40, 100, 0.6);
+}
+
+.aqua-btn-secondary {
+  font-family: -apple-system, "Lucida Grande", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  height: 32px;
+  padding: 0 20px;
+  min-width: 80px;
+  border-radius: 1000px;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  outline: none;
+  background: linear-gradient(rgba(140, 140, 140, 0.7), rgba(240, 240, 240, 0.7));
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.25),
+    0 2px 2px rgba(0, 0, 0, 0.3),
+    inset 0 2px 3px rgba(0, 0, 0, 0.45),
+    inset 0 4px 6px 3px #aaaaaa;
+  color: #111;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.aqua-btn-secondary::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 35%;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.3)
+  );
+  width: calc(100% - 10px);
+  border-radius: 20px 20px 6px 6px;
+  top: 4%;
+  filter: blur(1px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.aqua-btn-secondary::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 35%;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.5)
+  );
+  width: calc(100% - 12px);
+  border-radius: 8px;
+  bottom: 8%;
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.aqua-btn-secondary span {
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.brushed-metal {
+  background: linear-gradient(
+    180deg,
+    #d8d8d8 0%,
+    #c0c0c0 25%,
+    #b0b0b0 50%,
+    #c0c0c0 75%,
+    #d0d0d0 100%
+  );
+  border-bottom: 1px solid #777;
+}
+
+.aqua-window {
+  background: #c8c8c8;
+  border: 1px solid #555;
+  border-radius: 10px 10px 0 0;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.3) inset,
+    0 10px 40px rgba(0, 0, 0, 0.45),
+    0 3px 10px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.traffic-light {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.5),
+    0 1px 3px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.traffic-light::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  height: 45%;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.15)
+  );
+  border-radius: 50% 50% 30% 30%;
+}
+
+.traffic-close {
+  background: linear-gradient(180deg, #ff6b5b 0%, #d63d2d 100%);
+  border-color: #a52a1a;
+}
+
+.traffic-minimize {
+  background: linear-gradient(180deg, #ffca2c 0%, #dea210 100%);
+  border-color: #9a7008;
+}
+
+.traffic-maximize {
+  background: linear-gradient(180deg, #2dd23b 0%, #1aaa28 100%);
+  border-color: #107018;
+}
+
+.aqua-scroll::-webkit-scrollbar {
+  width: 16px;
+  background: linear-gradient(90deg, #ddd 0%, #f0f0f0 50%, #ddd 100%);
+  border-left: 1px solid #aaa;
+}
+
+.aqua-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 90, 180, 0.5) 0%,
+    rgba(40, 140, 210, 0.6) 30%,
+    rgba(80, 170, 235, 0.7) 50%,
+    rgba(40, 140, 210, 0.6) 70%,
+    rgba(0, 90, 180, 0.5) 100%
+  );
+  border-radius: 10px;
+  border: 1px solid rgba(0, 70, 150, 0.5);
+  box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.5);
+  margin: 2px;
+}
+
+.aqua-scroll::-webkit-scrollbar-button {
+  display: none;
+}
+
+.aqua-select {
+  appearance: none;
+  font-family: -apple-system, "Lucida Grande", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+  background: linear-gradient(#fff, #ddd);
+  border: 1px solid #666;
+  border-radius: 5px;
+  padding: 6px 28px 6px 12px;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  cursor: default;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%23333' d='M0 3l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.aqua-row:hover {
+  background: linear-gradient(180deg, #b8d4f8 0%, #94c0f4 100%) !important;
+}
+
+.aqua-tab {
+  font-family: -apple-system, "Lucida Grande", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  background: linear-gradient(#ccc, #aaa);
+  border: 1px solid #777;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  padding: 8px 20px;
+  color: #222;
+  margin-right: -1px;
+  position: relative;
+  cursor: default;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.aqua-tab-active {
+  background: linear-gradient(#fff, #f0f0f0);
+  border-bottom: 1px solid #f0f0f0;
+  z-index: 1;
+  color: #000;
+  font-weight: 600;
+}
+
+.aqua-inset {
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  border: 1px solid #888;
+}

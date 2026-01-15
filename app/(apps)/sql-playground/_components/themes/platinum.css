@@ -1,0 +1,147 @@
+/* Platinum Theme - Classic Mac OS System 7 */
+
+/* Desktop pattern */
+.platinum-desktop {
+  background-color: #666699;
+  background-image: url("data:image/svg+xml,%3Csvg width='4' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='2' height='2' fill='%23555588'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%23555588'/%3E%3C/svg%3E");
+}
+
+/* Window */
+.platinum-window {
+  background: #dddddd;
+  border: 2px solid #000;
+  box-shadow: 2px 2px 0 #000;
+}
+
+/* Title bar with stripes */
+.platinum-titlebar {
+  background: linear-gradient(
+    0deg,
+    #dddddd 0px,
+    #dddddd 1px,
+    #ffffff 1px,
+    #ffffff 2px,
+    #dddddd 2px,
+    #dddddd 3px,
+    #ffffff 3px,
+    #ffffff 4px,
+    #dddddd 4px,
+    #dddddd 5px,
+    #ffffff 5px,
+    #ffffff 6px
+  );
+  background-size: 100% 6px;
+  border-bottom: 2px solid #000;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+}
+
+/* Close box */
+.platinum-close {
+  width: 13px;
+  height: 11px;
+  background: #dddddd;
+  border: 1px solid #000;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.platinum-close:active {
+  background: #000;
+}
+
+/* 3D Beveled Button */
+.platinum-btn {
+  background: #dddddd;
+  border: 2px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  padding: 6px 20px;
+  font-size: 14px;
+  font-family: "Chicago", "Geneva", system-ui, sans-serif;
+  cursor: pointer;
+  min-width: 90px;
+}
+
+.platinum-btn:active {
+  border-color: #000000 #ffffff #ffffff #000000;
+  background: #cccccc;
+}
+
+.platinum-btn-default {
+  border: 3px solid #000;
+  border-radius: 4px;
+  padding: 3px 15px;
+}
+
+.platinum-btn-default::before {
+  content: none;
+}
+
+/* Scrollbar */
+.platinum-scroll::-webkit-scrollbar {
+  width: 16px;
+  background: #dddddd;
+}
+
+.platinum-scroll::-webkit-scrollbar-thumb {
+  background: #dddddd;
+  border: 2px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+}
+
+.platinum-scroll::-webkit-scrollbar-button {
+  height: 16px;
+  background: #dddddd;
+  border: 2px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+}
+
+.platinum-scroll::-webkit-scrollbar-track {
+  background: repeating-linear-gradient(
+    0deg,
+    #dddddd 0px,
+    #dddddd 1px,
+    #888888 1px,
+    #888888 2px
+  );
+}
+
+/* Inset field */
+.platinum-inset {
+  border: 2px solid;
+  border-color: #888888 #ffffff #ffffff #888888;
+  background: #ffffff;
+}
+
+/* Selection */
+.platinum-selected {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+/* Divider line */
+.platinum-divider {
+  border-top: 1px solid #888888;
+  border-bottom: 1px solid #ffffff;
+}
+
+/* Tab styling */
+.platinum-tab {
+  background: transparent;
+  border: none;
+  padding: 6px 20px;
+  font-size: 14px;
+  position: relative;
+  cursor: pointer;
+  margin-bottom: -1px;
+}
+
+.platinum-tab-active {
+  background: #dddddd;
+  color: #000;
+  border: 1px solid #000;
+  border-bottom: 1px solid #dddddd;
+  font-weight: bold;
+}
