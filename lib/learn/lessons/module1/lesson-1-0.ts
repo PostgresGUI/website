@@ -4,7 +4,7 @@ export const lesson1_0: Lesson = {
   id: "getting-started",
   moduleId: "1",
   title: "Introduction to SQL",
-  shortTitle: "Introduction",
+  shortTitle: "SELECT",
   description:
     "Learn what SQL is, what PostgreSQL is, and why it became so popular",
   estimatedMinutes: 8,
