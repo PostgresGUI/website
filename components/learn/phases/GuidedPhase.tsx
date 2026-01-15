@@ -8,6 +8,7 @@ import { MentorMessage } from "../MentorMessage";
 import { TextTypeRef } from "../TextType";
 import { useProgressContext } from "../LearnProviders";
 import { playSound } from "@/lib/sounds";
+import { validateGuidedQuery } from "@/lib/learn/guided-validation";
 
 interface GuidedPhaseProps {
   practice: GuidedPractice;
@@ -95,23 +96,10 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
           return;
         }
 
-        const normalized = query.toLowerCase().replace(/\s+/g, " ").trim();
-        const expected = practice.expectedQuery
-          .toLowerCase()
-          .replace(/\s+/g, " ")
-          .trim();
+        const validation = validateGuidedQuery(query, practice.expectedQuery);
+        const { isValid, hasExpectedKeyword, hasValidContent } = validation;
 
-        // Check that the query contains the expected keyword (e.g., SELECT)
-        const hasExpectedKeyword = normalized.includes(expected.split(" ")[0]);
-
-        // Check that the result has actual data and isn't just an empty string
-        const hasValidResult = result.rows &&
-          result.rows.length > 0 &&
-          result.rows[0] &&
-          result.rows[0][0] !== '' &&
-          result.rows[0][0] !== null;
-
-        if (hasExpectedKeyword && hasValidResult) {
+        if (isValid) {
           setQueryComplete(true);
           setHintMessage(null);
           setHasShownHint(false);
@@ -127,10 +115,11 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
           }
 
           // Show a helpful hint based on what went wrong
+          const expectedKeyword = practice.expectedQuery.trim().split(/\s+/)[0].toUpperCase();
           if (!hasExpectedKeyword) {
-            setHintMessage(`Almost there! Try using the ${expected.split(" ")[0].toUpperCase()} keyword to get started.`);
+            setHintMessage(`Almost there! Try using the ${expectedKeyword} keyword to get started.`);
             playSound('hint');
-          } else if (!hasValidResult) {
+          } else if (!hasValidContent) {
             setHintMessage("Good start! Now try adding some actual content. An empty value won't work here — add a message between the quotes!");
             playSound('hint');
           }

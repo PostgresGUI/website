@@ -1,4 +1,4 @@
-import { Lesson, QueryResult, ValidationResult } from '../types';
+import { Lesson, ValidationResult } from '../types';
 
 export const lesson1_4: Lesson = {
   id: 'sort-and-limit',
@@ -82,10 +82,10 @@ ORDER BY price DESC;`,
           'Select only name and price columns',
           'SELECT name, price FROM products ORDER BY price DESC LIMIT 3;'
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
           if (q.includes('order by') && q.includes('price') && q.includes('desc') &&
-              q.includes('limit 3') && result.rowCount === 3) {
+              q.includes('limit 3')) {
             return { correct: true, message: 'Found the top 3!' };
           }
           return { correct: false, message: 'Sort by price DESC and limit to 3.' };
@@ -101,7 +101,7 @@ ORDER BY price DESC;`,
           'Then ORDER BY price ASC (cheapest first) and LIMIT 2',
           "SELECT * FROM products WHERE category = 'Office' ORDER BY price ASC LIMIT 2;"
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
           if (q.includes('office') && q.includes('order by') && q.includes('price') &&
               q.includes('limit 2')) {
@@ -120,7 +120,7 @@ ORDER BY price DESC;`,
           'ORDER BY salary DESC, LIMIT 3',
           'SELECT name, department, salary FROM employees ORDER BY salary DESC LIMIT 3;'
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
           if (q.includes('from employees') && q.includes('order by') &&
               q.includes('salary') && q.includes('desc') && q.includes('limit 3')) {

@@ -6,6 +6,7 @@ import { MentorMessage as MentorMessageType } from '@/lib/learn/lessons/types';
 import { MentorMessage } from '../MentorMessage';
 import { TextTypeRef } from '../TextType';
 import { useProgressContext } from '../LearnProviders';
+import { BookOpen } from 'lucide-react';
 
 interface ContextPhaseProps {
   message: MentorMessageType;
@@ -141,6 +142,41 @@ export const ContextPhase = forwardRef<ContextPhaseRef, ContextPhaseProps>(
           textTypeRef={textTypeRef}
           onTypingComplete={handleTypingComplete}
         />
+
+        {/* What You'll Learn - appears after typing */}
+        {message.learningObjectives && message.learningObjectives.length > 0 && isTypingComplete && (
+          <div className="flex gap-1 animate-slide-in mt-4">
+            {/* Avatar placeholder for alignment */}
+            <div className="shrink-0 w-[72px]" />
+
+            {/* Card */}
+            <div className="flex-1 min-w-0 max-w-2xl">
+              <div className="rounded-2xl rounded-tl-md bg-white dark:bg-zinc-900 border border-sky-400 dark:border-sky-700 p-4">
+                {/* Header */}
+                <div className="flex items-center gap-2.5 mb-3">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-500 shadow-md shadow-sky-500/20">
+                    <BookOpen className="w-4 h-4 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-stone-900 dark:text-stone-100">
+                    What You'll Learn
+                  </h3>
+                </div>
+
+                {/* Learning objectives list */}
+                <ol className="space-y-2 ml-10 list-decimal list-inside">
+                  {message.learningObjectives.map((objective, index) => (
+                    <li
+                      key={index}
+                      className="text-stone-700 dark:text-stone-300"
+                    >
+                      {objective}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

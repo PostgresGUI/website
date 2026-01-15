@@ -1,4 +1,4 @@
-import { Lesson, QueryResult, ValidationResult } from '../types';
+import { Lesson, ValidationResult } from '../types';
 
 export const lesson1_2: Lesson = {
   id: 'inserting-rows',
@@ -63,7 +63,7 @@ VALUES (1, 'Alice');`,
           'Remember: text needs quotes, numbers don\'t',
           "INSERT INTO products (id, name, price) VALUES (1, 'Laptop', 999.99);"
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
           if (q.includes('insert into products') &&
               q.includes('laptop') && q.includes('999.99')) {
@@ -82,7 +82,7 @@ VALUES (1, 'Alice');`,
           'Each row needs all three values: id, name, department',
           "INSERT INTO employees (id, name, department) VALUES (2, 'Bob', 'Engineering'), (3, 'Carol', 'Marketing');"
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
           if (q.includes('insert into employees') &&
               q.includes('bob') && q.includes('carol')) {
@@ -101,7 +101,7 @@ VALUES (1, 'Alice');`,
           'Each product needs id, name, and price',
           'Use sequential ids like 2, 3, 4 (1 is taken)'
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase();
           // Count value groups
           const valueMatches = q.match(/\([^)]+\)/g);

@@ -1,4 +1,4 @@
-import { Lesson, QueryResult, ValidationResult } from '../types';
+import { Lesson, ValidationResult } from '../types';
 
 export const lesson1_1: Lesson = {
   id: 'creating-tables',
@@ -62,7 +62,7 @@ REAL      -- Decimal numbers (3.14, 99.99)`,
           'Each column needs a name and type, separated by commas',
           'CREATE TABLE products (id INTEGER, name TEXT, price REAL);'
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
           if (q.includes('create table products') &&
               q.includes('id') && q.includes('integer') &&
@@ -83,7 +83,7 @@ REAL      -- Decimal numbers (3.14, 99.99)`,
           'age should be INTEGER since it\'s a whole number',
           'CREATE TABLE customers (id INTEGER, email TEXT, age INTEGER);'
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
           if (q.includes('create table customers') &&
               q.includes('id') && q.includes('email') && q.includes('age')) {
@@ -102,9 +102,9 @@ REAL      -- Decimal numbers (3.14, 99.99)`,
           'Use INTEGER for IDs and counts, REAL for money, TEXT for descriptions',
           'Example: CREATE TABLE orders (id INTEGER, customer_id INTEGER, total REAL, status TEXT);'
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
-          if (q.includes('create table orders') && result.success) {
+          if (q.includes('create table orders')) {
             const hasMultipleTypes = (q.includes('integer') && q.includes('text')) ||
                                      (q.includes('integer') && q.includes('real')) ||
                                      (q.includes('text') && q.includes('real'));

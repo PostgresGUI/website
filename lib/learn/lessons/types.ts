@@ -23,6 +23,7 @@ export interface MentorMessage {
   role: string;
   message: string;
   timestamp: string;
+  learningObjectives?: string[];
 }
 
 // Syntax example (Concept phase)

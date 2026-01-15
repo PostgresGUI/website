@@ -20,6 +20,7 @@ interface ChatContent {
   name: string;
   role: string;
   message: string;
+  learningObjectives?: string[];
 }
 
 type SyntaxBlockLabel = "Example" | "Syntax" | "Reference";
@@ -239,6 +240,7 @@ export function MentorMessage({
                   </pre>
                 </div>
               )}
+
             </>
           ) : null}
         </div>

@@ -11,7 +11,6 @@ import {
 import { QueryResult, TableInfo } from '@/lib/learn/lessons/types';
 
 export function useSQLEngine() {
-  const [db, setDb] = useState<unknown>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [schema, setSchema] = useState<TableInfo[]>([]);
@@ -20,9 +19,8 @@ export function useSQLEngine() {
     let mounted = true;
 
     initializeDatabase()
-      .then((database) => {
+      .then(() => {
         if (mounted) {
-          setDb(database);
           setSchema(getSchema());
           setError(null);
         }
@@ -45,7 +43,6 @@ export function useSQLEngine() {
 
   const executeQuery = useCallback((sql: string): QueryResult => {
     const result = execQuery(sql);
-    // Update schema after query execution (in case tables were created/modified)
     setSchema(getSchema());
     return result;
   }, []);
@@ -54,8 +51,7 @@ export function useSQLEngine() {
     setIsLoading(true);
     resetDB();
     try {
-      const database = await initializeDatabase();
-      setDb(database);
+      await initializeDatabase();
       setSchema([]);
       setError(null);
     } catch (e) {
@@ -72,7 +68,6 @@ export function useSQLEngine() {
   }, []);
 
   return {
-    db,
     isLoading,
     error,
     schema,

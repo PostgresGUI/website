@@ -1,4 +1,4 @@
-import { Lesson, QueryResult, ValidationResult } from '../types';
+import { Lesson, ValidationResult } from '../types';
 
 export const lesson1_3: Lesson = {
   id: 'querying-data',
@@ -78,7 +78,7 @@ WHERE state = 'CA';`,
           'SELECT column1, column2 FROM table',
           'SELECT name, email FROM customers;'
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
           if (q.includes('select') && q.includes('name') && q.includes('email') &&
               q.includes('from customers') && !q.includes('*')) {
@@ -97,13 +97,12 @@ WHERE state = 'CA';`,
           'Text values in conditions need single quotes',
           "SELECT * FROM customers WHERE state = 'CA';"
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
           if (q.includes('select') && q.includes('from customers') &&
-              q.includes('where') && q.includes("state") && q.includes("ca")) {
-            if (result.rowCount === 2) {
-              return { correct: true, message: 'Found the California customers!' };
-            }
+              q.includes('where') && q.includes("state") &&
+              (q.includes("'ca'") || q.includes("= 'ca'"))) {
+            return { correct: true, message: 'Found the California customers!' };
           }
           return { correct: false, message: 'Filter for state = \'CA\'.' };
         }
@@ -118,7 +117,7 @@ WHERE state = 'CA';`,
           'Use AND to combine conditions: WHERE cond1 AND cond2',
           "SELECT * FROM products WHERE category = 'Electronics' AND price < 500;"
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
           if (q.includes('select') && q.includes('from products') &&
               q.includes('electronics') && (q.includes('< 500') || q.includes('<500'))) {

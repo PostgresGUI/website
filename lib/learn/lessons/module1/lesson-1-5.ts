@@ -1,4 +1,4 @@
-import { Lesson, QueryResult, ValidationResult } from '../types';
+import { Lesson, ValidationResult } from '../types';
 
 export const lesson1_5: Lesson = {
   id: 'aggregates',
@@ -84,7 +84,7 @@ GROUP BY status;`,
           'Query the orders table',
           'SELECT SUM(total) FROM orders;'
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
           if (q.includes('sum') && q.includes('total') && q.includes('from orders')) {
             return { correct: true, message: 'Revenue calculated!' };
@@ -102,7 +102,7 @@ GROUP BY status;`,
           'SELECT AVG(column) FROM table',
           'SELECT AVG(total) FROM orders;'
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
           if (q.includes('avg') && q.includes('total') && q.includes('from orders')) {
             return { correct: true, message: 'Average calculated!' };
@@ -120,7 +120,7 @@ GROUP BY status;`,
           'GROUP BY splits results by unique status values',
           'SELECT status, COUNT(*) FROM orders GROUP BY status;'
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
           if (q.includes('count') && q.includes('group by') && q.includes('status')) {
             return { correct: true, message: 'Perfect grouping!' };
@@ -138,7 +138,7 @@ GROUP BY status;`,
           'Group by the product column',
           'SELECT product, SUM(total) FROM orders GROUP BY product;'
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, ' ');
           if (q.includes('product') && q.includes('sum') && q.includes('total') &&
               q.includes('group by') && q.includes('product')) {

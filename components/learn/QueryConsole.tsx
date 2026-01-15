@@ -87,13 +87,15 @@ export function QueryConsole({
 
             {/* Editor area */}
             <div className="relative z-0 p-4">
-              <div className="flex items-start gap-2 font-mono text-sm">
-                <span
-                  className="text-[#33ff33] shrink-0 select-none"
-                  style={{ textShadow: "0 0 5px rgba(51,255,51,0.5)" }}
-                >
-                  postgres=#
-                </span>
+              <div className="flex items-stretch font-mono text-sm">
+                <div className="shrink-0 select-none pr-2">
+                  <span
+                    className="text-[#33ff33]"
+                    style={{ textShadow: "0 0 5px rgba(51,255,51,0.5)" }}
+                  >
+                    &gt;
+                  </span>
+                </div>
                 <textarea
                   ref={textareaRef}
                   value={query}

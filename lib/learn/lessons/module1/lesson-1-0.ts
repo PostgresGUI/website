@@ -1,4 +1,4 @@
-import { Lesson, QueryResult, ValidationResult } from "../types";
+import { Lesson, ValidationResult } from "../types";
 
 export const lesson1_0: Lesson = {
   id: "getting-started",
@@ -15,6 +15,12 @@ export const lesson1_0: Lesson = {
       message:
         "Hey, welcome aboard! Before we dive into building databases, let me give you a quick overview of what we'll be working with. SQL is the language we use to talk to databases, and PostgreSQL is one of the most powerful database systems out there. Let me explain why we chose it here at PostgresGUI Inc.",
       timestamp: "Just now",
+      learningObjectives: [
+        "Understand what SQL is and why it matters",
+        "Learn why PostgreSQL is the database of choice",
+        "Write your first SQL query using SELECT",
+        "Display text, numbers, and do basic math",
+      ],
     },
     concept: [
       {
@@ -82,41 +88,15 @@ export const lesson1_0: Lesson = {
           "No quotes needed for numbers - just: SELECT 42;",
           "SELECT 42;",
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, " ").trim();
-          // Check that the query uses SELECT and returns the number 42
+          // Check that the query uses SELECT and contains the number 42
           if (!q.startsWith("select")) {
             return { correct: false, message: "Start your query with SELECT" };
           }
-          if (!result.success) {
-            return {
-              correct: false,
-              message: "Your query has an error. Try: SELECT 42;",
-            };
-          }
-          // Check the actual result value is 42
-          // Ensure we have a result row
-          if (
-            !result.rows ||
-            result.rows.length === 0 ||
-            !result.rows[0] ||
-            result.rows[0].length === 0
-          ) {
-            return {
-              correct: false,
-              message: "Your query should return a result. Try: SELECT 42;",
-            };
-          }
-
-          const value = result.rows[0][0];
-
-          // Check if value is exactly 42 (number) or '42' (string)
-          // Use strict equality to avoid type coercion issues
-          const isNumber42 = typeof value === "number" && value === 42;
-          const isString42 = typeof value === "string" && value === "42";
-          const isCorrect = isNumber42 || isString42;
-
-          if (isCorrect) {
+          // Check if the query contains 42 (not in quotes)
+          // Match SELECT 42 or SELECT 42; but not SELECT '42'
+          if (/select\s+42\s*(;|$)/.test(q)) {
             return {
               correct: true,
               message: "You just ran your first SQL query!",
@@ -139,29 +119,13 @@ export const lesson1_0: Lesson = {
           "Type PostgresGUI inside single quotes",
           "SELECT 'PostgresGUI';",
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
-          if (!result.success) {
-            return {
-              correct: false,
-              message: "Your query has an error. Check your syntax!",
-            };
+        validate: (_result, query: string): ValidationResult => {
+          const q = query.toLowerCase().replace(/\s+/g, " ").trim();
+          if (!q.startsWith("select")) {
+            return { correct: false, message: "Start your query with SELECT" };
           }
-          if (
-            !result.rows ||
-            result.rows.length === 0 ||
-            !result.rows[0] ||
-            result.rows[0].length === 0
-          ) {
-            return {
-              correct: false,
-              message: "Your query should return a result.",
-            };
-          }
-          const value = result.rows[0][0];
-          if (
-            typeof value === "string" &&
-            value.toLowerCase() === "postgresgui"
-          ) {
+          // Check if the query contains 'postgresgui' (in quotes)
+          if (q.includes("'postgresgui'")) {
             return {
               correct: true,
               message: "Great! You displayed text using SQL.",
@@ -184,19 +148,18 @@ export const lesson1_0: Lesson = {
           "Just write the math after SELECT",
           "SELECT 10 + 5;",
         ],
-        validate: (result: QueryResult, query: string): ValidationResult => {
+        validate: (_result, query: string): ValidationResult => {
           const q = query.toLowerCase().replace(/\s+/g, "").trim();
           if (
             q.includes("select") &&
-            (q.includes("10+5") || q.includes("5+10")) &&
-            result.success
+            (q.includes("10+5") || q.includes("5+10"))
           ) {
             return {
               correct: true,
               message: "SQL can be your calculator! The result is 15.",
             };
           }
-          if (q.includes("select") && q.includes("15") && result.success) {
+          if (q.includes("select") && q.includes("15")) {
             return {
               correct: true,
               message:

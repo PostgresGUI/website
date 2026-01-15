@@ -1,147 +1,98 @@
-import { QueryResult, TableInfo, TableColumn } from './lessons/types';
+import { QueryResult, TableInfo } from './lessons/types';
 
-// sql.js types
-interface SqlJsStatic {
-  Database: new (data?: ArrayLike<number>) => SqlJsDatabase;
+// Simple SQL syntax validation without actually executing queries
+// This is used for the learn-sql tutorial where we validate user input
+// based on query structure rather than actual database execution
+
+let initialized = false;
+
+export async function initializeDatabase(): Promise<void> {
+  initialized = true;
+  return Promise.resolve();
 }
 
-interface SqlJsDatabase {
-  exec(sql: string): Array<{ columns: string[]; values: unknown[][] }>;
-  run(sql: string): void;
-  close(): void;
-  getRowsModified(): number;
+export function getDatabase(): boolean {
+  return initialized;
 }
 
-let db: SqlJsDatabase | null = null;
-let isInitializing = false;
-let initPromise: Promise<SqlJsDatabase> | null = null;
+// Basic SQL syntax validation
+function isValidSQLSyntax(sql: string): { valid: boolean; error?: string } {
+  const q = sql.trim().toLowerCase();
 
-export async function initializeDatabase(): Promise<SqlJsDatabase> {
-  // Return existing database if available
-  if (db) return db;
+  if (!q) {
+    return { valid: false, error: 'Empty query' };
+  }
 
-  // Return existing initialization promise if in progress
-  if (isInitializing && initPromise) return initPromise;
+  // Check for basic SQL keywords
+  const startsWithKeyword = /^(select|insert|update|delete|create|drop|alter|with)\b/.test(q);
+  if (!startsWithKeyword) {
+    return { valid: false, error: 'Query must start with a SQL keyword (SELECT, INSERT, CREATE, etc.)' };
+  }
 
-  isInitializing = true;
-  initPromise = (async () => {
-    try {
-      // Dynamic import to avoid SSR issues
-      const initSqlJs = (await import('sql.js')).default;
-      const SQL: SqlJsStatic = await initSqlJs({
-        locateFile: (file: string) => `https://sql.js.org/dist/${file}`
-      });
-      db = new SQL.Database();
-      return db;
-    } finally {
-      isInitializing = false;
+  // Check for balanced parentheses
+  let parenCount = 0;
+  for (const char of sql) {
+    if (char === '(') parenCount++;
+    if (char === ')') parenCount--;
+    if (parenCount < 0) {
+      return { valid: false, error: 'Unbalanced parentheses' };
     }
-  })();
+  }
+  if (parenCount !== 0) {
+    return { valid: false, error: 'Unbalanced parentheses' };
+  }
 
-  return initPromise;
-}
+  // Check for balanced quotes
+  const singleQuotes = (sql.match(/'/g) || []).length;
+  if (singleQuotes % 2 !== 0) {
+    return { valid: false, error: 'Unbalanced single quotes' };
+  }
 
-export function getDatabase(): SqlJsDatabase | null {
-  return db;
+  return { valid: true };
 }
 
 export function executeQuery(sql: string): QueryResult {
-  if (!db) {
+  if (!initialized) {
     return {
       success: false,
       error: 'Database not initialized'
     };
   }
 
-  try {
-    // Handle multiple statements
-    const statements = sql.split(';').filter(s => s.trim());
-    let lastResult: QueryResult = {
-      success: true,
-      columns: [],
-      rows: [],
-      rowCount: 0
-    };
+  const validation = isValidSQLSyntax(sql);
 
-    for (const statement of statements) {
-      if (!statement.trim()) continue;
-
-      const results = db.exec(statement);
-
-      if (results.length > 0) {
-        lastResult = {
-          success: true,
-          columns: results[0].columns,
-          rows: results[0].values,
-          rowCount: results[0].values.length
-        };
-      } else {
-        // For statements like CREATE, INSERT that don't return results
-        lastResult = {
-          success: true,
-          columns: [],
-          rows: [],
-          rowCount: db.getRowsModified()
-        };
-      }
-    }
-
-    return lastResult;
-  } catch (error) {
+  if (!validation.valid) {
     return {
       success: false,
-      error: (error as Error).message
+      error: validation.error
     };
   }
+
+  // Return a successful mock result
+  // The actual validation logic is in each lesson's validate function
+  return {
+    success: true,
+    columns: [],
+    rows: [],
+    rowCount: 0
+  };
 }
 
 export function resetDatabase(): void {
-  if (db) {
-    db.close();
-  }
-  db = null;
-  initPromise = null;
+  // No-op - nothing to reset without a real database
 }
 
 export function getSchema(): TableInfo[] {
-  if (!db) return [];
-
-  try {
-    const tablesResult = db.exec(
-      "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'"
-    );
-
-    if (tablesResult.length === 0) return [];
-
-    const tables: TableInfo[] = [];
-
-    for (const row of tablesResult[0].values) {
-      const tableName = row[0] as string;
-
-      // Get column info
-      const columnsResult = db.exec(`PRAGMA table_info("${tableName}")`);
-      const columns: TableColumn[] = columnsResult[0]?.values.map(col => ({
-        name: col[1] as string,
-        type: col[2] as string
-      })) || [];
-
-      // Get row count
-      const countResult = db.exec(`SELECT COUNT(*) FROM "${tableName}"`);
-      const rowCount = countResult[0]?.values[0]?.[0] as number || 0;
-
-      tables.push({
-        name: tableName,
-        columns,
-        rowCount
-      });
-    }
-
-    return tables;
-  } catch {
-    return [];
-  }
+  // No schema to return without a real database
+  return [];
 }
 
-export function setupSchema(sql: string): QueryResult {
-  return executeQuery(sql);
+export function setupSchema(_sql: string): QueryResult {
+  // No-op - just return success
+  return {
+    success: true,
+    columns: [],
+    rows: [],
+    rowCount: 0
+  };
 }
