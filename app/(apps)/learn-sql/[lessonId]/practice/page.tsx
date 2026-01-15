@@ -17,7 +17,7 @@ export async function generateMetadata({
 export default function PracticePage() {
   return (
     <Suspense fallback={<LoadingFallback />}>
-      <PhasePageClient phase="guided" />
+      <PhasePageClient phase="practice" />
     </Suspense>
   );
 }

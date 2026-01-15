@@ -6,7 +6,7 @@ import { QueryResult } from '../types';
 const mockResult: QueryResult = { success: true, columns: [], rows: [], rowCount: 0 };
 
 // Helper to get validate function by challenge index
-const getValidator = (index: number) => lesson1_0.phases.challenges[index].validate;
+const getValidator = (index: number) => lesson1_0.phases.quiz[index].validate;
 
 describe('lesson-1-0: Introduction to SQL', () => {
   describe('Challenge 1: Your First Query (SELECT 42)', () => {

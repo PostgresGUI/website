@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { module1 } from "./lessons/module1";
 
-export type LessonPhase = "context" | "concept" | "practice" | "summary";
+export type LessonPhase = "intro" | "learn" | "practice" | "cheatsheet";
 
 interface PhaseMetaConfig {
   titlePrefix: string;
@@ -10,13 +10,13 @@ interface PhaseMetaConfig {
 }
 
 const PHASE_CONFIG: Record<LessonPhase, PhaseMetaConfig> = {
-  context: {
-    titlePrefix: "Context",
+  intro: {
+    titlePrefix: "Introduction",
     descriptionPrefix: "Introduction to",
-    keywords: ["sql context"],
+    keywords: ["sql introduction"],
   },
-  concept: {
-    titlePrefix: "Learn Concepts",
+  learn: {
+    titlePrefix: "Learn",
     descriptionPrefix: "Learn the SQL concepts and syntax for",
     keywords: ["sql concepts", "sql syntax"],
   },
@@ -25,10 +25,10 @@ const PHASE_CONFIG: Record<LessonPhase, PhaseMetaConfig> = {
     descriptionPrefix: "Practice writing SQL queries for",
     keywords: ["sql practice", "sql exercises"],
   },
-  summary: {
-    titlePrefix: "Summary",
-    descriptionPrefix: "Review and summarize what you learned about",
-    keywords: ["sql summary", "sql review"],
+  cheatsheet: {
+    titlePrefix: "Cheatsheet",
+    descriptionPrefix: "SQL cheatsheet and quick reference for",
+    keywords: ["sql cheatsheet", "sql reference"],
   },
 };
 
@@ -107,41 +107,41 @@ export async function generateChallengeMetadata(
     return NOT_FOUND_METADATA;
   }
 
-  const challenge = lesson.phases.challenges.find((c) => c.id === challengeId);
+  const challenge = lesson.phases.quiz.find((c) => c.id === challengeId);
 
   if (!challenge) {
     return {
-      title: "Challenge Not Found | Learn PostgreSQL",
-      description: "The requested challenge could not be found.",
+      title: "Quiz Not Found | Learn PostgreSQL",
+      description: "The requested quiz could not be found.",
     };
   }
 
   const { lessonNumber, totalLessons } = getLessonNumbers(lessonId);
-  const challengeIndex = lesson.phases.challenges.findIndex((c) => c.id === challengeId) + 1;
-  const totalChallenges = lesson.phases.challenges.length;
+  const challengeIndex = lesson.phases.quiz.findIndex((c) => c.id === challengeId) + 1;
+  const totalChallenges = lesson.phases.quiz.length;
 
   return {
-    title: `${challenge.title} - Challenge ${challengeIndex} | ${lesson.title} | Learn PostgreSQL | PostgresGUI`,
-    description: `${challenge.description} Part of ${lesson.title.toLowerCase()}. ${lesson.description} Challenge ${challengeIndex} of ${totalChallenges} in lesson ${lessonNumber} of ${totalLessons}.`,
+    title: `${challenge.title} - Quiz ${challengeIndex} | ${lesson.title} | Learn PostgreSQL | PostgresGUI`,
+    description: `${challenge.description} Part of ${lesson.title.toLowerCase()}. ${lesson.description} Quiz ${challengeIndex} of ${totalChallenges} in lesson ${lessonNumber} of ${totalLessons}.`,
     keywords: [
       ...BASE_KEYWORDS,
       lesson.title.toLowerCase(),
-      "sql challenge",
+      "sql quiz",
       "sql practice",
       challenge.difficulty,
     ],
     openGraph: {
-      title: `${challenge.title} - Challenge | ${lesson.title} | Learn PostgreSQL`,
+      title: `${challenge.title} - Quiz | ${lesson.title} | Learn PostgreSQL`,
       description: challenge.description,
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${challenge.title} - Challenge | ${lesson.title}`,
+      title: `${challenge.title} - Quiz | ${lesson.title}`,
       description: challenge.description,
     },
     alternates: {
-      canonical: `/learn-sql/${lesson.id}/challenge/${challenge.id}`,
+      canonical: `/learn-sql/${lesson.id}/quiz/${challenge.id}`,
     },
   };
 }

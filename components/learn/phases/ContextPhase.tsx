@@ -33,7 +33,7 @@ export const ContextPhase = forwardRef<ContextPhaseRef, ContextPhaseProps>(
     const onCompleteRef = useRef(onComplete);
 
     // Check if phase is already complete
-    const isAlreadyComplete = isPhaseComplete(lessonId, 'context');
+    const isAlreadyComplete = isPhaseComplete(lessonId, 'intro');
 
     // Keep the callback refs up to date
     useEffect(() => {
@@ -118,7 +118,7 @@ export const ContextPhase = forwardRef<ContextPhaseRef, ContextPhaseProps>(
       if (isTypingComplete && !hasCalledOnComplete) {
         setHasCalledOnComplete(true);
         // Mark phase complete
-        markPhaseComplete(lessonId, 'context');
+        markPhaseComplete(lessonId, 'intro');
         onCompleteRef.current?.();
       }
     }, [canSkip, isTypingComplete, hasCalledOnComplete, lessonId, markPhaseComplete]);

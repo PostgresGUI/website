@@ -11,13 +11,13 @@ export async function generateMetadata({
 }: {
   params: Promise<{ lessonId: string }>;
 }) {
-  return generateLessonPhaseMetadata(params, "concept");
+  return generateLessonPhaseMetadata(params, "learn");
 }
 
-export default function ConceptPage() {
+export default function LearnPage() {
   return (
     <Suspense fallback={<LoadingFallback />}>
-      <PhasePageClient phase="concept" />
+      <PhasePageClient phase="learn" />
     </Suspense>
   );
 }

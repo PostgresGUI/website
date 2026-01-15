@@ -1,5 +1,5 @@
 // Phase types
-export type PhaseType = 'context' | 'concept' | 'guided' | 'challenge' | 'summary';
+export type PhaseType = 'intro' | 'learn' | 'practice' | 'quiz' | 'cheatsheet';
 
 // Query result from sql.js
 export interface QueryResult {
@@ -17,7 +17,7 @@ export interface ValidationResult {
   partialCredit?: number;
 }
 
-// Mentor message (Context phase)
+// Mentor message (Intro phase)
 export interface MentorMessage {
   name: string;
   role: string;
@@ -26,7 +26,7 @@ export interface MentorMessage {
   learningObjectives?: string[];
 }
 
-// Syntax example (Concept phase)
+// Syntax example (Learn phase)
 export interface SyntaxExample {
   title: string;
   syntax: string;
@@ -50,7 +50,7 @@ export interface GuidedPractice {
   hints: string[];
 }
 
-// Challenge task
+// Quiz task
 export interface Challenge {
   id: string;
   title: string;
@@ -61,7 +61,7 @@ export interface Challenge {
   validate: (result: QueryResult, query: string) => ValidationResult;
 }
 
-// Syntax card (Summary phase)
+// Syntax card (Cheatsheet phase)
 export interface SyntaxCard {
   id: string;
   title: string;
@@ -80,11 +80,11 @@ export interface Lesson {
   estimatedMinutes: number;
   initialSchema?: string;
   phases: {
-    context: MentorMessage;
-    concept: SyntaxExample[];
-    guided: GuidedPractice;
-    challenges: Challenge[];
-    summary: SyntaxCard;
+    intro: MentorMessage;
+    learn: SyntaxExample[];
+    practice: GuidedPractice;
+    quiz: Challenge[];
+    cheatsheet: SyntaxCard;
   };
 }
 

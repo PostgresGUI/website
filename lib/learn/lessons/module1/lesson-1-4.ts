@@ -1,11 +1,11 @@
 import { Lesson, ValidationResult } from '../types';
 
 export const lesson1_4: Lesson = {
-  id: 'sort-and-limit',
+  id: 'order-by',
   moduleId: '1',
-  title: 'Sorting & Limiting',
+  title: 'ORDER BY & LIMIT',
   shortTitle: 'ORDER BY',
-  description: 'Learn how to sort and limit query results',
+  description: 'Learn how to sort query results with ORDER BY and limit rows with LIMIT',
   estimatedMinutes: 10,
   initialSchema: `
     CREATE TABLE products (id INTEGER, name TEXT, category TEXT, price REAL, stock INTEGER);
@@ -30,13 +30,13 @@ export const lesson1_4: Lesson = {
       (5, 'Eve', 'Engineering', 88000);
   `,
   phases: {
-    context: {
+    intro: {
       name: 'Sam',
       role: 'Senior Database Engineer',
       message: "Finance needs our top 5 most expensive products for the quarterly report. We need to sort by price and only show the first few results. ORDER BY and LIMIT are your friends here!",
       timestamp: '10 mins ago'
     },
-    concept: [
+    learn: [
       {
         title: 'ORDER BY',
         syntax: `SELECT * FROM table
@@ -57,7 +57,7 @@ LIMIT 5 OFFSET 10;    -- Skip 10, get next 5`,
         explanation: 'LIMIT restricts how many rows you get back. OFFSET skips rows - useful for pagination. Always use ORDER BY with LIMIT for consistent results.'
       }
     ],
-    guided: {
+    practice: {
       prompt: 'Get all products sorted by price from highest to lowest',
       template: `SELECT * FROM products
 ORDER BY price DESC;`,
@@ -71,7 +71,7 @@ ORDER BY price DESC;`,
         'The column to sort by is "price"'
       ]
     },
-    challenges: [
+    quiz: [
       {
         id: 'sort-and-limit-c1',
         title: 'Top 3 Expensive Products',
@@ -130,7 +130,7 @@ ORDER BY price DESC;`,
         }
       }
     ],
-    summary: {
+    cheatsheet: {
       id: 'card-sort-and-limit',
       title: 'ORDER BY & LIMIT',
       syntax: `SELECT columns

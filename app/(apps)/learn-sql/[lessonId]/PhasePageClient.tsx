@@ -56,7 +56,7 @@ function PhasePageContent(props: PhasePageClientProps) {
       if (currentIndex < module1.lessons.length - 1) {
         // Navigate to next lesson's context phase
         const nextLessonId = module1.lessons[currentIndex + 1].id;
-        router.push(`/learn-sql/${nextLessonId}/context`);
+        router.push(`/learn-sql/${nextLessonId}/intro`);
       } else {
         // All lessons complete, go back to welcome
         router.push("/learn-sql");

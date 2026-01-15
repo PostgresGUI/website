@@ -27,11 +27,11 @@ const PHASE_CONFIG: Record<
   PhaseType,
   { label: string; icon: typeof MessageSquare }
 > = {
-  context: { label: "Context", icon: MessageSquare },
-  concept: { label: "Concept", icon: BookOpen },
-  guided: { label: "Practice", icon: PenTool },
-  challenge: { label: "Challenge", icon: Trophy },
-  summary: { label: "Summary", icon: FileCheck },
+  intro: { label: "Intro", icon: MessageSquare },
+  learn: { label: "Learn", icon: BookOpen },
+  practice: { label: "Practice", icon: PenTool },
+  quiz: { label: "Quiz", icon: Trophy },
+  cheatsheet: { label: "Cheatsheet", icon: FileCheck },
 };
 
 interface SidebarProps {
@@ -73,7 +73,7 @@ export function Sidebar({
   const completedCount = lessons.filter((l) => isLessonComplete(l.id)).length;
   const progressPercent = (completedCount / lessons.length) * 100;
 
-  const currentPhaseIndex = phases.indexOf(currentPhase || "context");
+  const currentPhaseIndex = phases.indexOf(currentPhase || "intro");
 
   // Find current challenge index
   const currentChallengeIndex = currentChallengeId
@@ -115,14 +115,14 @@ export function Sidebar({
       return 'completed';
     }
 
-    // If we're past the challenge phase (on summary), show challenges as completed
+    // If we're past the quiz phase (on cheatsheet), show challenges as completed
     // This matches the behavior of other phases which show as complete when passed
-    if (currentPhase === 'summary') {
+    if (currentPhase === 'cheatsheet') {
       return 'completed';
     }
 
-    // If not in challenge phase yet, challenges are locked
-    if (currentPhase !== 'challenge') {
+    // If not in quiz phase yet, challenges are locked
+    if (currentPhase !== 'quiz') {
       return 'locked';
     }
 
@@ -152,7 +152,7 @@ export function Sidebar({
     if (
       currentChallengeId &&
       challenges.length > 0 &&
-      currentPhase === "challenge"
+      currentPhase === "quiz"
     ) {
       setChallengeExpanded(true);
     }
@@ -276,7 +276,7 @@ export function Sidebar({
                           const isActivePhase = phaseState === 'active';
                           const isCompleted = phaseState === 'completed';
                           const isPhaseLocked = phaseState === 'locked';
-                          const isChallengePhase = phase === "challenge";
+                          const isChallengePhase = phase === "quiz";
                           const hasChallenges =
                             isCurrent &&
                             isChallengePhase &&

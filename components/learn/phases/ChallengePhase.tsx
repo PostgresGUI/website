@@ -69,7 +69,7 @@ export function ChallengePhase({
       const firstChallengeId = challenges[0]?.id;
       if (firstChallengeId) {
         const url = new URL(window.location.href);
-        url.searchParams.set("phase", "challenge");
+        url.searchParams.set("phase", "quiz");
         url.searchParams.set("challenge", firstChallengeId);
         router.replace(url.pathname + url.search, { scroll: false });
       }
@@ -84,7 +84,7 @@ export function ChallengePhase({
       const currentChallengeParam = url.searchParams.get("challenge");
 
       if (currentChallengeId && currentChallengeParam !== currentChallengeId) {
-        url.searchParams.set("phase", "challenge");
+        url.searchParams.set("phase", "quiz");
         url.searchParams.set("challenge", currentChallengeId);
         router.replace(url.pathname + url.search, { scroll: false });
       }

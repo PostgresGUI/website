@@ -163,7 +163,7 @@ export const ConceptPhase = forwardRef<ConceptPhaseRef, ConceptPhaseProps>(
       if (allMessagesComplete && !hasCalledOnComplete) {
         setHasCalledOnComplete(true);
         // Mark phase complete
-        markPhaseComplete(lessonId, "concept");
+        markPhaseComplete(lessonId, "learn");
         onAllComplete?.();
       }
     }, [

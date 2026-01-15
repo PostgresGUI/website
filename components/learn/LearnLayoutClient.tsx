@@ -28,16 +28,16 @@ export function LearnLayoutClient(props: LearnLayoutClientProps) {
 
   // Determine current phase from pathname
   const currentPhase: PhaseType | null = pathname
-    ? (pathname.includes("/challenge/")
-        ? "challenge"
-        : pathname.includes("/context")
-        ? "context"
-        : pathname.includes("/concept")
-        ? "concept"
+    ? (pathname.includes("/quiz/")
+        ? "quiz"
+        : pathname.includes("/intro")
+        ? "intro"
+        : pathname.includes("/learn")
+        ? "learn"
         : pathname.includes("/practice")
-        ? "guided"
-        : pathname.includes("/summary")
-        ? "summary"
+        ? "practice"
+        : pathname.includes("/cheatsheet")
+        ? "cheatsheet"
         : null)
     : null;
 
@@ -51,10 +51,6 @@ export function LearnLayoutClient(props: LearnLayoutClientProps) {
 
   const getPhaseRoute = (phase: PhaseType, targetLessonId: string) => {
     const basePath = `/learn-sql/${targetLessonId}`;
-    // Map "guided" phase to "practice" route
-    if (phase === "guided") {
-      return `${basePath}/practice`;
-    }
     return `${basePath}/${phase}`;
   };
 
@@ -68,7 +64,7 @@ export function LearnLayoutClient(props: LearnLayoutClientProps) {
         return; // Don't navigate to locked lesson
       }
     }
-    router.push(`/learn-sql/${selectedLessonId}/context`);
+    router.push(`/learn-sql/${selectedLessonId}/intro`);
     setSidebarOpen(false);
   };
 
@@ -79,7 +75,7 @@ export function LearnLayoutClient(props: LearnLayoutClientProps) {
       return;
     }
 
-    const allPhases: PhaseType[] = ['context', 'concept', 'guided', 'challenge', 'summary'];
+    const allPhases: PhaseType[] = ['intro', 'learn', 'practice', 'quiz', 'cheatsheet'];
     
     // If not current lesson, check if previous lesson is complete
     if (targetLessonId && targetLessonId !== lessonId) {
@@ -123,27 +119,27 @@ export function LearnLayoutClient(props: LearnLayoutClientProps) {
       setSidebarOpen(false);
       return;
     }
-    
+
     // Check if challenge is accessible
-    const challengeIndex = lesson.phases.challenges.findIndex(c => c.id === challengeId);
-    
-    // First challenge is always accessible if we're in challenge phase
+    const challengeIndex = lesson.phases.quiz.findIndex(c => c.id === challengeId);
+
+    // First challenge is always accessible if we're in quiz phase
     if (challengeIndex === 0) {
-      if (currentPhase !== "challenge") {
+      if (currentPhase !== "quiz") {
         setSidebarOpen(false);
-        return; // Must be in challenge phase to access challenges
+        return; // Must be in quiz phase to access challenges
       }
     } else if (challengeIndex > 0) {
       // Other challenges require previous challenge to be complete
-      const previousChallenge = lesson.phases.challenges[challengeIndex - 1];
+      const previousChallenge = lesson.phases.quiz[challengeIndex - 1];
       if (!isChallengeComplete(lessonId, previousChallenge.id)) {
         setSidebarOpen(false);
         return; // Don't navigate to locked challenge
       }
     }
-    
-    router.push(`/learn-sql/${lessonId}/challenge/${challengeId}`);
-    goToPhase("challenge");
+
+    router.push(`/learn-sql/${lessonId}/quiz/${challengeId}`);
+    goToPhase("quiz");
     setSidebarOpen(false);
   };
 
@@ -184,7 +180,7 @@ export function LearnLayoutClient(props: LearnLayoutClientProps) {
         currentPhase={currentPhase || undefined}
         phases={phases}
         onPhaseClick={handlePhaseClick}
-        challenges={lesson?.phases.challenges}
+        challenges={lesson?.phases.quiz}
         currentChallengeId={challengeParam}
         onChallengeClick={handleChallengeClick}
         isChallengeComplete={isChallengeComplete}

@@ -1,24 +1,24 @@
 import { Lesson, ValidationResult } from '../types';
 
 export const lesson1_2: Lesson = {
-  id: 'inserting-rows',
+  id: 'insert-into',
   moduleId: '1',
-  title: 'Inserting Data',
+  title: 'INSERT INTO',
   shortTitle: 'INSERT INTO',
-  description: 'Learn how to add data to your tables',
+  description: 'Learn how to add rows of data to your database tables using INSERT INTO',
   estimatedMinutes: 10,
   initialSchema: `
     CREATE TABLE employees (id INTEGER, name TEXT, department TEXT);
     CREATE TABLE products (id INTEGER, name TEXT, price REAL);
   `,
   phases: {
-    context: {
+    intro: {
       name: 'Sam',
       role: 'Senior Database Engineer',
       message: "Now that you know how to create tables, let's fill them with data! The HR team just sent over a list of new hires. We need to add them to our employees table. I'll show you the INSERT statement.",
       timestamp: '2 mins ago'
     },
-    concept: [
+    learn: [
       {
         title: 'INSERT INTO Syntax',
         syntax: `INSERT INTO table_name (column1, column2)
@@ -35,7 +35,7 @@ VALUES
         explanation: 'You can insert multiple rows at once by separating value sets with commas. This is more efficient than multiple INSERT statements.'
       }
     ],
-    guided: {
+    practice: {
       prompt: 'Insert an employee with id 1 and name "Alice" into the employees table',
       template: `INSERT INTO employees (id, name)
 VALUES (1, 'Alice');`,
@@ -52,7 +52,7 @@ VALUES (1, 'Alice');`,
         'Numbers like 1 don\'t need quotes'
       ]
     },
-    challenges: [
+    quiz: [
       {
         id: 'inserting-rows-c1',
         title: 'Add a Product',
@@ -112,7 +112,7 @@ VALUES (1, 'Alice');`,
         }
       }
     ],
-    summary: {
+    cheatsheet: {
       id: 'card-inserting-rows',
       title: 'INSERT INTO',
       syntax: `INSERT INTO table (col1, col2)

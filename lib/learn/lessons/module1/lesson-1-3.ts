@@ -1,11 +1,11 @@
 import { Lesson, ValidationResult } from '../types';
 
 export const lesson1_3: Lesson = {
-  id: 'querying-data',
+  id: 'select-from',
   moduleId: '1',
-  title: 'Basic Queries',
-  shortTitle: 'SELECT',
-  description: 'Learn how to retrieve data from tables',
+  title: 'SELECT FROM',
+  shortTitle: 'SELECT FROM',
+  description: 'Learn how to retrieve data from tables using SELECT, FROM, and WHERE clauses',
   estimatedMinutes: 12,
   initialSchema: `
     CREATE TABLE customers (id INTEGER, name TEXT, email TEXT, state TEXT);
@@ -25,13 +25,13 @@ export const lesson1_3: Lesson = {
       (5, 'Desk Lamp', 'Home', 34.99);
   `,
   phases: {
-    context: {
+    intro: {
       name: 'Sam',
       role: 'Senior Database Engineer',
       message: "The sales team needs a list of all our California customers for a regional promotion. Time to learn SELECT - the most important SQL command you'll use! It's how we ask the database questions and get data back.",
       timestamp: '5 mins ago'
     },
-    concept: [
+    learn: [
       {
         title: 'SELECT Basics',
         syntax: `SELECT column1, column2
@@ -54,7 +54,7 @@ WHERE state = 'CA';`,
         explanation: 'WHERE filters rows based on conditions. Only rows matching the condition are returned. Use = for exact matches, and quote text values.'
       }
     ],
-    guided: {
+    practice: {
       prompt: 'Select all columns from the customers table',
       template: `SELECT * FROM customers;`,
       blanks: [
@@ -67,7 +67,7 @@ WHERE state = 'CA';`,
         'The table name is "customers"'
       ]
     },
-    challenges: [
+    quiz: [
       {
         id: 'querying-data-c1',
         title: 'Get Customer Emails',
@@ -127,7 +127,7 @@ WHERE state = 'CA';`,
         }
       }
     ],
-    summary: {
+    cheatsheet: {
       id: 'card-querying-data',
       title: 'SELECT & WHERE',
       syntax: `SELECT column1, column2

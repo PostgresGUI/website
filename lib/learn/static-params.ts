@@ -10,7 +10,7 @@ export function generateChallengeStaticParams() {
   const params: Array<{ lessonId: string; challengeId: string }> = [];
 
   for (const lesson of module1.lessons) {
-    for (const challenge of lesson.phases.challenges) {
+    for (const challenge of lesson.phases.quiz) {
       params.push({
         lessonId: lesson.id,
         challengeId: challenge.id,

@@ -97,7 +97,7 @@ export function LessonView({
 
   // Reset phase completion when leaving phases
   useEffect(() => {
-    if (currentPhase !== "concept") {
+    if (currentPhase !== "learn") {
       setIsConceptPhaseComplete(false);
       setConceptPhaseState({
         canSkip: true,
@@ -105,10 +105,10 @@ export function LessonView({
         allComplete: false,
       });
     }
-    if (currentPhase !== "context") {
+    if (currentPhase !== "intro") {
       setContextPhaseState({ canSkip: true, isComplete: false });
     }
-    if (currentPhase !== "guided") {
+    if (currentPhase !== "practice") {
       setGuidedPhaseState({
         canSkip: true,
         isComplete: false,
@@ -121,12 +121,8 @@ export function LessonView({
   const getPhaseRoute = useCallback(
     (phase: string, challengeId?: string | null) => {
       const basePath = `/learn-sql/${lesson.id}`;
-      if (phase === "challenge" && challengeId) {
-        return `${basePath}/challenge/${challengeId}`;
-      }
-      // Map "guided" phase to "practice" route
-      if (phase === "guided") {
-        return `${basePath}/practice`;
+      if (phase === "quiz" && challengeId) {
+        return `${basePath}/quiz/${challengeId}`;
       }
       return `${basePath}/${phase}`;
     },
@@ -137,34 +133,34 @@ export function LessonView({
   const goToNextChallenge = useCallback(() => {
     if (!challengeParam) return;
 
-    const currentIndex = lesson.phases.challenges.findIndex(
+    const currentIndex = lesson.phases.quiz.findIndex(
       (c) => c.id === challengeParam
     );
     if (currentIndex === -1) return;
 
-    if (currentIndex < lesson.phases.challenges.length - 1) {
-      const nextChallengeId = lesson.phases.challenges[currentIndex + 1]?.id;
+    if (currentIndex < lesson.phases.quiz.length - 1) {
+      const nextChallengeId = lesson.phases.quiz[currentIndex + 1]?.id;
       if (nextChallengeId) {
-        router.push(getPhaseRoute("challenge", nextChallengeId));
+        router.push(getPhaseRoute("quiz", nextChallengeId));
       }
     } else {
       // Last challenge, go to summary phase
-      router.push(getPhaseRoute("summary"));
+      router.push(getPhaseRoute("cheatsheet"));
     }
   }, [challengeParam, lesson, router, getPhaseRoute]);
 
   const goToPrevChallenge = useCallback(() => {
     if (!challengeParam) return;
 
-    const currentIndex = lesson.phases.challenges.findIndex(
+    const currentIndex = lesson.phases.quiz.findIndex(
       (c) => c.id === challengeParam
     );
     if (currentIndex === -1) return;
 
     if (currentIndex > 0) {
-      const prevChallengeId = lesson.phases.challenges[currentIndex - 1]?.id;
+      const prevChallengeId = lesson.phases.quiz[currentIndex - 1]?.id;
       if (prevChallengeId) {
-        router.push(getPhaseRoute("challenge", prevChallengeId));
+        router.push(getPhaseRoute("quiz", prevChallengeId));
       }
     } else {
       // First challenge, go to practice phase
@@ -174,54 +170,54 @@ export function LessonView({
 
   // Wrapper functions that navigate to routes when phase changes
   const handleNextPhase = useCallback(() => {
-    if (currentPhase === "challenge") {
+    if (currentPhase === "quiz") {
       goToNextChallenge();
     } else {
       const phaseOrder: Record<string, string> = {
-        context: "concept",
-        concept: "practice",
-        guided: "challenge",
-        challenge: "summary",
-        summary: "summary",
+        intro: "learn",
+        learn: "practice",
+        practice: "quiz",
+        quiz: "cheatsheet",
+        cheatsheet: "cheatsheet",
       };
-      const nextPhase = phaseOrder[currentPhase] || "context";
-      if (nextPhase === "challenge") {
+      const nextPhaseName = phaseOrder[currentPhase] || "intro";
+      if (nextPhaseName === "quiz") {
         // Navigate to first challenge
-        const firstChallengeId = lesson.phases.challenges[0]?.id;
+        const firstChallengeId = lesson.phases.quiz[0]?.id;
         if (firstChallengeId) {
-          router.push(getPhaseRoute("challenge", firstChallengeId));
+          router.push(getPhaseRoute("quiz", firstChallengeId));
         } else {
-          router.push(getPhaseRoute("summary"));
+          router.push(getPhaseRoute("cheatsheet"));
         }
       } else {
-        router.push(getPhaseRoute(nextPhase));
+        router.push(getPhaseRoute(nextPhaseName));
       }
     }
   }, [currentPhase, router, lesson, getPhaseRoute, goToNextChallenge]);
 
   const handlePrevPhase = useCallback(() => {
-    if (currentPhase === "challenge") {
+    if (currentPhase === "quiz") {
       goToPrevChallenge();
     } else {
       const phaseOrder: Record<string, string> = {
-        context: "context",
-        concept: "context",
-        guided: "concept",
-        challenge: "practice",
-        summary: "challenge",
+        intro: "intro",
+        learn: "intro",
+        practice: "learn",
+        quiz: "practice",
+        cheatsheet: "quiz",
       };
-      const prevPhase = phaseOrder[currentPhase] || "context";
-      if (prevPhase === "challenge") {
+      const prevPhaseName = phaseOrder[currentPhase] || "intro";
+      if (prevPhaseName === "quiz") {
         // Navigate to last challenge
         const lastChallengeId =
-          lesson.phases.challenges[lesson.phases.challenges.length - 1]?.id;
+          lesson.phases.quiz[lesson.phases.quiz.length - 1]?.id;
         if (lastChallengeId) {
-          router.push(getPhaseRoute("challenge", lastChallengeId));
+          router.push(getPhaseRoute("quiz", lastChallengeId));
         } else {
           router.push(getPhaseRoute("practice"));
         }
       } else {
-        router.push(getPhaseRoute(prevPhase));
+        router.push(getPhaseRoute(prevPhaseName));
       }
     }
   }, [currentPhase, router, lesson, getPhaseRoute, goToPrevChallenge]);
@@ -264,47 +260,47 @@ export function LessonView({
 
   const renderPhase = useCallback(() => {
     switch (currentPhase) {
-      case "context":
+      case "intro":
         return (
           <ContextPhase
             ref={contextPhaseRef}
-            message={lesson.phases.context}
+            message={lesson.phases.intro}
             lessonId={lesson.id}
             onComplete={handleContextComplete}
             onStateChange={handleContextStateChange}
           />
         );
-      case "concept":
+      case "learn":
         return (
           <ConceptPhase
             ref={conceptPhaseRef}
-            concepts={lesson.phases.concept}
+            concepts={lesson.phases.learn}
             lessonId={lesson.id}
             onAllComplete={handleConceptAllComplete}
             onStateChange={handleConceptStateChange}
           />
         );
-      case "guided":
+      case "practice":
         return (
           <GuidedPhase
             ref={guidedPhaseRef}
-            practice={lesson.phases.guided}
+            practice={lesson.phases.practice}
             lessonId={lesson.id}
             onStateChange={handleGuidedStateChange}
           />
         );
-      case "challenge":
+      case "quiz":
         return (
           <ChallengePhase
-            challenges={lesson.phases.challenges}
+            challenges={lesson.phases.quiz}
             lessonId={lesson.id}
             challengeParam={challengeParam}
           />
         );
-      case "summary":
+      case "cheatsheet":
         return (
           <SummaryPhase
-            card={lesson.phases.summary}
+            card={lesson.phases.cheatsheet}
             lessonId={lesson.id}
             lessonTitle={lesson.shortTitle}
           />
@@ -343,7 +339,7 @@ export function LessonView({
       {/* Footer - Fixed on mobile, static in grid on desktop */}
       <footer className="fixed bottom-0 left-0 right-0 z-20 md:static md:z-auto border-t border-border bg-card/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none pb-[env(safe-area-inset-bottom)] md:pb-0">
         <div className="max-w-2xl mx-auto px-4 py-3 flex justify-between items-center gap-4">
-          {currentPhase !== "context" ? (
+          {currentPhase !== "intro" ? (
             <Button
               size="xl"
               variant="outline"
@@ -356,7 +352,7 @@ export function LessonView({
             <div />
           )}
 
-          {currentPhase === "context" &&
+          {currentPhase === "intro" &&
             (() => {
               const { canSkip, isComplete } = contextPhaseState;
 
@@ -387,7 +383,7 @@ export function LessonView({
                 </Button>
               );
             })()}
-          {currentPhase === "concept" &&
+          {currentPhase === "learn" &&
             (() => {
               const { canSkip, canNext, allComplete } = conceptPhaseState;
 
@@ -426,7 +422,7 @@ export function LessonView({
                 </Button>
               );
             })()}
-          {currentPhase === "guided" &&
+          {currentPhase === "practice" &&
             (() => {
               const { canSkip, isComplete, hasPracticed } = guidedPhaseState;
 
@@ -462,20 +458,20 @@ export function LessonView({
                 </Button>
               );
             })()}
-          {currentPhase === "challenge" &&
+          {currentPhase === "quiz" &&
             (() => {
               // Safely get current index, defaulting to 0 if not found or not provided
               const rawIndex = challengeParam
-                ? lesson.phases.challenges.findIndex(
+                ? lesson.phases.quiz.findIndex(
                     (c) => c.id === challengeParam
                   )
                 : 0;
               // If challengeParam was invalid (not found), treat as first challenge
               const safeCurrentIndex = rawIndex === -1 ? 0 : rawIndex;
               const isLastChallenge =
-                safeCurrentIndex === lesson.phases.challenges.length - 1;
+                safeCurrentIndex === lesson.phases.quiz.length - 1;
               const currentChallengeId =
-                lesson.phases.challenges[safeCurrentIndex]?.id;
+                lesson.phases.quiz[safeCurrentIndex]?.id;
               const isCurrentComplete = currentChallengeId
                 ? isChallengeComplete(lesson.id, currentChallengeId)
                 : false;
@@ -483,7 +479,7 @@ export function LessonView({
               // Button should be disabled if:
               // 1. Not on last challenge AND current challenge not complete
               // 2. No challenges exist
-              const hasNoChallenges = lesson.phases.challenges.length === 0;
+              const hasNoChallenges = lesson.phases.quiz.length === 0;
 
               return (
                 <Button
@@ -501,7 +497,7 @@ export function LessonView({
                 </Button>
               );
             })()}
-          {currentPhase === "summary" && (
+          {currentPhase === "cheatsheet" && (
             <Button
               size="xl"
               onClick={onLessonComplete}

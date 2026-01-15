@@ -15,11 +15,11 @@ interface PhaseIndicatorProps {
 }
 
 const PHASE_CONFIG: Record<PhaseType, { label: string; icon: typeof MessageSquare }> = {
-  context: { label: 'Context', icon: MessageSquare },
-  concept: { label: 'Concept', icon: BookOpen },
-  guided: { label: 'Practice', icon: PenTool },
-  challenge: { label: 'Challenge', icon: Trophy },
-  summary: { label: 'Summary', icon: FileCheck }
+  intro: { label: 'Intro', icon: MessageSquare },
+  learn: { label: 'Learn', icon: BookOpen },
+  practice: { label: 'Practice', icon: PenTool },
+  quiz: { label: 'Quiz', icon: Trophy },
+  cheatsheet: { label: 'Cheatsheet', icon: FileCheck }
 };
 
 export function PhaseIndicator({
@@ -43,7 +43,7 @@ export function PhaseIndicator({
         const isClickable = onPhaseClick && (isPast || index === currentIndex + 1);
         
         // Special handling for challenge phase - don't make it blue
-        const isChallengePhase = phase === 'challenge';
+        const isChallengePhase = phase === 'quiz';
         const showChallengeCircles = isChallengePhase && challenges && challenges.length > 0;
 
         return (

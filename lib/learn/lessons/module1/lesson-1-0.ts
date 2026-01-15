@@ -1,15 +1,15 @@
 import { Lesson, ValidationResult } from "../types";
 
 export const lesson1_0: Lesson = {
-  id: "getting-started",
+  id: "select-query",
   moduleId: "1",
-  title: "Introduction to SQL",
+  title: "SELECT Query",
   shortTitle: "SELECT",
   description:
-    "Learn what SQL is, what PostgreSQL is, and why it became so popular",
+    "Learn what SQL is and write your first SELECT query to display text, numbers, and do basic math",
   estimatedMinutes: 8,
   phases: {
-    context: {
+    intro: {
       name: "Sam",
       role: "Senior Database Engineer",
       message:
@@ -22,7 +22,7 @@ export const lesson1_0: Lesson = {
         "Display text, numbers, and do basic math",
       ],
     },
-    concept: [
+    learn: [
       {
         title: "What is SQL?",
         syntax: `SQL = Structured Query Language
@@ -59,7 +59,7 @@ export const lesson1_0: Lesson = {
           "PostgreSQL became popular because it combines enterprise-grade features with zero licensing costs. It is known for data integrity, extensibility, and standards compliance. From startups to Fortune 500 companies, PostgreSQL scales with your needs.",
       },
     ],
-    guided: {
+    practice: {
       prompt:
         "Let's run your first SQL query! Type SELECT followed by a greeting message in single quotes",
       template: `SELECT 'Hello, PostgreSQL!';`,
@@ -77,7 +77,7 @@ export const lesson1_0: Lesson = {
         "Just type SELECT before the quoted text",
       ],
     },
-    challenges: [
+    quiz: [
       {
         id: "getting-started-c1",
         title: "Your First Query",
@@ -170,7 +170,7 @@ export const lesson1_0: Lesson = {
         },
       },
     ],
-    summary: {
+    cheatsheet: {
       id: "card-getting-started",
       title: "SQL & PostgreSQL Basics",
       syntax: `-- SQL: The language for databases

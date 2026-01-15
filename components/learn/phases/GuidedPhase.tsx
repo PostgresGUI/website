@@ -87,7 +87,7 @@ export const GuidedPhase = forwardRef<GuidedPhaseRef, GuidedPhaseProps>(
         // Mark phase complete when user runs their first query
         if (!hasMarkedComplete) {
           setHasMarkedComplete(true);
-          markPhaseComplete(lessonId, 'guided');
+          markPhaseComplete(lessonId, 'practice');
         }
 
         // If query had an error, don't show our hint (SQL error is already shown)

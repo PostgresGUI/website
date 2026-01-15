@@ -1,11 +1,11 @@
 import { Lesson, ValidationResult } from '../types';
 
 export const lesson1_5: Lesson = {
-  id: 'aggregates',
+  id: 'aggregate-functions',
   moduleId: '1',
-  title: 'Aggregating Data',
+  title: 'Aggregate Functions',
   shortTitle: 'COUNT, SUM, AVG',
-  description: 'Learn how to summarize data with aggregate functions',
+  description: 'Learn how to summarize data with COUNT, SUM, AVG, MIN, and MAX aggregate functions',
   estimatedMinutes: 15,
   initialSchema: `
     CREATE TABLE orders (id INTEGER, customer_id INTEGER, product TEXT, quantity INTEGER, total REAL, status TEXT);
@@ -31,13 +31,13 @@ export const lesson1_5: Lesson = {
       (6, 'Keyboard', 'Electronics', 79.99, 30);
   `,
   phases: {
-    context: {
+    intro: {
       name: 'Sam',
       role: 'Senior Database Engineer',
       message: "The CEO just pinged me - she needs summary numbers for the board meeting: total revenue, order counts, average order value. This is where aggregate functions shine. COUNT, SUM, AVG - these are SQL superpowers!",
       timestamp: 'Just now'
     },
-    concept: [
+    learn: [
       {
         title: 'Aggregate Functions',
         syntax: `COUNT(*)      -- Count rows
@@ -60,7 +60,7 @@ GROUP BY status;`,
         explanation: 'GROUP BY splits rows into groups and applies aggregates to each group. Essential for "per category" or "per status" summaries.'
       }
     ],
-    guided: {
+    practice: {
       prompt: 'Count the total number of orders in the orders table',
       template: `SELECT COUNT(*) FROM orders;`,
       blanks: [
@@ -73,7 +73,7 @@ GROUP BY status;`,
         'No WHERE clause needed - count everything'
       ]
     },
-    challenges: [
+    quiz: [
       {
         id: 'aggregates-c1',
         title: 'Total Revenue',
@@ -148,7 +148,7 @@ GROUP BY status;`,
         }
       }
     ],
-    summary: {
+    cheatsheet: {
       id: 'card-aggregates',
       title: 'Aggregates & GROUP BY',
       syntax: `SELECT category, COUNT(*), AVG(price)

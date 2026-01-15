@@ -14,10 +14,10 @@ export async function generateMetadata({
   return generateMetadataUtil(params);
 }
 
-export default function ChallengePage() {
+export default function QuizPage() {
   return (
-    <Suspense fallback={<LoadingFallback text="Loading challenge..." />}>
-      <PhasePageClient phase="challenge" />
+    <Suspense fallback={<LoadingFallback text="Loading quiz..." />}>
+      <PhasePageClient phase="quiz" />
     </Suspense>
   );
 }

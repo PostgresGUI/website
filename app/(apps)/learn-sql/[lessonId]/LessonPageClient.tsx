@@ -48,17 +48,17 @@ function LessonPageContent() {
   // Sync phase from URL query param or set default
   useEffect(() => {
     if (lesson) {
-      const validPhases = ["context", "concept", "guided", "challenge", "summary"];
+      const validPhases = ["intro", "learn", "practice", "quiz", "cheatsheet"];
 
-      // If challenge param exists but phase is not challenge, set phase to challenge
-      if (challengeParam && phaseParam !== "challenge") {
-        const challengeExists = lesson.phases.challenges.some(c => c.id === challengeParam);
+      // If challenge param exists but phase is not quiz, set phase to quiz
+      if (challengeParam && phaseParam !== "quiz") {
+        const challengeExists = lesson.phases.quiz.some(c => c.id === challengeParam);
         if (challengeExists) {
-          router.replace(`/learn-sql/${lessonId}?phase=challenge&challenge=${challengeParam}`, { scroll: false });
+          router.replace(`/learn-sql/${lessonId}?phase=quiz&challenge=${challengeParam}`, { scroll: false });
           return;
         } else {
           // Invalid challenge ID, remove it
-          router.replace(`/learn-sql/${lessonId}?phase=${phaseParam || "context"}`, { scroll: false });
+          router.replace(`/learn-sql/${lessonId}?phase=${phaseParam || "intro"}`, { scroll: false });
           return;
         }
       }
@@ -66,8 +66,8 @@ function LessonPageContent() {
       if (phaseParam && validPhases.includes(phaseParam)) {
         goToPhase(phaseParam as PhaseType);
       } else if (!phaseParam) {
-        // No phase param, set default to context
-        router.replace(`/learn-sql/${lessonId}?phase=context`, { scroll: false });
+        // No phase param, set default to intro
+        router.replace(`/learn-sql/${lessonId}?phase=intro`, { scroll: false });
       }
     }
   }, [phaseParam, challengeParam, lesson, goToPhase, lessonId, router]);

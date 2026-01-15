@@ -3,7 +3,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { Lesson, PhaseType } from '@/lib/learn/lessons/types';
 
-const PHASES: PhaseType[] = ['context', 'concept', 'guided', 'challenge', 'summary'];
+const PHASES: PhaseType[] = ['intro', 'learn', 'practice', 'quiz', 'cheatsheet'];
 
 export function useLesson(lesson: Lesson | null) {
   const [phaseIndex, setPhaseIndex] = useState(0);
@@ -31,13 +31,13 @@ export function useLesson(lesson: Lesson | null) {
   const nextChallenge = useCallback(() => {
     if (!lesson) return;
     setCurrentChallengeIndex(prev =>
-      Math.min(prev + 1, lesson.phases.challenges.length - 1)
+      Math.min(prev + 1, lesson.phases.quiz.length - 1)
     );
   }, [lesson]);
 
   const currentChallenge = useMemo(() => {
     if (!lesson) return null;
-    return lesson.phases.challenges[currentChallengeIndex] || null;
+    return lesson.phases.quiz[currentChallengeIndex] || null;
   }, [lesson, currentChallengeIndex]);
 
   const isLastPhase = phaseIndex === PHASES.length - 1;
@@ -45,7 +45,7 @@ export function useLesson(lesson: Lesson | null) {
 
   const isLastChallenge = useMemo(() => {
     if (!lesson) return true;
-    return currentChallengeIndex === lesson.phases.challenges.length - 1;
+    return currentChallengeIndex === lesson.phases.quiz.length - 1;
   }, [lesson, currentChallengeIndex]);
 
   const resetLesson = useCallback(() => {

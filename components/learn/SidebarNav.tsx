@@ -36,17 +36,13 @@ export function SidebarNav({ challengeParam: initialChallengeParam }: SidebarNav
           return; // Don't navigate to locked lesson
         }
       }
-      router.push(`/learn-sql/${selectedLessonId}/context`);
+      router.push(`/learn-sql/${selectedLessonId}/intro`);
     },
     [router, lessons, isLessonComplete]
   );
 
   const getPhaseRoute = useCallback((phase: PhaseType, targetLessonId: string) => {
     const basePath = `/learn-sql/${targetLessonId}`;
-    // Map "guided" phase to "practice" route
-    if (phase === "guided") {
-      return `${basePath}/practice`;
-    }
     return `${basePath}/${phase}`;
   }, []);
 
@@ -55,8 +51,8 @@ export function SidebarNav({ challengeParam: initialChallengeParam }: SidebarNav
       const effectiveLessonId = targetLessonId || lessonId;
       if (!effectiveLessonId) return;
 
-      const allPhases: PhaseType[] = ['context', 'concept', 'guided', 'challenge', 'summary'];
-      
+      const allPhases: PhaseType[] = ['intro', 'learn', 'practice', 'quiz', 'cheatsheet'];
+
       // If not current lesson, check if previous lesson is complete
       if (targetLessonId && targetLessonId !== lessonId) {
         const lessonIndex = lessons.findIndex(l => l.id === targetLessonId);
@@ -67,13 +63,13 @@ export function SidebarNav({ challengeParam: initialChallengeParam }: SidebarNav
           }
         }
       }
-      
+
       // For current lesson, check phase accessibility
       if (effectiveLessonId === lessonId) {
         const phaseIndex = allPhases.indexOf(phase);
         if (phaseIndex > 0) {
           // Check if previous phases are accessible
-          const currentPhaseIndex = allPhases.indexOf(currentPhase || "context");
+          const currentPhaseIndex = allPhases.indexOf(currentPhase || "intro");
           if (currentPhaseIndex < phaseIndex - 1) {
             return; // Don't navigate to locked phase
           }
@@ -96,25 +92,25 @@ export function SidebarNav({ challengeParam: initialChallengeParam }: SidebarNav
   const handleChallengeClick = useCallback(
     (challengeId: string) => {
       if (!lessonId || !lesson) return;
-      
+
       // Check if challenge is accessible
-      const challengeIndex = lesson.phases.challenges.findIndex(c => c.id === challengeId);
-      
-      // First challenge is always accessible if we're in challenge phase
+      const challengeIndex = lesson.phases.quiz.findIndex(c => c.id === challengeId);
+
+      // First challenge is always accessible if we're in quiz phase
       if (challengeIndex === 0) {
-        if (currentPhase !== "challenge") {
-          return; // Must be in challenge phase to access challenges
+        if (currentPhase !== "quiz") {
+          return; // Must be in quiz phase to access challenges
         }
       } else if (challengeIndex > 0) {
         // Other challenges require previous challenge to be complete
-        const previousChallenge = lesson.phases.challenges[challengeIndex - 1];
+        const previousChallenge = lesson.phases.quiz[challengeIndex - 1];
         if (!isChallengeComplete(lessonId, previousChallenge.id)) {
           return; // Don't navigate to locked challenge
         }
       }
-      
-      router.push(`/learn-sql/${lessonId}/challenge/${challengeId}`);
-      goToPhase("challenge");
+
+      router.push(`/learn-sql/${lessonId}/quiz/${challengeId}`);
+      goToPhase("quiz");
     },
     [lessonId, lesson, router, goToPhase, currentPhase, isChallengeComplete]
   );
@@ -127,7 +123,7 @@ export function SidebarNav({ challengeParam: initialChallengeParam }: SidebarNav
       currentPhase={currentPhase}
       phases={phases}
       onPhaseClick={handlePhaseClick}
-      challenges={lesson?.phases.challenges || []}
+      challenges={lesson?.phases.quiz || []}
       currentChallengeId={challengeParam}
       onChallengeClick={handleChallengeClick}
       isChallengeComplete={isChallengeComplete}

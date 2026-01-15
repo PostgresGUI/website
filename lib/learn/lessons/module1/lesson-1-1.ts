@@ -1,20 +1,20 @@
 import { Lesson, ValidationResult } from '../types';
 
 export const lesson1_1: Lesson = {
-  id: 'creating-tables',
+  id: 'create-table',
   moduleId: '1',
-  title: 'Creating Tables',
+  title: 'CREATE TABLE',
   shortTitle: 'CREATE TABLE',
-  description: 'Learn how to create database tables with appropriate data types',
+  description: 'Learn how to create database tables with columns and data types like INTEGER, TEXT, and REAL',
   estimatedMinutes: 12,
   phases: {
-    context: {
+    intro: {
       name: 'Sam',
       role: 'Senior Database Engineer',
       message: "Welcome to PostgresGUI Inc! For your first task, we need to set up a new database table to track our employees. I'll walk you through how to create tables in SQL. This is fundamental - everything in a database starts with tables!",
       timestamp: 'Just now'
     },
-    concept: [
+    learn: [
       {
         title: 'CREATE TABLE Syntax',
         syntax: `CREATE TABLE table_name (
@@ -32,7 +32,7 @@ REAL      -- Decimal numbers (3.14, 99.99)`,
         explanation: 'Choose the right data type for each piece of information. INTEGER for counts and IDs, TEXT for names and descriptions, REAL for prices and measurements.'
       }
     ],
-    guided: {
+    practice: {
       prompt: 'Create a table called "employees" with columns for id (INTEGER) and name (TEXT)',
       template: `CREATE TABLE employees (
   id INTEGER,
@@ -51,7 +51,7 @@ REAL      -- Decimal numbers (3.14, 99.99)`,
         'Column definitions go inside parentheses, separated by commas'
       ]
     },
-    challenges: [
+    quiz: [
       {
         id: 'creating-tables-c1',
         title: 'Create a Products Table',
@@ -117,7 +117,7 @@ REAL      -- Decimal numbers (3.14, 99.99)`,
         }
       }
     ],
-    summary: {
+    cheatsheet: {
       id: 'card-creating-tables',
       title: 'CREATE TABLE',
       syntax: `CREATE TABLE table_name (
