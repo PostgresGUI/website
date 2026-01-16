@@ -9,6 +9,7 @@ interface SQLEditorProps {
   value: string;
   onChange: (value: string) => void;
   onRun?: () => void;
+  placeholder?: string;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -17,6 +18,7 @@ export function SQLEditor({
   value,
   onChange,
   onRun,
+  placeholder = "Write your SQL query here...",
   className = "",
   style,
 }: SQLEditorProps) {
@@ -31,6 +33,7 @@ export function SQLEditor({
           onRun?.();
         }
       }}
+      placeholder={placeholder}
       padding={12}
       className={className}
       style={{
