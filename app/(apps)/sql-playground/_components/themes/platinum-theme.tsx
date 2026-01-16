@@ -7,13 +7,13 @@ import {
   RotateCcw,
   Plus,
   Search,
-  FileCode2,
 } from "lucide-react";
 
 import type { ThemeProps } from "../../_lib/types";
 import { formatValue } from "../../_lib/utils";
 import { useSavedQueries } from "../../_lib/hooks";
 import { SQLEditor } from "../sql-editor";
+import { QueryListItem } from "../query-list-item";
 import "./platinum.css";
 
 export function PlatinumTheme({
@@ -34,11 +34,16 @@ export function PlatinumTheme({
   const {
     savedQueries,
     selectedQueryId,
+    editingQueryId,
+    setEditingQueryId,
     searchTerm,
     setSearchTerm,
     filteredQueries,
     handleAddQuery,
     handleSelectQuery,
+    handleRenameQuery,
+    handleDeleteQuery,
+    handleDuplicateQuery,
   } = useSavedQueries({ query, setQuery });
 
   return (
@@ -67,7 +72,7 @@ export function PlatinumTheme({
           <div className="flex-1 flex overflow-hidden bg-[#dddddd]">
             {/* Schema Explorer */}
             <aside className="w-56 border-r-2 border-[#888] bg-[#dddddd] flex flex-col">
-              <div className="px-3 py-2 border-b border-[#888] bg-[#cccccc]">
+              <div className="px-3 py-2 pb-0">
                 <span className="text-[13px] font-bold">Tables</span>
               </div>
               <div className="flex-1 overflow-y-auto platinum-scroll p-1">
@@ -202,20 +207,29 @@ export function PlatinumTheme({
                       </div>
                     ) : (
                       filteredQueries.map((q) => (
-                        <button
+                        <QueryListItem
                           key={q.id}
-                          onClick={() => handleSelectQuery(q)}
-                          className={`w-full flex items-center gap-2 px-2 py-1.5 text-[14px] mb-0.5 ${
-                            selectedQueryId === q.id
-                              ? "bg-[#000] text-[#fff]"
-                              : "hover:bg-[#000] hover:text-[#fff]"
-                          }`}
-                        >
-                          <FileCode2 className="w-4 h-4 flex-shrink-0" />
-                          <span className="flex-1 text-left truncate">
-                            {q.name}
-                          </span>
-                        </button>
+                          query={q}
+                          isSelected={selectedQueryId === q.id}
+                          isEditing={editingQueryId === q.id}
+                          onSelect={() => handleSelectQuery(q)}
+                          onStartEditing={() => setEditingQueryId(q.id)}
+                          onRename={(name) => handleRenameQuery(q.id, name)}
+                          onDuplicate={() => handleDuplicateQuery(q)}
+                          onDelete={() => handleDeleteQuery(q.id)}
+                          className="px-2 py-1.5 text-[14px] mb-0.5"
+                          selectedClassName="bg-[#000] text-[#fff]"
+                          hoverClassName="hover:bg-[#000] hover:text-[#fff]"
+                          iconClassName="text-current"
+                          selectedIconClassName="text-current"
+                          textClassName="text-current"
+                          selectedTextClassName="text-current"
+                          inputClassName="w-full px-1 py-0.5 text-[13px] bg-white text-black border border-[#888] focus:outline-none"
+                          actionClassName="text-current"
+                          dialogClassName="bg-[#dddddd] border-[#888] border-2 rounded-none shadow-[2px_2px_0_#000]"
+                          dialogCancelClassName="bg-[#dddddd] border-[#888] border-2 rounded-none text-black hover:bg-[#cccccc]"
+                          dialogDeleteClassName="bg-[#dddddd] border-[#888] border-2 rounded-none text-red-600 hover:bg-[#cccccc]"
+                        />
                       ))
                     )}
                   </div>

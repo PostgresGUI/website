@@ -8,13 +8,13 @@ import {
   AlertCircle,
   Plus,
   Search,
-  FileCode2,
 } from "lucide-react";
 
 import type { ThemeProps } from "../../_lib/types";
 import { formatValue } from "../../_lib/utils";
 import { useSavedQueries } from "../../_lib/hooks";
 import { SQLEditor } from "../sql-editor";
+import { QueryListItem } from "../query-list-item";
 import "./stone.css";
 
 export function StoneTheme({
@@ -35,11 +35,16 @@ export function StoneTheme({
   const {
     savedQueries,
     selectedQueryId,
+    editingQueryId,
+    setEditingQueryId,
     searchTerm,
     setSearchTerm,
     filteredQueries,
     handleAddQuery,
     handleSelectQuery,
+    handleRenameQuery,
+    handleDeleteQuery,
+    handleDuplicateQuery,
   } = useSavedQueries({ query, setQuery });
 
   return (
@@ -64,7 +69,7 @@ export function StoneTheme({
           <div className="flex-1 flex overflow-hidden bg-white">
             {/* Schema Explorer */}
             <aside className="w-60 stone-sidebar flex flex-col">
-              <div className="stone-sidebar-header px-4 py-3">
+              <div className="stone-sidebar-header px-4 py-3 pb-0">
                 <span
                   className="text-[12px] font-semibold text-stone-500 uppercase tracking-wider"
                   style={{
@@ -231,35 +236,28 @@ export function StoneTheme({
                       </div>
                     ) : (
                       filteredQueries.map((q) => (
-                        <button
+                        <QueryListItem
                           key={q.id}
-                          onClick={() => handleSelectQuery(q)}
-                          className={`stone-table-row w-full flex items-center gap-2 px-3 py-1 text-[13px] mb-1 ${
-                            selectedQueryId === q.id
-                              ? "bg-stone-200 ring-1 ring-stone-300"
-                              : ""
-                          }`}
-                          style={{
-                            fontFamily: '"DM Sans", system-ui, sans-serif',
-                          }}
-                        >
-                          <FileCode2
-                            className={`w-4 h-4 flex-shrink-0 ${
-                              selectedQueryId === q.id
-                                ? "text-stone-700"
-                                : "text-stone-500"
-                            }`}
-                          />
-                          <span
-                            className={`flex-1 text-left font-medium truncate ${
-                              selectedQueryId === q.id
-                                ? "text-stone-900"
-                                : "text-stone-700"
-                            }`}
-                          >
-                            {q.name}
-                          </span>
-                        </button>
+                          query={q}
+                          isSelected={selectedQueryId === q.id}
+                          isEditing={editingQueryId === q.id}
+                          onSelect={() => handleSelectQuery(q)}
+                          onStartEditing={() => setEditingQueryId(q.id)}
+                          onRename={(name) => handleRenameQuery(q.id, name)}
+                          onDuplicate={() => handleDuplicateQuery(q)}
+                          onDelete={() => handleDeleteQuery(q.id)}
+                          className="stone-table-row px-3 py-1 text-[13px] mb-1"
+                          selectedClassName="bg-stone-200 ring-1 ring-stone-300"
+                          iconClassName="text-stone-500"
+                          selectedIconClassName="text-stone-700"
+                          textClassName="text-stone-700"
+                          selectedTextClassName="text-stone-900"
+                          inputClassName="w-full px-2 py-0.5 text-[13px] bg-white border border-stone-300 rounded focus:outline-none focus:ring-1 focus:ring-stone-400"
+                          actionClassName="text-stone-500"
+                          dialogClassName="bg-stone-50 border-stone-200"
+                          dialogCancelClassName="bg-white border-stone-200 text-stone-700 hover:bg-stone-100"
+                          dialogDeleteClassName="bg-red-600 hover:bg-red-700 text-white"
+                        />
                       ))
                     )}
                   </div>

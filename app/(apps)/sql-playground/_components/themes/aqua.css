@@ -288,3 +288,74 @@
     inset 0 0 0 1px rgba(0, 0, 0, 0.08);
   border: 1px solid #888;
 }
+
+.aqua-btn-danger {
+  font-family: -apple-system, "Lucida Grande", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  height: 32px;
+  padding: 0 20px;
+  min-width: 80px;
+  border-radius: 1000px;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  outline: none;
+  background: linear-gradient(
+    rgba(184, 0, 0, 0.7),
+    rgba(220, 60, 60, 0.7),
+    rgba(200, 80, 80, 0.7)
+  );
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.35),
+    0 2px 2px rgba(150, 0, 0, 0.5),
+    inset 0 2px 4px rgba(80, 0, 0, 0.8),
+    inset 0 4px 6px 3px rgba(150, 30, 30, 0.75);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.aqua-btn-danger::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 35%;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.3)
+  );
+  width: calc(100% - 10px);
+  border-radius: 20px 20px 6px 6px;
+  top: 4%;
+  filter: blur(1px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.aqua-btn-danger::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 35%;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.5)
+  );
+  width: calc(100% - 12px);
+  border-radius: 8px;
+  bottom: 8%;
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.aqua-btn-danger span {
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 3px rgba(100, 0, 0, 0.6);
+}

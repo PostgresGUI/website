@@ -7,13 +7,13 @@ import {
   RotateCcw,
   Plus,
   Search,
-  FileCode2,
 } from "lucide-react";
 
 import type { ThemeProps } from "../../_lib/types";
 import { formatValue } from "../../_lib/utils";
 import { useSavedQueries } from "../../_lib/hooks";
 import { SQLEditor } from "../sql-editor";
+import { QueryListItem } from "../query-list-item";
 import "./aqua.css";
 
 export function AquaTheme({
@@ -34,11 +34,16 @@ export function AquaTheme({
   const {
     savedQueries,
     selectedQueryId,
+    editingQueryId,
+    setEditingQueryId,
     searchTerm,
     setSearchTerm,
     filteredQueries,
     handleAddQuery,
     handleSelectQuery,
+    handleRenameQuery,
+    handleDeleteQuery,
+    handleDuplicateQuery,
   } = useSavedQueries({ query, setQuery });
 
   return (
@@ -71,7 +76,7 @@ export function AquaTheme({
           <div className="flex-1 flex overflow-hidden bg-[#ddd]">
             {/* Schema Explorer */}
             <aside className="w-60 border-r border-[#888] bg-gradient-to-b from-[#f0f0f0] to-[#ddd] flex flex-col">
-              <div className="px-4 py-2 border-b border-[#aaa] bg-gradient-to-b from-[#d0d0d0] to-[#bbb]">
+              <div className="px-4 py-2 pb-0">
                 <span
                   className="text-[13px] font-bold text-[#222] uppercase tracking-wide"
                   style={{
@@ -242,35 +247,29 @@ export function AquaTheme({
                       </div>
                     ) : (
                       filteredQueries.map((q) => (
-                        <button
+                        <QueryListItem
                           key={q.id}
-                          onClick={() => handleSelectQuery(q)}
-                          className={`w-full flex items-center gap-2 px-3 py-2 rounded mb-1 transition-colors text-[14px] ${
-                            selectedQueryId === q.id
-                              ? "bg-[#b8d4f8] ring-1 ring-[#6aa8f0]"
-                              : "hover:bg-[#d8e8f8]"
-                          }`}
-                          style={{
-                            fontFamily: '-apple-system, "Lucida Grande", system-ui',
-                          }}
-                        >
-                          <FileCode2
-                            className={`w-4 h-4 flex-shrink-0 ${
-                              selectedQueryId === q.id
-                                ? "text-[#0044aa]"
-                                : "text-[#0055cc]"
-                            }`}
-                          />
-                          <span
-                            className={`flex-1 text-left font-medium truncate ${
-                              selectedQueryId === q.id
-                                ? "text-[#000]"
-                                : "text-[#222]"
-                            }`}
-                          >
-                            {q.name}
-                          </span>
-                        </button>
+                          query={q}
+                          isSelected={selectedQueryId === q.id}
+                          isEditing={editingQueryId === q.id}
+                          onSelect={() => handleSelectQuery(q)}
+                          onStartEditing={() => setEditingQueryId(q.id)}
+                          onRename={(name) => handleRenameQuery(q.id, name)}
+                          onDuplicate={() => handleDuplicateQuery(q)}
+                          onDelete={() => handleDeleteQuery(q.id)}
+                          className="px-3 py-2 rounded mb-1 transition-colors text-[14px]"
+                          selectedClassName="bg-[#b8d4f8] ring-1 ring-[#6aa8f0]"
+                          hoverClassName="hover:bg-[#d8e8f8]"
+                          iconClassName="text-[#0055cc]"
+                          selectedIconClassName="text-[#0044aa]"
+                          textClassName="text-[#222]"
+                          selectedTextClassName="text-[#000]"
+                          inputClassName="w-full px-2 py-0.5 text-[13px] bg-white border border-[#999] rounded focus:outline-none focus:ring-1 focus:ring-[#6aa8f0]"
+                          actionClassName="text-[#666]"
+                          dialogClassName="bg-gradient-to-b from-[#f0f0f0] to-[#ddd] border-[#888] rounded-lg shadow-xl"
+                          dialogCancelClassName="aqua-btn-secondary"
+                          dialogDeleteClassName="aqua-btn-danger"
+                        />
                       ))
                     )}
                   </div>
