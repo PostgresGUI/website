@@ -13,6 +13,7 @@ import {
 import type { ThemeProps } from "../../_lib/types";
 import { formatValue } from "../../_lib/utils";
 import { useSavedQueries } from "../../_lib/hooks";
+import { SQLEditor } from "../sql-editor";
 import "./aqua.css";
 
 export function AquaTheme({
@@ -302,36 +303,17 @@ export function AquaTheme({
                       </span>
                     )}
                   </div>
-                  <div className="flex-1 bg-[#1e1e1e]">
-                    <div className="h-full flex">
-                      <div
-                        className="py-3 px-3 text-right text-[14px] text-[#6e7681] select-none bg-[#252526] border-r border-[#3c3c3c]"
-                        style={{ fontFamily: 'Monaco, "Courier New", monospace' }}
-                      >
-                        {query.split("\n").map((_, i) => (
-                          <div key={i} className="leading-[22px]">
-                            {i + 1}
-                          </div>
-                        ))}
-                      </div>
-                      <div className="flex-1 relative bg-[#1e1e1e]">
-                        <textarea
-                          value={query}
-                          onChange={(e) => setQuery(e.target.value)}
-                          onKeyDown={(e) => {
-                            if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
-                              e.preventDefault();
-                              handleRun();
-                            }
-                          }}
-                          spellCheck={false}
-                          className="absolute inset-0 w-full h-full py-3 px-3 bg-transparent text-[14px] leading-[22px] resize-none focus:outline-none text-[#d4d4d4]"
-                          style={{
-                            fontFamily: 'Monaco, "Courier New", monospace',
-                          }}
-                        />
-                      </div>
-                    </div>
+                  <div className="flex-1 bg-[#1e1e1e] overflow-auto">
+                    <SQLEditor
+                      value={query}
+                      onChange={setQuery}
+                      onRun={handleRun}
+                      className="min-h-full"
+                      style={{
+                        background: "transparent",
+                        color: "#d4d4d4",
+                      }}
+                    />
                   </div>
                 </div>
               </div>

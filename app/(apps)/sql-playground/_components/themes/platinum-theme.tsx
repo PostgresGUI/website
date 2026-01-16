@@ -13,6 +13,7 @@ import {
 import type { ThemeProps } from "../../_lib/types";
 import { formatValue } from "../../_lib/utils";
 import { useSavedQueries } from "../../_lib/hooks";
+import { SQLEditor } from "../sql-editor";
 import "./platinum.css";
 
 export function PlatinumTheme({
@@ -242,32 +243,17 @@ export function PlatinumTheme({
                       </span>
                     )}
                   </div>
-                  <div className="flex-1 bg-[#1e1e1e] p-2">
-                    <div className="h-full flex">
-                      <div
-                        className="py-2 px-2 text-right text-[14px] text-[#6e7681] select-none bg-[#252526] border-r border-[#3c3c3c]"
-                        style={{ fontFamily: 'Monaco, "Courier New", monospace' }}
-                      >
-                        {query.split("\n").map((_, i) => (
-                          <div key={i} className="leading-[20px]">
-                            {i + 1}
-                          </div>
-                        ))}
-                      </div>
-                      <textarea
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        onKeyDown={(e) => {
-                          if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
-                            e.preventDefault();
-                            handleRun();
-                          }
-                        }}
-                        spellCheck={false}
-                        className="flex-1 h-full py-2 px-2 bg-[#1e1e1e] text-[14px] leading-[20px] resize-none focus:outline-none text-[#d4d4d4]"
-                        style={{ fontFamily: 'Monaco, "Courier New", monospace' }}
-                      />
-                    </div>
+                  <div className="flex-1 bg-[#1e1e1e] overflow-auto">
+                    <SQLEditor
+                      value={query}
+                      onChange={setQuery}
+                      onRun={handleRun}
+                      className="min-h-full"
+                      style={{
+                        background: "transparent",
+                        color: "#d4d4d4",
+                      }}
+                    />
                   </div>
                 </div>
               </div>

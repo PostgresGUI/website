@@ -14,6 +14,7 @@ import {
 import type { ThemeProps } from "../../_lib/types";
 import { formatValue } from "../../_lib/utils";
 import { useSavedQueries } from "../../_lib/hooks";
+import { SQLEditor } from "../sql-editor";
 import "./stone.css";
 
 export function StoneTheme({
@@ -291,28 +292,17 @@ export function StoneTheme({
                       </span>
                     )}
                   </div>
-                  <div className="flex-1 stone-editor">
-                    <div className="h-full flex">
-                      <div className="stone-line-numbers py-3 px-3 text-right text-[13px] select-none leading-[22px]">
-                        {query.split("\n").map((_, i) => (
-                          <div key={i}>{i + 1}</div>
-                        ))}
-                      </div>
-                      <div className="flex-1 relative">
-                        <textarea
-                          value={query}
-                          onChange={(e) => setQuery(e.target.value)}
-                          onKeyDown={(e) => {
-                            if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
-                              e.preventDefault();
-                              handleRun();
-                            }
-                          }}
-                          spellCheck={false}
-                          className="stone-editor-textarea absolute inset-0 w-full h-full py-3 px-3 resize-none focus:outline-none leading-[22px]"
-                        />
-                      </div>
-                    </div>
+                  <div className="flex-1 stone-editor overflow-auto">
+                    <SQLEditor
+                      value={query}
+                      onChange={setQuery}
+                      onRun={handleRun}
+                      className="min-h-full"
+                      style={{
+                        background: "transparent",
+                        color: "#d4d4d4",
+                      }}
+                    />
                   </div>
                 </div>
               </div>
