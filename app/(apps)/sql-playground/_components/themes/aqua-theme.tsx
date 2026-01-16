@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Play,
   Table2,
@@ -7,6 +8,8 @@ import {
   RotateCcw,
   Plus,
   Search,
+  Code2,
+  FileCode2,
 } from "lucide-react";
 
 import type { ThemeProps } from "../../_lib/types";
@@ -15,6 +18,8 @@ import { useSavedQueries } from "../../_lib/hooks";
 import { SQLEditor } from "../sql-editor";
 import { QueryListItem } from "../query-list-item";
 import "./aqua.css";
+
+type MobileTab = "tables" | "editor" | "queries";
 
 export function AquaTheme({
   query,
@@ -31,6 +36,7 @@ export function AquaTheme({
   selectedTable,
   onSelectTable,
 }: ThemeProps) {
+  const [mobileTab, setMobileTab] = useState<MobileTab>("editor");
   const {
     savedQueries,
     selectedQueryId,
@@ -50,18 +56,18 @@ export function AquaTheme({
     <div className="h-screen flex flex-col">
       <div className="absolute inset-0 aqua-pinstripe" />
 
-      <div className="relative flex-1 flex items-center justify-center p-6">
-        <div className="aqua-window w-full max-w-6xl h-[90vh] flex flex-col">
+      <div className="relative flex-1 flex items-center justify-center p-6 max-md:p-0">
+        <div className="aqua-window w-full max-w-6xl h-[90vh] max-md:h-screen max-md:max-w-full flex flex-col">
           {/* Title Bar */}
           <header className="brushed-metal flex items-center px-4 py-2">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 max-md:hidden">
               <button className="traffic-light traffic-close" />
               <button className="traffic-light traffic-minimize" />
               <button className="traffic-light traffic-maximize" />
             </div>
             <div className="flex-1 flex items-center justify-center">
               <h1
-                className="text-[16px] font-semibold text-[#111]"
+                className="text-[16px] max-md:text-[14px] font-semibold text-[#111]"
                 style={{
                   fontFamily: '-apple-system, "Lucida Grande", system-ui',
                 }}
@@ -69,13 +75,13 @@ export function AquaTheme({
                 SQL Playground
               </h1>
             </div>
-            <div className="w-[62px]" />
+            <div className="w-[62px] max-md:hidden" />
           </header>
 
           {/* Main Content */}
-          <div className="flex-1 flex overflow-hidden bg-[#ddd]">
+          <div className="flex-1 flex overflow-hidden bg-[#ddd] relative">
             {/* Schema Explorer */}
-            <aside className="w-60 border-r border-[#888] bg-gradient-to-b from-[#f0f0f0] to-[#ddd] flex flex-col">
+            <aside className={`w-60 max-md:w-full max-md:absolute max-md:inset-0 max-md:z-10 border-r border-[#888] max-md:border-0 bg-gradient-to-b from-[#f0f0f0] to-[#ddd] flex flex-col ${mobileTab !== "tables" ? "max-md:hidden" : ""}`}>
               <div className="px-4 py-2 pb-0">
                 <span
                   className="text-[13px] font-bold text-[#222] uppercase tracking-wide"
@@ -99,7 +105,10 @@ export function AquaTheme({
                   schema.map((table) => (
                     <button
                       key={table.name}
-                      onClick={() => onSelectTable(table.name)}
+                      onClick={() => {
+                        onSelectTable(table.name);
+                        setMobileTab("editor");
+                      }}
                       className={`w-full flex items-center gap-2 px-3 py-2 rounded mb-1 transition-colors text-[14px] ${
                         selectedTable === table.name
                           ? "bg-[#b8d4f8] ring-1 ring-[#6aa8f0]"
@@ -123,9 +132,9 @@ export function AquaTheme({
             </aside>
 
             {/* Results and Editor */}
-            <main className="flex-1 flex flex-col min-w-0">
+            <main className={`flex-1 flex flex-col min-w-0 max-md:absolute max-md:inset-0 ${mobileTab !== "editor" ? "max-md:hidden" : ""}`}>
               {/* Results Panel */}
-              <div className="flex-1 min-h-[180px] flex flex-col aqua-pinstripe">
+              <div className="flex-1 min-h-[180px] max-md:min-h-[40%] flex flex-col aqua-pinstripe">
                 {/* Header */}
                 <div className="flex items-end px-3 pt-2 border-b border-[#888] bg-gradient-to-b from-[#c8c8c8] to-[#b0b0b0]">
                   <span className="aqua-tab aqua-tab-active">Results</span>
@@ -197,9 +206,9 @@ export function AquaTheme({
               </div>
 
               {/* SQL Editor Row - 2 columns */}
-              <div className="flex-1 min-h-[180px] border-t border-[#888] flex">
-                {/* Column 1 - Saved Queries */}
-                <div className="w-60 border-r border-[#888] bg-gradient-to-b from-[#f0f0f0] to-[#ddd] flex flex-col">
+              <div className="flex-1 min-h-[180px] max-md:min-h-[60%] border-t border-[#888] flex">
+                {/* Column 1 - Saved Queries - Desktop only */}
+                <div className="w-60 max-md:hidden border-r border-[#888] bg-gradient-to-b from-[#f0f0f0] to-[#ddd] flex flex-col">
                   {/* Header: Title + Search + Add */}
                   <div className="px-2 pt-3 pb-2 flex flex-col gap-2">
                     <span
@@ -252,7 +261,10 @@ export function AquaTheme({
                           query={q}
                           isSelected={selectedQueryId === q.id}
                           isEditing={editingQueryId === q.id}
-                          onSelect={() => handleSelectQuery(q)}
+                          onSelect={() => {
+                            handleSelectQuery(q);
+                            setMobileTab("editor");
+                          }}
                           onStartEditing={() => setEditingQueryId(q.id)}
                           onRename={(name) => handleRenameQuery(q.id, name)}
                           onDuplicate={() => handleDuplicateQuery(q)}
@@ -293,7 +305,7 @@ export function AquaTheme({
                     </button>
                     {stats && (
                       <span
-                        className="text-[13px] font-medium text-[#333]"
+                        className="text-[13px] font-medium text-[#333] max-md:hidden"
                         style={{
                           fontFamily: '-apple-system, "Lucida Grande", system-ui',
                         }}
@@ -319,9 +331,105 @@ export function AquaTheme({
             </main>
           </div>
 
-          {/* Status Bar */}
+          {/* Mobile Queries Panel */}
+          <div className={`hidden max-md:flex absolute inset-0 top-[44px] z-20 flex-col bg-gradient-to-b from-[#f0f0f0] to-[#ddd] ${mobileTab !== "queries" ? "max-md:hidden" : ""}`}>
+            <div className="px-3 pt-3 pb-2 flex flex-col gap-2 border-b border-[#888]">
+              <span
+                className="px-1 text-[13px] font-bold text-[#222] uppercase tracking-wide"
+                style={{ fontFamily: '-apple-system, "Lucida Grande", system-ui' }}
+              >
+                Saved Queries
+              </span>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 relative">
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#666]" />
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-8 pr-3 py-2 text-[13px] bg-white border border-[#999] rounded focus:outline-none focus:ring-1 focus:ring-[#6aa8f0] focus:border-[#6aa8f0]"
+                    style={{ fontFamily: '-apple-system, "Lucida Grande", system-ui' }}
+                  />
+                </div>
+                <button
+                  onClick={handleAddQuery}
+                  className="p-2 bg-white border border-[#999] rounded hover:bg-[#e8e8e8] transition-colors"
+                  title="Add new query"
+                >
+                  <Plus className="w-4 h-4 text-[#444]" />
+                </button>
+              </div>
+            </div>
+            <div className="flex-1 overflow-y-auto aqua-scroll p-2">
+              {filteredQueries.length === 0 ? (
+                <div
+                  className="px-3 py-8 text-[13px] text-[#666] text-center"
+                  style={{ fontFamily: '-apple-system, "Lucida Grande", system-ui' }}
+                >
+                  {savedQueries.length === 0 ? "No saved queries" : "No matches found"}
+                </div>
+              ) : (
+                filteredQueries.map((q) => (
+                  <QueryListItem
+                    key={q.id}
+                    query={q}
+                    isSelected={selectedQueryId === q.id}
+                    isEditing={editingQueryId === q.id}
+                    onSelect={() => {
+                      handleSelectQuery(q);
+                      setMobileTab("editor");
+                    }}
+                    onStartEditing={() => setEditingQueryId(q.id)}
+                    onRename={(name) => handleRenameQuery(q.id, name)}
+                    onDuplicate={() => handleDuplicateQuery(q)}
+                    onDelete={() => handleDeleteQuery(q.id)}
+                    className="px-3 py-2 rounded mb-1 transition-colors text-[14px]"
+                    selectedClassName="bg-[#b8d4f8] ring-1 ring-[#6aa8f0]"
+                    hoverClassName="hover:bg-[#d8e8f8]"
+                    iconClassName="text-[#0055cc]"
+                    selectedIconClassName="text-[#0044aa]"
+                    textClassName="text-[#222]"
+                    selectedTextClassName="text-[#000]"
+                    inputClassName="w-full px-2 py-1 text-[14px] bg-white border border-[#999] rounded focus:outline-none focus:ring-1 focus:ring-[#6aa8f0]"
+                    actionClassName="text-[#666]"
+                    dialogClassName="bg-gradient-to-b from-[#f0f0f0] to-[#ddd] border-[#888] rounded-lg shadow-xl"
+                    dialogCancelClassName="aqua-btn-secondary"
+                    dialogDeleteClassName="aqua-btn-danger"
+                  />
+                ))
+              )}
+            </div>
+          </div>
+
+          {/* Mobile Tab Bar */}
+          <nav className="aqua-mobile-tabs" style={{ fontFamily: '-apple-system, "Lucida Grande", system-ui' }}>
+            <button
+              onClick={() => setMobileTab("tables")}
+              className={`aqua-mobile-tab ${mobileTab === "tables" ? "aqua-mobile-tab-active" : ""}`}
+            >
+              <Table2 />
+              <span>Tables</span>
+            </button>
+            <button
+              onClick={() => setMobileTab("queries")}
+              className={`aqua-mobile-tab ${mobileTab === "queries" ? "aqua-mobile-tab-active" : ""}`}
+            >
+              <FileCode2 />
+              <span>Queries</span>
+            </button>
+            <button
+              onClick={() => setMobileTab("editor")}
+              className={`aqua-mobile-tab ${mobileTab === "editor" ? "aqua-mobile-tab-active" : ""}`}
+            >
+              <Code2 />
+              <span>Editor</span>
+            </button>
+          </nav>
+
+          {/* Status Bar - Desktop only */}
           <footer
-            className="flex items-center justify-between px-4 py-2 bg-gradient-to-b from-[#ccc] to-[#aaa] border-t border-[#888] text-[13px] text-[#222] font-medium"
+            className="flex items-center justify-between px-4 py-2 bg-gradient-to-b from-[#ccc] to-[#aaa] border-t border-[#888] text-[13px] text-[#222] font-medium max-md:hidden"
             style={{
               fontFamily: '-apple-system, "Lucida Grande", system-ui',
             }}

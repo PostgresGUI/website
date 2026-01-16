@@ -371,3 +371,104 @@
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -2px rgba(0, 0, 0, 0.1);
 }
+
+/* Mobile Tab Bar */
+.stone-mobile-tabs {
+  display: none;
+  background: #ffffff;
+  border-top: 1px solid #d6d3d1;
+  padding: 8px 4px;
+  gap: 4px;
+}
+
+.stone-mobile-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  color: #78716c;
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.stone-mobile-tab:hover {
+  background: #f5f5f4;
+}
+
+.stone-mobile-tab-active {
+  color: #1c1917;
+  background: #e7e5e4;
+}
+
+.stone-mobile-tab svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .stone-mobile-tabs {
+    display: flex;
+  }
+
+  .stone-window {
+    border-radius: 0;
+    height: 100vh !important;
+    max-width: 100% !important;
+  }
+
+  .stone-header {
+    height: 44px;
+  }
+
+  .stone-header h1 {
+    font-size: 14px !important;
+  }
+
+  .stone-statusbar {
+    display: none;
+  }
+
+  .stone-sidebar,
+  .stone-queries-panel {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    z-index: 10;
+    border: none !important;
+  }
+
+  .stone-main-content {
+    position: relative;
+  }
+
+  .stone-results-panel,
+  .stone-editor-panel {
+    position: absolute;
+    inset: 0;
+    min-height: 100% !important;
+  }
+
+  .stone-editor-row {
+    flex-direction: column !important;
+  }
+
+  .stone-btn-primary {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .stone-table th,
+  .stone-table td {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}

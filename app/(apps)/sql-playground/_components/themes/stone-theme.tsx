@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Play,
   Table2,
@@ -8,6 +9,8 @@ import {
   AlertCircle,
   Plus,
   Search,
+  Code2,
+  FileCode2,
 } from "lucide-react";
 
 import type { ThemeProps } from "../../_lib/types";
@@ -16,6 +19,8 @@ import { useSavedQueries } from "../../_lib/hooks";
 import { SQLEditor } from "../sql-editor";
 import { QueryListItem } from "../query-list-item";
 import "./stone.css";
+
+type MobileTab = "tables" | "editor" | "queries";
 
 export function StoneTheme({
   query,
@@ -32,6 +37,7 @@ export function StoneTheme({
   selectedTable,
   onSelectTable,
 }: ThemeProps) {
+  const [mobileTab, setMobileTab] = useState<MobileTab>("editor");
   const {
     savedQueries,
     selectedQueryId,
@@ -51,8 +57,8 @@ export function StoneTheme({
     <div className="h-screen flex flex-col">
       <div className="absolute inset-0 stone-bg" />
 
-      <div className="relative flex-1 flex items-center justify-center p-6">
-        <div className="stone-window w-full max-w-6xl h-[85vh] flex flex-col">
+      <div className="relative flex-1 flex items-center justify-center p-6 max-md:p-0">
+        <div className="stone-window w-full max-w-6xl h-[85vh] max-md:h-screen max-md:max-w-full flex flex-col">
           {/* Header */}
           <header className="stone-header flex items-center justify-center px-4">
             <h1
@@ -66,9 +72,9 @@ export function StoneTheme({
           </header>
 
           {/* Main Content */}
-          <div className="flex-1 flex overflow-hidden bg-white">
-            {/* Schema Explorer */}
-            <aside className="w-60 stone-sidebar flex flex-col">
+          <div className="flex-1 flex overflow-hidden bg-white relative">
+            {/* Schema Explorer - Desktop sidebar, Mobile full panel */}
+            <aside className={`w-60 max-md:w-full max-md:absolute max-md:inset-0 max-md:z-10 stone-sidebar flex flex-col bg-stone-50 ${mobileTab !== "tables" ? "max-md:hidden" : ""}`}>
               <div className="stone-sidebar-header px-4 py-3 pb-0">
                 <span
                   className="text-[12px] font-semibold text-stone-500 uppercase tracking-wider"
@@ -92,7 +98,10 @@ export function StoneTheme({
                   schema.map((table) => (
                     <button
                       key={table.name}
-                      onClick={() => onSelectTable(table.name)}
+                      onClick={() => {
+                        onSelectTable(table.name);
+                        setMobileTab("editor");
+                      }}
                       className={`stone-table-row w-full flex items-center gap-2 px-3 py-2 text-[13px] mb-1 ${
                         selectedTable === table.name
                           ? "bg-stone-200 ring-1 ring-stone-300"
@@ -116,9 +125,9 @@ export function StoneTheme({
             </aside>
 
             {/* Results and Editor */}
-            <main className="flex-1 flex flex-col min-w-0">
+            <main className={`flex-1 flex flex-col min-w-0 max-md:absolute max-md:inset-0 ${mobileTab !== "editor" ? "max-md:hidden" : ""}`}>
               {/* Results Panel */}
-              <div className="flex-1 min-h-[180px] flex flex-col bg-white">
+              <div className="flex-1 min-h-[180px] max-md:min-h-[40%] flex flex-col bg-white">
                 {/* Header */}
                 <div className="stone-results-header flex items-center px-1">
                   <button className="stone-tab stone-tab-active">Results</button>
@@ -185,10 +194,10 @@ export function StoneTheme({
                 </div>
               </div>
 
-              {/* SQL Editor Row - 2 columns */}
-              <div className="flex-1 min-h-[180px] border-t border-stone-200 flex">
-                {/* Column 1 - Saved Queries */}
-                <div className="w-60 border-r border-stone-200 flex flex-col bg-stone-50/50">
+              {/* SQL Editor Row - 2 columns on desktop */}
+              <div className="flex-1 min-h-[180px] max-md:min-h-[60%] border-t border-stone-200 flex max-md:flex-col">
+                {/* Column 1 - Saved Queries - Desktop only in this row */}
+                <div className="w-60 max-md:hidden border-r border-stone-200 flex flex-col bg-stone-50/50">
                   {/* Header: Title + Search + Add */}
                   <div className="px-2 pt-3 pb-2 flex flex-col gap-2">
                     <span
@@ -241,7 +250,10 @@ export function StoneTheme({
                           query={q}
                           isSelected={selectedQueryId === q.id}
                           isEditing={editingQueryId === q.id}
-                          onSelect={() => handleSelectQuery(q)}
+                          onSelect={() => {
+                            handleSelectQuery(q);
+                            setMobileTab("editor");
+                          }}
                           onStartEditing={() => setEditingQueryId(q.id)}
                           onRename={(name) => handleRenameQuery(q.id, name)}
                           onDuplicate={() => handleDuplicateQuery(q)}
@@ -281,7 +293,7 @@ export function StoneTheme({
                     </button>
                     {stats && (
                       <span
-                        className="text-[12px] font-medium text-stone-500"
+                        className="text-[12px] font-medium text-stone-500 max-md:hidden"
                         style={{
                           fontFamily: '"DM Sans", system-ui, sans-serif',
                         }}
@@ -307,9 +319,104 @@ export function StoneTheme({
             </main>
           </div>
 
-          {/* Status Bar */}
+          {/* Mobile Queries Panel */}
+          <div className={`hidden max-md:flex absolute inset-0 top-[48px] z-20 flex-col bg-stone-50 ${mobileTab !== "queries" ? "max-md:hidden" : ""}`}>
+            <div className="px-3 pt-3 pb-2 flex flex-col gap-2 border-b border-stone-200">
+              <span
+                className="px-1 text-[12px] font-semibold text-stone-500 uppercase tracking-wider"
+                style={{ fontFamily: '"DM Sans", system-ui, sans-serif' }}
+              >
+                Saved Queries
+              </span>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 relative">
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-stone-400" />
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-8 pr-3 py-2 text-[13px] bg-white border border-stone-200 rounded-md focus:outline-none focus:ring-1 focus:ring-stone-400 focus:border-stone-400"
+                    style={{ fontFamily: '"DM Sans", system-ui, sans-serif' }}
+                  />
+                </div>
+                <button
+                  onClick={handleAddQuery}
+                  className="p-2 bg-white border border-stone-200 rounded-md hover:bg-stone-100 transition-colors"
+                  title="Add new query"
+                >
+                  <Plus className="w-4 h-4 text-stone-600" />
+                </button>
+              </div>
+            </div>
+            <div className="flex-1 overflow-y-auto stone-scroll p-2">
+              {filteredQueries.length === 0 ? (
+                <div
+                  className="px-3 py-8 text-[13px] text-stone-400 text-center"
+                  style={{ fontFamily: '"DM Sans", system-ui, sans-serif' }}
+                >
+                  {savedQueries.length === 0 ? "No saved queries" : "No matches found"}
+                </div>
+              ) : (
+                filteredQueries.map((q) => (
+                  <QueryListItem
+                    key={q.id}
+                    query={q}
+                    isSelected={selectedQueryId === q.id}
+                    isEditing={editingQueryId === q.id}
+                    onSelect={() => {
+                      handleSelectQuery(q);
+                      setMobileTab("editor");
+                    }}
+                    onStartEditing={() => setEditingQueryId(q.id)}
+                    onRename={(name) => handleRenameQuery(q.id, name)}
+                    onDuplicate={() => handleDuplicateQuery(q)}
+                    onDelete={() => handleDeleteQuery(q.id)}
+                    className="stone-table-row px-3 py-2 text-[14px] mb-1"
+                    selectedClassName="bg-stone-200 ring-1 ring-stone-300"
+                    iconClassName="text-stone-500"
+                    selectedIconClassName="text-stone-700"
+                    textClassName="text-stone-700"
+                    selectedTextClassName="text-stone-900"
+                    inputClassName="w-full px-2 py-1 text-[14px] bg-white border border-stone-300 rounded focus:outline-none focus:ring-1 focus:ring-stone-400"
+                    actionClassName="text-stone-500"
+                    dialogClassName="bg-stone-50 border-stone-200"
+                    dialogCancelClassName="bg-white border-stone-200 text-stone-700 hover:bg-stone-100"
+                    dialogDeleteClassName="bg-red-600 hover:bg-red-700 text-white"
+                  />
+                ))
+              )}
+            </div>
+          </div>
+
+          {/* Mobile Tab Bar */}
+          <nav className="stone-mobile-tabs" style={{ fontFamily: '"DM Sans", system-ui, sans-serif' }}>
+            <button
+              onClick={() => setMobileTab("tables")}
+              className={`stone-mobile-tab ${mobileTab === "tables" ? "stone-mobile-tab-active" : ""}`}
+            >
+              <Table2 />
+              <span>Tables</span>
+            </button>
+            <button
+              onClick={() => setMobileTab("queries")}
+              className={`stone-mobile-tab ${mobileTab === "queries" ? "stone-mobile-tab-active" : ""}`}
+            >
+              <FileCode2 />
+              <span>Queries</span>
+            </button>
+            <button
+              onClick={() => setMobileTab("editor")}
+              className={`stone-mobile-tab ${mobileTab === "editor" ? "stone-mobile-tab-active" : ""}`}
+            >
+              <Code2 />
+              <span>Editor</span>
+            </button>
+          </nav>
+
+          {/* Status Bar - Desktop only */}
           <footer
-            className="stone-statusbar flex items-center justify-between px-4 text-[12px] text-stone-600 font-medium"
+            className="stone-statusbar flex items-center justify-between px-4 text-[12px] text-stone-600 font-medium max-md:hidden"
             style={{
               fontFamily: '"DM Sans", system-ui, sans-serif',
             }}
