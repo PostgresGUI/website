@@ -11,7 +11,7 @@ import { AquaTheme } from "./themes/aqua-theme";
 import { StoneTheme } from "./themes/stone-theme";
 
 export function Playground() {
-  const [theme, setTheme] = useState<Theme>("stone");
+  const [theme, setTheme] = useState<Theme | null>(null);
   const [query, setQuery] = useState(defaultQuery);
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
   const [isExecuting, setIsExecuting] = useState(false);
@@ -30,11 +30,13 @@ export function Playground() {
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load theme from localStorage
+  // Load theme from localStorage (runs before first paint due to null initial state)
   useEffect(() => {
     const saved = localStorage.getItem(THEME_STORAGE_KEY);
     if (saved === "aqua" || saved === "platinum" || saved === "stone") {
       setTheme(saved);
+    } else {
+      setTheme("stone"); // Default theme
     }
   }, []);
 
@@ -130,6 +132,11 @@ export function Playground() {
     selectedTable,
     onSelectTable: handleSelectTable,
   };
+
+  // Don't render until theme is loaded from localStorage to prevent flash
+  if (!theme) {
+    return null;
+  }
 
   const ThemeComponent =
     theme === "platinum"
