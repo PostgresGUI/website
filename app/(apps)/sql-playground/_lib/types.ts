@@ -1,22 +1,5 @@
 export type Theme = "aqua" | "platinum" | "stone";
 
-export interface Column {
-  name: string;
-  type: "integer" | "decimal" | "varchar" | "timestamp";
-}
-
-export interface Table {
-  name: string;
-  columns: Column[];
-}
-
-export interface ResultRow {
-  id: number;
-  name: string;
-  email: string;
-  created_at: string;
-}
-
 export interface PlaygroundState {
   theme: Theme;
   setTheme: (theme: Theme) => void;
@@ -24,8 +7,11 @@ export interface PlaygroundState {
   setQuery: (query: string) => void;
   expandedTables: string[];
   toggleTable: (name: string) => void;
-  selectedDb: string;
-  setSelectedDb: (db: string) => void;
   isExecuting: boolean;
   handleRun: () => void;
+  handleReset: () => void;
+  schema: { name: string; columns: { name: string; type: string }[] }[];
+  results: { columns: string[]; rows: Record<string, unknown>[] } | null;
+  error: string | null;
+  stats: { rowCount: number; duration: number } | null;
 }

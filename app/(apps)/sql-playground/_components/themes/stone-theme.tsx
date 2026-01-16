@@ -2,28 +2,51 @@
 
 import {
   Play,
-  ChevronRight,
-  ChevronDown,
   Table2,
   Loader2,
+  RotateCcw,
+  AlertCircle,
 } from "lucide-react";
-import type { PlaygroundState } from "../../_lib/types";
-import { schemaData, mockResults, databaseOptions } from "../../_lib/data";
-import { getTypeIcon } from "../../_lib/utils";
 
 import "./stone.css";
 
-type Props = Omit<PlaygroundState, "theme" | "setTheme">;
+interface Props {
+  query: string;
+  setQuery: (query: string) => void;
+  isExecuting: boolean;
+  handleRun: () => void;
+  handleReset: () => void;
+  schema: { name: string; columns: { name: string; type: string }[] }[];
+  results: { columns: string[]; rows: Record<string, unknown>[] } | null;
+  error: string | null;
+  stats: { rowCount: number; duration: number } | null;
+  isLoading: boolean;
+  isResetting: boolean;
+  selectedTable: string | null;
+  onSelectTable: (name: string) => void;
+}
+
+function formatValue(value: unknown): string {
+  if (value === null) return "NULL";
+  if (value instanceof Date) return value.toISOString();
+  if (typeof value === "object") return JSON.stringify(value);
+  return String(value);
+}
 
 export function StoneTheme({
   query,
   setQuery,
-  expandedTables,
-  toggleTable,
-  selectedDb,
-  setSelectedDb,
   isExecuting,
   handleRun,
+  handleReset,
+  schema,
+  results,
+  error,
+  stats,
+  isLoading,
+  isResetting,
+  selectedTable,
+  onSelectTable,
 }: Props) {
   return (
     <div className="h-screen flex flex-col">
@@ -43,31 +66,6 @@ export function StoneTheme({
             </h1>
           </header>
 
-          {/* Toolbar */}
-          <div className="stone-toolbar flex items-center px-4 py-3">
-            <div className="flex items-center gap-3">
-              <span
-                className="text-[13px] font-medium text-stone-600"
-                style={{
-                  fontFamily: '"DM Sans", system-ui, sans-serif',
-                }}
-              >
-                Database
-              </span>
-              <select
-                value={selectedDb}
-                onChange={(e) => setSelectedDb(e.target.value)}
-                className="stone-select"
-              >
-                {databaseOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
           {/* Main Content */}
           <div className="flex-1 flex overflow-hidden bg-white">
             {/* Schema Explorer */}
@@ -83,53 +81,38 @@ export function StoneTheme({
                 </span>
               </div>
               <div className="flex-1 overflow-y-auto stone-scroll p-2">
-                {schemaData.map((table) => (
-                  <div key={table.name} className="mb-1">
+                {isLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className="w-5 h-5 text-stone-400 animate-spin" />
+                  </div>
+                ) : schema.length === 0 ? (
+                  <div className="px-3 py-4 text-[13px] text-stone-500">
+                    No tables found
+                  </div>
+                ) : (
+                  schema.map((table) => (
                     <button
-                      onClick={() => toggleTable(table.name)}
-                      className="stone-table-row w-full flex items-center gap-2 px-3 py-2 text-[13px]"
+                      key={table.name}
+                      onClick={() => onSelectTable(table.name)}
+                      className={`stone-table-row w-full flex items-center gap-2 px-3 py-2 text-[13px] mb-1 ${
+                        selectedTable === table.name
+                          ? "bg-stone-200 ring-1 ring-stone-300"
+                          : ""
+                      }`}
                       style={{
                         fontFamily: '"DM Sans", system-ui, sans-serif',
                       }}
                     >
-                      {expandedTables.includes(table.name) ? (
-                        <ChevronDown className="w-4 h-4 text-stone-400" />
-                      ) : (
-                        <ChevronRight className="w-4 h-4 text-stone-400" />
-                      )}
-                      <Table2 className="w-4 h-4 text-stone-500" />
-                      <span className="flex-1 text-left text-stone-700 font-medium">
+                      <Table2 className={`w-4 h-4 ${selectedTable === table.name ? "text-stone-700" : "text-stone-500"}`} />
+                      <span className={`flex-1 text-left font-medium ${selectedTable === table.name ? "text-stone-900" : "text-stone-700"}`}>
                         {table.name}
                       </span>
                       <span className="stone-badge">
                         {table.columns.length}
                       </span>
                     </button>
-                    {expandedTables.includes(table.name) && (
-                      <div className="ml-5 mt-1 border-l border-stone-200 pl-3">
-                        {table.columns.map((col) => (
-                          <div
-                            key={col.name}
-                            className="stone-column-row flex items-center gap-2 px-3 py-1.5 text-[13px] text-stone-600 cursor-default"
-                            style={{
-                              fontFamily: '"DM Sans", system-ui, sans-serif',
-                            }}
-                          >
-                            <span className="text-stone-400">
-                              {getTypeIcon(col.type, "stone")}
-                            </span>
-                            <span className="flex-1 font-medium text-stone-700">
-                              {col.name}
-                            </span>
-                            <span className="stone-badge-type">
-                              {col.type}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </aside>
 
@@ -140,56 +123,76 @@ export function StoneTheme({
                 {/* Header */}
                 <div className="stone-results-header flex items-center px-1">
                   <button className="stone-tab stone-tab-active">Results</button>
-                  <div className="flex-1" />
-                  <span
-                    className="text-[12px] font-medium text-stone-500 pr-4"
-                    style={{
-                      fontFamily: '"DM Sans", system-ui, sans-serif',
-                    }}
-                  >
-                    5 rows in 0.023s
-                  </span>
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 overflow-auto stone-scroll m-3 stone-inset overflow-x-auto">
-                  <table
-                    className="stone-table w-full text-[13px] border-collapse"
-                    style={{
-                      fontFamily: '"DM Sans", system-ui, sans-serif',
-                    }}
-                  >
-                    <thead>
-                      <tr>
-                        <th>id</th>
-                        <th>name</th>
-                        <th>email</th>
-                        <th>created_at</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {mockResults.map((row) => (
-                        <tr key={row.id}>
-                          <td className="stone-data-number">{row.id}</td>
-                          <td className="stone-data-string">{row.name}</td>
-                          <td className="stone-data-string text-stone-500">
-                            {row.email}
-                          </td>
-                          <td className="stone-data-date">{row.created_at}</td>
+                <div className="flex-1 overflow-auto stone-scroll m-3 stone-inset">
+                  {error ? (
+                    <div className="flex items-start gap-3 p-4 text-red-600">
+                      <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <div
+                          className="font-medium text-[13px]"
+                          style={{ fontFamily: '"DM Sans", system-ui, sans-serif' }}
+                        >
+                          Query Error
+                        </div>
+                        <pre className="mt-1 text-[12px] text-red-500 whitespace-pre-wrap font-mono">
+                          {error}
+                        </pre>
+                      </div>
+                    </div>
+                  ) : !results ? (
+                    <div
+                      className="flex items-center justify-center h-full text-[13px] text-stone-400"
+                      style={{ fontFamily: '"DM Sans", system-ui, sans-serif' }}
+                    >
+                      Run a query to see results
+                    </div>
+                  ) : results.rows.length === 0 ? (
+                    <div
+                      className="flex items-center justify-center h-full text-[13px] text-stone-400"
+                      style={{ fontFamily: '"DM Sans", system-ui, sans-serif' }}
+                    >
+                      Query returned no rows
+                    </div>
+                  ) : (
+                    <table
+                      className="stone-table w-full text-[13px] border-collapse"
+                      style={{
+                        fontFamily: '"DM Sans", system-ui, sans-serif',
+                      }}
+                    >
+                      <thead>
+                        <tr>
+                          {results.columns.map((col) => (
+                            <th key={col}>{col}</th>
+                          ))}
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {results.rows.map((row, idx) => (
+                          <tr key={idx}>
+                            {results.columns.map((col) => (
+                              <td key={col} className="stone-data-string">
+                                {formatValue(row[col])}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
                 </div>
               </div>
 
               {/* SQL Editor */}
               <div className="flex-1 min-h-[180px] border-t border-stone-200 flex flex-col">
                 {/* Editor Toolbar */}
-                <div className="stone-editor-toolbar flex items-center px-4 py-2">
+                <div className="stone-editor-toolbar flex items-center px-4 py-2 gap-3">
                   <button
                     onClick={handleRun}
-                    disabled={isExecuting}
+                    disabled={isExecuting || isLoading}
                     className="stone-btn-primary"
                   >
                     {isExecuting ? (
@@ -199,6 +202,16 @@ export function StoneTheme({
                     )}
                     <span>{isExecuting ? "Running..." : "Run Query"}</span>
                   </button>
+                  {stats && (
+                    <span
+                      className="text-[12px] font-medium text-stone-500"
+                      style={{
+                        fontFamily: '"DM Sans", system-ui, sans-serif',
+                      }}
+                    >
+                      {stats.rowCount} rows in {stats.duration}s
+                    </span>
+                  )}
                 </div>
                 <div className="flex-1 stone-editor">
                   <div className="h-full flex">
@@ -211,6 +224,12 @@ export function StoneTheme({
                       <textarea
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
+                        onKeyDown={(e) => {
+                          if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+                            e.preventDefault();
+                            handleRun();
+                          }
+                        }}
                         spellCheck={false}
                         className="stone-editor-textarea absolute inset-0 w-full h-full py-3 px-3 resize-none focus:outline-none leading-[22px]"
                       />
@@ -229,10 +248,21 @@ export function StoneTheme({
             }}
           >
             <div className="flex items-center gap-2">
-              <span className="stone-status-dot" />
-              <span>Connected to sample_db</span>
+              <span className={`stone-status-dot ${isLoading ? "opacity-50" : ""}`} />
+              <span>{isLoading ? "Initializing..." : "Ready"}</span>
             </div>
-            <span className="stone-status-badge">PostgreSQL 16</span>
+            <button
+              onClick={handleReset}
+              disabled={isResetting || isLoading}
+              className="stone-btn-reset flex items-center gap-1.5 px-3 py-1 text-[11px] font-semibold text-stone-600 hover:text-stone-900 hover:bg-stone-200 rounded transition-colors disabled:opacity-50"
+            >
+              {isResetting ? (
+                <Loader2 className="w-3 h-3 animate-spin" />
+              ) : (
+                <RotateCcw className="w-3 h-3" />
+              )}
+              Reset
+            </button>
           </footer>
         </div>
       </div>
