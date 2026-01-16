@@ -1,13 +1,26 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import {
   Play,
   Table2,
   Loader2,
   RotateCcw,
+  Plus,
+  Search,
+  FileCode2,
 } from "lucide-react";
 
 import "./aqua.css";
+
+interface SavedQuery {
+  id: string;
+  name: string;
+  query: string;
+}
+
+const QUERIES_STORAGE_KEY = "sql-playground-saved-queries";
+const SELECTED_QUERY_KEY = "sql-playground-selected-query";
 
 interface Props {
   query: string;
@@ -47,6 +60,64 @@ export function AquaTheme({
   selectedTable,
   onSelectTable,
 }: Props) {
+  const [savedQueries, setSavedQueries] = useState<SavedQuery[]>([]);
+  const [selectedQueryId, setSelectedQueryId] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Load saved queries from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem(QUERIES_STORAGE_KEY);
+    if (saved) {
+      try {
+        setSavedQueries(JSON.parse(saved));
+      } catch {
+        // Invalid JSON, ignore
+      }
+    }
+    const selectedId = localStorage.getItem(SELECTED_QUERY_KEY);
+    if (selectedId) {
+      setSelectedQueryId(selectedId);
+    }
+  }, []);
+
+  // Auto-save query as user types
+  useEffect(() => {
+    if (!selectedQueryId) return;
+
+    setSavedQueries((prev) => {
+      const updated = prev.map((q) =>
+        q.id === selectedQueryId ? { ...q, query } : q
+      );
+      localStorage.setItem(QUERIES_STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
+  }, [query, selectedQueryId]);
+
+  const handleAddQuery = () => {
+    const newQuery: SavedQuery = {
+      id: crypto.randomUUID(),
+      name: `Query ${savedQueries.length + 1}`,
+      query: "",
+    };
+    const updated = [...savedQueries, newQuery];
+    setSavedQueries(updated);
+    localStorage.setItem(QUERIES_STORAGE_KEY, JSON.stringify(updated));
+    setSelectedQueryId(newQuery.id);
+    localStorage.setItem(SELECTED_QUERY_KEY, newQuery.id);
+    setQuery("");
+  };
+
+  const handleSelectQuery = (q: SavedQuery) => {
+    setSelectedQueryId(q.id);
+    localStorage.setItem(SELECTED_QUERY_KEY, q.id);
+    setQuery(q.query);
+  };
+
+  const filteredQueries = savedQueries.filter((q) =>
+    q.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    q.query.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="h-screen flex flex-col">
       <div className="absolute inset-0 aqua-pinstripe" />
@@ -197,61 +268,147 @@ export function AquaTheme({
                 </div>
               </div>
 
-              {/* SQL Editor */}
-              <div className="flex-1 min-h-[180px] border-t border-[#888] flex flex-col">
-                {/* Editor Toolbar */}
-                <div className="flex items-center px-3 py-2 gap-3 bg-gradient-to-b from-[#c8c8c8] to-[#b0b0b0] border-b border-[#888]">
-                  <button
-                    onClick={handleRun}
-                    disabled={isExecuting || isLoading}
-                    className="aqua-btn-primary"
-                  >
-                    {isExecuting ? (
-                      <Loader2 className="w-4 h-4 animate-spin relative z-10" />
-                    ) : (
-                      <Play className="w-4 h-4 relative z-10" />
-                    )}
-                    <span>{isExecuting ? "Running..." : "Run Query"}</span>
-                  </button>
-                  {stats && (
+              {/* SQL Editor Row - 2 columns */}
+              <div className="flex-1 min-h-[180px] border-t border-[#888] flex">
+                {/* Column 1 - Saved Queries */}
+                <div className="w-60 border-r border-[#888] bg-gradient-to-b from-[#f0f0f0] to-[#ddd] flex flex-col">
+                  {/* Header: Title + Search + Add */}
+                  <div className="px-2 pt-3 pb-2 flex flex-col gap-2">
                     <span
-                      className="text-[13px] font-medium text-[#333]"
+                      className="px-2 text-[13px] font-bold text-[#222] uppercase tracking-wide"
                       style={{
                         fontFamily: '-apple-system, "Lucida Grande", system-ui',
                       }}
                     >
-                      {stats.rowCount} rows • {stats.duration}s
+                      Queries
                     </span>
-                  )}
-                </div>
-                <div className="flex-1 bg-[#1e1e1e]">
-                  <div className="h-full flex">
-                    <div
-                      className="py-3 px-3 text-right text-[14px] text-[#6e7681] select-none bg-[#252526] border-r border-[#3c3c3c]"
-                      style={{ fontFamily: 'Monaco, "Courier New", monospace' }}
-                    >
-                      {query.split("\n").map((_, i) => (
-                        <div key={i} className="leading-[22px]">
-                          {i + 1}
-                        </div>
-                      ))}
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 relative">
+                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#666]" />
+                        <input
+                          type="text"
+                          placeholder="Search..."
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="w-full pl-8 pr-3 py-1.5 text-[12px] bg-white border border-[#999] rounded focus:outline-none focus:ring-1 focus:ring-[#6aa8f0] focus:border-[#6aa8f0]"
+                          style={{
+                            fontFamily: '-apple-system, "Lucida Grande", system-ui',
+                          }}
+                        />
+                      </div>
+                      <button
+                        onClick={handleAddQuery}
+                        className="p-1.5 bg-white border border-[#999] rounded hover:bg-[#e8e8e8] transition-colors"
+                        title="Add new query"
+                      >
+                        <Plus className="w-4 h-4 text-[#444]" />
+                      </button>
                     </div>
-                    <div className="flex-1 relative bg-[#1e1e1e]">
-                      <textarea
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        onKeyDown={(e) => {
-                          if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
-                            e.preventDefault();
-                            handleRun();
-                          }
-                        }}
-                        spellCheck={false}
-                        className="absolute inset-0 w-full h-full py-3 px-3 bg-transparent text-[14px] leading-[22px] resize-none focus:outline-none text-[#d4d4d4]"
+                  </div>
+
+                  {/* List */}
+                  <div className="flex-1 overflow-y-auto aqua-scroll px-2 pb-2">
+                    {filteredQueries.length === 0 ? (
+                      <div
+                        className="px-3 py-4 text-[12px] text-[#666] text-center"
+                        style={{ fontFamily: '-apple-system, "Lucida Grande", system-ui' }}
+                      >
+                        {savedQueries.length === 0
+                          ? "No saved queries"
+                          : "No matches found"}
+                      </div>
+                    ) : (
+                      filteredQueries.map((q) => (
+                        <button
+                          key={q.id}
+                          onClick={() => handleSelectQuery(q)}
+                          className={`w-full flex items-center gap-2 px-3 py-2 rounded mb-1 transition-colors text-[14px] ${
+                            selectedQueryId === q.id
+                              ? "bg-[#b8d4f8] ring-1 ring-[#6aa8f0]"
+                              : "hover:bg-[#d8e8f8]"
+                          }`}
+                          style={{
+                            fontFamily: '-apple-system, "Lucida Grande", system-ui',
+                          }}
+                        >
+                          <FileCode2
+                            className={`w-4 h-4 flex-shrink-0 ${
+                              selectedQueryId === q.id
+                                ? "text-[#0044aa]"
+                                : "text-[#0055cc]"
+                            }`}
+                          />
+                          <span
+                            className={`flex-1 text-left font-medium truncate ${
+                              selectedQueryId === q.id
+                                ? "text-[#000]"
+                                : "text-[#222]"
+                            }`}
+                          >
+                            {q.name}
+                          </span>
+                        </button>
+                      ))
+                    )}
+                  </div>
+                </div>
+
+                {/* Column 2 - Query Editor */}
+                <div className="flex-1 flex flex-col">
+                  {/* Editor Toolbar */}
+                  <div className="flex items-center px-3 py-2 gap-3 bg-gradient-to-b from-[#c8c8c8] to-[#b0b0b0] border-b border-[#888]">
+                    <button
+                      onClick={handleRun}
+                      disabled={isExecuting || isLoading}
+                      className="aqua-btn-primary"
+                    >
+                      {isExecuting ? (
+                        <Loader2 className="w-4 h-4 animate-spin relative z-10" />
+                      ) : (
+                        <Play className="w-4 h-4 relative z-10" />
+                      )}
+                      <span>{isExecuting ? "Running..." : "Run Query"}</span>
+                    </button>
+                    {stats && (
+                      <span
+                        className="text-[13px] font-medium text-[#333]"
                         style={{
-                          fontFamily: 'Monaco, "Courier New", monospace',
+                          fontFamily: '-apple-system, "Lucida Grande", system-ui',
                         }}
-                      />
+                      >
+                        {stats.rowCount} rows • {stats.duration}s
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex-1 bg-[#1e1e1e]">
+                    <div className="h-full flex">
+                      <div
+                        className="py-3 px-3 text-right text-[14px] text-[#6e7681] select-none bg-[#252526] border-r border-[#3c3c3c]"
+                        style={{ fontFamily: 'Monaco, "Courier New", monospace' }}
+                      >
+                        {query.split("\n").map((_, i) => (
+                          <div key={i} className="leading-[22px]">
+                            {i + 1}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="flex-1 relative bg-[#1e1e1e]">
+                        <textarea
+                          value={query}
+                          onChange={(e) => setQuery(e.target.value)}
+                          onKeyDown={(e) => {
+                            if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+                              e.preventDefault();
+                              handleRun();
+                            }
+                          }}
+                          spellCheck={false}
+                          className="absolute inset-0 w-full h-full py-3 px-3 bg-transparent text-[14px] leading-[22px] resize-none focus:outline-none text-[#d4d4d4]"
+                          style={{
+                            fontFamily: 'Monaco, "Courier New", monospace',
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>

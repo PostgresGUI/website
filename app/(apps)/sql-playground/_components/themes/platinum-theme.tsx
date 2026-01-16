@@ -1,13 +1,26 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import {
   Play,
   Table2,
   Loader2,
   RotateCcw,
+  Plus,
+  Search,
+  FileCode2,
 } from "lucide-react";
 
 import "./platinum.css";
+
+interface SavedQuery {
+  id: string;
+  name: string;
+  query: string;
+}
+
+const QUERIES_STORAGE_KEY = "sql-playground-saved-queries";
+const SELECTED_QUERY_KEY = "sql-playground-selected-query";
 
 interface Props {
   query: string;
@@ -47,6 +60,64 @@ export function PlatinumTheme({
   selectedTable,
   onSelectTable,
 }: Props) {
+  const [savedQueries, setSavedQueries] = useState<SavedQuery[]>([]);
+  const [selectedQueryId, setSelectedQueryId] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Load saved queries from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem(QUERIES_STORAGE_KEY);
+    if (saved) {
+      try {
+        setSavedQueries(JSON.parse(saved));
+      } catch {
+        // Invalid JSON, ignore
+      }
+    }
+    const selectedId = localStorage.getItem(SELECTED_QUERY_KEY);
+    if (selectedId) {
+      setSelectedQueryId(selectedId);
+    }
+  }, []);
+
+  // Auto-save query as user types
+  useEffect(() => {
+    if (!selectedQueryId) return;
+
+    setSavedQueries((prev) => {
+      const updated = prev.map((q) =>
+        q.id === selectedQueryId ? { ...q, query } : q
+      );
+      localStorage.setItem(QUERIES_STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
+  }, [query, selectedQueryId]);
+
+  const handleAddQuery = () => {
+    const newQuery: SavedQuery = {
+      id: crypto.randomUUID(),
+      name: `Query ${savedQueries.length + 1}`,
+      query: "",
+    };
+    const updated = [...savedQueries, newQuery];
+    setSavedQueries(updated);
+    localStorage.setItem(QUERIES_STORAGE_KEY, JSON.stringify(updated));
+    setSelectedQueryId(newQuery.id);
+    localStorage.setItem(SELECTED_QUERY_KEY, newQuery.id);
+    setQuery("");
+  };
+
+  const handleSelectQuery = (q: SavedQuery) => {
+    setSelectedQueryId(q.id);
+    localStorage.setItem(SELECTED_QUERY_KEY, q.id);
+    setQuery(q.query);
+  };
+
+  const filteredQueries = savedQueries.filter((q) =>
+    q.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    q.query.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div
       className="h-screen flex flex-col"
@@ -170,53 +241,111 @@ export function PlatinumTheme({
                 </div>
               </div>
 
-              {/* SQL Editor */}
-              <div className="flex-1 min-h-[150px] border-t-2 border-[#888] flex flex-col">
-                {/* Editor Toolbar */}
-                <div className="flex items-center px-2 py-2 gap-3 bg-[#dddddd]">
-                  <button
-                    onClick={handleRun}
-                    disabled={isExecuting || isLoading}
-                    className="platinum-btn flex items-center gap-1"
-                  >
-                    {isExecuting ? (
-                      <Loader2 className="w-3 h-3 animate-spin" />
-                    ) : (
-                      <Play className="w-3 h-3" />
-                    )}
-                    {isExecuting ? "Running..." : "Run Query"}
-                  </button>
-                  {stats && (
-                    <span className="text-[13px] text-[#000]">
-                      {stats.rowCount} rows • {stats.duration}s
-                    </span>
-                  )}
-                </div>
-                <div className="flex-1 bg-[#1e1e1e] p-2">
-                  <div className="h-full flex">
-                    <div
-                      className="py-2 px-2 text-right text-[14px] text-[#6e7681] select-none bg-[#252526] border-r border-[#3c3c3c]"
-                      style={{ fontFamily: 'Monaco, "Courier New", monospace' }}
-                    >
-                      {query.split("\n").map((_, i) => (
-                        <div key={i} className="leading-[20px]">
-                          {i + 1}
-                        </div>
-                      ))}
+              {/* SQL Editor Row - 2 columns */}
+              <div className="flex-1 min-h-[150px] border-t-2 border-[#888] flex">
+                {/* Column 1 - Saved Queries */}
+                <div className="w-56 border-r-2 border-[#888] bg-[#dddddd] flex flex-col">
+                  {/* Header: Title + Search + Add */}
+                  <div className="px-2 pt-2 pb-2 flex flex-col gap-2">
+                    <span className="px-1 text-[13px] font-bold">Queries</span>
+                    <div className="flex items-center gap-1">
+                      <div className="flex-1 relative">
+                        <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-[#666]" />
+                        <input
+                          type="text"
+                          placeholder="Search..."
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="w-full pl-7 pr-2 py-1 text-[12px] bg-white border border-[#888] focus:outline-none"
+                        />
+                      </div>
+                      <button
+                        onClick={handleAddQuery}
+                        className="platinum-btn p-1"
+                        title="Add new query"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                      </button>
                     </div>
-                    <textarea
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      onKeyDown={(e) => {
-                        if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
-                          e.preventDefault();
-                          handleRun();
-                        }
-                      }}
-                      spellCheck={false}
-                      className="flex-1 h-full py-2 px-2 bg-[#1e1e1e] text-[14px] leading-[20px] resize-none focus:outline-none text-[#d4d4d4]"
-                      style={{ fontFamily: 'Monaco, "Courier New", monospace' }}
-                    />
+                  </div>
+
+                  {/* List */}
+                  <div className="flex-1 overflow-y-auto platinum-scroll px-1 pb-1">
+                    {filteredQueries.length === 0 ? (
+                      <div className="px-2 py-4 text-[12px] text-[#666] text-center">
+                        {savedQueries.length === 0
+                          ? "No saved queries"
+                          : "No matches found"}
+                      </div>
+                    ) : (
+                      filteredQueries.map((q) => (
+                        <button
+                          key={q.id}
+                          onClick={() => handleSelectQuery(q)}
+                          className={`w-full flex items-center gap-2 px-2 py-1.5 text-[14px] mb-0.5 ${
+                            selectedQueryId === q.id
+                              ? "bg-[#000] text-[#fff]"
+                              : "hover:bg-[#000] hover:text-[#fff]"
+                          }`}
+                        >
+                          <FileCode2 className="w-4 h-4 flex-shrink-0" />
+                          <span className="flex-1 text-left truncate">
+                            {q.name}
+                          </span>
+                        </button>
+                      ))
+                    )}
+                  </div>
+                </div>
+
+                {/* Column 2 - Query Editor */}
+                <div className="flex-1 flex flex-col">
+                  {/* Editor Toolbar */}
+                  <div className="flex items-center px-2 py-2 gap-3 bg-[#dddddd]">
+                    <button
+                      onClick={handleRun}
+                      disabled={isExecuting || isLoading}
+                      className="platinum-btn flex items-center gap-1"
+                    >
+                      {isExecuting ? (
+                        <Loader2 className="w-3 h-3 animate-spin" />
+                      ) : (
+                        <Play className="w-3 h-3" />
+                      )}
+                      {isExecuting ? "Running..." : "Run Query"}
+                    </button>
+                    {stats && (
+                      <span className="text-[13px] text-[#000]">
+                        {stats.rowCount} rows • {stats.duration}s
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex-1 bg-[#1e1e1e] p-2">
+                    <div className="h-full flex">
+                      <div
+                        className="py-2 px-2 text-right text-[14px] text-[#6e7681] select-none bg-[#252526] border-r border-[#3c3c3c]"
+                        style={{ fontFamily: 'Monaco, "Courier New", monospace' }}
+                      >
+                        {query.split("\n").map((_, i) => (
+                          <div key={i} className="leading-[20px]">
+                            {i + 1}
+                          </div>
+                        ))}
+                      </div>
+                      <textarea
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        onKeyDown={(e) => {
+                          if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+                            e.preventDefault();
+                            handleRun();
+                          }
+                        }}
+                        spellCheck={false}
+                        className="flex-1 h-full py-2 px-2 bg-[#1e1e1e] text-[14px] leading-[20px] resize-none focus:outline-none text-[#d4d4d4]"
+                        style={{ fontFamily: 'Monaco, "Courier New", monospace' }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

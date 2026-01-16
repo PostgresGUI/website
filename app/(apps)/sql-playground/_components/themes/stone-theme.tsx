@@ -1,14 +1,27 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import {
   Play,
   Table2,
   Loader2,
   RotateCcw,
   AlertCircle,
+  Plus,
+  Search,
+  FileCode2,
 } from "lucide-react";
 
 import "./stone.css";
+
+interface SavedQuery {
+  id: string;
+  name: string;
+  query: string;
+}
+
+const QUERIES_STORAGE_KEY = "sql-playground-saved-queries";
+const SELECTED_QUERY_KEY = "sql-playground-selected-query";
 
 interface Props {
   query: string;
@@ -48,6 +61,64 @@ export function StoneTheme({
   selectedTable,
   onSelectTable,
 }: Props) {
+  const [savedQueries, setSavedQueries] = useState<SavedQuery[]>([]);
+  const [selectedQueryId, setSelectedQueryId] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Load saved queries from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem(QUERIES_STORAGE_KEY);
+    if (saved) {
+      try {
+        setSavedQueries(JSON.parse(saved));
+      } catch {
+        // Invalid JSON, ignore
+      }
+    }
+    const selectedId = localStorage.getItem(SELECTED_QUERY_KEY);
+    if (selectedId) {
+      setSelectedQueryId(selectedId);
+    }
+  }, []);
+
+  // Auto-save query as user types
+  useEffect(() => {
+    if (!selectedQueryId) return;
+
+    setSavedQueries((prev) => {
+      const updated = prev.map((q) =>
+        q.id === selectedQueryId ? { ...q, query } : q
+      );
+      localStorage.setItem(QUERIES_STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
+  }, [query, selectedQueryId]);
+
+  const handleAddQuery = () => {
+    const newQuery: SavedQuery = {
+      id: crypto.randomUUID(),
+      name: `Query ${savedQueries.length + 1}`,
+      query: "",
+    };
+    const updated = [...savedQueries, newQuery];
+    setSavedQueries(updated);
+    localStorage.setItem(QUERIES_STORAGE_KEY, JSON.stringify(updated));
+    setSelectedQueryId(newQuery.id);
+    localStorage.setItem(SELECTED_QUERY_KEY, newQuery.id);
+    setQuery("");
+  };
+
+  const handleSelectQuery = (q: SavedQuery) => {
+    setSelectedQueryId(q.id);
+    localStorage.setItem(SELECTED_QUERY_KEY, q.id);
+    setQuery(q.query);
+  };
+
+  const filteredQueries = savedQueries.filter((q) =>
+    q.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    q.query.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="h-screen flex flex-col">
       <div className="absolute inset-0 stone-bg" />
@@ -186,53 +257,139 @@ export function StoneTheme({
                 </div>
               </div>
 
-              {/* SQL Editor */}
-              <div className="flex-1 min-h-[180px] border-t border-stone-200 flex flex-col">
-                {/* Editor Toolbar */}
-                <div className="stone-editor-toolbar flex items-center px-4 py-2 gap-3">
-                  <button
-                    onClick={handleRun}
-                    disabled={isExecuting || isLoading}
-                    className="stone-btn-primary"
-                  >
-                    {isExecuting ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                    ) : (
-                      <Play className="w-4 h-4" />
-                    )}
-                    <span>{isExecuting ? "Running..." : "Run Query"}</span>
-                  </button>
-                  {stats && (
+              {/* SQL Editor Row - 2 columns */}
+              <div className="flex-1 min-h-[180px] border-t border-stone-200 flex">
+                {/* Column 1 - Saved Queries */}
+                <div className="w-60 border-r border-stone-200 flex flex-col bg-stone-50/50">
+                  {/* Header: Title + Search + Add */}
+                  <div className="px-2 pt-3 pb-2 flex flex-col gap-2">
                     <span
-                      className="text-[12px] font-medium text-stone-500"
+                      className="px-2 text-[12px] font-semibold text-stone-500 uppercase tracking-wider"
                       style={{
                         fontFamily: '"DM Sans", system-ui, sans-serif',
                       }}
                     >
-                      {stats.rowCount} rows in {stats.duration}s
+                      Queries
                     </span>
-                  )}
-                </div>
-                <div className="flex-1 stone-editor">
-                  <div className="h-full flex">
-                    <div className="stone-line-numbers py-3 px-3 text-right text-[13px] select-none leading-[22px]">
-                      {query.split("\n").map((_, i) => (
-                        <div key={i}>{i + 1}</div>
-                      ))}
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 relative">
+                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-stone-400" />
+                        <input
+                          type="text"
+                          placeholder="Search..."
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="w-full pl-8 pr-3 py-1.5 text-[12px] bg-white border border-stone-200 rounded-md focus:outline-none focus:ring-1 focus:ring-stone-400 focus:border-stone-400"
+                          style={{
+                            fontFamily: '"DM Sans", system-ui, sans-serif',
+                          }}
+                        />
+                      </div>
+                      <button
+                        onClick={handleAddQuery}
+                        className="p-1.5 bg-white border border-stone-200 rounded-md hover:bg-stone-100 transition-colors"
+                        title="Add new query"
+                      >
+                        <Plus className="w-4 h-4 text-stone-600" />
+                      </button>
                     </div>
-                    <div className="flex-1 relative">
-                      <textarea
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        onKeyDown={(e) => {
-                          if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
-                            e.preventDefault();
-                            handleRun();
-                          }
+                  </div>
+
+                  {/* List */}
+                  <div className="flex-1 overflow-y-auto stone-scroll px-2 pb-2">
+                    {filteredQueries.length === 0 ? (
+                      <div
+                        className="px-3 py-4 text-[12px] text-stone-400 text-center"
+                        style={{ fontFamily: '"DM Sans", system-ui, sans-serif' }}
+                      >
+                        {savedQueries.length === 0
+                          ? "No saved queries"
+                          : "No matches found"}
+                      </div>
+                    ) : (
+                      filteredQueries.map((q) => (
+                        <button
+                          key={q.id}
+                          onClick={() => handleSelectQuery(q)}
+                          className={`stone-table-row w-full flex items-center gap-2 px-3 py-1 text-[13px] mb-1 ${
+                            selectedQueryId === q.id
+                              ? "bg-stone-200 ring-1 ring-stone-300"
+                              : ""
+                          }`}
+                          style={{
+                            fontFamily: '"DM Sans", system-ui, sans-serif',
+                          }}
+                        >
+                          <FileCode2
+                            className={`w-4 h-4 flex-shrink-0 ${
+                              selectedQueryId === q.id
+                                ? "text-stone-700"
+                                : "text-stone-500"
+                            }`}
+                          />
+                          <span
+                            className={`flex-1 text-left font-medium truncate ${
+                              selectedQueryId === q.id
+                                ? "text-stone-900"
+                                : "text-stone-700"
+                            }`}
+                          >
+                            {q.name}
+                          </span>
+                        </button>
+                      ))
+                    )}
+                  </div>
+                </div>
+
+                {/* Column 2 - Query Editor */}
+                <div className="flex-1 flex flex-col">
+                  {/* Editor Toolbar */}
+                  <div className="stone-editor-toolbar flex items-center px-4 py-2 gap-3">
+                    <button
+                      onClick={handleRun}
+                      disabled={isExecuting || isLoading}
+                      className="stone-btn-primary"
+                    >
+                      {isExecuting ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <Play className="w-4 h-4" />
+                      )}
+                      <span>{isExecuting ? "Running..." : "Run Query"}</span>
+                    </button>
+                    {stats && (
+                      <span
+                        className="text-[12px] font-medium text-stone-500"
+                        style={{
+                          fontFamily: '"DM Sans", system-ui, sans-serif',
                         }}
-                        spellCheck={false}
-                        className="stone-editor-textarea absolute inset-0 w-full h-full py-3 px-3 resize-none focus:outline-none leading-[22px]"
-                      />
+                      >
+                        {stats.rowCount} rows in {stats.duration}s
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex-1 stone-editor">
+                    <div className="h-full flex">
+                      <div className="stone-line-numbers py-3 px-3 text-right text-[13px] select-none leading-[22px]">
+                        {query.split("\n").map((_, i) => (
+                          <div key={i}>{i + 1}</div>
+                        ))}
+                      </div>
+                      <div className="flex-1 relative">
+                        <textarea
+                          value={query}
+                          onChange={(e) => setQuery(e.target.value)}
+                          onKeyDown={(e) => {
+                            if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+                              e.preventDefault();
+                              handleRun();
+                            }
+                          }}
+                          spellCheck={false}
+                          className="stone-editor-textarea absolute inset-0 w-full h-full py-3 px-3 resize-none focus:outline-none leading-[22px]"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
