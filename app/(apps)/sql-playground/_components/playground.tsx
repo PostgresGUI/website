@@ -6,15 +6,16 @@ import { defaultQuery } from "../_lib/data";
 import { SettingsDropdown } from "./settings-dropdown";
 import { PlatinumTheme } from "./themes/platinum-theme";
 import { AquaTheme } from "./themes/aqua-theme";
+import { StoneTheme } from "./themes/stone-theme";
 
 const THEME_STORAGE_KEY = "sql-playground-theme";
 
 export function Playground() {
-  const [theme, setTheme] = useState<Theme>("platinum");
+  const [theme, setTheme] = useState<Theme>("stone");
 
   useEffect(() => {
     const saved = localStorage.getItem(THEME_STORAGE_KEY);
-    if (saved === "aqua" || saved === "platinum") {
+    if (saved === "aqua" || saved === "platinum" || saved === "stone") {
       setTheme(saved);
     }
   }, []);
@@ -54,7 +55,12 @@ export function Playground() {
     handleRun,
   };
 
-  const ThemeComponent = theme === "platinum" ? PlatinumTheme : AquaTheme;
+  const ThemeComponent =
+    theme === "platinum"
+      ? PlatinumTheme
+      : theme === "aqua"
+        ? AquaTheme
+        : StoneTheme;
 
   return (
     <>

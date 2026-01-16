@@ -1,4 +1,4 @@
-export type Theme = "aqua" | "platinum";
+export type Theme = "aqua" | "platinum" | "stone";
 
 export interface Column {
   name: string;
