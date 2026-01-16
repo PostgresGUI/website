@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import {
   Play,
   Table2,
@@ -11,39 +10,10 @@ import {
   FileCode2,
 } from "lucide-react";
 
+import type { ThemeProps } from "../../_lib/types";
+import { formatValue } from "../../_lib/utils";
+import { useSavedQueries } from "../../_lib/hooks";
 import "./aqua.css";
-
-interface SavedQuery {
-  id: string;
-  name: string;
-  query: string;
-}
-
-const QUERIES_STORAGE_KEY = "sql-playground-saved-queries";
-const SELECTED_QUERY_KEY = "sql-playground-selected-query";
-
-interface Props {
-  query: string;
-  setQuery: (query: string) => void;
-  isExecuting: boolean;
-  handleRun: () => void;
-  handleReset: () => void;
-  schema: { name: string; columns: { name: string; type: string }[] }[];
-  results: { columns: string[]; rows: Record<string, unknown>[] } | null;
-  error: string | null;
-  stats: { rowCount: number; duration: number } | null;
-  isLoading: boolean;
-  isResetting: boolean;
-  selectedTable: string | null;
-  onSelectTable: (name: string) => void;
-}
-
-function formatValue(value: unknown): string {
-  if (value === null) return "NULL";
-  if (value instanceof Date) return value.toISOString();
-  if (typeof value === "object") return JSON.stringify(value);
-  return String(value);
-}
 
 export function AquaTheme({
   query,
@@ -59,64 +29,16 @@ export function AquaTheme({
   isResetting,
   selectedTable,
   onSelectTable,
-}: Props) {
-  const [savedQueries, setSavedQueries] = useState<SavedQuery[]>([]);
-  const [selectedQueryId, setSelectedQueryId] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
-
-  // Load saved queries from localStorage
-  useEffect(() => {
-    const saved = localStorage.getItem(QUERIES_STORAGE_KEY);
-    if (saved) {
-      try {
-        setSavedQueries(JSON.parse(saved));
-      } catch {
-        // Invalid JSON, ignore
-      }
-    }
-    const selectedId = localStorage.getItem(SELECTED_QUERY_KEY);
-    if (selectedId) {
-      setSelectedQueryId(selectedId);
-    }
-  }, []);
-
-  // Auto-save query as user types
-  useEffect(() => {
-    if (!selectedQueryId) return;
-
-    setSavedQueries((prev) => {
-      const updated = prev.map((q) =>
-        q.id === selectedQueryId ? { ...q, query } : q
-      );
-      localStorage.setItem(QUERIES_STORAGE_KEY, JSON.stringify(updated));
-      return updated;
-    });
-  }, [query, selectedQueryId]);
-
-  const handleAddQuery = () => {
-    const newQuery: SavedQuery = {
-      id: crypto.randomUUID(),
-      name: `Query ${savedQueries.length + 1}`,
-      query: "",
-    };
-    const updated = [...savedQueries, newQuery];
-    setSavedQueries(updated);
-    localStorage.setItem(QUERIES_STORAGE_KEY, JSON.stringify(updated));
-    setSelectedQueryId(newQuery.id);
-    localStorage.setItem(SELECTED_QUERY_KEY, newQuery.id);
-    setQuery("");
-  };
-
-  const handleSelectQuery = (q: SavedQuery) => {
-    setSelectedQueryId(q.id);
-    localStorage.setItem(SELECTED_QUERY_KEY, q.id);
-    setQuery(q.query);
-  };
-
-  const filteredQueries = savedQueries.filter((q) =>
-    q.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    q.query.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+}: ThemeProps) {
+  const {
+    savedQueries,
+    selectedQueryId,
+    searchTerm,
+    setSearchTerm,
+    filteredQueries,
+    handleAddQuery,
+    handleSelectQuery,
+  } = useSavedQueries({ query, setQuery });
 
   return (
     <div className="h-screen flex flex-col">

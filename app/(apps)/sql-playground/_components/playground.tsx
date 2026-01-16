@@ -1,15 +1,14 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import type { Theme } from "../_lib/types";
+import type { Theme, TableSchema, QueryResults, QueryStats } from "../_lib/types";
+import { THEME_STORAGE_KEY } from "../_lib/constants";
 import { defaultQuery } from "../_lib/data";
 import PlaygroundDB from "../_lib/db";
 import { SettingsDropdown } from "./settings-dropdown";
 import { PlatinumTheme } from "./themes/platinum-theme";
 import { AquaTheme } from "./themes/aqua-theme";
 import { StoneTheme } from "./themes/stone-theme";
-
-const THEME_STORAGE_KEY = "sql-playground-theme";
 
 export function Playground() {
   const [theme, setTheme] = useState<Theme>("stone");
