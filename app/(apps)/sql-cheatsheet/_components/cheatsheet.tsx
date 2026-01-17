@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Copy, Check } from "lucide-react";
-import { sqlCategories, searchExamples, type SQLCategory, type SQLExample } from "../_lib/data";
+import { sqlCategories, type SQLCategory, type SQLExample } from "../_lib/data";
 import { useCheatsheetContext } from "../layout";
 
 // SQL syntax highlighting - newspaper style (dark text on light)
@@ -194,63 +194,22 @@ function CategoryColumn({ category }: { category: SQLCategory }) {
   );
 }
 
-// Search results
-function SearchResults({ query, results }: { query: string; results: SQLExample[] }) {
-  return (
-    <div className="mb-8">
-      <div className="border-t-2 border-stone-900 dark:border-stone-100 pt-2 mb-6">
-        <h2 className="text-lg font-black uppercase tracking-tight text-stone-900 dark:text-stone-100">
-          &ldquo;{query}&rdquo;
-        </h2>
-        <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5">
-          {results.length} result{results.length !== 1 ? "s" : ""} found
-        </p>
-      </div>
-
-      {results.length === 0 ? (
-        <p className="text-stone-600 dark:text-stone-400 py-8 text-sm">
-          No results found. Try a different search term.
-        </p>
-      ) : (
-        <div className="columns-1 md:columns-2 xl:columns-3 gap-8">
-          {results.map((example) => (
-            <div key={example.id} className="break-inside-avoid-column mb-6">
-              <ExampleItem example={example} />
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
 // Main component
 export function Cheatsheet() {
-  const { searchQuery, sectionRefs } = useCheatsheetContext();
-
-  const searchResults = useMemo(() => {
-    if (searchQuery.length < 2) return null;
-    return searchExamples(searchQuery);
-  }, [searchQuery]);
+  const { sectionRefs } = useCheatsheetContext();
 
   return (
-    <>
-      {searchResults ? (
-        <SearchResults query={searchQuery} results={searchResults} />
-      ) : (
-        <div className="columns-1 md:columns-2 xl:columns-3 gap-8">
-          {sqlCategories.map((category) => (
-            <div
-              key={category.id}
-              ref={(el) => {
-                if (el) sectionRefs.current.set(category.id, el);
-              }}
-            >
-              <CategoryColumn category={category} />
-            </div>
-          ))}
+    <div className="columns-1 md:columns-2 xl:columns-3 gap-8">
+      {sqlCategories.map((category) => (
+        <div
+          key={category.id}
+          ref={(el) => {
+            if (el) sectionRefs.current.set(category.id, el);
+          }}
+        >
+          <CategoryColumn category={category} />
         </div>
-      )}
-    </>
+      ))}
+    </div>
   );
 }

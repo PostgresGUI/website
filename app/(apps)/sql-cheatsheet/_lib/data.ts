@@ -1052,34 +1052,3 @@ WHERE id = 1;`,
   },
 ];
 
-// Get all unique tags for filtering
-export function getAllTags(): string[] {
-  const tags = new Set<string>();
-  sqlCategories.forEach((cat) => {
-    cat.examples.forEach((ex) => {
-      ex.tags.forEach((tag) => tags.add(tag));
-    });
-  });
-  return Array.from(tags).sort();
-}
-
-// Search function
-export function searchExamples(query: string): SQLExample[] {
-  const q = query.toLowerCase();
-  const results: SQLExample[] = [];
-
-  sqlCategories.forEach((cat) => {
-    cat.examples.forEach((ex) => {
-      if (
-        ex.title.toLowerCase().includes(q) ||
-        ex.description.toLowerCase().includes(q) ||
-        ex.sql.toLowerCase().includes(q) ||
-        ex.tags.some((tag) => tag.includes(q))
-      ) {
-        results.push(ex);
-      }
-    });
-  });
-
-  return results;
-}
