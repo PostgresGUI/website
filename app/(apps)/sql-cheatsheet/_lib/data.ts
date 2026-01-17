@@ -1,5 +1,5 @@
-// SQL Cheatsheet Data - Easily expandable structure
-// Each category contains examples that can be searched and filtered
+// SQL Cheatsheet Data - Multi-database support
+// Each database has its own set of categories and examples
 
 export interface SQLExample {
   id: string;
@@ -18,7 +18,11 @@ export interface SQLCategory {
   examples: SQLExample[];
 }
 
-export const sqlCategories: SQLCategory[] = [
+// Data organized by database ID
+export type CheatsheetData = Record<string, SQLCategory[]>;
+
+// PostgreSQL data
+const postgresqlCategories: SQLCategory[] = [
   {
     id: "select",
     name: "SELECT",
@@ -1853,4 +1857,20 @@ FROM posts;`,
     ],
   },
 ];
+
+// All cheatsheet data organized by database
+export const cheatsheetData: CheatsheetData = {
+  postgresql: postgresqlCategories,
+  // Future databases:
+  // mysql: mysqlCategories,
+  // sqlite: sqliteCategories,
+};
+
+// Helper to get categories for a specific database
+export function getCategories(databaseId: string): SQLCategory[] {
+  return cheatsheetData[databaseId] ?? postgresqlCategories;
+}
+
+// Default export for backwards compatibility
+export const sqlCategories = postgresqlCategories;
 
