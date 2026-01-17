@@ -409,6 +409,23 @@ body {
     animation: shake 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
+  /* Genie window open animation */
+  @keyframes genieOpen {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-genie-open {
+    animation: genieOpen 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transform-origin: var(--origin-x, 50%) var(--origin-y, 50%);
+  }
+
   /* Skeuomorphic Screenshot Shadow - Elevated with realistic depth */
   .shadow-screenshot-elevated {
     position: relative;

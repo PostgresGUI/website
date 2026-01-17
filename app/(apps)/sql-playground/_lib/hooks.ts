@@ -98,28 +98,25 @@ export function useSavedQueries({
 
   const handleDeleteQuery = useCallback(
     (id: string) => {
-      setSavedQueries((prev) => {
-        const updated = prev.filter((q) => q.id !== id);
-        localStorage.setItem(QUERIES_STORAGE_KEY, JSON.stringify(updated));
+      const updated = savedQueries.filter((q) => q.id !== id);
+      localStorage.setItem(QUERIES_STORAGE_KEY, JSON.stringify(updated));
+      setSavedQueries(updated);
 
-        // If deleting the selected query, select another or clear
-        if (selectedQueryId === id) {
-          if (updated.length > 0) {
-            const newSelected = updated[0];
-            setSelectedQueryId(newSelected.id);
-            localStorage.setItem(SELECTED_QUERY_KEY, newSelected.id);
-            setQuery(newSelected.query);
-          } else {
-            setSelectedQueryId(null);
-            localStorage.removeItem(SELECTED_QUERY_KEY);
-            setQuery("");
-          }
+      // If deleting the selected query, select another or clear
+      if (selectedQueryId === id) {
+        if (updated.length > 0) {
+          const newSelected = updated[0];
+          setSelectedQueryId(newSelected.id);
+          localStorage.setItem(SELECTED_QUERY_KEY, newSelected.id);
+          setQuery(newSelected.query);
+        } else {
+          setSelectedQueryId(null);
+          localStorage.removeItem(SELECTED_QUERY_KEY);
+          setQuery("");
         }
-
-        return updated;
-      });
+      }
     },
-    [selectedQueryId, setQuery]
+    [savedQueries, selectedQueryId, setQuery]
   );
 
   const handleDuplicateQuery = useCallback(
