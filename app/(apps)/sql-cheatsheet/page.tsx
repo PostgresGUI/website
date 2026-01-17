@@ -153,18 +153,18 @@ function highlightSQL(sql: string): React.ReactNode[] {
 // Example item component
 function ExampleItem({ example }: { example: SQLExample }) {
   return (
-    <div className="mb-5 last:mb-0">
-      <h3 className="text-[13px] font-bold text-stone-800 dark:text-stone-100 leading-tight mb-1">
+    <div className="mb-4 sm:mb-5 last:mb-0">
+      <h3 className="text-[12px] sm:text-[13px] font-bold text-stone-800 dark:text-stone-100 leading-tight mb-1">
         {example.title}
       </h3>
-      <p className="text-[11px] text-stone-600 dark:text-stone-400 mb-2 leading-snug">
+      <p className="text-[10px] sm:text-[11px] text-stone-600 dark:text-stone-400 mb-2 leading-snug">
         {example.description}
       </p>
-      <div className="relative bg-stone-100 dark:bg-stone-950 p-2.5 rounded">
-        <div className="absolute top-1.5 right-1.5">
+      <div className="relative bg-stone-100 dark:bg-stone-950 p-2.5 rounded overflow-hidden">
+        <div className="absolute top-1.5 right-1.5 z-10">
           <CopyButton text={example.sql} />
         </div>
-        <pre className="text-[11px] leading-snug font-mono text-stone-800 dark:text-stone-300 whitespace-pre-wrap break-words">
+        <pre className="text-[10px] sm:text-[11px] leading-snug font-mono text-stone-800 dark:text-stone-300 whitespace-pre-wrap break-words overflow-x-auto pr-8">
           <code>{highlightSQL(example.sql)}</code>
         </pre>
       </div>
@@ -175,25 +175,25 @@ function ExampleItem({ example }: { example: SQLExample }) {
 // Category column component
 function CategoryColumn({ category }: { category: SQLCategory }) {
   return (
-    <div className="break-inside-avoid-column mb-6 border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900">
+    <div className="break-inside-avoid-column mb-4 sm:mb-6 border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 rounded-sm overflow-hidden">
       {/* Category header */}
       <div
-        className="border-b-2 px-4 py-3 bg-stone-900"
+        className="border-b-2 px-3 sm:px-4 py-2.5 sm:py-3 bg-stone-900"
         style={{ borderColor: category.color }}
       >
         <h2
-          className="text-base font-black uppercase tracking-tight"
+          className="text-sm sm:text-base font-black uppercase tracking-tight"
           style={{ color: category.color }}
         >
           {category.name}
         </h2>
-        <p className="text-[11px] text-stone-300 mt-0.5">
+        <p className="text-[10px] sm:text-[11px] text-stone-300 mt-0.5">
           {category.description}
         </p>
       </div>
 
       {/* Examples */}
-      <div className="p-4">
+      <div className="p-3 sm:p-4">
         {category.examples.map((example) => (
           <ExampleItem key={example.id} example={example} />
         ))}
@@ -206,7 +206,7 @@ export default function SQLCheatsheetPage() {
   const categories = getCategories(defaultDatabase.id);
 
   return (
-    <div className="columns-1 md:columns-2 xl:columns-3 gap-8">
+    <div className="columns-1 md:columns-2 xl:columns-3 gap-4 sm:gap-6 lg:gap-8">
       {categories.map((category) => (
         <div key={category.id} id={category.id}>
           <CategoryColumn category={category} />

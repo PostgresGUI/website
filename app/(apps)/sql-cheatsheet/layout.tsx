@@ -3,6 +3,7 @@ import { defaultDatabase } from "./_lib/databases";
 import { DatabaseSelector } from "./_components/database-selector";
 import { CategoryNav } from "./_components/category-nav";
 import { ScrollEnabler } from "./_components/scroll-enabler";
+import { MobileNav } from "./_components/mobile-nav";
 
 export default function CheatsheetLayout({ children }: { children: React.ReactNode }) {
   const selectedDatabase = defaultDatabase;
@@ -11,9 +12,13 @@ export default function CheatsheetLayout({ children }: { children: React.ReactNo
   return (
     <>
       <ScrollEnabler />
+
+      {/* Mobile Navigation */}
+      <MobileNav categories={categories} selectedDatabase={selectedDatabase} />
+
       <div className="min-h-screen bg-white dark:bg-stone-950 flex">
-        {/* Sidebar */}
-        <aside className="w-48 shrink-0 bg-white dark:bg-stone-900 border-r border-stone-200 dark:border-stone-800 fixed top-0 left-0 h-screen flex flex-col">
+        {/* Desktop Sidebar - hidden on mobile */}
+        <aside className="hidden lg:flex w-48 shrink-0 bg-white dark:bg-stone-900 border-r border-stone-200 dark:border-stone-800 fixed top-0 left-0 h-screen flex-col">
           {/* Title */}
           <div className="px-4 py-4 border-b border-stone-200 dark:border-stone-800">
             <h1 className="text-sm font-black text-stone-900 dark:text-stone-100 tracking-tighter uppercase">
@@ -35,8 +40,8 @@ export default function CheatsheetLayout({ children }: { children: React.ReactNo
           </div>
         </aside>
 
-        {/* Content */}
-        <main className="flex-1 ml-48 px-6 lg:px-10 py-8">
+        {/* Content - full width on mobile, offset on desktop */}
+        <main className="flex-1 ml-0 lg:ml-48 px-4 sm:px-6 lg:px-10 pt-20 lg:pt-8 pb-8">
           {children}
         </main>
       </div>
