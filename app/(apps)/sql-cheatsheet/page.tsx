@@ -2,9 +2,8 @@ import { Metadata } from "next";
 import { Cheatsheet } from "./_components/cheatsheet";
 
 export const metadata: Metadata = {
-  title: "SQL Cheatsheet - Quick PostgreSQL Reference",
-  description:
-    "Comprehensive SQL cheatsheet with examples for SELECT, WHERE, JOIN, GROUP BY, window functions, CTEs, and more. Copy-paste ready PostgreSQL queries.",
+  title: "SQL Cheatsheet",
+  description: "SQL cheatsheet with copy-paste examples.",
   keywords: [
     "sql cheatsheet",
     "postgresql cheatsheet",
@@ -19,16 +18,14 @@ export const metadata: Metadata = {
     "cte examples",
   ],
   openGraph: {
-    title: "SQL Cheatsheet - Quick PostgreSQL Reference",
-    description:
-      "Comprehensive SQL cheatsheet with copy-paste ready examples for all PostgreSQL queries.",
+    title: "SQL Cheatsheet",
+    description: "SQL cheatsheet with copy-paste examples.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "SQL Cheatsheet - Quick PostgreSQL Reference",
-    description:
-      "Comprehensive SQL cheatsheet with copy-paste ready PostgreSQL examples.",
+    title: "SQL Cheatsheet",
+    description: "SQL cheatsheet with copy-paste examples.",
   },
   alternates: {
     canonical: "/sql-cheatsheet",

@@ -75,6 +75,9 @@ export default function CheatsheetLayout({ children }: { children: React.ReactNo
             <h1 className="text-sm font-black text-stone-900 dark:text-stone-100 tracking-tighter uppercase">
               SQL Cheatsheet
             </h1>
+            <p className="text-[10px] text-stone-500 dark:text-stone-400 uppercase tracking-wide mt-1">
+              For PostgreSQL
+            </p>
           </div>
 
           {/* Category nav */}
