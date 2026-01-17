@@ -206,6 +206,32 @@ WHERE EXISTS (
 );`,
         tags: ["exists", "subquery", "related"],
       },
+      {
+        id: "where-any",
+        title: "ANY / SOME Operator",
+        description: "Compare against any subquery value",
+        sql: `-- Equal to any value
+SELECT * FROM products
+WHERE price = ANY(SELECT price FROM featured_products);
+
+-- Greater than any (same as > MIN)
+SELECT * FROM products
+WHERE price > ANY(SELECT price FROM budget_products);`,
+        tags: ["any", "some", "subquery"],
+      },
+      {
+        id: "where-all",
+        title: "ALL Operator",
+        description: "Compare against all subquery values",
+        sql: `-- Greater than all values
+SELECT * FROM products
+WHERE price > ALL(SELECT price FROM budget_products);
+
+-- Not equal to all (exclude all matches)
+SELECT * FROM users
+WHERE id <> ALL(SELECT user_id FROM banned_users);`,
+        tags: ["all", "subquery", "compare"],
+      },
     ],
   },
   {
@@ -509,6 +535,18 @@ FROM users
 INNER JOIN orders USING (user_id);`,
         tags: ["using", "join", "shorthand"],
       },
+      {
+        id: "natural-join",
+        title: "NATURAL JOIN",
+        description: "Auto-join on matching column names",
+        sql: `-- Joins on all columns with same name
+SELECT * FROM orders
+NATURAL JOIN order_items;
+
+-- Be careful: joins on ALL matching names
+-- Prefer explicit JOIN conditions`,
+        tags: ["natural", "join", "auto"],
+      },
     ],
   },
   {
@@ -597,6 +635,18 @@ CROSS JOIN LATERAL (
   LIMIT 3
 ) AS recent;`,
         tags: ["lateral", "join", "each"],
+      },
+      {
+        id: "not-exists",
+        title: "NOT EXISTS",
+        description: "Check subquery returns no rows",
+        sql: `-- Users with no orders
+SELECT * FROM users u
+WHERE NOT EXISTS (
+  SELECT 1 FROM orders o
+  WHERE o.user_id = u.id
+);`,
+        tags: ["not exists", "subquery", "none"],
       },
     ],
   },
@@ -1047,6 +1097,758 @@ SET data = jsonb_set(
 )
 WHERE id = 1;`,
         tags: ["jsonb_set", "update", "modify"],
+      },
+    ],
+  },
+  {
+    id: "insert-update-delete",
+    name: "INSERT / UPDATE / DELETE",
+    icon: "pencil",
+    description: "Modify data in tables",
+    color: "#ef4444", // red
+    examples: [
+      {
+        id: "insert-basic",
+        title: "Basic INSERT",
+        description: "Insert a single row",
+        sql: `INSERT INTO users (name, email, status)
+VALUES ('John Doe', 'john@example.com', 'active');`,
+        tags: ["insert", "add", "create"],
+      },
+      {
+        id: "insert-multiple",
+        title: "Insert Multiple Rows",
+        description: "Insert several rows at once",
+        sql: `INSERT INTO users (name, email)
+VALUES
+  ('Alice', 'alice@example.com'),
+  ('Bob', 'bob@example.com'),
+  ('Carol', 'carol@example.com');`,
+        tags: ["insert", "multiple", "batch"],
+      },
+      {
+        id: "insert-returning",
+        title: "INSERT with RETURNING",
+        description: "Get inserted data back",
+        sql: `INSERT INTO users (name, email)
+VALUES ('John', 'john@example.com')
+RETURNING id, name, created_at;`,
+        tags: ["insert", "returning", "id"],
+      },
+      {
+        id: "insert-select",
+        title: "INSERT from SELECT",
+        description: "Insert rows from a query",
+        sql: `INSERT INTO users_archive (name, email)
+SELECT name, email
+FROM users
+WHERE status = 'inactive';`,
+        tags: ["insert", "select", "copy"],
+      },
+      {
+        id: "upsert",
+        title: "UPSERT (ON CONFLICT)",
+        description: "Insert or update if exists",
+        sql: `INSERT INTO users (id, name, email)
+VALUES (1, 'John', 'john@example.com')
+ON CONFLICT (id) DO UPDATE
+SET name = EXCLUDED.name,
+    email = EXCLUDED.email;`,
+        tags: ["upsert", "conflict", "merge"],
+      },
+      {
+        id: "upsert-nothing",
+        title: "INSERT or Ignore",
+        description: "Skip if already exists",
+        sql: `INSERT INTO users (email, name)
+VALUES ('john@example.com', 'John')
+ON CONFLICT (email) DO NOTHING;`,
+        tags: ["upsert", "ignore", "skip"],
+      },
+      {
+        id: "update-basic",
+        title: "Basic UPDATE",
+        description: "Update rows matching condition",
+        sql: `UPDATE users
+SET status = 'inactive',
+    updated_at = NOW()
+WHERE last_login < '2024-01-01';`,
+        tags: ["update", "modify", "set"],
+      },
+      {
+        id: "update-returning",
+        title: "UPDATE with RETURNING",
+        description: "Get updated rows back",
+        sql: `UPDATE products
+SET price = price * 1.10
+WHERE category = 'electronics'
+RETURNING id, name, price;`,
+        tags: ["update", "returning"],
+      },
+      {
+        id: "update-from",
+        title: "UPDATE with FROM",
+        description: "Update using another table",
+        sql: `UPDATE orders
+SET status = 'shipped'
+FROM shipments
+WHERE orders.id = shipments.order_id
+  AND shipments.shipped_at IS NOT NULL;`,
+        tags: ["update", "join", "from"],
+      },
+      {
+        id: "delete-basic",
+        title: "Basic DELETE",
+        description: "Delete rows matching condition",
+        sql: `DELETE FROM users
+WHERE status = 'deleted'
+  AND updated_at < NOW() - INTERVAL '30 days';`,
+        tags: ["delete", "remove"],
+      },
+      {
+        id: "delete-returning",
+        title: "DELETE with RETURNING",
+        description: "Get deleted rows back",
+        sql: `DELETE FROM sessions
+WHERE expires_at < NOW()
+RETURNING id, user_id;`,
+        tags: ["delete", "returning"],
+      },
+      {
+        id: "truncate",
+        title: "TRUNCATE Table",
+        description: "Delete all rows quickly",
+        sql: `-- Fast delete all rows (resets sequences)
+TRUNCATE TABLE logs;
+
+-- Truncate multiple tables
+TRUNCATE TABLE orders, order_items
+RESTART IDENTITY CASCADE;`,
+        tags: ["truncate", "clear", "all"],
+      },
+    ],
+  },
+  {
+    id: "ddl",
+    name: "Tables & DDL",
+    icon: "database",
+    description: "CREATE, ALTER, DROP structures",
+    color: "#6366f1", // indigo
+    examples: [
+      {
+        id: "create-table",
+        title: "CREATE TABLE",
+        description: "Create a new table",
+        sql: `CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  status VARCHAR(20) DEFAULT 'active',
+  created_at TIMESTAMP DEFAULT NOW()
+);`,
+        tags: ["create", "table", "ddl"],
+      },
+      {
+        id: "create-table-if",
+        title: "CREATE IF NOT EXISTS",
+        description: "Create table only if missing",
+        sql: `CREATE TABLE IF NOT EXISTS logs (
+  id SERIAL PRIMARY KEY,
+  message TEXT,
+  level VARCHAR(20),
+  created_at TIMESTAMP DEFAULT NOW()
+);`,
+        tags: ["create", "if not exists"],
+      },
+      {
+        id: "create-as-select",
+        title: "CREATE TABLE AS",
+        description: "Create table from query",
+        sql: `CREATE TABLE active_users AS
+SELECT id, name, email
+FROM users
+WHERE status = 'active';`,
+        tags: ["create", "as", "select", "copy"],
+      },
+      {
+        id: "alter-add-column",
+        title: "Add Column",
+        description: "Add a new column to table",
+        sql: `ALTER TABLE users
+ADD COLUMN phone VARCHAR(20);
+
+-- With default value
+ALTER TABLE users
+ADD COLUMN is_verified BOOLEAN DEFAULT false;`,
+        tags: ["alter", "add", "column"],
+      },
+      {
+        id: "alter-drop-column",
+        title: "Drop Column",
+        description: "Remove a column from table",
+        sql: `ALTER TABLE users
+DROP COLUMN phone;
+
+-- Drop if exists
+ALTER TABLE users
+DROP COLUMN IF EXISTS temp_field;`,
+        tags: ["alter", "drop", "column"],
+      },
+      {
+        id: "alter-rename",
+        title: "Rename Column / Table",
+        description: "Rename columns or tables",
+        sql: `-- Rename column
+ALTER TABLE users
+RENAME COLUMN name TO full_name;
+
+-- Rename table
+ALTER TABLE users
+RENAME TO customers;`,
+        tags: ["alter", "rename"],
+      },
+      {
+        id: "alter-type",
+        title: "Change Column Type",
+        description: "Modify column data type",
+        sql: `ALTER TABLE products
+ALTER COLUMN price TYPE NUMERIC(10,2);
+
+-- With conversion
+ALTER TABLE users
+ALTER COLUMN age TYPE INTEGER
+USING age::INTEGER;`,
+        tags: ["alter", "type", "modify"],
+      },
+      {
+        id: "alter-default",
+        title: "Set / Drop Default",
+        description: "Change column default value",
+        sql: `-- Set default
+ALTER TABLE users
+ALTER COLUMN status SET DEFAULT 'pending';
+
+-- Remove default
+ALTER TABLE users
+ALTER COLUMN status DROP DEFAULT;`,
+        tags: ["alter", "default"],
+      },
+      {
+        id: "drop-table",
+        title: "DROP TABLE",
+        description: "Delete a table",
+        sql: `DROP TABLE users;
+
+-- Drop if exists
+DROP TABLE IF EXISTS temp_users;
+
+-- Drop with dependent objects
+DROP TABLE orders CASCADE;`,
+        tags: ["drop", "table", "delete"],
+      },
+      {
+        id: "create-index",
+        title: "CREATE INDEX",
+        description: "Create index for faster queries",
+        sql: `-- Basic index
+CREATE INDEX idx_users_email ON users(email);
+
+-- Unique index
+CREATE UNIQUE INDEX idx_users_username ON users(username);
+
+-- Multi-column index
+CREATE INDEX idx_orders_user_date ON orders(user_id, created_at);`,
+        tags: ["index", "create", "performance"],
+      },
+      {
+        id: "drop-index",
+        title: "DROP INDEX",
+        description: "Remove an index",
+        sql: `DROP INDEX idx_users_email;
+
+DROP INDEX IF EXISTS idx_temp;`,
+        tags: ["index", "drop"],
+      },
+      {
+        id: "create-view",
+        title: "CREATE VIEW",
+        description: "Create a virtual table",
+        sql: `CREATE VIEW active_orders AS
+SELECT o.id, u.name, o.total, o.created_at
+FROM orders o
+JOIN users u ON o.user_id = u.id
+WHERE o.status = 'active';
+
+-- Then query like a table
+SELECT * FROM active_orders;`,
+        tags: ["view", "create", "virtual"],
+      },
+    ],
+  },
+  {
+    id: "constraints",
+    name: "Constraints",
+    icon: "lock",
+    description: "PRIMARY KEY, FOREIGN KEY, UNIQUE",
+    color: "#dc2626", // red-600
+    examples: [
+      {
+        id: "primary-key",
+        title: "PRIMARY KEY",
+        description: "Unique identifier for rows",
+        sql: `-- Inline definition
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100)
+);
+
+-- Named constraint
+CREATE TABLE products (
+  id INTEGER,
+  sku VARCHAR(50),
+  CONSTRAINT pk_products PRIMARY KEY (id)
+);`,
+        tags: ["primary", "key", "pk"],
+      },
+      {
+        id: "foreign-key",
+        title: "FOREIGN KEY",
+        description: "Reference another table",
+        sql: `CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id),
+  total DECIMAL(10,2)
+);
+
+-- With ON DELETE action
+CREATE TABLE comments (
+  id SERIAL PRIMARY KEY,
+  post_id INTEGER REFERENCES posts(id)
+    ON DELETE CASCADE,
+  content TEXT
+);`,
+        tags: ["foreign", "key", "fk", "references"],
+      },
+      {
+        id: "unique",
+        title: "UNIQUE Constraint",
+        description: "Prevent duplicate values",
+        sql: `-- Single column
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(255) UNIQUE
+);
+
+-- Multiple columns
+CREATE TABLE memberships (
+  user_id INTEGER,
+  group_id INTEGER,
+  UNIQUE (user_id, group_id)
+);`,
+        tags: ["unique", "duplicate"],
+      },
+      {
+        id: "not-null",
+        title: "NOT NULL",
+        description: "Require a value",
+        sql: `CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(255) NOT NULL
+);`,
+        tags: ["not null", "required"],
+      },
+      {
+        id: "check",
+        title: "CHECK Constraint",
+        description: "Validate column values",
+        sql: `CREATE TABLE products (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100),
+  price DECIMAL(10,2) CHECK (price > 0),
+  quantity INTEGER CHECK (quantity >= 0)
+);
+
+-- Named check
+CREATE TABLE users (
+  age INTEGER,
+  CONSTRAINT valid_age CHECK (age >= 0 AND age < 150)
+);`,
+        tags: ["check", "validate", "constraint"],
+      },
+      {
+        id: "default",
+        title: "DEFAULT Value",
+        description: "Set automatic default",
+        sql: `CREATE TABLE posts (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(200),
+  status VARCHAR(20) DEFAULT 'draft',
+  views INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT NOW()
+);`,
+        tags: ["default", "automatic"],
+      },
+      {
+        id: "add-constraint",
+        title: "Add Constraint to Existing Table",
+        description: "Add constraints with ALTER",
+        sql: `-- Add foreign key
+ALTER TABLE orders
+ADD CONSTRAINT fk_orders_user
+FOREIGN KEY (user_id) REFERENCES users(id);
+
+-- Add unique constraint
+ALTER TABLE users
+ADD CONSTRAINT unique_email UNIQUE (email);
+
+-- Add check constraint
+ALTER TABLE products
+ADD CONSTRAINT positive_price CHECK (price > 0);`,
+        tags: ["alter", "add", "constraint"],
+      },
+      {
+        id: "drop-constraint",
+        title: "Drop Constraint",
+        description: "Remove a constraint",
+        sql: `ALTER TABLE orders
+DROP CONSTRAINT fk_orders_user;
+
+ALTER TABLE users
+DROP CONSTRAINT IF EXISTS unique_email;`,
+        tags: ["drop", "constraint", "remove"],
+      },
+    ],
+  },
+  {
+    id: "set-operations",
+    name: "Set Operations",
+    icon: "combine",
+    description: "UNION, INTERSECT, EXCEPT",
+    color: "#0891b2", // cyan-600
+    examples: [
+      {
+        id: "union",
+        title: "UNION",
+        description: "Combine results, remove duplicates",
+        sql: `SELECT name, email FROM customers
+UNION
+SELECT name, email FROM suppliers;`,
+        tags: ["union", "combine", "distinct"],
+      },
+      {
+        id: "union-all",
+        title: "UNION ALL",
+        description: "Combine results, keep duplicates",
+        sql: `SELECT product_id, 'sale' AS type FROM sales
+UNION ALL
+SELECT product_id, 'return' AS type FROM returns;`,
+        tags: ["union", "all", "duplicates"],
+      },
+      {
+        id: "intersect",
+        title: "INTERSECT",
+        description: "Rows in both queries",
+        sql: `SELECT user_id FROM premium_users
+INTERSECT
+SELECT user_id FROM active_users;`,
+        tags: ["intersect", "common", "both"],
+      },
+      {
+        id: "except",
+        title: "EXCEPT",
+        description: "Rows in first but not second",
+        sql: `SELECT user_id FROM all_users
+EXCEPT
+SELECT user_id FROM banned_users;`,
+        tags: ["except", "minus", "difference"],
+      },
+      {
+        id: "set-order",
+        title: "ORDER with Set Operations",
+        description: "Sort combined results",
+        sql: `(SELECT name, 'customer' AS type FROM customers)
+UNION
+(SELECT name, 'supplier' AS type FROM suppliers)
+ORDER BY name;`,
+        tags: ["union", "order", "sort"],
+      },
+    ],
+  },
+  {
+    id: "type-casting",
+    name: "Type Casting",
+    icon: "arrow-right-left",
+    description: "Convert between data types",
+    color: "#7c3aed", // violet
+    examples: [
+      {
+        id: "cast-operator",
+        title: ":: Operator",
+        description: "PostgreSQL cast shorthand",
+        sql: `SELECT
+  '123'::INTEGER AS num,
+  '2024-01-15'::DATE AS date,
+  123::TEXT AS str,
+  '3.14'::NUMERIC AS decimal;`,
+        tags: ["cast", "convert", "type"],
+      },
+      {
+        id: "cast-function",
+        title: "CAST Function",
+        description: "Standard SQL casting",
+        sql: `SELECT
+  CAST('123' AS INTEGER) AS num,
+  CAST('2024-01-15' AS DATE) AS date,
+  CAST(price AS INTEGER) AS rounded
+FROM products;`,
+        tags: ["cast", "function", "convert"],
+      },
+      {
+        id: "cast-numeric",
+        title: "Numeric Conversions",
+        description: "Convert between number types",
+        sql: `SELECT
+  1234.567::INTEGER AS truncated,    -- 1234
+  1234.567::NUMERIC(10,1) AS rounded, -- 1234.6
+  '99.99'::DECIMAL(5,2) AS decimal;`,
+        tags: ["numeric", "integer", "decimal"],
+      },
+      {
+        id: "cast-timestamp",
+        title: "Date/Time Conversions",
+        description: "Convert date and time types",
+        sql: `SELECT
+  NOW()::DATE AS today,
+  NOW()::TIME AS current_time,
+  '2024-01-15 10:30:00'::TIMESTAMP AS ts,
+  EXTRACT(EPOCH FROM NOW())::INTEGER AS unix;`,
+        tags: ["date", "time", "timestamp"],
+      },
+      {
+        id: "cast-boolean",
+        title: "Boolean Conversions",
+        description: "Convert to/from boolean",
+        sql: `SELECT
+  'true'::BOOLEAN,
+  'yes'::BOOLEAN,
+  '1'::BOOLEAN,
+  1::BOOLEAN,
+  true::INTEGER;  -- 1`,
+        tags: ["boolean", "bool", "convert"],
+      },
+      {
+        id: "cast-json",
+        title: "JSON Conversions",
+        description: "Convert to/from JSON",
+        sql: `SELECT
+  '{"name": "John"}'::JSON,
+  '{"name": "John"}'::JSONB,
+  row_to_json(users.*) FROM users;`,
+        tags: ["json", "jsonb", "convert"],
+      },
+    ],
+  },
+  {
+    id: "numeric-functions",
+    name: "Numeric Functions",
+    icon: "hash",
+    description: "ROUND, ABS, CEIL, FLOOR",
+    color: "#ea580c", // orange-600
+    examples: [
+      {
+        id: "round",
+        title: "ROUND",
+        description: "Round to decimal places",
+        sql: `SELECT
+  ROUND(3.14159) AS whole,         -- 3
+  ROUND(3.14159, 2) AS two_dec,    -- 3.14
+  ROUND(1234.5, -2) AS hundreds;   -- 1200`,
+        tags: ["round", "decimal"],
+      },
+      {
+        id: "ceil-floor",
+        title: "CEIL / FLOOR",
+        description: "Round up or down",
+        sql: `SELECT
+  CEIL(4.2) AS ceiling,   -- 5
+  FLOOR(4.8) AS floor,    -- 4
+  CEIL(-4.2) AS neg_ceil, -- -4
+  FLOOR(-4.8) AS neg_fl;  -- -5`,
+        tags: ["ceil", "floor", "ceiling"],
+      },
+      {
+        id: "trunc",
+        title: "TRUNC",
+        description: "Truncate toward zero",
+        sql: `SELECT
+  TRUNC(4.9) AS truncated,     -- 4
+  TRUNC(-4.9) AS neg_trunc,    -- -4
+  TRUNC(123.456, 1) AS one_dec; -- 123.4`,
+        tags: ["trunc", "truncate"],
+      },
+      {
+        id: "abs",
+        title: "ABS",
+        description: "Absolute value",
+        sql: `SELECT
+  ABS(-5) AS positive,     -- 5
+  ABS(5) AS still_pos,     -- 5
+  ABS(price - 100) AS diff
+FROM products;`,
+        tags: ["abs", "absolute"],
+      },
+      {
+        id: "power-sqrt",
+        title: "POWER / SQRT",
+        description: "Exponents and square root",
+        sql: `SELECT
+  POWER(2, 3) AS eight,       -- 8
+  POWER(10, 2) AS hundred,    -- 100
+  SQRT(16) AS four,           -- 4
+  SQRT(2) AS root2;           -- 1.414...`,
+        tags: ["power", "sqrt", "exponent"],
+      },
+      {
+        id: "mod",
+        title: "MOD / %",
+        description: "Remainder after division",
+        sql: `SELECT
+  MOD(10, 3) AS remainder,    -- 1
+  17 % 5 AS mod_operator,     -- 2
+  MOD(id, 2) AS is_odd
+FROM users;`,
+        tags: ["mod", "modulo", "remainder"],
+      },
+      {
+        id: "random",
+        title: "RANDOM",
+        description: "Generate random numbers",
+        sql: `SELECT
+  RANDOM() AS zero_to_one,
+  FLOOR(RANDOM() * 100) AS zero_to_99,
+  FLOOR(RANDOM() * (max - min + 1) + min) AS range;
+
+-- Random row
+SELECT * FROM users
+ORDER BY RANDOM()
+LIMIT 1;`,
+        tags: ["random", "rand"],
+      },
+      {
+        id: "sign",
+        title: "SIGN / DIV",
+        description: "Sign and integer division",
+        sql: `SELECT
+  SIGN(-5) AS negative,   -- -1
+  SIGN(0) AS zero,        -- 0
+  SIGN(5) AS positive,    -- 1
+  DIV(17, 5) AS int_div;  -- 3`,
+        tags: ["sign", "div", "division"],
+      },
+    ],
+  },
+  {
+    id: "arrays",
+    name: "Arrays",
+    icon: "list",
+    description: "PostgreSQL array operations",
+    color: "#059669", // emerald-600
+    examples: [
+      {
+        id: "array-literal",
+        title: "Array Literals",
+        description: "Create array values",
+        sql: `SELECT
+  ARRAY[1, 2, 3] AS int_array,
+  ARRAY['a', 'b', 'c'] AS text_array,
+  '{1,2,3}'::INTEGER[] AS cast_array;`,
+        tags: ["array", "create", "literal"],
+      },
+      {
+        id: "array-access",
+        title: "Access Array Elements",
+        description: "Get elements by index (1-based)",
+        sql: `SELECT
+  (ARRAY['a','b','c'])[1] AS first,   -- 'a'
+  (ARRAY['a','b','c'])[2:3] AS slice, -- {'b','c'}
+  tags[1] AS first_tag
+FROM posts;`,
+        tags: ["array", "index", "access"],
+      },
+      {
+        id: "array-any",
+        title: "ANY / ALL with Arrays",
+        description: "Compare against array values",
+        sql: `-- Match any value in array
+SELECT * FROM users
+WHERE status = ANY(ARRAY['active', 'pending']);
+
+-- Match all values
+SELECT * FROM products
+WHERE price > ALL(ARRAY[10, 20, 30]);`,
+        tags: ["any", "all", "array"],
+      },
+      {
+        id: "array-contains",
+        title: "Array Contains",
+        description: "Check array containment",
+        sql: `-- Contains all elements
+SELECT * FROM posts
+WHERE tags @> ARRAY['sql', 'database'];
+
+-- Is contained by
+SELECT * FROM posts
+WHERE tags <@ ARRAY['sql', 'database', 'postgresql'];
+
+-- Overlaps (has common elements)
+SELECT * FROM posts
+WHERE tags && ARRAY['sql', 'nosql'];`,
+        tags: ["contains", "overlap", "array"],
+      },
+      {
+        id: "array-agg",
+        title: "ARRAY_AGG",
+        description: "Aggregate values into array",
+        sql: `SELECT
+  category,
+  ARRAY_AGG(name) AS product_names,
+  ARRAY_AGG(DISTINCT status) AS statuses
+FROM products
+GROUP BY category;`,
+        tags: ["array_agg", "aggregate"],
+      },
+      {
+        id: "unnest",
+        title: "UNNEST",
+        description: "Expand array to rows",
+        sql: `SELECT UNNEST(ARRAY[1, 2, 3]) AS num;
+
+-- Expand column array
+SELECT id, UNNEST(tags) AS tag
+FROM posts;`,
+        tags: ["unnest", "expand", "rows"],
+      },
+      {
+        id: "array-functions",
+        title: "Array Functions",
+        description: "Common array operations",
+        sql: `SELECT
+  ARRAY_LENGTH(ARRAY[1,2,3], 1) AS len,    -- 3
+  ARRAY_CAT(ARRAY[1,2], ARRAY[3,4]) AS concat, -- {1,2,3,4}
+  ARRAY_APPEND(ARRAY[1,2], 3) AS append,   -- {1,2,3}
+  ARRAY_REMOVE(ARRAY[1,2,3], 2) AS removed; -- {1,3}`,
+        tags: ["array", "length", "append"],
+      },
+      {
+        id: "array-position",
+        title: "Array Search",
+        description: "Find elements in arrays",
+        sql: `SELECT
+  ARRAY_POSITION(ARRAY['a','b','c'], 'b') AS pos, -- 2
+  'b' = ANY(ARRAY['a','b','c']) AS exists,        -- true
+  CARDINALITY(ARRAY[1,2,3]) AS size;              -- 3`,
+        tags: ["array", "position", "search"],
       },
     ],
   },
