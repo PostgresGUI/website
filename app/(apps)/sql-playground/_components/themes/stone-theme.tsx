@@ -11,13 +11,24 @@ import {
   Search,
   Code2,
   FileCode2,
+  Download,
+  Pencil,
+  Trash2,
 } from "lucide-react";
 
 import type { ThemeProps } from "../../_lib/types";
-import { formatValue } from "../../_lib/utils";
+import { formatValue, exportToCSV } from "../../_lib/utils";
 import { useSavedQueries } from "../../_lib/hooks";
 import { SQLEditor } from "../sql-editor";
 import { QueryListItem } from "../query-list-item";
+import { EditRowDialog } from "../edit-row-dialog";
+import { DeleteRowDialog } from "../delete-row-dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import "./stone.css";
 
 type MobileTab = "tables" | "editor" | "queries";
@@ -36,6 +47,16 @@ export function StoneTheme({
   isResetting,
   selectedTable,
   onSelectTable,
+  rowEditInfo,
+  onEditRow,
+  onDeleteRow,
+  editingRow,
+  deletingRow,
+  onCloseEditDialog,
+  onCloseDeleteDialog,
+  onSaveEdit,
+  onConfirmDelete,
+  tableSchema,
 }: ThemeProps) {
   const [mobileTab, setMobileTab] = useState<MobileTab>("editor");
   const {
@@ -58,7 +79,7 @@ export function StoneTheme({
       <div className="absolute inset-0 stone-bg" />
 
       <div className="relative flex-1 flex items-center justify-center p-6 max-md:p-0">
-        <div className="stone-window w-full max-w-6xl h-[85vh] max-md:h-screen max-md:max-w-full flex flex-col">
+        <div className="stone-window w-full max-w-6xl h-[85vh] max-md:h-screen max-md:max-w-full flex flex-col relative">
           {/* Header */}
           <header className="stone-header flex items-center justify-center px-4">
             <h1
@@ -129,8 +150,18 @@ export function StoneTheme({
               {/* Results Panel */}
               <div className="flex-1 min-h-[180px] max-md:min-h-[40%] flex flex-col bg-white">
                 {/* Header */}
-                <div className="stone-results-header flex items-center px-1">
+                <div className="stone-results-header flex items-center justify-between px-1">
                   <button className="stone-tab stone-tab-active">Results</button>
+                  <button
+                    onClick={() => results && exportToCSV(results.columns, results.rows)}
+                    disabled={!results || results.rows.length === 0}
+                    className="flex items-center gap-1.5 px-2.5 py-1 mr-1 text-[11px] font-medium bg-stone-100 border border-stone-300 rounded transition-colors enabled:hover:bg-stone-200 enabled:hover:border-stone-400 disabled:opacity-40 disabled:cursor-not-allowed"
+                    style={{ fontFamily: '"DM Sans", system-ui, sans-serif' }}
+                    title="Export to CSV"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span className="max-md:hidden">Export CSV</span>
+                  </button>
                 </div>
 
                 {/* Content */}
@@ -165,31 +196,66 @@ export function StoneTheme({
                       Query returned no rows
                     </div>
                   ) : (
-                    <table
-                      className="stone-table w-full text-[13px] border-collapse"
-                      style={{
-                        fontFamily: '"DM Sans", system-ui, sans-serif',
-                      }}
-                    >
-                      <thead>
-                        <tr>
-                          {results.columns.map((col) => (
-                            <th key={col}>{col}</th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {results.rows.map((row, idx) => (
-                          <tr key={idx}>
+                    <TooltipProvider delayDuration={300}>
+                      <table
+                        className="stone-table w-full text-[13px] border-collapse"
+                        style={{
+                          fontFamily: '"DM Sans", system-ui, sans-serif',
+                        }}
+                      >
+                        <thead>
+                          <tr>
                             {results.columns.map((col) => (
-                              <td key={col} className="stone-data-string">
-                                {formatValue(row[col])}
-                              </td>
+                              <th key={col}>{col}</th>
                             ))}
+                            <th className="w-[80px]">Actions</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          {results.rows.map((row, idx) => (
+                            <tr key={idx} className="group">
+                              {results.columns.map((col) => (
+                                <td key={col} className="stone-data-string">
+                                  {formatValue(row[col])}
+                                </td>
+                              ))}
+                              <td className="px-2">
+                                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <button
+                                        onClick={() => rowEditInfo?.isEditable && onEditRow(row)}
+                                        disabled={!rowEditInfo?.isEditable}
+                                        className={`p-1 rounded ${rowEditInfo?.isEditable ? "hover:bg-stone-200" : "opacity-40 cursor-not-allowed"}`}
+                                      >
+                                        <Pencil className="w-3.5 h-3.5 text-stone-600" />
+                                      </button>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="top" className="text-xs">
+                                      {rowEditInfo?.isEditable ? "Edit row" : rowEditInfo?.reason || "Cannot edit"}
+                                    </TooltipContent>
+                                  </Tooltip>
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <button
+                                        onClick={() => rowEditInfo?.isEditable && onDeleteRow(row)}
+                                        disabled={!rowEditInfo?.isEditable}
+                                        className={`p-1 rounded ${rowEditInfo?.isEditable ? "hover:bg-red-100" : "opacity-40 cursor-not-allowed"}`}
+                                      >
+                                        <Trash2 className={`w-3.5 h-3.5 ${rowEditInfo?.isEditable ? "text-red-600" : "text-stone-400"}`} />
+                                      </button>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="top" className="text-xs">
+                                      {rowEditInfo?.isEditable ? "Delete row" : rowEditInfo?.reason || "Cannot delete"}
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </TooltipProvider>
                   )}
                 </div>
               </div>
@@ -438,6 +504,46 @@ export function StoneTheme({
               Reset
             </button>
           </footer>
+
+          {/* Edit Row Dialog */}
+          <EditRowDialog
+            isOpen={!!editingRow}
+            onClose={onCloseEditDialog}
+            onSave={onSaveEdit}
+            row={editingRow}
+            columns={results?.columns || []}
+            primaryKeyColumn={rowEditInfo?.primaryKeyColumn || null}
+            schema={tableSchema}
+            overlayClassName="bg-black/30"
+            dialogClassName="bg-stone-50 border border-stone-200 rounded-lg shadow-xl"
+            headerClassName="border-b border-stone-200"
+            titleClassName="text-[14px] font-semibold text-stone-900"
+            closeButtonClassName="p-1 hover:bg-stone-200 rounded"
+            bodyClassName=""
+            labelClassName="text-[13px] font-medium text-stone-700"
+            inputClassName="px-3 py-1.5 text-[13px] bg-white border border-stone-200 rounded-md focus:outline-none focus:ring-1 focus:ring-stone-400 focus:border-stone-400"
+            footerClassName="border-t border-stone-200"
+            cancelButtonClassName="px-4 py-1.5 text-[13px] bg-white border border-stone-200 rounded-md text-stone-700 hover:bg-stone-100"
+            saveButtonClassName="px-4 py-1.5 text-[13px] bg-stone-800 text-white rounded-md hover:bg-stone-700 flex items-center gap-2"
+          />
+
+          {/* Delete Row Dialog */}
+          <DeleteRowDialog
+            isOpen={!!deletingRow}
+            onClose={onCloseDeleteDialog}
+            onConfirm={onConfirmDelete}
+            primaryKeyColumn={rowEditInfo?.primaryKeyColumn || null}
+            primaryKeyValue={deletingRow?.[rowEditInfo?.primaryKeyColumn || ""] ?? null}
+            overlayClassName="bg-black/30"
+            dialogClassName="bg-stone-50 border border-stone-200 rounded-lg shadow-xl"
+            headerClassName=""
+            iconClassName="text-red-600"
+            titleClassName="text-[14px] font-semibold text-stone-900"
+            descriptionClassName="text-[13px] text-stone-600"
+            footerClassName="border-t border-stone-200"
+            cancelButtonClassName="px-4 py-1.5 text-[13px] bg-white border border-stone-200 rounded-md text-stone-700 hover:bg-stone-100"
+            deleteButtonClassName="px-4 py-1.5 text-[13px] bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center gap-2"
+          />
         </div>
       </div>
     </div>

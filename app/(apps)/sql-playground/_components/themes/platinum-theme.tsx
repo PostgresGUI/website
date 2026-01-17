@@ -10,13 +10,24 @@ import {
   Search,
   Code2,
   FileCode2,
+  Download,
+  Pencil,
+  Trash2,
 } from "lucide-react";
 
 import type { ThemeProps } from "../../_lib/types";
-import { formatValue } from "../../_lib/utils";
+import { formatValue, exportToCSV } from "../../_lib/utils";
 import { useSavedQueries } from "../../_lib/hooks";
 import { SQLEditor } from "../sql-editor";
 import { QueryListItem } from "../query-list-item";
+import { EditRowDialog } from "../edit-row-dialog";
+import { DeleteRowDialog } from "../delete-row-dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import "./platinum.css";
 
 type MobileTab = "tables" | "editor" | "queries";
@@ -35,6 +46,16 @@ export function PlatinumTheme({
   isResetting,
   selectedTable,
   onSelectTable,
+  rowEditInfo,
+  onEditRow,
+  onDeleteRow,
+  editingRow,
+  deletingRow,
+  onCloseEditDialog,
+  onCloseDeleteDialog,
+  onSaveEdit,
+  onConfirmDelete,
+  tableSchema,
 }: ThemeProps) {
   const [mobileTab, setMobileTab] = useState<MobileTab>("editor");
   const {
@@ -62,7 +83,7 @@ export function PlatinumTheme({
 
       {/* Window */}
       <div className="relative flex-1 flex items-center justify-center p-8 max-md:p-0">
-        <div className="platinum-window w-full max-w-5xl h-[85vh] max-md:h-screen max-md:max-w-full flex flex-col">
+        <div className="platinum-window w-full max-w-5xl h-[85vh] max-md:h-screen max-md:max-w-full flex flex-col relative">
           {/* Title Bar */}
           <div className="platinum-titlebar">
             <div className="platinum-close max-md:hidden" />
@@ -120,10 +141,19 @@ export function PlatinumTheme({
               {/* Results Panel */}
               <div className="flex-1 min-h-[150px] max-md:min-h-[40%] flex flex-col bg-[#dddddd]">
                 {/* Header */}
-                <div className="flex items-center px-2 pt-2 bg-[#cccccc] border-b border-[#888]">
+                <div className="flex items-center justify-between px-2 pt-2 bg-[#cccccc] border-b border-[#888]">
                   <span className="platinum-tab platinum-tab-active">
                     Results
                   </span>
+                  <button
+                    onClick={() => results && exportToCSV(results.columns, results.rows)}
+                    disabled={!results || results.rows.length === 0}
+                    className="platinum-btn flex items-center gap-1 text-[11px] py-0.5 px-2 mb-1 disabled:opacity-40 disabled:cursor-not-allowed"
+                    title="Export to CSV"
+                  >
+                    <Download className="w-3 h-3" />
+                    <span className="max-md:hidden">Export CSV</span>
+                  </button>
                 </div>
 
                 {/* Content */}
@@ -142,38 +172,75 @@ export function PlatinumTheme({
                       Query returned no rows
                     </div>
                   ) : (
-                    <table className="w-full text-[14px] border-collapse">
-                      <thead>
-                        <tr className="bg-[#dddddd]">
-                          {results.columns.map((col) => (
-                            <th
-                              key={col}
-                              className="px-4 py-2 text-left font-bold border-r border-b border-[#888]"
-                            >
-                              {col}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {results.rows.map((row, index) => (
-                          <tr
-                            key={index}
-                            className={`${index % 2 === 1 ? "bg-[#eeeeee]" : "bg-white"} hover:bg-[#000] hover:text-[#fff]`}
-                          >
+                    <TooltipProvider delayDuration={300}>
+                      <table className="w-full text-[14px] border-collapse">
+                        <thead>
+                          <tr className="bg-[#dddddd]">
                             {results.columns.map((col) => (
-                              <td
+                              <th
                                 key={col}
-                                className="px-4 py-1.5 border-r border-[#ddd]"
-                                style={{ fontFamily: "Monaco, monospace" }}
+                                className="px-4 py-2 text-left font-bold border-r border-b border-[#888]"
                               >
-                                {formatValue(row[col])}
-                              </td>
+                                {col}
+                              </th>
                             ))}
+                            <th className="px-4 py-2 text-left font-bold border-b border-[#888] w-[80px]">
+                              Actions
+                            </th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          {results.rows.map((row, index) => (
+                            <tr
+                              key={index}
+                              className={`group ${index % 2 === 1 ? "bg-[#eeeeee]" : "bg-white"} hover:bg-[#ccc]`}
+                            >
+                              {results.columns.map((col) => (
+                                <td
+                                  key={col}
+                                  className="px-4 py-1.5 border-r border-[#ddd]"
+                                  style={{ fontFamily: "Monaco, monospace" }}
+                                >
+                                  {formatValue(row[col])}
+                                </td>
+                              ))}
+                              <td className="px-2 py-1.5">
+                                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <button
+                                        onClick={() => rowEditInfo?.isEditable && onEditRow(row)}
+                                        disabled={!rowEditInfo?.isEditable}
+                                        className={`p-1 rounded ${rowEditInfo?.isEditable ? "hover:bg-[#bbb]" : "opacity-40 cursor-not-allowed"}`}
+                                      >
+                                        <Pencil className="w-3.5 h-3.5" />
+                                      </button>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="top" className="text-xs">
+                                      {rowEditInfo?.isEditable ? "Edit row" : rowEditInfo?.reason || "Cannot edit"}
+                                    </TooltipContent>
+                                  </Tooltip>
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <button
+                                        onClick={() => rowEditInfo?.isEditable && onDeleteRow(row)}
+                                        disabled={!rowEditInfo?.isEditable}
+                                        className={`p-1 rounded ${rowEditInfo?.isEditable ? "hover:bg-[#bbb] hover:text-red-600" : "opacity-40 cursor-not-allowed"}`}
+                                      >
+                                        <Trash2 className="w-3.5 h-3.5" />
+                                      </button>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="top" className="text-xs">
+                                      {rowEditInfo?.isEditable ? "Delete row" : rowEditInfo?.reason || "Cannot delete"}
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </TooltipProvider>
                   )}
                 </div>
               </div>
@@ -392,6 +459,46 @@ export function PlatinumTheme({
               Reset
             </button>
           </div>
+
+          {/* Edit Row Dialog */}
+          <EditRowDialog
+            isOpen={!!editingRow}
+            onClose={onCloseEditDialog}
+            onSave={onSaveEdit}
+            row={editingRow}
+            columns={results?.columns || []}
+            primaryKeyColumn={rowEditInfo?.primaryKeyColumn || null}
+            schema={tableSchema}
+            overlayClassName="bg-black/30"
+            dialogClassName="bg-[#dddddd] border-2 border-[#888] shadow-[4px_4px_0_#000]"
+            headerClassName="border-b-2 border-[#888] bg-[#cccccc]"
+            titleClassName="text-[14px] font-bold"
+            closeButtonClassName="p-1 hover:bg-[#bbb]"
+            bodyClassName="bg-[#dddddd]"
+            labelClassName="text-[13px] font-bold"
+            inputClassName="px-2 py-1.5 text-[13px] bg-white border border-[#888] focus:outline-none"
+            footerClassName="border-t-2 border-[#888] bg-[#cccccc]"
+            cancelButtonClassName="platinum-btn px-4 py-1.5 text-[13px]"
+            saveButtonClassName="platinum-btn px-4 py-1.5 text-[13px] flex items-center gap-2"
+          />
+
+          {/* Delete Row Dialog */}
+          <DeleteRowDialog
+            isOpen={!!deletingRow}
+            onClose={onCloseDeleteDialog}
+            onConfirm={onConfirmDelete}
+            primaryKeyColumn={rowEditInfo?.primaryKeyColumn || null}
+            primaryKeyValue={deletingRow?.[rowEditInfo?.primaryKeyColumn || ""] ?? null}
+            overlayClassName="bg-black/30"
+            dialogClassName="bg-[#dddddd] border-2 border-[#888] shadow-[4px_4px_0_#000]"
+            headerClassName=""
+            iconClassName="text-red-600"
+            titleClassName="text-[14px] font-bold"
+            descriptionClassName="text-[13px] text-[#444]"
+            footerClassName="border-t-2 border-[#888] bg-[#cccccc]"
+            cancelButtonClassName="platinum-btn px-4 py-1.5 text-[13px]"
+            deleteButtonClassName="platinum-btn px-4 py-1.5 text-[13px] text-red-600 flex items-center gap-2"
+          />
         </div>
       </div>
     </div>

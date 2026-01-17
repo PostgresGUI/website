@@ -1,18 +1,52 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import type { Theme, TableSchema, QueryResults, QueryStats } from "../_lib/types";
+import { useState, useEffect, useCallback, useRef } from "react";
+import type { Theme, TableSchema, QueryResults, QueryStats, RowEditInfo } from "../_lib/types";
 import { THEME_STORAGE_KEY } from "../_lib/constants";
 import { defaultQuery } from "../_lib/data";
 import PlaygroundDB from "../_lib/db";
+import { parseEditableQuery, resultIncludesPrimaryKey } from "../_lib/utils";
 import { SettingsDropdown } from "./settings-dropdown";
 import { PlatinumTheme } from "./themes/platinum-theme";
 import { AquaTheme } from "./themes/aqua-theme";
 import { StoneTheme } from "./themes/stone-theme";
+import { DesktopIcon } from "./desktop-icon";
+import { FloatingWindow } from "./floating-window";
 
 export function Playground() {
   const [theme, setTheme] = useState<Theme | null>(null);
   const [query, setQuery] = useState(defaultQuery);
+  const [isAppWindowOpen, setIsAppWindowOpen] = useState(false);
+  const [isCheatsheetWindowOpen, setIsCheatsheetWindowOpen] = useState(false);
+  const [iconOrigin, setIconOrigin] = useState<{ x: number; y: number } | null>(null);
+  const [cheatsheetIconOrigin, setCheatsheetIconOrigin] = useState<{ x: number; y: number } | null>(null);
+  const [topWindow, setTopWindow] = useState<"app" | "cheatsheet">("app");
+  const iconRef = useRef<HTMLDivElement>(null);
+  const cheatsheetIconRef = useRef<HTMLDivElement>(null);
+
+  const handleOpenWindow = () => {
+    if (iconRef.current) {
+      const rect = iconRef.current.getBoundingClientRect();
+      setIconOrigin({
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+      });
+    }
+    setIsAppWindowOpen(true);
+    setTopWindow("app");
+  };
+
+  const handleOpenCheatsheet = () => {
+    if (cheatsheetIconRef.current) {
+      const rect = cheatsheetIconRef.current.getBoundingClientRect();
+      setCheatsheetIconOrigin({
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+      });
+    }
+    setIsCheatsheetWindowOpen(true);
+    setTopWindow("cheatsheet");
+  };
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
   const [isExecuting, setIsExecuting] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
@@ -29,6 +63,10 @@ export function Playground() {
     duration: number;
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [rowEditInfo, setRowEditInfo] = useState<RowEditInfo | null>(null);
+  const [editingRow, setEditingRow] = useState<Record<string, unknown> | null>(null);
+  const [deletingRow, setDeletingRow] = useState<Record<string, unknown> | null>(null);
+  const lastQueryRef = useRef<string>("");
 
   // Load theme from localStorage (runs before first paint due to null initial state)
   useEffect(() => {
@@ -70,14 +108,35 @@ export function Playground() {
     setIsExecuting(true);
     setError(null);
 
+    const tableQuery = `SELECT * FROM ${tableName} LIMIT 100`;
+    lastQueryRef.current = tableQuery;
+
     try {
-      const result = await PlaygroundDB.query(`SELECT * FROM ${tableName} LIMIT 100`);
+      const result = await PlaygroundDB.query(tableQuery);
       setResults({ columns: result.columns, rows: result.rows });
       setStats({ rowCount: result.rowCount, duration: result.duration });
+
+      // Compute row edit info for table selection (always editable with *)
+      const primaryKey = await PlaygroundDB.getPrimaryKey(tableName);
+      if (primaryKey && result.columns.includes(primaryKey)) {
+        setRowEditInfo({
+          isEditable: true,
+          tableName,
+          primaryKeyColumn: primaryKey,
+        });
+      } else {
+        setRowEditInfo({
+          isEditable: false,
+          tableName,
+          primaryKeyColumn: primaryKey,
+          reason: primaryKey ? "Primary key column not in results" : "Table has no primary key",
+        });
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Query failed");
       setResults(null);
       setStats(null);
+      setRowEditInfo(null);
     } finally {
       setIsExecuting(false);
     }
@@ -86,15 +145,46 @@ export function Playground() {
   const handleRun = async () => {
     setIsExecuting(true);
     setError(null);
+    lastQueryRef.current = query;
 
     try {
       const result = await PlaygroundDB.query(query);
       setResults({ columns: result.columns, rows: result.rows });
       setStats({ rowCount: result.rowCount, duration: result.duration });
+
+      // Compute row edit info
+      const editableInfo = parseEditableQuery(query);
+      if (editableInfo.isEditable && editableInfo.tableName) {
+        const primaryKey = await PlaygroundDB.getPrimaryKey(editableInfo.tableName);
+        if (primaryKey && resultIncludesPrimaryKey(result.columns, primaryKey)) {
+          setRowEditInfo({
+            isEditable: true,
+            tableName: editableInfo.tableName,
+            primaryKeyColumn: primaryKey,
+          });
+        } else {
+          setRowEditInfo({
+            isEditable: false,
+            tableName: editableInfo.tableName,
+            primaryKeyColumn: primaryKey,
+            reason: primaryKey
+              ? `Primary key column "${primaryKey}" not included in results`
+              : "Table has no primary key",
+          });
+        }
+      } else {
+        setRowEditInfo({
+          isEditable: false,
+          tableName: editableInfo.tableName,
+          primaryKeyColumn: null,
+          reason: editableInfo.reason,
+        });
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Query failed");
       setResults(null);
       setStats(null);
+      setRowEditInfo(null);
     } finally {
       setIsExecuting(false);
     }
@@ -105,6 +195,7 @@ export function Playground() {
     setError(null);
     setResults(null);
     setStats(null);
+    setRowEditInfo(null);
 
     try {
       await PlaygroundDB.reset();
@@ -115,6 +206,67 @@ export function Playground() {
     } finally {
       setIsResetting(false);
     }
+  };
+
+  // Re-run the last query to refresh results after edit/delete
+  const refreshResults = async () => {
+    if (!lastQueryRef.current) return;
+
+    try {
+      const result = await PlaygroundDB.query(lastQueryRef.current);
+      setResults({ columns: result.columns, rows: result.rows });
+      setStats({ rowCount: result.rowCount, duration: result.duration });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Refresh failed");
+    }
+  };
+
+  const handleEditRow = (row: Record<string, unknown>) => {
+    setEditingRow(row);
+  };
+
+  const handleDeleteRow = (row: Record<string, unknown>) => {
+    setDeletingRow(row);
+  };
+
+  const handleSaveEdit = async (updates: Record<string, unknown>) => {
+    if (!rowEditInfo?.tableName || !rowEditInfo?.primaryKeyColumn || !editingRow) {
+      throw new Error("Cannot save: missing table or primary key info");
+    }
+
+    const pkValue = editingRow[rowEditInfo.primaryKeyColumn];
+    await PlaygroundDB.updateRow(
+      rowEditInfo.tableName,
+      rowEditInfo.primaryKeyColumn,
+      pkValue,
+      updates
+    );
+
+    setEditingRow(null);
+    await refreshResults();
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!rowEditInfo?.tableName || !rowEditInfo?.primaryKeyColumn || !deletingRow) {
+      throw new Error("Cannot delete: missing table or primary key info");
+    }
+
+    const pkValue = deletingRow[rowEditInfo.primaryKeyColumn];
+    await PlaygroundDB.deleteRow(
+      rowEditInfo.tableName,
+      rowEditInfo.primaryKeyColumn,
+      pkValue
+    );
+
+    setDeletingRow(null);
+    await refreshResults();
+  };
+
+  // Get schema columns for the current table (for edit dialog)
+  const getTableSchema = () => {
+    if (!rowEditInfo?.tableName) return [];
+    const table = schema.find((t) => t.name === rowEditInfo.tableName);
+    return table?.columns || [];
   };
 
   const sharedProps = {
@@ -131,6 +283,16 @@ export function Playground() {
     isResetting,
     selectedTable,
     onSelectTable: handleSelectTable,
+    rowEditInfo,
+    onEditRow: handleEditRow,
+    onDeleteRow: handleDeleteRow,
+    editingRow,
+    deletingRow,
+    onCloseEditDialog: () => setEditingRow(null),
+    onCloseDeleteDialog: () => setDeletingRow(null),
+    onSaveEdit: handleSaveEdit,
+    onConfirmDelete: handleConfirmDelete,
+    tableSchema: getTableSchema(),
   };
 
   // Don't render until theme is loaded from localStorage to prevent flash
@@ -148,6 +310,71 @@ export function Playground() {
   return (
     <>
       <SettingsDropdown theme={theme} setTheme={handleSetTheme} />
+
+      {/* Desktop Icons - positioned below settings */}
+      <div className="fixed top-20 right-4 z-40 flex flex-col items-center gap-6">
+        <div ref={iconRef}>
+          <DesktopIcon
+            label="postgresgui.html"
+            onClick={handleOpenWindow}
+            theme={theme}
+          >
+            <img
+              src="/postgresgui-elephant.png"
+              alt="postgresgui.html"
+              className="w-20 h-20 object-contain scale-[1.75]"
+              draggable={false}
+            />
+          </DesktopIcon>
+        </div>
+        <div ref={cheatsheetIconRef}>
+          <DesktopIcon
+            label="sql-cheatsheet.html"
+            onClick={handleOpenCheatsheet}
+            theme={theme}
+          >
+            <div
+              className="flex flex-col items-center justify-center leading-none text-center"
+              style={{ fontFamily: 'var(--font-saira-stencil), sans-serif' }}
+            >
+              <span className="text-[18px] text-indigo-600 tracking-tight">CHEAT</span>
+              <span className="text-[18px] text-indigo-600 tracking-tight">SHEET</span>
+            </div>
+          </DesktopIcon>
+        </div>
+      </div>
+
+      {/* Floating Browser Window - PostgresGUI */}
+      {isAppWindowOpen && (
+        <FloatingWindow
+          title="postgresgui.html"
+          src="/"
+          displayUrl="file:///~/Desktop/postgresgui.html"
+          onClose={() => setIsAppWindowOpen(false)}
+          onFocus={() => setTopWindow("app")}
+          theme={theme}
+          originPoint={iconOrigin}
+          zIndex={topWindow === "app" ? 101 : 100}
+          isFocused={topWindow === "app"}
+        />
+      )}
+
+      {/* Floating Browser Window - SQL Cheatsheet */}
+      {isCheatsheetWindowOpen && (
+        <FloatingWindow
+          title="sql-cheatsheet.html"
+          src="/sql-cheatsheet"
+          displayUrl="file:///~/Desktop/sql-cheatsheet.html"
+          onClose={() => setIsCheatsheetWindowOpen(false)}
+          onFocus={() => setTopWindow("cheatsheet")}
+          theme={theme}
+          originPoint={cheatsheetIconOrigin}
+          initialSize={{ width: 560, height: 700 }}
+          zIndex={topWindow === "cheatsheet" ? 101 : 100}
+          isFocused={topWindow === "cheatsheet"}
+        />
+      )}
+
       <ThemeComponent {...sharedProps} />
     </>
   );

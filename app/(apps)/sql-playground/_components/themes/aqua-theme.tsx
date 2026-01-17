@@ -10,13 +10,24 @@ import {
   Search,
   Code2,
   FileCode2,
+  Download,
+  Pencil,
+  Trash2,
 } from "lucide-react";
 
 import type { ThemeProps } from "../../_lib/types";
-import { formatValue } from "../../_lib/utils";
+import { formatValue, exportToCSV } from "../../_lib/utils";
 import { useSavedQueries } from "../../_lib/hooks";
 import { SQLEditor } from "../sql-editor";
 import { QueryListItem } from "../query-list-item";
+import { EditRowDialog } from "../edit-row-dialog";
+import { DeleteRowDialog } from "../delete-row-dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import "./aqua.css";
 
 type MobileTab = "tables" | "editor" | "queries";
@@ -35,6 +46,16 @@ export function AquaTheme({
   isResetting,
   selectedTable,
   onSelectTable,
+  rowEditInfo,
+  onEditRow,
+  onDeleteRow,
+  editingRow,
+  deletingRow,
+  onCloseEditDialog,
+  onCloseDeleteDialog,
+  onSaveEdit,
+  onConfirmDelete,
+  tableSchema,
 }: ThemeProps) {
   const [mobileTab, setMobileTab] = useState<MobileTab>("editor");
   const {
@@ -57,7 +78,7 @@ export function AquaTheme({
       <div className="absolute inset-0 aqua-pinstripe" />
 
       <div className="relative flex-1 flex items-center justify-center p-6 max-md:p-0">
-        <div className="aqua-window w-full max-w-6xl h-[90vh] max-md:h-screen max-md:max-w-full flex flex-col">
+        <div className="aqua-window w-full max-w-6xl h-[90vh] max-md:h-screen max-md:max-w-full flex flex-col relative">
           {/* Title Bar */}
           <header className="brushed-metal flex items-center px-4 py-2">
             <div className="flex items-center gap-2 max-md:hidden">
@@ -136,8 +157,18 @@ export function AquaTheme({
               {/* Results Panel */}
               <div className="flex-1 min-h-[180px] max-md:min-h-[40%] flex flex-col aqua-pinstripe">
                 {/* Header */}
-                <div className="flex items-end px-3 pt-2 border-b border-[#888] bg-gradient-to-b from-[#c8c8c8] to-[#b0b0b0]">
+                <div className="flex items-end justify-between px-3 pt-2 border-b border-[#888] bg-gradient-to-b from-[#c8c8c8] to-[#b0b0b0]">
                   <span className="aqua-tab aqua-tab-active">Results</span>
+                  <button
+                    onClick={() => results && exportToCSV(results.columns, results.rows)}
+                    disabled={!results || results.rows.length === 0}
+                    className="flex items-center gap-1.5 px-2.5 py-1 mb-1 text-[11px] font-medium text-[#333] bg-white border border-[#888] rounded transition-colors enabled:hover:bg-[#e8e8e8] disabled:opacity-40 disabled:cursor-not-allowed"
+                    style={{ fontFamily: '-apple-system, "Lucida Grande", system-ui' }}
+                    title="Export to CSV"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span className="max-md:hidden">Export CSV</span>
+                  </button>
                 </div>
 
                 {/* Content */}
@@ -162,45 +193,82 @@ export function AquaTheme({
                       Query returned no rows
                     </div>
                   ) : (
-                    <table
-                      className="w-full text-[14px] border-collapse"
-                      style={{
-                        fontFamily: '-apple-system, "Lucida Grande", system-ui',
-                      }}
-                    >
-                      <thead>
-                        <tr className="bg-gradient-to-b from-[#e0e0e0] to-[#ccc]">
-                          {results.columns.map((col) => (
-                            <th
-                              key={col}
-                              className="px-4 py-2.5 text-left text-[13px] font-bold text-[#000] uppercase border-r border-[#bbb] border-b-2 border-b-[#888]"
-                            >
-                              {col}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {results.rows.map((row, index) => (
-                          <tr
-                            key={index}
-                            className={`aqua-row border-b border-[#ddd] ${index % 2 === 0 ? "bg-white" : "bg-[#f0f0f0]"}`}
-                          >
+                    <TooltipProvider delayDuration={300}>
+                      <table
+                        className="w-full text-[14px] border-collapse"
+                        style={{
+                          fontFamily: '-apple-system, "Lucida Grande", system-ui',
+                        }}
+                      >
+                        <thead>
+                          <tr className="bg-gradient-to-b from-[#e0e0e0] to-[#ccc]">
                             {results.columns.map((col) => (
-                              <td
+                              <th
                                 key={col}
-                                className="px-4 py-2 text-[#000] border-r border-[#e8e8e8]"
-                                style={{
-                                  fontFamily: 'Monaco, "Courier New", monospace',
-                                }}
+                                className="px-4 py-2.5 text-left text-[13px] font-bold text-[#000] uppercase border-r border-[#bbb] border-b-2 border-b-[#888]"
                               >
-                                {formatValue(row[col])}
-                              </td>
+                                {col}
+                              </th>
                             ))}
+                            <th className="px-4 py-2.5 text-left text-[13px] font-bold text-[#000] uppercase border-b-2 border-b-[#888] w-[80px]">
+                              Actions
+                            </th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          {results.rows.map((row, index) => (
+                            <tr
+                              key={index}
+                              className={`group aqua-row border-b border-[#ddd] ${index % 2 === 0 ? "bg-white" : "bg-[#f0f0f0]"}`}
+                            >
+                              {results.columns.map((col) => (
+                                <td
+                                  key={col}
+                                  className="px-4 py-2 text-[#000] border-r border-[#e8e8e8]"
+                                  style={{
+                                    fontFamily: 'Monaco, "Courier New", monospace',
+                                  }}
+                                >
+                                  {formatValue(row[col])}
+                                </td>
+                              ))}
+                              <td className="px-2 py-2">
+                                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <button
+                                        onClick={() => rowEditInfo?.isEditable && onEditRow(row)}
+                                        disabled={!rowEditInfo?.isEditable}
+                                        className={`p-1 rounded ${rowEditInfo?.isEditable ? "hover:bg-[#d8e8f8]" : "opacity-40 cursor-not-allowed"}`}
+                                      >
+                                        <Pencil className={`w-3.5 h-3.5 ${rowEditInfo?.isEditable ? "text-[#0055cc]" : "text-[#999]"}`} />
+                                      </button>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="top" className="text-xs">
+                                      {rowEditInfo?.isEditable ? "Edit row" : rowEditInfo?.reason || "Cannot edit"}
+                                    </TooltipContent>
+                                  </Tooltip>
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <button
+                                        onClick={() => rowEditInfo?.isEditable && onDeleteRow(row)}
+                                        disabled={!rowEditInfo?.isEditable}
+                                        className={`p-1 rounded ${rowEditInfo?.isEditable ? "hover:bg-[#fdd]" : "opacity-40 cursor-not-allowed"}`}
+                                      >
+                                        <Trash2 className={`w-3.5 h-3.5 ${rowEditInfo?.isEditable ? "text-red-600" : "text-[#999]"}`} />
+                                      </button>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="top" className="text-xs">
+                                      {rowEditInfo?.isEditable ? "Delete row" : rowEditInfo?.reason || "Cannot delete"}
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </TooltipProvider>
                   )}
                 </div>
               </div>
@@ -451,6 +519,46 @@ export function AquaTheme({
               <span>Reset</span>
             </button>
           </footer>
+
+          {/* Edit Row Dialog */}
+          <EditRowDialog
+            isOpen={!!editingRow}
+            onClose={onCloseEditDialog}
+            onSave={onSaveEdit}
+            row={editingRow}
+            columns={results?.columns || []}
+            primaryKeyColumn={rowEditInfo?.primaryKeyColumn || null}
+            schema={tableSchema}
+            overlayClassName="bg-black/30"
+            dialogClassName="bg-gradient-to-b from-[#f0f0f0] to-[#ddd] border border-[#888] rounded-lg shadow-xl"
+            headerClassName="border-b border-[#888] bg-gradient-to-b from-[#e8e8e8] to-[#d0d0d0] rounded-t-lg"
+            titleClassName="text-[14px] font-semibold text-[#111]"
+            closeButtonClassName="p-1 hover:bg-black/10 rounded"
+            bodyClassName=""
+            labelClassName="text-[13px] font-semibold text-[#222]"
+            inputClassName="px-3 py-1.5 text-[13px] bg-white border border-[#999] rounded focus:outline-none focus:ring-1 focus:ring-[#6aa8f0] focus:border-[#6aa8f0]"
+            footerClassName="border-t border-[#888] bg-gradient-to-b from-[#d8d8d8] to-[#c0c0c0] rounded-b-lg"
+            cancelButtonClassName="aqua-btn-secondary px-4 py-1.5 text-[13px]"
+            saveButtonClassName="aqua-btn-primary px-4 py-1.5 text-[13px] flex items-center gap-2"
+          />
+
+          {/* Delete Row Dialog */}
+          <DeleteRowDialog
+            isOpen={!!deletingRow}
+            onClose={onCloseDeleteDialog}
+            onConfirm={onConfirmDelete}
+            primaryKeyColumn={rowEditInfo?.primaryKeyColumn || null}
+            primaryKeyValue={deletingRow?.[rowEditInfo?.primaryKeyColumn || ""] ?? null}
+            overlayClassName="bg-black/30"
+            dialogClassName="bg-gradient-to-b from-[#f0f0f0] to-[#ddd] border border-[#888] rounded-lg shadow-xl"
+            headerClassName=""
+            iconClassName="text-red-600"
+            titleClassName="text-[14px] font-semibold text-[#111]"
+            descriptionClassName="text-[13px] text-[#444]"
+            footerClassName="border-t border-[#888] bg-gradient-to-b from-[#d8d8d8] to-[#c0c0c0] rounded-b-lg"
+            cancelButtonClassName="aqua-btn-secondary px-4 py-1.5 text-[13px]"
+            deleteButtonClassName="aqua-btn-danger px-4 py-1.5 text-[13px] flex items-center gap-2"
+          />
         </div>
       </div>
     </div>

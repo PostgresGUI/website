@@ -138,6 +138,69 @@ class PlaygroundDB {
     }
     await this.init();
   }
+
+  static async getPrimaryKey(tableName: string): Promise<string | null> {
+    if (!this.instance) {
+      await this.init();
+    }
+
+    const result = await this.instance!.query(`
+      SELECT a.attname as column_name
+      FROM pg_index i
+      JOIN pg_attribute a ON a.attrelid = i.indrelid AND a.attnum = ANY(i.indkey)
+      WHERE i.indrelid = $1::regclass
+      AND i.indisprimary
+    `, [tableName]);
+
+    const rows = result.rows as { column_name: string }[];
+    // Return first primary key column (for composite keys, we only use the first)
+    return rows.length > 0 ? rows[0].column_name : null;
+  }
+
+  static async updateRow(
+    tableName: string,
+    primaryKeyColumn: string,
+    primaryKeyValue: unknown,
+    updates: Record<string, unknown>
+  ): Promise<void> {
+    if (!this.instance) {
+      await this.init();
+    }
+
+    const setClauses: string[] = [];
+    const values: unknown[] = [];
+    let paramIndex = 1;
+
+    for (const [column, value] of Object.entries(updates)) {
+      // Skip the primary key column itself
+      if (column === primaryKeyColumn) continue;
+      setClauses.push(`"${column}" = $${paramIndex}`);
+      values.push(value);
+      paramIndex++;
+    }
+
+    if (setClauses.length === 0) {
+      return; // Nothing to update
+    }
+
+    values.push(primaryKeyValue);
+    const sql = `UPDATE "${tableName}" SET ${setClauses.join(', ')} WHERE "${primaryKeyColumn}" = $${paramIndex}`;
+
+    await this.instance!.query(sql, values);
+  }
+
+  static async deleteRow(
+    tableName: string,
+    primaryKeyColumn: string,
+    primaryKeyValue: unknown
+  ): Promise<void> {
+    if (!this.instance) {
+      await this.init();
+    }
+
+    const sql = `DELETE FROM "${tableName}" WHERE "${primaryKeyColumn}" = $1`;
+    await this.instance!.query(sql, [primaryKeyValue]);
+  }
 }
 
 export default PlaygroundDB;
