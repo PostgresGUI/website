@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { AppStoreBadge } from "@/components/app-store-badge";
+import { AppStoreLink, APP_STORE_LINK } from "@/components/app-store-link";
 import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import { getTranslations, Locale } from "@/lib/translations";
 import { Download, HardDrive, Github } from "lucide-react";
-
-const APP_STORE_LINK = "https://apps.apple.com/app/postgresgui/id6756467181";
 
 export type DownloadPageProps = {
   appStoreLink?: string;
@@ -36,14 +35,12 @@ export function DownloadPage({
           </p>
 
           {/* App Store Button */}
-          <a
+          <AppStoreLink
             href={appStoreLink}
-            target="_blank"
-            rel="noopener noreferrer"
             className="inline-block transition-transform hover:scale-105 mb-16"
           >
             <AppStoreBadge scale={1.5} />
-          </a>
+          </AppStoreLink>
 
           {/* Quick Info Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">

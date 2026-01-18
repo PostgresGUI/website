@@ -6,10 +6,10 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { MenuIcon, XIcon, GitHubIcon } from "@/components/icons";
 import { getTranslations, Locale } from "@/lib/translations";
+import { AppStoreLink } from "@/components/app-store-link";
 
 const GITHUB_LINK = "https://github.com/postgresgui/postgresgui";
 const GITHUB_API = "https://api.github.com/repos/postgresgui/postgresgui";
-const APP_STORE_LINK = "https://apps.apple.com/app/postgresgui/id6756467181";
 
 type NavigationProps = {
   locale?: Locale;
@@ -123,14 +123,11 @@ export function Navigation({ locale = "en" }: NavigationProps) {
                 </span>
               )}
             </a>
-            <a
-              href={APP_STORE_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+            <AppStoreLink
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white text-sm font-medium transition-all bg-gradient-to-b from-gray-700 to-gray-900 dark:from-gray-600 dark:to-gray-800 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),0_2px_4px_0_rgba(0,0,0,0.4),0_4px_8px_-2px_rgba(0,0,0,0.3)] hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2),0_4px_8px_0_rgba(0,0,0,0.4),0_6px_12px_-2px_rgba(0,0,0,0.3)] hover:from-gray-600 hover:to-gray-800 dark:hover:from-gray-500 dark:hover:to-gray-700 active:from-gray-800 active:to-gray-900 active:shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.3)] border border-gray-800 dark:border-gray-700"
             >
               {t.nav.download} <span className="text-xs opacity-70">↗</span>
-            </a>
+            </AppStoreLink>
           </div>
 
           {/* Mobile Menu Button */}
@@ -203,15 +200,12 @@ export function Navigation({ locale = "en" }: NavigationProps) {
                 </span>
               )}
             </a>
-            <a
-              href={APP_STORE_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+            <AppStoreLink
               className="block font-semibold text-sm text-white py-2 px-3 rounded-lg text-center transition-all bg-gradient-to-b from-gray-700 to-gray-900 dark:from-gray-600 dark:to-gray-800 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),0_2px_4px_0_rgba(0,0,0,0.4),0_4px_8px_-2px_rgba(0,0,0,0.3)] hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2),0_4px_8px_0_rgba(0,0,0,0.4),0_6px_12px_-2px_rgba(0,0,0,0.3)] hover:from-gray-600 hover:to-gray-800 dark:hover:from-gray-500 dark:hover:to-gray-700 border border-gray-800 dark:border-gray-700"
               onClick={() => setMobileMenuOpen(false)}
             >
               {t.nav.download} <span className="text-xs opacity-70">↗</span>
-            </a>
+            </AppStoreLink>
           </div>
         )}
       </div>

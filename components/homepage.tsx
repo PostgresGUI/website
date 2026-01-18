@@ -1,14 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AppStoreBadge } from "@/components/app-store-badge";
+import { AppStoreLink, APP_STORE_LINK } from "@/components/app-store-link";
 import { Highlights } from "@/components/highlights";
 import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import { FAQ } from "@/components/faq";
 import { FlowingData } from "@/components/hero-animations/flowing-data";
 import { ArrowRight } from "lucide-react";
 import { getTranslations, Locale } from "@/lib/translations";
-
-const APP_STORE_LINK = "https://apps.apple.com/app/postgresgui/id6756467181";
 
 export type HomepageProps = {
   appStoreLink?: string;
@@ -60,14 +59,12 @@ export function Homepage({
 
           {/* CTA Button */}
           <div className="flex flex-col items-center justify-center gap-8 mb-8 md:mb-10 animate-slide-in stagger-3">
-            <a
+            <AppStoreLink
               href={appStoreLink}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-block transition-transform hover:scale-105"
             >
               <AppStoreBadge scale={1.5} />
-            </a>
+            </AppStoreLink>
             <a
               href="https://github.com/postgresgui/postgresgui"
               target="_blank"

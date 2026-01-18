@@ -1,7 +1,6 @@
 import { AppStoreBadge } from "@/components/app-store-badge";
+import { AppStoreLink, APP_STORE_LINK } from "@/components/app-store-link";
 import { getTranslations, Locale } from "@/lib/translations";
-
-const APP_STORE_LINK = "https://apps.apple.com/app/postgresgui/id6756467181";
 
 type FinalCTAV2Props = {
   locale?: Locale;
@@ -20,14 +19,12 @@ export function FinalCTAV2({
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-display mb-8 tracking-tight text-white dark:text-gray-900">
           {t.cta.availableNow}
         </h2>
-        <a
+        <AppStoreLink
           href={appStoreLink}
-          target="_blank"
-          rel="noopener noreferrer"
           className="inline-block transition-transform hover:scale-105"
         >
           <AppStoreBadge scale={1.5} />
-        </a>
+        </AppStoreLink>
       </div>
     </div>
   );

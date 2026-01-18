@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AppStoreBadge } from "@/components/app-store-badge";
+import { AppStoreLink, APP_STORE_LINK } from "@/components/app-store-link";
 import { TablePlusComparison } from "@/components/tableplus-comparison";
 import {
   DollarSign,
@@ -15,8 +16,6 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { getTranslations, Locale } from "@/lib/translations";
-
-const APP_STORE_LINK = "https://apps.apple.com/app/postgresgui/id6756467181";
 
 const sources = [
   {
@@ -163,14 +162,12 @@ export function TablePlusAlternativePage({
 
           {/* CTA */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8 animate-slide-in">
-            <a
+            <AppStoreLink
               href={appStoreLink}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-block transition-transform hover:scale-105 [&_svg]:w-[150px] [&_svg]:h-auto"
             >
               <AppStoreBadge />
-            </a>
+            </AppStoreLink>
             <a
               href="https://github.com/postgresgui/postgresgui"
               target="_blank"
