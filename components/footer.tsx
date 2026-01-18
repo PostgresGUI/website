@@ -56,9 +56,15 @@ export function Footer({ locale = "en" }: FooterProps) {
             <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">
               PostgresGUI
             </h3>
-            <p className="text-sm text-gray-600 dark:text-white">
+            <p className="text-sm text-gray-600 dark:text-white mb-3">
               {t.footer.tagline}
             </p>
+            <Link
+              href={`${localePrefix}/download`}
+              className="text-sm font-medium text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] hover:underline"
+            >
+              {t.nav.download} →
+            </Link>
           </div>
 
           {/* Product Links */}
