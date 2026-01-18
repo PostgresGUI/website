@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Download PostgresGUI for Mac. Lightweight, open-source PostgreSQL client. Native macOS app with dark mode support. Get it free on the App Store.",
   alternates: {
-    canonical: "https://postgresgui.com/nl/download",
+    canonical: "https://postgresgui.com/download", // Point to main download page
     languages: getDownloadHreflangAlternates(),
   },
 };

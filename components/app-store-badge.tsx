@@ -13,8 +13,9 @@ export function AppStoreBadge({ scale = 1 }: AppStoreBadgeProps) {
       width={width}
       height={height}
       viewBox="0 0 119.66407 40"
+      role="img"
+      aria-label="Download on the App Store"
     >
-      <title>Download_on_the_App_Store_Badge_US-UK_RGB_blk_4SVG_092917</title>
 
       <g>
         <g>

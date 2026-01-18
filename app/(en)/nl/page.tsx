@@ -4,7 +4,7 @@ import { getHreflangAlternates } from "@/lib/locales";
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: "https://postgresgui.com/nl",
+    canonical: "https://postgresgui.com", // Point to main page to avoid duplicate content
     languages: getHreflangAlternates(),
   },
 };

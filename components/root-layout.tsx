@@ -2,6 +2,7 @@ import { Oswald } from "next/font/google";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { CookieConsent } from "@/components/cookie-consent";
+import { StructuredData } from "@/components/structured-data";
 import { Locale } from "@/lib/translations";
 
 const oswald = Oswald({
@@ -18,6 +19,9 @@ export type RootLayoutProps = {
 export function RootLayout({ children, lang }: RootLayoutProps) {
   return (
     <html lang={lang}>
+      <head>
+        <StructuredData />
+      </head>
       <body
         className={`${oswald.variable} antialiased flex flex-col min-h-screen`}
       >

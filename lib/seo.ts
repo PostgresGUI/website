@@ -50,7 +50,7 @@ const tablePlusAlternativeSeoData: Record<Locale, TablePlusAlternativeSEO> = {
       "postgres gui mac",
     ],
     ogLocale: "en_GB",
-    canonical: "https://postgresgui.com/uk/alternatives/tableplus",
+    canonical: "https://postgresgui.com/alternatives/tableplus", // Point to main page
   },
   de: {
     title: "TablePlus Alternative für Mac - PostgresGUI | Open Source PostgreSQL Client",
@@ -218,7 +218,7 @@ const seoData: Record<Locale, LocaleSEO> = {
       "Mac",
     ],
     ogLocale: "en_GB",
-    canonical: "https://postgresgui.com/uk",
+    canonical: "https://postgresgui.com", // Point to main page to avoid duplicate content
   },
   de: {
     title: "PostgresGUI – Beste PostgreSQL GUI für Mac | Open Source",
@@ -377,7 +377,7 @@ const downloadSeoData: Record<Locale, LocaleSEO> = {
       "postgresgui download",
     ],
     ogLocale: "en_GB",
-    canonical: "https://postgresgui.com/uk/download",
+    canonical: "https://postgresgui.com/download", // Point to main download page
   },
   de: {
     title: "PostgresGUI herunterladen - PostgreSQL GUI für Mac | Kostenlos",
