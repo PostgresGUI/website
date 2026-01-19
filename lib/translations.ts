@@ -71,6 +71,7 @@ export type Translations = {
     tablePlusAlternative: string;
     legal: string;
     privacyPolicy: string;
+    license: string;
     copyright: string;
   };
   // Download page
@@ -317,6 +318,7 @@ const en: Translations = {
     tablePlusAlternative: "TablePlus",
     legal: "Legal",
     privacyPolicy: "Privacy Policy",
+    license: "License",
     copyright: "2025 PostgresGUI",
   },
   download: {
@@ -634,6 +636,7 @@ const de: Translations = {
     tablePlusAlternative: "TablePlus",
     legal: "Rechtliches",
     privacyPolicy: "Datenschutz",
+    license: "Lizenz",
     copyright: "2025 PostgresGUI",
   },
   download: {
@@ -957,6 +960,7 @@ const fr: Translations = {
     tablePlusAlternative: "TablePlus",
     legal: "Mentions légales",
     privacyPolicy: "Politique de confidentialité",
+    license: "Licence",
     copyright: "2025 PostgresGUI",
   },
   download: {
@@ -1266,6 +1270,7 @@ const ja: Translations = {
     tablePlusAlternative: "TablePlus",
     legal: "法的情報",
     privacyPolicy: "プライバシーポリシー",
+    license: "ライセンス",
     copyright: "2025 PostgresGUI",
   },
   download: {

@@ -33,7 +33,14 @@ export function Footer({ locale = "en" }: FooterProps) {
     { href: "/alternatives/tableplus", label: t.footer.tablePlusAlternative },
   ];
 
-  const legalLinks = [{ href: "/privacy", label: t.footer.privacyPolicy }];
+  const legalLinks = [
+    { href: "/privacy", label: t.footer.privacyPolicy },
+    {
+      href: "https://github.com/PostgresGUI/postgresgui/blob/main/LICENSE",
+      label: t.footer.license,
+      external: true,
+    },
+  ];
 
   const socialLinks = [
     {
@@ -147,8 +154,13 @@ export function Footer({ locale = "en" }: FooterProps) {
                     <Link
                       href={link.href}
                       className="text-sm text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-white transition-colors"
+                      {...(link.external && {
+                        target: "_blank",
+                        rel: "noopener noreferrer",
+                      })}
                     >
                       {link.label}
+                      {link.external && " ↗"}
                     </Link>
                   </li>
                 ))}
