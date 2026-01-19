@@ -6,6 +6,7 @@ import { Highlights } from "@/components/highlights";
 import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import { FAQ } from "@/components/faq";
 import { FlowingData } from "@/components/hero-animations/flowing-data";
+import { NewFeatureBadge } from "@/components/new-feature-badge";
 import { ArrowRight } from "lucide-react";
 import { getTranslations, Locale } from "@/lib/translations";
 
@@ -22,20 +23,8 @@ export function Homepage({
 
   return (
     <>
-      {/* Learn SQL Floating Button - Hidden for now
-      <Link
-        href="/learn-sql"
-        className="group fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/80 dark:bg-stone-800/80 backdrop-blur-md border border-stone-200/50 dark:border-stone-700/50 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-      >
-        <span className="px-2 py-0.5 rounded-full bg-[var(--postgres-blue)]/15 text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] text-xs font-medium">
-          {t.hero.badge}
-        </span>
-        <span className="text-sm text-gray-700 dark:text-gray-200">
-          {t.hero.learnSql}
-        </span>
-        <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-[var(--postgres-blue)] group-hover:translate-x-0.5 transition-all" />
-      </Link>
-      */}
+      {/* SQL Editor Floating Badge */}
+      <NewFeatureBadge />
 
       {/* Hero Section */}
       <div
