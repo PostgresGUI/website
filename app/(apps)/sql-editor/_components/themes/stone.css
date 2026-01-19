@@ -2,8 +2,8 @@
 
 /* Container background - subtle dot pattern */
 .stone-bg {
-  background-color: #e7e5e4;
-  background-image: radial-gradient(circle, #a8a29e 1px, transparent 1px);
+  background-color: #a8a29e;
+  background-image: radial-gradient(circle, #78716c 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
