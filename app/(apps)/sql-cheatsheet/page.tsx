@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     title: "SQL Cheatsheet",
     description: "SQL cheatsheet with copy-paste examples.",
     type: "website",
+    url: "https://postgresgui.com/sql-cheatsheet",
   },
   twitter: {
     card: "summary_large_image",
@@ -30,7 +31,24 @@ export const metadata: Metadata = {
     description: "SQL cheatsheet with copy-paste examples.",
   },
   alternates: {
-    canonical: "/sql-cheatsheet",
+    canonical: "https://postgresgui.com/sql-cheatsheet",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "SQL Cheatsheet",
+  description: "SQL cheatsheet with copy-paste examples.",
+  url: "https://postgresgui.com/sql-cheatsheet",
+  mainEntity: {
+    "@type": "Article",
+    name: "SQL Cheatsheet",
+    description: "Comprehensive SQL cheatsheet with copy-paste examples for PostgreSQL, MySQL, and SQLite.",
+    author: {
+      "@type": "Organization",
+      name: "PostgresGUI",
+    },
   },
 };
 
@@ -206,12 +224,18 @@ export default function SQLCheatsheetPage() {
   const categories = getCategories(defaultDatabase.id);
 
   return (
-    <div className="columns-1 md:columns-2 xl:columns-3 gap-4 sm:gap-6 lg:gap-8">
-      {categories.map((category) => (
-        <div key={category.id} id={category.id}>
-          <CategoryColumn category={category} />
-        </div>
-      ))}
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="columns-1 md:columns-2 xl:columns-3 gap-4 sm:gap-6 lg:gap-8">
+        {categories.map((category) => (
+          <div key={category.id} id={category.id}>
+            <CategoryColumn category={category} />
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
