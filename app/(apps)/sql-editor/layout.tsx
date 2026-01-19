@@ -15,9 +15,26 @@ const sairaStencilOne = Saira_Stencil_One({
 });
 
 export const metadata: Metadata = {
-  title: "SQL Playground - Free Online SQL Editor",
-  description:
-    "Practice SQL queries in your browser with our free SQL playground. No signup required.",
+  title: "SQL Editor",
+  description: "Run SQL queries in your browser.",
+  keywords: [
+    "sql editor",
+    "online sql editor",
+    "online sql compiler",
+    "sql query editor online",
+    "free sql editor",
+    "sql online",
+  ],
+  openGraph: {
+    title: "SQL Editor",
+    description: "Run SQL queries in your browser.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SQL Editor",
+    description: "Run SQL queries in your browser.",
+  },
 };
 
 export default function PlaygroundLayout({
