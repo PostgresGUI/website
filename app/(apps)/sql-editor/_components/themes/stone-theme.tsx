@@ -88,7 +88,7 @@ export function StoneTheme({
                 fontFamily: '"DM Sans", system-ui, sans-serif',
               }}
             >
-              SQL Playground
+              SQL Editor
             </h1>
           </header>
 

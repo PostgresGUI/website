@@ -93,7 +93,7 @@ export function AquaTheme({
                   fontFamily: '-apple-system, "Lucida Grande", system-ui',
                 }}
               >
-                SQL Playground
+                SQL Editor
               </h1>
             </div>
             <div className="w-[62px] max-md:hidden" />

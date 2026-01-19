@@ -33,11 +33,20 @@ export const metadata: Metadata = {
     description: "Run SQL queries in your browser.",
     type: "website",
     url: "https://postgresgui.com/sql-editor",
+    images: [
+      {
+        url: "https://postgresgui.com/online-sql-editor.jpg",
+        width: 1200,
+        height: 630,
+        alt: "SQL Editor - Run SQL queries in your browser",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "SQL Editor",
     description: "Run SQL queries in your browser.",
+    images: ["https://postgresgui.com/online-sql-editor.jpg"],
   },
 };
 

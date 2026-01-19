@@ -89,7 +89,7 @@ export function PlatinumTheme({
             <div className="platinum-close max-md:hidden" />
             <div className="flex-1 flex justify-center">
               <span className="text-[14px] font-bold bg-[#dddddd] px-2">
-                SQL Playground
+                SQL Editor
               </span>
             </div>
             <div className="w-[21px] max-md:hidden" />
