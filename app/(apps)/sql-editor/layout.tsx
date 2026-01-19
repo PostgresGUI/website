@@ -25,15 +25,34 @@ export const metadata: Metadata = {
     "free sql editor",
     "sql online",
   ],
+  alternates: {
+    canonical: "https://postgresgui.com/sql-editor",
+  },
   openGraph: {
     title: "SQL Editor",
     description: "Run SQL queries in your browser.",
     type: "website",
+    url: "https://postgresgui.com/sql-editor",
   },
   twitter: {
     card: "summary_large_image",
     title: "SQL Editor",
     description: "Run SQL queries in your browser.",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "SQL Editor",
+  description: "Run SQL queries in your browser.",
+  url: "https://postgresgui.com/sql-editor",
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Any",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
   },
 };
 
@@ -44,6 +63,10 @@ export default function PlaygroundLayout({
 }) {
   return (
     <div className={`${jetbrainsMono.variable} ${sairaStencilOne.variable} h-screen`}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {children}
     </div>
   );

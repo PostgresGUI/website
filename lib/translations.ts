@@ -287,6 +287,11 @@ const en: Translations = {
       answer:
         "Not yet. What we do have is saved queries with folder organization and search, so you can keep your frequently-used queries organized and findable. The editor also auto-saves as you type.",
     },
+    {
+      question: "If it's open source, can I build it myself for free?",
+      answer:
+        "Yes. You can clone the repository from GitHub and build/package the app yourself at no cost. The source code is fully available.",
+    },
   ],
   cta: {
     availableNow: "Available Now",
@@ -598,6 +603,11 @@ const de: Translations = {
       question: "Hat PostgresGUI eine automatische Abfrage-Historie?",
       answer:
         "Noch nicht. Was wir haben, sind gespeicherte Abfragen mit Ordnerorganisation und Suche, damit du deine häufig verwendeten Abfragen organisiert und auffindbar halten kannst. Der Editor speichert auch automatisch während du tippst.",
+    },
+    {
+      question: "Wenn es Open Source ist, kann ich es selbst kostenlos erstellen?",
+      answer:
+        "Ja. Du kannst das Repository von GitHub klonen und die App selbst kostenlos erstellen/paketieren. Der Quellcode ist vollständig verfügbar.",
     },
   ],
   cta: {
@@ -917,6 +927,11 @@ const fr: Translations = {
       answer:
         "Pas encore. Ce que nous avons, ce sont des requêtes sauvegardées avec une organisation en dossiers et une recherche, pour que vous puissiez garder vos requêtes fréquentes organisées et faciles à trouver. L'éditeur sauvegarde aussi automatiquement pendant que vous tapez.",
     },
+    {
+      question: "Si c'est open source, puis-je le compiler moi-même gratuitement ?",
+      answer:
+        "Oui. Vous pouvez cloner le dépôt depuis GitHub et compiler/empaqueter l'application vous-même sans frais. Le code source est entièrement disponible.",
+    },
   ],
   cta: {
     availableNow: "Disponible maintenant",
@@ -1220,6 +1235,11 @@ const ja: Translations = {
       question: "PostgresGUIには自動クエリ履歴がありますか？",
       answer:
         "まだありません。現在あるのは、フォルダ整理と検索機能付きの保存済みクエリです。よく使うクエリを整理して見つけやすく保管できます。また、エディタは入力中に自動保存します。",
+    },
+    {
+      question: "オープンソースなら、自分で無料でビルドできますか？",
+      answer:
+        "はい。GitHubからリポジトリをクローンして、自分でアプリを無料でビルド/パッケージ化できます。ソースコードは完全に公開されています。",
     },
   ],
   cta: {
