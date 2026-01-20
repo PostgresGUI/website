@@ -72,6 +72,18 @@ export function Footer({ locale = "en" }: FooterProps) {
             >
               {t.nav.download} →
             </Link>
+            <Link
+              href="/sql-editor"
+              className="block mt-2 text-sm text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-white transition-colors"
+            >
+              Online SQL Editor
+            </Link>
+            <Link
+              href="/sql-cheatsheet"
+              className="block mt-1 text-sm text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-white transition-colors"
+            >
+              SQL Cheatsheet
+            </Link>
           </div>
 
           {/* Product Links */}
