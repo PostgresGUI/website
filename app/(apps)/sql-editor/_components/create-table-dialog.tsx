@@ -87,6 +87,7 @@ export function CreateTableDialog({
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isMaximized, setIsMaximized] = useState(false);
   const [preMaximizeState, setPreMaximizeState] = useState({ position: { x: 0, y: 0 }, size: initialSize });
+  const [isPositioned, setIsPositioned] = useState(false);
 
   const windowRef = useRef<HTMLDivElement>(null);
 
@@ -104,6 +105,9 @@ export function CreateTableDialog({
       setPosition({ x, y });
       setSize(initialSize);
       setIsMaximized(false);
+      setIsPositioned(true);
+    } else {
+      setIsPositioned(false);
     }
   }, [isOpen]);
 
@@ -363,12 +367,13 @@ export function CreateTableDialog({
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/20" onClick={onClose} />
 
-      {/* Window */}
-      <div
-        ref={windowRef}
-        className="fixed flex flex-col overflow-hidden"
-        style={{
-          left: position.x,
+      {/* Window - only render after position is calculated */}
+      {isPositioned && (
+        <div
+          ref={windowRef}
+          className="fixed flex flex-col overflow-hidden"
+          style={{
+            left: position.x,
           top: position.y,
           width: size.width,
           height: size.height,
@@ -614,18 +619,19 @@ export function CreateTableDialog({
           </button>
         </div>
 
-        {/* Resize handle */}
-        {!isMaximized && (
-          <div
-            className="absolute bottom-0 right-0 w-8 h-8 cursor-se-resize flex items-end justify-end p-1"
-            onMouseDown={handleResizeStart}
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ opacity: 0.4 }}>
-              <path d="M14 2L2 14M14 7L7 14M14 12L12 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-          </div>
-        )}
-      </div>
+          {/* Resize handle */}
+          {!isMaximized && (
+            <div
+              className="absolute bottom-0 right-0 w-8 h-8 cursor-se-resize flex items-end justify-end p-1"
+              onMouseDown={handleResizeStart}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ opacity: 0.4 }}>
+                <path d="M14 2L2 14M14 7L7 14M14 12L12 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
