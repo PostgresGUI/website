@@ -519,27 +519,7 @@ export function PlatinumTheme({
             onClose={onCloseCreateTable}
             onCreateTable={onCreateTable}
             existingTables={schema.map((t) => t.name.toLowerCase())}
-            overlayClassName="bg-black/30"
-            dialogClassName="bg-[#dddddd] border-2 border-[#888] shadow-[4px_4px_0_#000]"
-            headerClassName="border-b-2 border-[#888] bg-[#cccccc]"
-            titleClassName="text-[14px] font-bold"
-            closeButtonClassName="p-1 hover:bg-[#bbb]"
-            bodyClassName="bg-[#dddddd]"
-            labelClassName="text-[13px] font-bold"
-            inputClassName="px-2 py-1.5 text-[13px] bg-white border border-[#888] focus:outline-none"
-            selectClassName="px-2 py-1.5 text-[13px] bg-white border border-[#888] focus:outline-none"
-            footerClassName="border-t-2 border-[#888] bg-[#cccccc]"
-            cancelButtonClassName="platinum-btn px-4 py-1.5 text-[13px]"
-            createButtonClassName="platinum-btn px-4 py-1.5 text-[13px] disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-            errorClassName="text-red-600 bg-[#ffdddd] border border-red-400"
-            columnRowClassName=""
-            addButtonClassName="text-[13px] text-[#444] hover:text-[#000] font-bold"
-            removeButtonClassName="p-1 text-[#666] hover:text-red-600 hover:bg-[#ffdddd]"
-            previewClassName=""
-            previewHeaderClassName="text-[13px] font-bold text-[#444] hover:text-[#000]"
-            previewCodeClassName="p-3 text-[12px] bg-[#1e1e1e] text-[#d4d4d4] overflow-x-auto font-mono"
-            checkboxClassName="w-4 h-4"
-            radioClassName="w-4 h-4"
+            theme="platinum"
           />
         </div>
       </div>
