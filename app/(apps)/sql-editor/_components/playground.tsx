@@ -66,6 +66,7 @@ export function Playground() {
   const [rowEditInfo, setRowEditInfo] = useState<RowEditInfo | null>(null);
   const [editingRow, setEditingRow] = useState<Record<string, unknown> | null>(null);
   const [deletingRow, setDeletingRow] = useState<Record<string, unknown> | null>(null);
+  const [isCreateTableOpen, setIsCreateTableOpen] = useState(false);
   const lastQueryRef = useRef<string>("");
 
   // Load theme from localStorage (runs before first paint due to null initial state)
@@ -269,6 +270,12 @@ export function Playground() {
     return table?.columns || [];
   };
 
+  // Create table handler
+  const handleCreateTable = async (sql: string) => {
+    await PlaygroundDB.query(sql);
+    await loadSchema();
+  };
+
   const sharedProps = {
     query,
     setQuery,
@@ -293,6 +300,10 @@ export function Playground() {
     onSaveEdit: handleSaveEdit,
     onConfirmDelete: handleConfirmDelete,
     tableSchema: getTableSchema(),
+    isCreateTableOpen,
+    onOpenCreateTable: () => setIsCreateTableOpen(true),
+    onCloseCreateTable: () => setIsCreateTableOpen(false),
+    onCreateTable: handleCreateTable,
   };
 
   // Don't render until theme is loaded from localStorage to prevent flash

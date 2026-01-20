@@ -22,6 +22,7 @@ import { SQLEditor } from "../sql-editor";
 import { QueryListItem } from "../query-list-item";
 import { EditRowDialog } from "../edit-row-dialog";
 import { DeleteRowDialog } from "../delete-row-dialog";
+import { CreateTableDialog } from "../create-table-dialog";
 import {
   Tooltip,
   TooltipContent,
@@ -56,6 +57,10 @@ export function AquaTheme({
   onSaveEdit,
   onConfirmDelete,
   tableSchema,
+  isCreateTableOpen,
+  onOpenCreateTable,
+  onCloseCreateTable,
+  onCreateTable,
 }: ThemeProps) {
   const [mobileTab, setMobileTab] = useState<MobileTab>("editor");
   const {
@@ -103,7 +108,7 @@ export function AquaTheme({
           <div className="flex-1 flex overflow-hidden bg-[#ddd] relative">
             {/* Schema Explorer */}
             <aside className={`w-60 max-md:w-full max-md:absolute max-md:inset-0 max-md:z-10 border-r border-[#888] max-md:border-0 bg-gradient-to-b from-[#f0f0f0] to-[#ddd] flex flex-col ${mobileTab !== "tables" ? "max-md:hidden" : ""}`}>
-              <div className="px-4 py-2 pb-0">
+              <div className="px-4 py-2 pb-0 flex items-center justify-between">
                 <span
                   className="text-[13px] font-bold text-[#222] uppercase tracking-wide"
                   style={{
@@ -112,6 +117,14 @@ export function AquaTheme({
                 >
                   Tables
                 </span>
+                <button
+                  onClick={onOpenCreateTable}
+                  className="p-1 bg-white border border-[#999] rounded hover:bg-[#e8e8e8] transition-colors"
+                  title="Create new table"
+                  aria-label="Create new table"
+                >
+                  <Plus className="w-3.5 h-3.5 text-[#444]" />
+                </button>
               </div>
               <div className="flex-1 overflow-y-auto aqua-scroll p-2">
                 {isLoading ? (
@@ -558,6 +571,35 @@ export function AquaTheme({
             footerClassName="border-t border-[#888] bg-gradient-to-b from-[#d8d8d8] to-[#c0c0c0] rounded-b-lg"
             cancelButtonClassName="aqua-btn-secondary px-4 py-1.5 text-[13px]"
             deleteButtonClassName="aqua-btn-danger px-4 py-1.5 text-[13px] flex items-center gap-2"
+          />
+
+          {/* Create Table Dialog */}
+          <CreateTableDialog
+            isOpen={isCreateTableOpen}
+            onClose={onCloseCreateTable}
+            onCreateTable={onCreateTable}
+            existingTables={schema.map((t) => t.name.toLowerCase())}
+            overlayClassName="bg-black/30"
+            dialogClassName="bg-gradient-to-b from-[#f0f0f0] to-[#ddd] border border-[#888] rounded-lg shadow-xl"
+            headerClassName="border-b border-[#888] bg-gradient-to-b from-[#e8e8e8] to-[#d0d0d0] rounded-t-lg"
+            titleClassName="text-[14px] font-semibold text-[#111]"
+            closeButtonClassName="p-1 hover:bg-black/10 rounded"
+            bodyClassName=""
+            labelClassName="text-[13px] font-semibold text-[#222]"
+            inputClassName="px-3 py-1.5 text-[13px] bg-white border border-[#999] rounded focus:outline-none focus:ring-1 focus:ring-[#6aa8f0] focus:border-[#6aa8f0]"
+            selectClassName="px-3 py-1.5 text-[13px] bg-white border border-[#999] rounded focus:outline-none focus:ring-1 focus:ring-[#6aa8f0] focus:border-[#6aa8f0]"
+            footerClassName="border-t border-[#888] bg-gradient-to-b from-[#d8d8d8] to-[#c0c0c0] rounded-b-lg"
+            cancelButtonClassName="aqua-btn-secondary px-4 py-1.5 text-[13px]"
+            createButtonClassName="aqua-btn-primary px-4 py-1.5 text-[13px] disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            errorClassName="text-red-600 bg-red-50 border border-red-200 rounded"
+            columnRowClassName=""
+            addButtonClassName="text-[13px] text-[#0055cc] hover:text-[#0044aa] font-semibold"
+            removeButtonClassName="p-1 text-[#666] hover:text-red-600 hover:bg-red-50 rounded"
+            previewClassName=""
+            previewHeaderClassName="text-[13px] font-semibold text-[#444] hover:text-[#222]"
+            previewCodeClassName="p-3 text-[12px] bg-[#1e1e1e] text-[#d4d4d4] rounded overflow-x-auto font-mono"
+            checkboxClassName="w-4 h-4 rounded border-[#999] text-[#0055cc] focus:ring-[#6aa8f0]"
+            radioClassName="w-4 h-4 border-[#999] text-[#0055cc] focus:ring-[#6aa8f0]"
           />
         </div>
       </div>

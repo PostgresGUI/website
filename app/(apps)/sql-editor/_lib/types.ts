@@ -52,6 +52,10 @@ export interface ThemeProps {
   onSaveEdit: (updates: Record<string, unknown>) => Promise<void>;
   onConfirmDelete: () => Promise<void>;
   tableSchema: { name: string; type: string }[];
+  isCreateTableOpen: boolean;
+  onOpenCreateTable: () => void;
+  onCloseCreateTable: () => void;
+  onCreateTable: (sql: string) => Promise<void>;
 }
 
 export interface PlaygroundState {

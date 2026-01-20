@@ -23,6 +23,7 @@ import { SQLEditor } from "../sql-editor";
 import { QueryListItem } from "../query-list-item";
 import { EditRowDialog } from "../edit-row-dialog";
 import { DeleteRowDialog } from "../delete-row-dialog";
+import { CreateTableDialog } from "../create-table-dialog";
 import {
   Tooltip,
   TooltipContent,
@@ -57,6 +58,10 @@ export function StoneTheme({
   onSaveEdit,
   onConfirmDelete,
   tableSchema,
+  isCreateTableOpen,
+  onOpenCreateTable,
+  onCloseCreateTable,
+  onCreateTable,
 }: ThemeProps) {
   const [mobileTab, setMobileTab] = useState<MobileTab>("editor");
   const {
@@ -96,7 +101,7 @@ export function StoneTheme({
           <div className="flex-1 flex overflow-hidden bg-white relative">
             {/* Schema Explorer - Desktop sidebar, Mobile full panel */}
             <aside className={`w-60 max-md:w-full max-md:absolute max-md:inset-0 max-md:z-10 stone-sidebar flex flex-col bg-stone-50 ${mobileTab !== "tables" ? "max-md:hidden" : ""}`}>
-              <div className="stone-sidebar-header px-4 py-3 pb-0">
+              <div className="stone-sidebar-header px-4 py-3 pb-0 flex items-center justify-between">
                 <span
                   className="text-[12px] font-semibold text-stone-500 uppercase tracking-wider"
                   style={{
@@ -105,6 +110,14 @@ export function StoneTheme({
                 >
                   Tables
                 </span>
+                <button
+                  onClick={onOpenCreateTable}
+                  className="p-1 bg-white border border-stone-200 rounded hover:bg-stone-100 transition-colors"
+                  title="Create new table"
+                  aria-label="Create new table"
+                >
+                  <Plus className="w-3.5 h-3.5 text-stone-600" />
+                </button>
               </div>
               <div className="flex-1 overflow-y-auto stone-scroll p-2">
                 {isLoading ? (
@@ -543,6 +556,35 @@ export function StoneTheme({
             footerClassName="border-t border-stone-200"
             cancelButtonClassName="px-4 py-1.5 text-[13px] bg-white border border-stone-200 rounded-md text-stone-700 hover:bg-stone-100"
             deleteButtonClassName="px-4 py-1.5 text-[13px] bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center gap-2"
+          />
+
+          {/* Create Table Dialog */}
+          <CreateTableDialog
+            isOpen={isCreateTableOpen}
+            onClose={onCloseCreateTable}
+            onCreateTable={onCreateTable}
+            existingTables={schema.map((t) => t.name.toLowerCase())}
+            overlayClassName="bg-black/30"
+            dialogClassName="bg-stone-50 border border-stone-200 rounded-lg shadow-xl"
+            headerClassName="border-b border-stone-200"
+            titleClassName="text-[14px] font-semibold text-stone-900"
+            closeButtonClassName="p-1 hover:bg-stone-200 rounded"
+            bodyClassName=""
+            labelClassName="text-[13px] font-medium text-stone-700"
+            inputClassName="px-3 py-1.5 text-[13px] bg-white border border-stone-200 rounded-md focus:outline-none focus:ring-1 focus:ring-stone-400 focus:border-stone-400"
+            selectClassName="px-3 py-1.5 text-[13px] bg-white border border-stone-200 rounded-md focus:outline-none focus:ring-1 focus:ring-stone-400 focus:border-stone-400"
+            footerClassName="border-t border-stone-200"
+            cancelButtonClassName="px-4 py-1.5 text-[13px] bg-white border border-stone-200 rounded-md text-stone-700 hover:bg-stone-100"
+            createButtonClassName="px-4 py-1.5 text-[13px] bg-stone-800 text-white rounded-md hover:bg-stone-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            errorClassName="text-red-600 bg-red-50 border border-red-200 rounded-md"
+            columnRowClassName=""
+            addButtonClassName="text-[13px] text-stone-600 hover:text-stone-900 font-medium"
+            removeButtonClassName="p-1 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded"
+            previewClassName=""
+            previewHeaderClassName="text-[13px] font-medium text-stone-600 hover:text-stone-900"
+            previewCodeClassName="p-3 text-[12px] bg-stone-900 text-stone-100 rounded-md overflow-x-auto font-mono"
+            checkboxClassName="w-4 h-4 rounded border-stone-300 text-stone-800 focus:ring-stone-400"
+            radioClassName="w-4 h-4 border-stone-300 text-stone-800 focus:ring-stone-400"
           />
         </div>
       </div>
