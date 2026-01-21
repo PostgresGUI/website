@@ -1,3 +1,5 @@
+import type { DatabaseStats } from "./db";
+
 export type Theme = "aqua" | "platinum" | "stone";
 
 export interface SavedQuery {
@@ -56,6 +58,7 @@ export interface ThemeProps {
   onOpenCreateTable: () => void;
   onCloseCreateTable: () => void;
   onCreateTable: (sql: string) => Promise<void>;
+  dbStats: DatabaseStats | null;
 }
 
 export interface PlaygroundState {

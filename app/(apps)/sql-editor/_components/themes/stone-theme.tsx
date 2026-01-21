@@ -14,6 +14,7 @@ import {
   Download,
   Pencil,
   Trash2,
+  HardDrive,
 } from "lucide-react";
 
 import type { ThemeProps } from "../../_lib/types";
@@ -62,6 +63,7 @@ export function StoneTheme({
   onOpenCreateTable,
   onCloseCreateTable,
   onCreateTable,
+  dbStats,
 }: ThemeProps) {
   const [mobileTab, setMobileTab] = useState<MobileTab>("editor");
   const {
@@ -500,9 +502,22 @@ export function StoneTheme({
               fontFamily: '"DM Sans", system-ui, sans-serif',
             }}
           >
-            <div className="flex items-center gap-2">
-              <span className={`stone-status-dot ${isLoading ? "opacity-50" : ""}`} />
-              <span>{isLoading ? "Initializing..." : "Ready"}</span>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <span className={`stone-status-dot ${isLoading ? "opacity-50" : ""}`} />
+                <span>{isLoading ? "Initializing..." : "Ready"}</span>
+              </div>
+              {dbStats && (
+                <>
+                  <span className="text-stone-400">│</span>
+                  <span>{dbStats.tableCount} tables</span>
+                  <span className="text-stone-400">│</span>
+                  <span className="flex items-center gap-1">
+                    <HardDrive className="w-3 h-3" />
+                    {dbStats.usagePercent.toFixed(2)}% Storage Used
+                  </span>
+                </>
+              )}
             </div>
             <button
               onClick={handleReset}

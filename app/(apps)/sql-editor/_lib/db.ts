@@ -12,6 +12,15 @@ export interface QueryResult {
   duration: number;
 }
 
+export interface DatabaseStats {
+  tableCount: number;
+  totalRows: number;
+  sizeBytes: number;
+  sizeFormatted: string;
+  quotaBytes: number;
+  usagePercent: number;
+}
+
 const SEED_SQL = `
 -- Create tables
 CREATE TABLE users (
@@ -69,8 +78,20 @@ class PlaygroundDB {
     if (this.initializing) return this.initializing;
 
     this.initializing = (async () => {
-      this.instance = new PGlite();
-      await this.instance.exec(SEED_SQL);
+      // Use IndexedDB for persistence
+      this.instance = new PGlite('idb://sql-editor-playground');
+
+      // Check if database already has tables (not a fresh install)
+      const result = await this.instance.query(`
+        SELECT COUNT(*) as count FROM information_schema.tables
+        WHERE table_schema = 'public'
+      `);
+      const tableCount = (result.rows[0] as { count: number }).count;
+
+      // Only seed if database is empty
+      if (tableCount === 0) {
+        await this.instance.exec(SEED_SQL);
+      }
     })();
 
     await this.initializing;
@@ -131,11 +152,78 @@ class PlaygroundDB {
     return tables;
   }
 
+  static async getStats(): Promise<DatabaseStats> {
+    if (!this.instance) {
+      await this.init();
+    }
+
+    // Get table count
+    const tableResult = await this.instance!.query(`
+      SELECT COUNT(*) as count FROM information_schema.tables
+      WHERE table_schema = 'public'
+    `);
+    const tableCount = Number((tableResult.rows[0] as { count: string | number }).count);
+
+    // Get total row count across all tables
+    let totalRows = 0;
+    if (tableCount > 0) {
+      const tablesResult = await this.instance!.query(`
+        SELECT table_name FROM information_schema.tables
+        WHERE table_schema = 'public'
+      `);
+      for (const row of tablesResult.rows as { table_name: string }[]) {
+        const countResult = await this.instance!.query(
+          `SELECT COUNT(*) as count FROM "${row.table_name}"`
+        );
+        totalRows += Number((countResult.rows[0] as { count: string | number }).count);
+      }
+    }
+
+    // Get storage size from IndexedDB
+    let sizeBytes = 0;
+    let quotaBytes = 0;
+    if (typeof navigator !== 'undefined' && navigator.storage?.estimate) {
+      const estimate = await navigator.storage.estimate();
+      sizeBytes = estimate.usage || 0;
+      quotaBytes = estimate.quota || 0;
+    }
+
+    // Format size
+    const formatSize = (bytes: number): string => {
+      if (bytes < 1024) return `${bytes} B`;
+      if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+      return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    };
+
+    // Calculate usage percentage
+    const usagePercent = quotaBytes > 0 ? (sizeBytes / quotaBytes) * 100 : 0;
+
+    return {
+      tableCount,
+      totalRows,
+      sizeBytes,
+      sizeFormatted: formatSize(sizeBytes),
+      quotaBytes,
+      usagePercent,
+    };
+  }
+
   static async reset(): Promise<void> {
     if (this.instance) {
       await this.instance.close();
       this.instance = null;
     }
+
+    // Delete the IndexedDB database to start fresh
+    if (typeof indexedDB !== 'undefined') {
+      await new Promise<void>((resolve, reject) => {
+        const request = indexedDB.deleteDatabase('/pglite/sql-editor-playground');
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+        request.onblocked = () => resolve(); // Proceed even if blocked
+      });
+    }
+
     await this.init();
   }
 

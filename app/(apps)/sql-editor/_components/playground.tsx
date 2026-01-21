@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import type { Theme, TableSchema, QueryResults, QueryStats, RowEditInfo } from "../_lib/types";
+import type { DatabaseStats } from "../_lib/db";
 import { THEME_STORAGE_KEY } from "../_lib/constants";
 import { defaultQuery } from "../_lib/data";
 import PlaygroundDB from "../_lib/db";
@@ -67,6 +68,7 @@ export function Playground() {
   const [editingRow, setEditingRow] = useState<Record<string, unknown> | null>(null);
   const [deletingRow, setDeletingRow] = useState<Record<string, unknown> | null>(null);
   const [isCreateTableOpen, setIsCreateTableOpen] = useState(false);
+  const [dbStats, setDbStats] = useState<DatabaseStats | null>(null);
   const lastQueryRef = useRef<string>("");
 
   // Load theme from localStorage (runs before first paint due to null initial state)
@@ -89,15 +91,25 @@ export function Playground() {
     }
   }, []);
 
+  const loadStats = useCallback(async () => {
+    try {
+      const stats = await PlaygroundDB.getStats();
+      setDbStats(stats);
+    } catch (err) {
+      console.error("Failed to load stats:", err);
+    }
+  }, []);
+
   useEffect(() => {
     const init = async () => {
       setIsLoading(true);
       await PlaygroundDB.init();
       await loadSchema();
+      await loadStats();
       setIsLoading(false);
     };
     init();
-  }, [loadSchema]);
+  }, [loadSchema, loadStats]);
 
   const handleSetTheme = (newTheme: Theme) => {
     setTheme(newTheme);
@@ -201,6 +213,7 @@ export function Playground() {
     try {
       await PlaygroundDB.reset();
       await loadSchema();
+      await loadStats();
       setQuery(defaultQuery);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Reset failed");
@@ -275,8 +288,9 @@ export function Playground() {
     // Execute the CREATE TABLE query
     await PlaygroundDB.query(sql);
 
-    // Refresh schema to show new table in sidebar
+    // Refresh schema and stats
     await loadSchema();
+    await loadStats();
 
     // Extract table name from SQL and select it
     const match = sql.match(/CREATE\s+TABLE\s+(\w+)/i);
@@ -315,6 +329,7 @@ export function Playground() {
     onOpenCreateTable: () => setIsCreateTableOpen(true),
     onCloseCreateTable: () => setIsCreateTableOpen(false),
     onCreateTable: handleCreateTable,
+    dbStats,
   };
 
   // Don't render until theme is loaded from localStorage to prevent flash

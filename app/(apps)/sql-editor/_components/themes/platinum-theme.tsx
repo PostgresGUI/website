@@ -13,6 +13,7 @@ import {
   Download,
   Pencil,
   Trash2,
+  HardDrive,
 } from "lucide-react";
 
 import type { ThemeProps } from "../../_lib/types";
@@ -61,6 +62,7 @@ export function PlatinumTheme({
   onOpenCreateTable,
   onCloseCreateTable,
   onCreateTable,
+  dbStats,
 }: ThemeProps) {
   const [mobileTab, setMobileTab] = useState<MobileTab>("editor");
   const {
@@ -458,6 +460,17 @@ export function PlatinumTheme({
             <div className="flex items-center gap-2">
               <span className={`w-2.5 h-2.5 rounded-full bg-[#00aa00] ${isLoading ? "opacity-50" : ""}`} />
               <span>{isLoading ? "Initializing..." : "Ready"}</span>
+              {dbStats && (
+                <>
+                  <span className="text-[#888]">│</span>
+                  <span>{dbStats.tableCount} tables</span>
+                  <span className="text-[#888]">│</span>
+                  <span className="flex items-center gap-1">
+                    <HardDrive className="w-3 h-3" />
+                    {dbStats.usagePercent.toFixed(2)}% Storage Used
+                  </span>
+                </>
+              )}
             </div>
             <button
               onClick={handleReset}
