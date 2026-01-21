@@ -272,8 +272,19 @@ export function Playground() {
 
   // Create table handler
   const handleCreateTable = async (sql: string) => {
+    // Execute the CREATE TABLE query
     await PlaygroundDB.query(sql);
+
+    // Refresh schema to show new table in sidebar
     await loadSchema();
+
+    // Extract table name from SQL and select it
+    const match = sql.match(/CREATE\s+TABLE\s+(\w+)/i);
+    if (match) {
+      const newTableName = match[1];
+      // Select the new table to show it in the editor
+      handleSelectTable(newTableName);
+    }
   };
 
   const sharedProps = {
