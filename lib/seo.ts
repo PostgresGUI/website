@@ -174,7 +174,7 @@ type LocaleSEO = {
 
 const seoData: Record<Locale, LocaleSEO> = {
   en: {
-    title: "PostgresGUI – Best PostgreSQL GUI for Mac | Open Source",
+    title: "PostgresGUI - The Postgres Client Built for Mac",
     description:
       "Best looking PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
     keywords: [
@@ -199,7 +199,7 @@ const seoData: Record<Locale, LocaleSEO> = {
     canonical: "https://postgresgui.com",
   },
   uk: {
-    title: "PostgresGUI – Best PostgreSQL GUI for Mac | Open Source",
+    title: "PostgresGUI - The Postgres Client Built for Mac",
     description:
       "Best looking PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
     keywords: [
