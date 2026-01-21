@@ -16,7 +16,7 @@ const sairaStencilOne = Saira_Stencil_One({
 
 export const metadata: Metadata = {
   title: "SQL Editor",
-  description: "Run SQL queries in your browser.",
+  description: "Run SQL queries and manage tables in your browser.",
   keywords: [
     "sql editor",
     "online sql editor",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "SQL Editor",
-    description: "Run SQL queries in your browser.",
+    description: "Run SQL queries and manage tables in your browser.",
     type: "website",
     url: "https://postgresgui.com/sql-editor",
     images: [
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "SQL Editor",
-    description: "Run SQL queries in your browser.",
+    description: "Run SQL queries and manage tables in your browser.",
     images: ["https://postgresgui.com/online-sql-editor.jpg"],
   },
 };
@@ -54,7 +54,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   name: "SQL Editor",
-  description: "Run SQL queries in your browser.",
+  description: "Run SQL queries and manage tables in your browser.",
   url: "https://postgresgui.com/sql-editor",
   applicationCategory: "DeveloperApplication",
   operatingSystem: "Any",
