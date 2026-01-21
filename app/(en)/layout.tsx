@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://postgresgui.com"),
   title: "PostgresGUI - The Postgres Client Built for Mac",
   description:
-    "Best looking PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
+    "PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight, fast, dark mode.",
   keywords: [
     "postgresql gui mac",
     "best postgres gui",
