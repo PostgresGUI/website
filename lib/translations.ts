@@ -8,6 +8,7 @@ export type Translations = {
     badge: string;
     learnSql: string;
     headline: string;
+    subheadline: string;
     openSource: string;
     heroImageAlt: string;
     heroImageDarkAlt: string;
@@ -144,7 +145,8 @@ const en: Translations = {
   hero: {
     badge: "New",
     learnSql: "Learn SQL",
-    headline: "Best Looking PostgreSQL GUI for Mac",
+    headline: "The Postgres Client You'll Love",
+    subheadline: "Designed and built for Mac.",
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Query editor with results",
     heroImageDarkAlt: "PostgresGUI - Query editor with results (Dark mode)",
@@ -457,7 +459,8 @@ const de: Translations = {
   hero: {
     badge: "Neu",
     learnSql: "SQL lernen",
-    headline: "Die schönste PostgreSQL GUI für Mac",
+    headline: "Der Postgres-Client, den Sie lieben werden",
+    subheadline: "Entwickelt und gebaut für Mac.",
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Abfrage-Editor mit Ergebnissen",
     heroImageDarkAlt:
@@ -775,7 +778,8 @@ const fr: Translations = {
   hero: {
     badge: "Nouveau",
     learnSql: "Apprendre SQL",
-    headline: "La plus belle GUI PostgreSQL pour Mac",
+    headline: "Le Client Postgres Que Vous Allez Adorer",
+    subheadline: "Conçu et développé pour Mac.",
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Éditeur de requêtes avec résultats",
     heroImageDarkAlt:
@@ -1099,7 +1103,8 @@ const ja: Translations = {
   hero: {
     badge: "新着",
     learnSql: "SQLを学ぶ",
-    headline: "Mac向け最も美しいPostgreSQL GUI",
+    headline: "きっと好きになるPostgresクライアント",
+    subheadline: "Mac専用に設計・開発。",
     openSource: "オープンソース",
     heroImageAlt: "PostgresGUI - クエリエディタと結果",
     heroImageDarkAlt: "PostgresGUI - クエリエディタと結果（ダークモード）",

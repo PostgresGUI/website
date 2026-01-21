@@ -40,11 +40,14 @@ export function Homepage({
         <div className="text-center px-6 pt-16 pb-16 md:pt-24 md:pb-24 relative z-10">
           {/* Main Tagline */}
           <h1
-            className="text-6xl md:text-7xl max-w-lg mx-auto mb-10 md:mb-12 animate-slide-in stagger-1 leading-tight text-pretty"
+            className="text-6xl md:text-7xl max-w-lg mx-auto mb-4 animate-slide-in stagger-1 leading-tight text-pretty"
             style={{ fontFamily: "'Oswald', sans-serif", fontWeight: 600 }}
           >
             {t.hero.headline}
           </h1>
+          <p className="text-lg text-stone-500 dark:text-stone-400 mb-10 md:mb-12 animate-slide-in stagger-2">
+            {t.hero.subheadline}
+          </p>
 
           {/* CTA Button */}
           <div className="flex flex-col items-center justify-center gap-8 mb-8 md:mb-10 animate-slide-in stagger-3">
