@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { X } from "lucide-react";
 
 const STORAGE_KEY = "sql-editor-promo-dismissed";
@@ -26,7 +25,7 @@ export function NewFeatureBadge() {
   if (!isVisible) return null;
 
   return (
-    <Link
+    <a
       href="/sql-editor"
       className="group fixed bottom-5 right-5 z-50 animate-in slide-in-from-bottom-4 fade-in"
       style={{
@@ -59,6 +58,6 @@ export function NewFeatureBadge() {
           <X className="w-3 h-3 text-stone-500 dark:text-stone-400" />
         </button>
       </div>
-    </Link>
+    </a>
   );
 }
