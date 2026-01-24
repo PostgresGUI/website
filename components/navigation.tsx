@@ -113,15 +113,19 @@ export function Navigation({ locale = "en" }: NavigationProps) {
               className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-stone-800 hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
               aria-label="View on GitHub"
             >
-              <GitHubIcon width={18} height={18} />
               {starCount !== null && (
-                <span className="text-xs font-semibold tabular-nums">
-                  ⭐{" "}
-                  {starCount >= 1000
-                    ? `${(starCount / 1000).toFixed(1)}k`
-                    : starCount}
-                </span>
+                <>
+                  <span className="text-xs font-semibold tabular-nums">
+                    ⭐{" "}
+                    {starCount >= 1000
+                      ? `${(starCount / 1000).toFixed(1)}k`
+                      : starCount}
+                  </span>
+                  <span className="text-gray-300 dark:text-gray-600">|</span>
+                </>
               )}
+              <GitHubIcon width={18} height={18} />
+              <span className="text-xs font-semibold">Open Source</span> <span className="text-xs opacity-70">↗</span>
             </a>
             <AppStoreLink
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white text-sm font-medium transition-all bg-gradient-to-b from-gray-700 to-gray-900 dark:from-gray-600 dark:to-gray-800 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),0_2px_4px_0_rgba(0,0,0,0.4),0_4px_8px_-2px_rgba(0,0,0,0.3)] hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2),0_4px_8px_0_rgba(0,0,0,0.4),0_6px_12px_-2px_rgba(0,0,0,0.3)] hover:from-gray-600 hover:to-gray-800 dark:hover:from-gray-500 dark:hover:to-gray-700 active:from-gray-800 active:to-gray-900 active:shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.3)] border border-gray-800 dark:border-gray-700"
@@ -189,16 +193,19 @@ export function Navigation({ locale = "en" }: NavigationProps) {
               className="flex items-center gap-2 font-semibold text-sm text-gray-900 dark:text-white hover:text-[var(--postgres-blue)] dark:hover:text-[var(--postgres-blue-light)] transition-swiftui py-2 px-3 hover:bg-accent/50 rounded-lg"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <GitHubIcon width={18} height={18} />
-              GitHub
               {starCount !== null && (
-                <span className="text-xs font-medium text-gray-500 dark:text-gray-400 tabular-nums">
-                  ⭐{" "}
-                  {starCount >= 1000
-                    ? `${(starCount / 1000).toFixed(1)}k`
-                    : starCount}
-                </span>
+                <>
+                  <span className="text-xs font-medium text-gray-500 dark:text-gray-400 tabular-nums">
+                    ⭐{" "}
+                    {starCount >= 1000
+                      ? `${(starCount / 1000).toFixed(1)}k`
+                      : starCount}
+                  </span>
+                  <span className="text-gray-300 dark:text-gray-600">|</span>
+                </>
               )}
+              <GitHubIcon width={18} height={18} />
+              Open Source <span className="text-xs opacity-70">↗</span>
             </a>
             <AppStoreLink
               className="block font-semibold text-sm text-white py-2 px-3 rounded-lg text-center transition-all bg-gradient-to-b from-gray-700 to-gray-900 dark:from-gray-600 dark:to-gray-800 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),0_2px_4px_0_rgba(0,0,0,0.4),0_4px_8px_-2px_rgba(0,0,0,0.3)] hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2),0_4px_8px_0_rgba(0,0,0,0.4),0_6px_12px_-2px_rgba(0,0,0,0.3)] hover:from-gray-600 hover:to-gray-800 dark:hover:from-gray-500 dark:hover:to-gray-700 border border-gray-800 dark:border-gray-700"

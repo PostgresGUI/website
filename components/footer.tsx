@@ -70,7 +70,7 @@ export function Footer({ locale = "en" }: FooterProps) {
               href={`${localePrefix}/download`}
               className="text-sm font-medium text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] hover:underline"
             >
-              {t.nav.download} →
+              {t.nav.download}
             </Link>
             <a
               href="/sql-editor"
@@ -83,6 +83,12 @@ export function Footer({ locale = "en" }: FooterProps) {
               className="block mt-1 text-sm text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               SQL Cheatsheet
+            </a>
+            <a
+              href="/schema-designer"
+              className="block mt-1 text-sm text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-white transition-colors"
+            >
+              Schema Designer
             </a>
           </div>
 

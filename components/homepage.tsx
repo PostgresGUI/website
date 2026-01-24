@@ -57,14 +57,6 @@ export function Homepage({
             >
               <AppStoreBadge scale={1.5} />
             </AppStoreLink>
-            <a
-              href="https://github.com/postgresgui/postgresgui"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] text-sm font-medium hover:underline"
-            >
-              {t.hero.openSource} ↗
-            </a>
           </div>
 
           {/* Hero Screenshot */}
