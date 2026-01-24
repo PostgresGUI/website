@@ -369,15 +369,6 @@ export function SchemaDesigner() {
         {schema.tables.length === 0 && (
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
             <div className="text-center pointer-events-auto">
-              <div
-                className={cn(
-                  "w-16 h-16 mx-auto mb-4 rounded-2xl",
-                  "bg-zinc-200 dark:bg-zinc-800",
-                  "flex items-center justify-center"
-                )}
-              >
-                <Plus className="w-8 h-8 text-zinc-400 dark:text-zinc-500" />
-              </div>
               <h2 className="text-lg font-semibold text-zinc-700 dark:text-zinc-300 mb-4">
                 No tables yet
               </h2>
