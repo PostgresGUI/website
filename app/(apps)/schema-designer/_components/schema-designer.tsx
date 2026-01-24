@@ -27,6 +27,7 @@ import {
 import type { Schema, Table } from "../_lib/types";
 import { generateId } from "../_lib/utils";
 import { saveSchema, loadSchema, clearSchema } from "../_lib/storage";
+import { getTemplateById } from "../_lib/templates";
 import { TableNode, type TableNodeData, type TableNodeType } from "./table-node";
 import { SQLPanel } from "./sql-panel";
 import { ImportPanel } from "./import-panel";
@@ -255,6 +256,16 @@ export function SchemaDesigner() {
     }
   }, []);
 
+  // Load a template
+  const loadTemplate = useCallback((templateId: string) => {
+    const template = getTemplateById(templateId);
+    if (template && template.available) {
+      const newSchema = template.getSchema();
+      setSchema(newSchema);
+      saveSchema(newSchema);
+    }
+  }, []);
+
   // Import handler
   const handleImport = useCallback(
     (importedSchema: Schema, mode: "replace" | "merge") => {
@@ -385,6 +396,25 @@ export function SchemaDesigner() {
               >
                 <Plus className="w-5 h-5" />
                 Add Table
+              </button>
+
+              <div className="mt-6 flex items-center justify-center gap-3 text-zinc-400 dark:text-zinc-500">
+                <div className="h-px w-12 bg-zinc-300 dark:bg-zinc-700" />
+                <span className="text-sm">or</span>
+                <div className="h-px w-12 bg-zinc-300 dark:bg-zinc-700" />
+              </div>
+
+              <button
+                onClick={() => loadTemplate("todo-app")}
+                className={cn(
+                  "mt-4 block w-full text-sm font-medium",
+                  "text-blue-600 dark:text-blue-400",
+                  "hover:text-blue-700 dark:hover:text-blue-300",
+                  "hover:underline",
+                  "transition-colors cursor-pointer"
+                )}
+              >
+                Start with Todo App Template
               </button>
             </div>
           </div>
