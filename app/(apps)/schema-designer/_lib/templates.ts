@@ -145,6 +145,306 @@ function createTodoAppSchema(): Schema {
   };
 }
 
+function createEcommerceSchema(): Schema {
+  const customersTableId = generateId();
+  const productsTableId = generateId();
+  const ordersTableId = generateId();
+
+  const customersIdColumnId = generateId();
+  const productsIdColumnId = generateId();
+  const ordersIdColumnId = generateId();
+
+  return {
+    tables: [
+      {
+        id: customersTableId,
+        name: "customers",
+        position: { x: 840, y: 100 },
+        columns: [
+          {
+            id: customersIdColumnId,
+            name: "id",
+            type: "SERIAL",
+            isPrimaryKey: true,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+          {
+            id: generateId(),
+            name: "name",
+            type: "VARCHAR",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+          {
+            id: generateId(),
+            name: "email",
+            type: "VARCHAR",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: true,
+            foreignKey: null,
+          },
+        ],
+      },
+      {
+        id: ordersTableId,
+        name: "orders",
+        position: { x: 170, y: 180 },
+        columns: [
+          {
+            id: ordersIdColumnId,
+            name: "id",
+            type: "SERIAL",
+            isPrimaryKey: true,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+          {
+            id: generateId(),
+            name: "customer_id",
+            type: "INTEGER",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: {
+              tableId: customersTableId,
+              columnId: customersIdColumnId,
+            },
+          },
+          {
+            id: generateId(),
+            name: "product_id",
+            type: "INTEGER",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: {
+              tableId: productsTableId,
+              columnId: productsIdColumnId,
+            },
+          },
+          {
+            id: generateId(),
+            name: "quantity",
+            type: "INTEGER",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+          {
+            id: generateId(),
+            name: "created_at",
+            type: "TIMESTAMP",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+        ],
+      },
+      {
+        id: productsTableId,
+        name: "products",
+        position: { x: 840, y: 440 },
+        columns: [
+          {
+            id: productsIdColumnId,
+            name: "id",
+            type: "SERIAL",
+            isPrimaryKey: true,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+          {
+            id: generateId(),
+            name: "name",
+            type: "VARCHAR",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+          {
+            id: generateId(),
+            name: "price",
+            type: "NUMERIC",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+          {
+            id: generateId(),
+            name: "description",
+            type: "TEXT",
+            isPrimaryKey: false,
+            isNotNull: false,
+            isUnique: false,
+            foreignKey: null,
+          },
+        ],
+      },
+    ],
+  };
+}
+
+function createBlogSchema(): Schema {
+  const authorsTableId = generateId();
+  const postsTableId = generateId();
+  const commentsTableId = generateId();
+
+  const authorsIdColumnId = generateId();
+  const postsIdColumnId = generateId();
+  const commentsIdColumnId = generateId();
+
+  return {
+    tables: [
+      {
+        id: authorsTableId,
+        name: "authors",
+        position: { x: 980, y: 100 },
+        columns: [
+          {
+            id: authorsIdColumnId,
+            name: "id",
+            type: "SERIAL",
+            isPrimaryKey: true,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+          {
+            id: generateId(),
+            name: "name",
+            type: "VARCHAR",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+          {
+            id: generateId(),
+            name: "email",
+            type: "VARCHAR",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: true,
+            foreignKey: null,
+          },
+        ],
+      },
+      {
+        id: postsTableId,
+        name: "posts",
+        position: { x: 540, y: 380 },
+        columns: [
+          {
+            id: postsIdColumnId,
+            name: "id",
+            type: "SERIAL",
+            isPrimaryKey: true,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+          {
+            id: generateId(),
+            name: "author_id",
+            type: "INTEGER",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: {
+              tableId: authorsTableId,
+              columnId: authorsIdColumnId,
+            },
+          },
+          {
+            id: generateId(),
+            name: "title",
+            type: "VARCHAR",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+          {
+            id: generateId(),
+            name: "content",
+            type: "TEXT",
+            isPrimaryKey: false,
+            isNotNull: false,
+            isUnique: false,
+            foreignKey: null,
+          },
+          {
+            id: generateId(),
+            name: "published_at",
+            type: "TIMESTAMP",
+            isPrimaryKey: false,
+            isNotNull: false,
+            isUnique: false,
+            foreignKey: null,
+          },
+        ],
+      },
+      {
+        id: commentsTableId,
+        name: "comments",
+        position: { x: 80, y: 100 },
+        columns: [
+          {
+            id: commentsIdColumnId,
+            name: "id",
+            type: "SERIAL",
+            isPrimaryKey: true,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+          {
+            id: generateId(),
+            name: "post_id",
+            type: "INTEGER",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: {
+              tableId: postsTableId,
+              columnId: postsIdColumnId,
+            },
+          },
+          {
+            id: generateId(),
+            name: "author_name",
+            type: "VARCHAR",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+          {
+            id: generateId(),
+            name: "content",
+            type: "TEXT",
+            isPrimaryKey: false,
+            isNotNull: true,
+            isUnique: false,
+            foreignKey: null,
+          },
+        ],
+      },
+    ],
+  };
+}
+
 export const SCHEMA_TEMPLATES: SchemaTemplate[] = [
   {
     id: "todo-app",
@@ -161,8 +461,8 @@ export const SCHEMA_TEMPLATES: SchemaTemplate[] = [
     description: "products, orders, customers",
     tableCount: 3,
     icon: "ecommerce",
-    available: false,
-    getSchema: () => ({ tables: [] }),
+    available: true,
+    getSchema: createEcommerceSchema,
   },
   {
     id: "blog",
@@ -170,8 +470,8 @@ export const SCHEMA_TEMPLATES: SchemaTemplate[] = [
     description: "posts, authors, comments",
     tableCount: 3,
     icon: "blog",
-    available: false,
-    getSchema: () => ({ tables: [] }),
+    available: true,
+    getSchema: createBlogSchema,
   },
 ];
 

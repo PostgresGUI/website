@@ -250,7 +250,7 @@ export function SchemaDesigner() {
 
   // Clear all tables
   const clearAll = useCallback(() => {
-    if (confirm("Are you sure you want to clear all tables?")) {
+    if (confirm("Clear all tables?")) {
       clearSchema();
       setSchema(INITIAL_SCHEMA);
     }
@@ -354,6 +354,7 @@ export function SchemaDesigner() {
           onConnect={onConnect}
           nodeTypes={nodeTypes}
           fitView
+          fitViewOptions={{ padding: 0.3, maxZoom: 0.85 }}
           snapToGrid
           snapGrid={[20, 20]}
           connectionLineStyle={{ stroke: "#3b82f6", strokeWidth: 2 }}
