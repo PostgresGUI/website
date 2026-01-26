@@ -369,7 +369,10 @@ export function SchemaDesigner() {
           proOptions={{ hideAttribution: true }}
         >
           <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
-          <Controls showInteractive={false} />
+          <Controls
+            showInteractive={false}
+            className="!bg-white dark:!bg-zinc-800 !border !border-zinc-200 dark:!border-zinc-700 !rounded-lg !shadow-md [&>button]:!bg-transparent [&>button]:!border-b [&>button]:!border-zinc-200 dark:[&>button]:!border-zinc-700 [&>button:last-child]:!border-b-0 [&>button>svg]:!fill-zinc-600 dark:[&>button>svg]:!fill-zinc-300 [&>button:hover]:!bg-zinc-100 dark:[&>button:hover]:!bg-zinc-700"
+          />
           <MiniMap
             nodeStrokeColor="#3b82f6"
             nodeColor="#e4e4e7"
