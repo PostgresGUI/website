@@ -212,16 +212,29 @@ class PlaygroundDB {
     if (this.instance) {
       await this.instance.close();
       this.instance = null;
+      // Give PGlite time to fully release IndexedDB connections
+      await new Promise(resolve => setTimeout(resolve, 100));
     }
+
+    // Clear any pending initialization promise to prevent stale promise reuse
+    this.initializing = null;
 
     // Delete the IndexedDB database to start fresh
     if (typeof indexedDB !== 'undefined') {
       await new Promise<void>((resolve, reject) => {
         const request = indexedDB.deleteDatabase('/pglite/sql-editor-playground');
+
         request.onsuccess = () => resolve();
         request.onerror = () => reject(request.error);
-        request.onblocked = () => resolve(); // Proceed even if blocked
+        request.onblocked = () => {
+          // Don't resolve here - wait for onsuccess which fires after blocking connections close
+          // Set a timeout fallback in case onsuccess never fires
+          setTimeout(() => resolve(), 1000);
+        };
       });
+
+      // Small delay to ensure IndexedDB is fully released
+      await new Promise(resolve => setTimeout(resolve, 100));
     }
 
     await this.init();
