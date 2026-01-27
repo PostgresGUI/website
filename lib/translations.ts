@@ -1,4 +1,4 @@
-import { INSTALLER_SIZE, INSTALLED_SIZE, PRICE } from "@/lib/constants";
+import { INSTALLED_SIZE, PRICE } from "@/lib/constants";
 
 export type Locale = "en" | "uk" | "de" | "fr" | "ja";
 
@@ -190,7 +190,7 @@ const en: Translations = {
     },
     lightweight: {
       title: "Lightweight",
-      installer: `${INSTALLER_SIZE} installer`,
+      installer: `${INSTALLED_SIZE} installer`,
       installed: `${INSTALLED_SIZE} installed`,
     },
     noSubscription: {
@@ -306,7 +306,7 @@ const en: Translations = {
     download: "Download",
   },
   footer: {
-    tagline: "Lightweight PostgreSQL client for Mac",
+    tagline: "The best Postgres client for Mac",
     product: "Product",
     features: "Features",
     screenshots: "Screenshots",
@@ -331,7 +331,7 @@ const en: Translations = {
     macOSVersion: "macOS 26.0 or later",
     appleSilicon: "Optimized for Apple Silicon",
     intelSupport: "Also works on Intel Macs",
-    appSize: `${INSTALLER_SIZE} size`,
+    appSize: `${INSTALLED_SIZE} size`,
     openSource: "Open Source",
     viewOnGitHub: "View source on GitHub",
   },
@@ -380,7 +380,7 @@ const en: Translations = {
       },
       lightweight: {
         title: "Lightweight",
-        description: `Just ${INSTALLER_SIZE}. macOS Native. SwiftUI. No Electron.`,
+        description: `Just ${INSTALLED_SIZE}. macOS Native. SwiftUI. No Electron.`,
         highlight: "10x smaller",
       },
       oneTimePurchase: {
@@ -439,7 +439,7 @@ const en: Translations = {
       },
       {
         question: "How does PostgresGUI stay so small?",
-        answer: `PostgresGUI is built with native Swift and doesn't bundle a web browser engine like Electron apps do. It only includes what's needed for PostgreSQL, keeping the install size at just ${INSTALLER_SIZE}.`,
+        answer: `PostgresGUI is built with native Swift and doesn't bundle a web browser engine like Electron apps do. It only includes what's needed for PostgreSQL, keeping the install size at just ${INSTALLED_SIZE}.`,
       },
     ],
     comparison: {
@@ -505,7 +505,7 @@ const de: Translations = {
     },
     lightweight: {
       title: "Leichtgewichtig",
-      installer: `${INSTALLER_SIZE} Installer`,
+      installer: `${INSTALLED_SIZE} Installer`,
       installed: `${INSTALLED_SIZE} installiert`,
     },
     noSubscription: {
@@ -650,7 +650,7 @@ const de: Translations = {
     macOSVersion: "macOS 26.0 oder neuer",
     appleSilicon: "Optimiert für Apple Silicon",
     intelSupport: "Funktioniert auch auf Intel Macs",
-    appSize: `${INSTALLER_SIZE} Größe`,
+    appSize: `${INSTALLED_SIZE} Größe`,
     openSource: "Open Source",
     viewOnGitHub: "Quellcode auf GitHub ansehen",
   },
@@ -699,7 +699,7 @@ const de: Translations = {
       },
       lightweight: {
         title: "Leichtgewichtig",
-        description: `Nur ${INSTALLER_SIZE}. macOS-nativ. SwiftUI. Kein Electron.`,
+        description: `Nur ${INSTALLED_SIZE}. macOS-nativ. SwiftUI. Kein Electron.`,
         highlight: "10x kleiner",
       },
       oneTimePurchase: {
@@ -758,7 +758,7 @@ const de: Translations = {
       },
       {
         question: "Wie bleibt PostgresGUI so klein?",
-        answer: `PostgresGUI ist mit nativem Swift gebaut und enthält keine Web-Browser-Engine wie Electron-Apps. Es enthält nur das, was für PostgreSQL benötigt wird, und hält die Installationsgröße bei nur ${INSTALLER_SIZE}.`,
+        answer: `PostgresGUI ist mit nativem Swift gebaut und enthält keine Web-Browser-Engine wie Electron-Apps. Es enthält nur das, was für PostgreSQL benötigt wird, und hält die Installationsgröße bei nur ${INSTALLED_SIZE}.`,
       },
     ],
     comparison: {
@@ -824,7 +824,7 @@ const fr: Translations = {
     },
     lightweight: {
       title: "Léger",
-      installer: `Installateur de ${INSTALLER_SIZE}`,
+      installer: `Installateur de ${INSTALLED_SIZE}`,
       installed: `${INSTALLED_SIZE} installé`,
     },
     noSubscription: {
@@ -975,7 +975,7 @@ const fr: Translations = {
     macOSVersion: "macOS 26.0 ou ultérieur",
     appleSilicon: "Optimisé pour Apple Silicon",
     intelSupport: "Fonctionne aussi sur Mac Intel",
-    appSize: `${INSTALLER_SIZE} taille`,
+    appSize: `${INSTALLED_SIZE} taille`,
     openSource: "Open Source",
     viewOnGitHub: "Voir le code source sur GitHub",
   },
@@ -1024,7 +1024,7 @@ const fr: Translations = {
       },
       lightweight: {
         title: "Léger",
-        description: `Seulement ${INSTALLER_SIZE}. macOS natif. SwiftUI. Sans Electron.`,
+        description: `Seulement ${INSTALLED_SIZE}. macOS natif. SwiftUI. Sans Electron.`,
         highlight: "10x plus petit",
       },
       oneTimePurchase: {
@@ -1083,7 +1083,7 @@ const fr: Translations = {
       },
       {
         question: "Comment PostgresGUI reste-t-il si petit ?",
-        answer: `PostgresGUI est construit avec Swift natif et n'inclut pas de moteur de navigateur web comme les applications Electron. Il inclut seulement ce qui est nécessaire pour PostgreSQL, gardant la taille d'installation à seulement ${INSTALLER_SIZE}.`,
+        answer: `PostgresGUI est construit avec Swift natif et n'inclut pas de moteur de navigateur web comme les applications Electron. Il inclut seulement ce qui est nécessaire pour PostgreSQL, gardant la taille d'installation à seulement ${INSTALLED_SIZE}.`,
       },
     ],
     comparison: {
@@ -1148,7 +1148,7 @@ const ja: Translations = {
     },
     lightweight: {
       title: "軽量",
-      installer: `${INSTALLER_SIZE}のインストーラ`,
+      installer: `${INSTALLED_SIZE}のインストーラ`,
       installed: `${INSTALLED_SIZE}インストール後`,
     },
     noSubscription: {
@@ -1286,7 +1286,7 @@ const ja: Translations = {
     macOSVersion: "macOS 26.0以降",
     appleSilicon: "Apple Silicon向けに最適化",
     intelSupport: "Intel Macでも動作",
-    appSize: `${INSTALLER_SIZE} サイズ`,
+    appSize: `${INSTALLED_SIZE} サイズ`,
     openSource: "オープンソース",
     viewOnGitHub: "GitHubでソースを見る",
   },
@@ -1335,7 +1335,7 @@ const ja: Translations = {
       },
       lightweight: {
         title: "軽量",
-        description: `わずか${INSTALLER_SIZE}。macOSネイティブ。SwiftUI。Electron不使用。`,
+        description: `わずか${INSTALLED_SIZE}。macOSネイティブ。SwiftUI。Electron不使用。`,
         highlight: "10倍小さい",
       },
       oneTimePurchase: {
@@ -1394,7 +1394,7 @@ const ja: Translations = {
       },
       {
         question: "PostgresGUIはなぜこんなに小さいのですか？",
-        answer: `PostgresGUIはネイティブSwiftで構築され、Electronアプリのようにウェブブラウザエンジンをバンドルしていません。PostgreSQLに必要なものだけを含んでおり、インストールサイズをわずか${INSTALLER_SIZE}に抑えています。`,
+        answer: `PostgresGUIはネイティブSwiftで構築され、Electronアプリのようにウェブブラウザエンジンをバンドルしていません。PostgreSQLに必要なものだけを含んでおり、インストールサイズをわずか${INSTALLED_SIZE}に抑えています。`,
       },
     ],
     comparison: {

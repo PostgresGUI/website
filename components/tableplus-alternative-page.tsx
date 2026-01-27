@@ -122,15 +122,6 @@ export function TablePlusAlternativePage({
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-br from-[var(--postgres-blue)] to-blue-400 opacity-[0.07] blur-3xl rounded-full" />
 
         <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-24">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8 animate-fade-in">
-            <Link href="/" className="hover:text-foreground transition-colors">
-              Home
-            </Link>
-            <span>/</span>
-            <span className="text-foreground">{t.breadcrumb}</span>
-          </nav>
-
           {/* Main Heading */}
           <h1
             className="text-4xl md:text-5xl lg:text-6xl max-w-3xl mb-6 animate-slide-in stagger-1 leading-[1.1] tracking-tight"

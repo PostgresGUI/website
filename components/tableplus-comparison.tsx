@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, X, Minus } from "lucide-react";
-import { PRICE, INSTALLER_SIZE } from "@/lib/constants";
+import { PRICE, INSTALLED_SIZE } from "@/lib/constants";
 import { getTranslations, Locale } from "@/lib/translations";
 
 type ComparisonValue =
@@ -98,7 +98,7 @@ export function TablePlusComparison({ locale = "en" }: TablePlusComparisonProps)
     },
     {
       feature: t.size,
-      postgresgui: { type: "text", value: INSTALLER_SIZE, highlight: true },
+      postgresgui: { type: "text", value: INSTALLED_SIZE, highlight: true },
       tableplus: { type: "text", value: "~140 MB" },
     },
   ];

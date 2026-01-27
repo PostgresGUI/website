@@ -197,6 +197,20 @@ body {
   .stagger-4 {
     animation-delay: 0.4s;
   }
+  .stagger-5 {
+    animation-delay: 0.5s;
+  }
+
+  /* Navigation Links */
+  .nav-link {
+    @apply text-sm text-gray-900 dark:text-white transition-colors;
+  }
+  .nav-link:hover {
+    color: var(--postgres-blue);
+  }
+  :is(.dark .nav-link:hover) {
+    color: var(--postgres-blue-light);
+  }
 
   /* Learn App Animations */
   @keyframes rowSlideIn {
@@ -424,6 +438,50 @@ body {
   .animate-genie-open {
     animation: genieOpen 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     transform-origin: var(--origin-x, 50%) var(--origin-y, 50%);
+  }
+
+  /* Terminal cursor blink animation */
+  @keyframes terminalBlink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .animate-terminal-cursor {
+    animation: terminalBlink 1s step-end infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-terminal-cursor {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  /* Footer grid pattern */
+  .footer-grid-bg {
+    background-image: linear-gradient(
+        to right,
+        rgb(0 0 0 / 0.02) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgb(0 0 0 / 0.02) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .dark .footer-grid-bg {
+    background-image: linear-gradient(
+        to right,
+        rgb(255 255 255 / 0.015) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.015) 1px, transparent 1px);
+    background-size: 32px 32px;
   }
 
   /* Skeuomorphic Screenshot Shadow - Elevated with realistic depth */
