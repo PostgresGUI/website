@@ -46,7 +46,7 @@ function ComparisonCell({ value }: { value: ComparisonValue }) {
         <span
           className={
             value.highlight
-              ? "font-medium text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]"
+              ? "font-medium text-foreground"
               : "text-muted-foreground"
           }
         >
@@ -59,7 +59,7 @@ function ComparisonCell({ value }: { value: ComparisonValue }) {
           <span
             className={
               value.highlight
-                ? "font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]"
+                ? "font-semibold text-foreground"
                 : "font-medium"
             }
           >
@@ -97,9 +97,14 @@ export function TablePlusComparison({ locale = "en" }: TablePlusComparisonProps)
       tableplus: { type: "text", value: t.yearlyRenewal },
     },
     {
+      feature: t.openSource,
+      postgresgui: { type: "check" },
+      tableplus: { type: "x" },
+    },
+    {
       feature: t.size,
       postgresgui: { type: "text", value: INSTALLED_SIZE, highlight: true },
-      tableplus: { type: "text", value: "~140 MB" },
+      tableplus: { type: "text", value: "~120 MB" },
     },
   ];
 
@@ -121,10 +126,10 @@ export function TablePlusComparison({ locale = "en" }: TablePlusComparisonProps)
               </th>
               <th
                 scope="col"
-                className="p-4 text-center font-mono text-xs uppercase tracking-wider border-b border-border/50 bg-[var(--postgres-blue)]/5 dark:bg-[var(--postgres-blue)]/10"
+                className="p-4 text-center font-mono text-xs uppercase tracking-wider border-b border-border/50 bg-accent/30"
               >
                 <div className="flex flex-col items-center gap-1">
-                  <span className="text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] font-semibold">
+                  <span className="font-semibold">
                     PostgresGUI
                   </span>
                 </div>
@@ -148,7 +153,7 @@ export function TablePlusComparison({ locale = "en" }: TablePlusComparisonProps)
                 <th scope="row" className="text-left p-4 font-medium text-sm">
                   {row.feature}
                 </th>
-                <td className="p-4 text-center bg-[var(--postgres-blue)]/5 dark:bg-[var(--postgres-blue)]/10">
+                <td className="p-4 text-center bg-accent/30">
                   <ComparisonCell value={row.postgresgui} />
                 </td>
                 <td className="p-4 text-center">
@@ -171,8 +176,8 @@ export function TablePlusComparison({ locale = "en" }: TablePlusComparisonProps)
               {row.feature}
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-[var(--postgres-blue)]/5 dark:bg-[var(--postgres-blue)]/10 rounded-lg p-3">
-                <div className="text-[10px] font-mono uppercase tracking-wider text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] mb-2">
+              <div className="bg-accent/30 rounded-lg p-3">
+                <div className="text-[10px] font-mono uppercase tracking-wider text-foreground mb-2">
                   PostgresGUI
                 </div>
                 <ComparisonCell value={row.postgresgui} />

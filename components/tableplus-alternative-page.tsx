@@ -307,10 +307,15 @@ export function TablePlusAlternativePage({
 
           {/* Sources */}
           <div className="mt-8 p-4 rounded-xl bg-accent/30 border border-border/30">
-            <div className="flex items-center gap-2 mb-3">
-              <ExternalLink className="w-4 h-4 text-muted-foreground" />
-              <span className="text-xs font-mono font-semibold text-muted-foreground uppercase tracking-wider">
-                {t.sources}
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <ExternalLink className="w-4 h-4 text-muted-foreground" />
+                <span className="text-xs font-mono font-semibold text-muted-foreground uppercase tracking-wider">
+                  {t.sources}
+                </span>
+              </div>
+              <span className="text-xs text-muted-foreground">
+                {t.lastUpdated}: January 27, 2026
               </span>
             </div>
             <ul className="space-y-1.5">
@@ -418,9 +423,9 @@ export function TablePlusAlternativePage({
       <section className="py-16 md:py-24 px-6 border-t border-border/30">
         <div className="max-w-3xl mx-auto">
           <div className="mb-12 text-center">
-            <span className="text-xs font-mono font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] uppercase tracking-wider">
+            {/* <span className="text-xs font-mono font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] uppercase tracking-wider">
               {t.faq}
-            </span>
+            </span> */}
             <h2 className="text-3xl md:text-4xl font-display mt-3 tracking-tight">
               {t.commonQuestions}
             </h2>

@@ -132,12 +132,14 @@ export type Translations = {
       feature: string;
       price: string;
       updates: string;
+      openSource: string;
       size: string;
       oneTime: string;
       perDevice: string;
       freeForever: string;
       yearlyRenewal: string;
     };
+    lastUpdated: string;
   };
 };
 
@@ -365,7 +367,7 @@ const en: Translations = {
       largerFootprint: {
         title: "Larger Footprint",
         description:
-          "At ~140MB installed, TablePlus is over 5x the size of PostgresGUI due to multi-database support.",
+          "At ~120MB installed, TablePlus is over 4x the size of PostgresGUI due to multi-database support.",
       },
     },
     theAlternative: "The Alternative",
@@ -446,12 +448,14 @@ const en: Translations = {
       feature: "Feature",
       price: "Price",
       updates: "Updates",
+      openSource: "Open Source",
       size: "Size",
       oneTime: "one-time",
       perDevice: "/device",
       freeForever: "Free forever",
       yearlyRenewal: "$59/year renewal",
     },
+    lastUpdated: "Last updated",
   },
 };
 
@@ -684,7 +688,7 @@ const de: Translations = {
       largerFootprint: {
         title: "Größerer Speicherbedarf",
         description:
-          "Mit ~140MB installiert ist TablePlus mehr als 5x so groß wie PostgresGUI, bedingt durch Multi-Datenbank-Unterstützung.",
+          "Mit ~120MB installiert ist TablePlus mehr als 4x so groß wie PostgresGUI, bedingt durch Multi-Datenbank-Unterstützung.",
       },
     },
     theAlternative: "Die Alternative",
@@ -765,12 +769,14 @@ const de: Translations = {
       feature: "Funktion",
       price: "Preis",
       updates: "Updates",
+      openSource: "Open Source",
       size: "Größe",
       oneTime: "einmalig",
       perDevice: "/Gerät",
       freeForever: "Für immer kostenlos",
       yearlyRenewal: "$59/Jahr Verlängerung",
     },
+    lastUpdated: "Zuletzt aktualisiert",
   },
 };
 
@@ -1009,7 +1015,7 @@ const fr: Translations = {
       largerFootprint: {
         title: "Empreinte plus importante",
         description:
-          "Avec ~140Mo installé, TablePlus est plus de 5 fois la taille de PostgresGUI en raison du support multi-bases de données.",
+          "Avec ~120Mo installé, TablePlus est plus de 4 fois la taille de PostgresGUI en raison du support multi-bases de données.",
       },
     },
     theAlternative: "L'alternative",
@@ -1090,12 +1096,14 @@ const fr: Translations = {
       feature: "Fonctionnalité",
       price: "Prix",
       updates: "Mises à jour",
+      openSource: "Open Source",
       size: "Taille",
       oneTime: "unique",
       perDevice: "/appareil",
       freeForever: "Gratuites pour toujours",
       yearlyRenewal: "$59/an renouvellement",
     },
+    lastUpdated: "Dernière mise à jour",
   },
 };
 
@@ -1320,7 +1328,7 @@ const ja: Translations = {
       largerFootprint: {
         title: "大きなファイルサイズ",
         description:
-          "TablePlusはインストール後約140MBで、マルチデータベースサポートのためPostgresGUIの5倍以上のサイズです。",
+          "TablePlusはインストール後約120MBで、マルチデータベースサポートのためPostgresGUIの4倍以上のサイズです。",
       },
     },
     theAlternative: "代替ソリューション",
@@ -1401,12 +1409,14 @@ const ja: Translations = {
       feature: "機能",
       price: "価格",
       updates: "アップデート",
+      openSource: "オープンソース",
       size: "サイズ",
       oneTime: "買い切り",
       perDevice: "/デバイス",
       freeForever: "永久無料",
       yearlyRenewal: "$59/年 更新料",
     },
+    lastUpdated: "最終更新",
   },
 };
 
