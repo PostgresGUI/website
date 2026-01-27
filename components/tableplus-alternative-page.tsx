@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import { AppStoreBadge } from "@/components/app-store-badge";
 import { AppStoreLink, APP_STORE_LINK } from "@/components/app-store-link";
 import { TablePlusComparison } from "@/components/tableplus-comparison";
+import { FAQ } from "@/components/faq";
 import {
   DollarSign,
   Layers,
@@ -121,7 +121,7 @@ export function TablePlusAlternativePage({
         {/* Accent Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-br from-[var(--postgres-blue)] to-blue-400 opacity-[0.07] blur-3xl rounded-full" />
 
-        <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-24">
+        <div className="relative max-w-5xl mx-auto pt-20 pb-16 md:pt-28 md:pb-24">
           {/* Main Heading */}
           <h1
             className="text-4xl md:text-5xl lg:text-6xl max-w-3xl mb-6 animate-slide-in stagger-1 leading-[1.1] tracking-tight"
@@ -426,19 +426,7 @@ export function TablePlusAlternativePage({
             </h2>
           </div>
 
-          <div className="space-y-6">
-            {t.faqItems.map((item, index) => (
-              <div
-                key={index}
-                className="p-6 rounded-xl border border-border/50 bg-card"
-              >
-                <h3 className="font-semibold mb-2">{item.question}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {item.answer}
-                </p>
-              </div>
-            ))}
-          </div>
+          <FAQ items={t.faqItems} />
         </div>
       </section>
 

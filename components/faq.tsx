@@ -4,16 +4,23 @@ import { useState } from "react";
 import { ChevronDownIcon } from "@/components/icons";
 import { getTranslations, Locale } from "@/lib/translations";
 
-function FAQItem({
+export type FAQItemData = {
+  question: string;
+  answer: React.ReactNode;
+};
+
+export function FAQItem({
   question,
   answer,
-  isLast,
+  isLast = false,
+  defaultOpen = false,
 }: {
   question: string;
   answer: React.ReactNode;
-  isLast: boolean;
+  isLast?: boolean;
+  defaultOpen?: boolean;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
     <div
@@ -48,21 +55,27 @@ function FAQItem({
   );
 }
 
-type FAQProps = {
+export type FAQProps = {
+  /** Custom FAQ items to display. If not provided, uses locale-based translations. */
+  items?: FAQItemData[];
+  /** Locale for translations (only used when items is not provided) */
   locale?: Locale;
+  /** Additional className for the container */
+  className?: string;
 };
 
-export function FAQ({ locale = "en" }: FAQProps) {
+export function FAQ({ items, locale = "en", className = "" }: FAQProps) {
   const t = getTranslations(locale);
+  const faqItems = items ?? t.faq;
 
   return (
-    <div className="max-w-3xl mx-auto">
-      {t.faq.map((faq, index) => (
+    <div className={`max-w-3xl mx-auto ${className}`}>
+      {faqItems.map((faq, index) => (
         <FAQItem
           key={faq.question}
           question={faq.question}
           answer={faq.answer}
-          isLast={index === t.faq.length - 1}
+          isLast={index === faqItems.length - 1}
         />
       ))}
     </div>
