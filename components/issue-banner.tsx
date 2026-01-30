@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-const STORAGE_KEY = "issue-banner-dismissed-float-bug";
+const STORAGE_KEY = "issue-banner-dismissed-v1.1.0";
 
 export function IssueBanner() {
   const [isVisible, setIsVisible] = useState(false);
@@ -50,9 +50,9 @@ export function IssueBanner() {
       <div
         className={`
           relative overflow-hidden
-          bg-gradient-to-r from-amber-600/90 via-amber-500/90 to-amber-600/90
-          dark:from-amber-700/80 dark:via-amber-600/80 dark:to-amber-700/80
-          border-b border-amber-400/20
+          bg-gradient-to-r from-emerald-600/90 via-emerald-500/90 to-emerald-600/90
+          dark:from-emerald-700/80 dark:via-emerald-600/80 dark:to-emerald-700/80
+          border-b border-emerald-400/20
           ${
             isClosing
               ? "animate-[slide-out-up_0.3s_ease-in_forwards]"
@@ -65,8 +65,8 @@ export function IssueBanner() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-2.5 sm:py-3">
           <div className="flex items-center justify-center gap-2 sm:gap-3 text-center pr-8 sm:pr-0">
-            {/* Warning icon */}
-            <span className="text-amber-100 shrink-0">
+            {/* Rocket icon */}
+            <span className="text-emerald-100 shrink-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -75,7 +75,12 @@ export function IssueBanner() {
               >
                 <path
                   fillRule="evenodd"
-                  d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z"
+                  d="M4.606 12.97a.75.75 0 01-.134 1.051 2.494 2.494 0 00-.93 2.437 2.494 2.494 0 002.437-.93.75.75 0 111.186.918 3.995 3.995 0 01-4.482 1.332.75.75 0 01-.461-.461 3.994 3.994 0 011.332-4.482.75.75 0 011.052.134z"
+                  clipRule="evenodd"
+                />
+                <path
+                  fillRule="evenodd"
+                  d="M5.752 12A13.07 13.07 0 008 14.248v4.002c0 .414.336.75.75.75a5 5 0 004.797-6.414 12.984 12.984 0 005.45-10.848.75.75 0 00-.735-.735 12.984 12.984 0 00-10.849 5.45A5 5 0 001 11.25c.001.414.337.75.751.75h4.002zM13 9a2 2 0 100-4 2 2 0 000 4z"
                   clipRule="evenodd"
                 />
               </svg>
@@ -83,15 +88,10 @@ export function IssueBanner() {
 
             {/* Message */}
             <p className="text-xs sm:text-sm text-white font-medium tracking-tight">
-              <span className="font-semibold">Known Issue</span>
+              <span className="font-semibold">v1.1.0 Coming Soon</span>
               <span className="text-white/70 mx-1.5 sm:mx-2">—</span>
               <span className="text-white/90 font-normal">
-                <span className="hidden sm:inline">
-                  Float values may appear incorrectly. Fix in progress.
-                </span>
-                <span className="sm:hidden">
-                  Float values may display incorrectly.
-                </span>
+                Data display fix + new features
               </span>
             </p>
           </div>
