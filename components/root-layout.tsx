@@ -3,7 +3,6 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { CookieConsent } from "@/components/cookie-consent";
 import { StructuredData } from "@/components/structured-data";
-import { IssueBanner } from "@/components/issue-banner";
 import { Locale } from "@/lib/translations";
 
 const oswald = Oswald({
@@ -26,7 +25,6 @@ export function RootLayout({ children, lang }: RootLayoutProps) {
       <body
         className={`${oswald.variable} antialiased flex flex-col min-h-screen`}
       >
-        <IssueBanner />
         <Navigation locale={lang} />
         {children}
         <Footer locale={lang} />
