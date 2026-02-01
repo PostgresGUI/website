@@ -32,7 +32,7 @@ export type Translations = {
   highlights: {
     openSource: { title: string; description: string; linkText: string };
     native: { title: string; line1: string; line2: string };
-    lightweight: { title: string; installer: string; installed: string };
+    lightweight: { title: string; installed: string };
     noSubscription: { title: string; description: string };
     noDataCollection: { title: string; description: string };
     minimalisticUI: { title: string; description: string };
@@ -192,8 +192,7 @@ const en: Translations = {
     },
     lightweight: {
       title: "Lightweight",
-      installer: `${INSTALLED_SIZE} installer`,
-      installed: `${INSTALLED_SIZE} installed`,
+      installed: `${INSTALLED_SIZE}`,
     },
     noSubscription: {
       title: "No Subscription",
@@ -509,8 +508,7 @@ const de: Translations = {
     },
     lightweight: {
       title: "Leichtgewichtig",
-      installer: `${INSTALLED_SIZE} Installer`,
-      installed: `${INSTALLED_SIZE} installiert`,
+      installed: `${INSTALLED_SIZE}`,
     },
     noSubscription: {
       title: "Kein Abo",
@@ -830,8 +828,7 @@ const fr: Translations = {
     },
     lightweight: {
       title: "Léger",
-      installer: `Installateur de ${INSTALLED_SIZE}`,
-      installed: `${INSTALLED_SIZE} installé`,
+      installed: `${INSTALLED_SIZE}`,
     },
     noSubscription: {
       title: "Sans abonnement",
@@ -1156,8 +1153,7 @@ const ja: Translations = {
     },
     lightweight: {
       title: "軽量",
-      installer: `${INSTALLED_SIZE}のインストーラ`,
-      installed: `${INSTALLED_SIZE}インストール後`,
+      installed: `${INSTALLED_SIZE}`,
     },
     noSubscription: {
       title: "サブスク不要",

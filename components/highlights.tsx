@@ -12,8 +12,8 @@ type HighlightProps = {
   locale?: Locale;
 };
 
-export function Highlights({ locale = "en" }: HighlightProps) {
-  const t = getTranslations(locale);
+export function Highlights(props: HighlightProps) {
+  const t = getTranslations(props.locale ?? "en");
 
   const highlights = [
     {
@@ -54,12 +54,7 @@ export function Highlights({ locale = "en" }: HighlightProps) {
     {
       icon: RocketIcon,
       title: t.highlights.lightweight.title,
-      description: (
-        <>
-          {t.highlights.lightweight.installer}
-          <br /> {t.highlights.lightweight.installed}
-        </>
-      ),
+      description: t.highlights.lightweight.installed,
       bgColor: "bg-amber-50 dark:bg-amber-950/30",
       borderColor: "border-amber-500 dark:border-amber-400",
       iconBg: "bg-amber-100 dark:bg-amber-900/50",
