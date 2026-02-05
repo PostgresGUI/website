@@ -1,19 +1,8 @@
 import { MetadataRoute } from "next";
 import { locales } from "@/lib/locales";
+import { posts as blogPosts } from "./(en)/blog/posts";
 
 export const dynamic = "force-static";
-
-type BlogPostInfo = {
-  slug: string;
-  date: string;
-};
-
-const blogPosts: BlogPostInfo[] = [
-  {
-    slug: "hello-world",
-    date: "2025-01-15",
-  },
-];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://postgresgui.com";

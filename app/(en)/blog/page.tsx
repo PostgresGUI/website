@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { metadata as helloWorldMetadata } from "./hello-world/page";
+import { posts } from "./posts";
 
 export const metadata: Metadata = {
   title: "Blog - PostgresGUI",
@@ -28,25 +28,6 @@ export const metadata: Metadata = {
     follow: true,
   },
 };
-
-type BlogPostInfo = {
-  slug: string;
-  date: string;
-  title: string;
-  description: string;
-};
-
-const posts: BlogPostInfo[] = [
-  {
-    slug: "hello-world",
-    date: "2025-01-15",
-    title: helloWorldMetadata.title as string,
-    description: helloWorldMetadata.description as string,
-  },
-].sort((a, b) => {
-  // Sort by date, newest first
-  return new Date(b.date).getTime() - new Date(a.date).getTime();
-});
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
