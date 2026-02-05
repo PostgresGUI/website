@@ -26,6 +26,7 @@ export function Footer({ locale = "en" }: FooterProps) {
   ];
 
   const resourceLinks = [
+    { href: "/blog", label: "Blog" },
     { href: "/support", label: t.footer.supportLink },
     {
       href: "https://github.com/postgresgui/postgresgui/issues",

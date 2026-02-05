@@ -58,6 +58,162 @@ export const metadata: Metadata = {
   },
 };
 
+const providers = [
+  {
+    name: "Neon",
+    color: "#00e699",
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none" className="w-8 h-8">
+        <path
+          d="M6 8c0-1.1.9-2 2-2h16c1.1 0 2 .9 2 2v12.7c0 1.5-1.8 2.2-2.8 1.2l-4.2-4.2V22c0 1.1-.9 2-2 2h-3c-1.1 0-2-.9-2-2v-4.3l-4.2 4.2C6.8 22.9 5 22.2 5 20.7V8h1z"
+          fill="currentColor"
+          opacity="0.9"
+        />
+      </svg>
+    ),
+  },
+  {
+    name: "Supabase",
+    color: "#3ecf8e",
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none" className="w-8 h-8">
+        <path
+          d="M17.5 27.8c-.6.8-1.9.3-1.9-.7V18h10.7c1.2 0 1.8 1.4 1 2.2L17.5 27.8z"
+          fill="currentColor"
+          opacity="0.7"
+        />
+        <path
+          d="M14.5 4.2c.6-.8 1.9-.3 1.9.7V14H5.7c-1.2 0-1.8-1.4-1-2.2L14.5 4.2z"
+          fill="currentColor"
+        />
+      </svg>
+    ),
+  },
+  {
+    name: "AWS RDS",
+    color: "#ff9900",
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none" className="w-8 h-8">
+        <path
+          d="M16 4l11 6v12l-11 6L5 22V10l11-6z"
+          stroke="currentColor"
+          strokeWidth="2"
+          fill="currentColor"
+          fillOpacity="0.15"
+        />
+        <path d="M16 10v12M10 13l12 6M22 13l-12 6" stroke="currentColor" strokeWidth="1.5" opacity="0.6" />
+      </svg>
+    ),
+  },
+  {
+    name: "Cloud SQL",
+    color: "#4285f4",
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none" className="w-8 h-8">
+        <ellipse cx="16" cy="10" rx="9" ry="4" fill="currentColor" fillOpacity="0.3" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M7 10v6c0 2.2 4 4 9 4s9-1.8 9-4v-6" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M7 16v6c0 2.2 4 4 9 4s9-1.8 9-4v-6" stroke="currentColor" strokeWidth="1.5" />
+      </svg>
+    ),
+  },
+  {
+    name: "Azure",
+    color: "#0078d4",
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none" className="w-8 h-8">
+        <path
+          d="M13 6l-8 18h6.5L19 6H13zM17 11l5.5 13.5 3.5.5-6-9.5L17 11z"
+          fill="currentColor"
+          opacity="0.85"
+        />
+      </svg>
+    ),
+  },
+  {
+    name: "DigitalOcean",
+    color: "#0080ff",
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none" className="w-8 h-8">
+        <circle cx="16" cy="16" r="9" fill="currentColor" fillOpacity="0.15" stroke="currentColor" strokeWidth="2" />
+        <circle cx="16" cy="16" r="4" fill="currentColor" />
+      </svg>
+    ),
+  },
+  {
+    name: "Railway",
+    color: "#c049ef",
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none" className="w-8 h-8">
+        <rect x="10" y="6" width="4" height="20" rx="2" fill="currentColor" />
+        <rect x="18" y="6" width="4" height="20" rx="2" fill="currentColor" />
+        <rect x="8" y="12" width="16" height="3" rx="1" fill="currentColor" opacity="0.5" />
+        <rect x="8" y="18" width="16" height="3" rx="1" fill="currentColor" opacity="0.5" />
+      </svg>
+    ),
+  },
+  {
+    name: "Render",
+    color: "#46e3b7",
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none" className="w-8 h-8">
+        <rect x="6" y="6" width="8" height="8" rx="2" fill="currentColor" />
+        <rect x="18" y="6" width="8" height="8" rx="2" fill="currentColor" opacity="0.6" />
+        <rect x="6" y="18" width="8" height="8" rx="2" fill="currentColor" opacity="0.6" />
+        <rect x="18" y="18" width="8" height="8" rx="2" fill="currentColor" opacity="0.3" />
+      </svg>
+    ),
+  },
+];
+
+function CloudProviderGrid() {
+  return (
+    <figure className="not-prose my-10">
+      <div className="grid grid-cols-4 gap-3 sm:gap-4">
+        {providers.map((provider, i) => (
+          <div
+            key={provider.name}
+            className="group relative flex flex-col items-center justify-center gap-2 rounded-xl border border-border bg-card p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1"
+            style={
+              {
+                "--provider-color": provider.color,
+                animationDelay: `${i * 80}ms`,
+              } as React.CSSProperties
+            }
+          >
+            {/* Glow effect on hover */}
+            <div
+              className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"
+              style={{
+                boxShadow: `0 8px 30px -5px ${provider.color}30, 0 0 0 1px ${provider.color}20`,
+              }}
+            />
+            <div
+              className="transition-colors duration-300"
+              style={{ color: provider.color }}
+            >
+              {provider.icon}
+            </div>
+            <span className="text-xs sm:text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300 text-center leading-tight">
+              {provider.name}
+            </span>
+          </div>
+        ))}
+      </div>
+      {/* Decorative cloud shape behind the grid */}
+      <svg
+        viewBox="0 0 800 100"
+        className="w-full h-auto mt-4 text-muted-foreground/10"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M0 80 Q100 40 200 60 Q300 20 400 50 Q500 10 600 40 Q700 20 800 60 L800 100 L0 100 Z"
+          fill="currentColor"
+        />
+      </svg>
+    </figure>
+  );
+}
+
 export default function BestPostgreSQLCloudProviderPage() {
   return (
     <div className="flex-1 py-12 px-6">
@@ -69,6 +225,8 @@ export default function BestPostgreSQLCloudProviderPage() {
             </h1>
             <p className="text-muted-foreground text-lg">February 4, 2025</p>
           </header>
+
+          <CloudProviderGrid />
 
           <div className="space-y-6">
             <h2>1. Neon</h2>
