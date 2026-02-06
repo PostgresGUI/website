@@ -69,6 +69,7 @@ export function Homepage({
                 height={750}
                 className="w-full h-auto dark:hidden"
                 priority
+                fetchPriority="high"
               />
               <Image
                 src="/screenshots2/PostgresGUI - Dark mode.png"
@@ -77,6 +78,7 @@ export function Homepage({
                 height={750}
                 className="w-full h-auto hidden dark:block"
                 priority
+                fetchPriority="high"
               />
             </div>
           </div>
