@@ -13,72 +13,72 @@ const screenshots = [
   {
     title: "Welcome Screen",
     description: "Get started quickly with a clean, minimal interface.",
-    imagePath: "/screenshots2/PostgresGUI - Welcome screen.png",
+    imagePath: "/screenshots3/PostgresGUI - Welcome screen.png",
     alt: "PostgresGUI Welcome Screen",
   },
   {
     title: "Create Localhost Connection",
     description: "Connect to your local PostgreSQL server in one click.",
-    imagePath: "/screenshots2/PostgresGUI - Create localhost connection.png",
+    imagePath: "/screenshots3/PostgresGUI - Create localhost connection.png",
     alt: "PostgresGUI Create Localhost Connection",
   },
   {
     title: "Connect Using Connection String",
     description: "Connect to any server using a connection string.",
     imagePath:
-      "/screenshots2/PostgresGUI - Connect to server using connection stirng.png",
+      "/screenshots3/PostgresGUI - Connect to server using connection stirng.png",
     alt: "PostgresGUI Connect Using Connection String",
   },
   {
     title: "Manage Connections",
     description: "See all your connections and connect or edit them.",
     imagePath:
-      "/screenshots2/PostgrsGUI - See connection list and connect to it or edit.png",
+      "/screenshots3/PostgrsGUI - See connection list and connect to it or edit.png",
     alt: "PostgresGUI Connection List",
   },
   {
     title: "Browse Databases",
     description: "See your database list and click to connect.",
     imagePath:
-      "/screenshots2/PostgresGUI - See database list and click to connect to it.png",
+      "/screenshots3/PostgresGUI - See database list and click to connect to it.png",
     alt: "PostgresGUI Database List",
   },
   {
     title: "Run Complex Queries",
     description: "Execute SQL queries and view results in a clean table.",
     imagePath:
-      "/screenshots2/PostgresGUI - Run complex query and see query results.png",
+      "/screenshots3/PostgresGUI - Run complex query and see query results.png",
     alt: "PostgresGUI Query Results",
   },
   {
     title: "Edit Rows",
     description: "Edit table rows directly with inline editing.",
-    imagePath: "/screenshots2/PostgresGUI - Edit row.png",
+    imagePath: "/screenshots3/PostgresGUI - Edit row.png",
     alt: "PostgresGUI Edit Row",
   },
   {
     title: "Filter & Search",
     description: "Filter and search through your query results.",
-    imagePath: "/screenshots2/PostgresGUI - Filter:search query results.png",
+    imagePath: "/screenshots3/PostgresGUI - Filter:search query results.png",
     alt: "PostgresGUI Filter and Search",
   },
   {
     title: "Sort Columns",
     description: "Sort your data by any column with a single click.",
-    imagePath: "/screenshots2/PostgresGUI - Sort columns.png",
+    imagePath: "/screenshots3/PostgresGUI - Sort columns.png",
     alt: "PostgresGUI Sort Columns",
   },
   {
     title: "Export & View JSON",
     description: "View results as JSON and export to CSV.",
     imagePath:
-      "/screenshots2/PostgresGUI - View query results as JSON and export to CSV.png",
+      "/screenshots3/PostgresGUI - View query results as JSON and export to CSV.png",
     alt: "PostgresGUI Export and JSON View",
   },
   {
     title: "Multiple Tabs",
     description: "Work with multiple queries in separate tabs.",
-    imagePath: "/screenshots2/PotsgresGUI - Create multiple tabs.png",
+    imagePath: "/screenshots3/PotsgresGUI - Create multiple tabs.png",
     alt: "PostgresGUI Multiple Tabs",
   },
 ];

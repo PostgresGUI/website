@@ -269,14 +269,14 @@ export function TablePlusAlternativePage({
           {/* App Screenshot */}
           <div className="relative rounded-xl overflow-hidden shadow-screenshot-elevated border border-stone-200/50 dark:border-stone-700/50">
             <Image
-              src="/screenshots2/PostgresGUI - Run complex query and see query results.png"
+              src="/screenshots3/PostgresGUI - Run complex query and see query results.png"
               alt="PostgresGUI - A native Mac PostgreSQL client"
               width={1176}
               height={750}
               className="w-full h-auto dark:hidden"
             />
             <Image
-              src="/screenshots2/PostgresGUI - Dark mode.png"
+              src="/screenshots3/PostgresGUI - Dark mode.png"
               alt="PostgresGUI - Dark mode interface"
               width={1176}
               height={750}

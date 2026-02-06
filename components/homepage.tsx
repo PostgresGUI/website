@@ -63,7 +63,7 @@ export function Homepage({
           <div className="w-full max-w-5xl mx-auto mb-10 md:mb-12 animate-slide-in stagger-2">
             <div className="relative rounded-[12px] md:rounded-xl overflow-hidden shadow-screenshot-elevated border border-stone-200/50 dark:border-stone-700/50">
               <Image
-                src="/screenshots2/PostgresGUI - Run complex query and see query results.png"
+                src="/screenshots3/PostgresGUI - Run complex query and see query results.png"
                 alt={t.hero.heroImageAlt}
                 width={1176}
                 height={750}
@@ -72,7 +72,7 @@ export function Homepage({
                 fetchPriority="high"
               />
               <Image
-                src="/screenshots2/PostgresGUI - Dark mode.png"
+                src="/screenshots3/PostgresGUI - Dark mode.png"
                 alt={t.hero.heroImageDarkAlt}
                 width={1176}
                 height={750}

@@ -12,62 +12,62 @@ import { getTranslations, Locale } from "@/lib/translations";
 
 const screenshotData = [
   {
-    imagePath: "/screenshots2/PostgresGUI - Welcome screen.png",
+    imagePath: "/screenshots3/PostgresGUI - Welcome screen.png",
     alt: "PostgresGUI Welcome Screen",
     zoom: { x: 50, y: 50, scale: 1 },
   },
   {
-    imagePath: "/screenshots2/PostgresGUI - Create connection.png",
+    imagePath: "/screenshots3/PostgresGUI - Create connection.png",
     alt: "PostgresGUI Create Connection",
     zoom: { x: 50, y: 50, scale: 1.25 },
   },
   {
-    imagePath: "/screenshots2/PostgresGUI - Connect to server using connection stirng.png",
+    imagePath: "/screenshots3/PostgresGUI - Connect to server using connection stirng.png",
     alt: "PostgresGUI Connect Using Connection String",
     zoom: { x: 50, y: 50, scale: 1.25 },
   },
   {
-    imagePath: "/screenshots2/PostgresGUI - See database list and click to connect to it.png",
+    imagePath: "/screenshots3/PostgresGUI - See database list and click to connect to it.png",
     alt: "PostgresGUI Database List",
     zoom: { x: 0, y: 0, scale: 1.75 },
   },
   {
-    imagePath: "/screenshots2/PostgresGUI - Run complex query and see query results.png",
+    imagePath: "/screenshots3/PostgresGUI - Run complex query and see query results.png",
     alt: "PostgresGUI Query Results",
     zoom: { x: 100, y: 100, scale: 1.5 },
   },
   {
-    imagePath: "/screenshots2/PostgresGUI - Edit row.png",
+    imagePath: "/screenshots3/PostgresGUI - Edit row.png",
     alt: "PostgresGUI Edit Row",
     zoom: { x: 50, y: 50, scale: 1.25 },
   },
   {
-    imagePath: "/screenshots2/PostgresGUI - Filter:search query results.png",
+    imagePath: "/screenshots3/PostgresGUI - Filter:search query results.png",
     alt: "PostgresGUI Filter and Search",
     zoom: { x: 100, y: 0, scale: 1.25 },
   },
   {
-    imagePath: "/screenshots2/PostgresGUI - Sort columns.png",
+    imagePath: "/screenshots3/PostgresGUI - Sort columns.png",
     alt: "PostgresGUI Sort Columns",
     zoom: { x: 50, y: 0, scale: 1.5 },
   },
   {
-    imagePath: "/screenshots2/PostgresGUI - View query results as JSON and export to CSV.png",
+    imagePath: "/screenshots3/PostgresGUI - View query results as JSON and export to CSV.png",
     alt: "PostgresGUI Export and JSON View",
     zoom: { x: 50, y: 50, scale: 1.25 },
   },
   {
-    imagePath: "/screenshots2/PotsgresGUI - Create multiple tabs.png",
+    imagePath: "/screenshots3/PotsgresGUI - Create multiple tabs.png",
     alt: "PostgresGUI Multiple Tabs",
     zoom: { x: 50, y: 0, scale: 1.5 },
   },
   {
-    imagePath: "/screenshots2/PostgresGUI - Dark mode.png",
+    imagePath: "/screenshots3/PostgresGUI - Dark mode.png",
     alt: "PostgresGUI Dark Mode",
     zoom: { x: 50, y: 50, scale: 1 },
   },
   {
-    imagePath: "/screenshots2/PostgresGUI - Organize saved queries into folders.png",
+    imagePath: "/screenshots3/PostgresGUI - Organize saved queries into folders.png",
     alt: "PostgresGUI Saved Queries",
     zoom: { x: 50, y: 100, scale: 1.5 },
   },
