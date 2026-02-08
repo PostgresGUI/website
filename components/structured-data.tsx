@@ -1,3 +1,5 @@
+import { PRICE_AMOUNT } from "@/lib/constants";
+
 export function StructuredData() {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -7,7 +9,7 @@ export function StructuredData() {
     operatingSystem: "macOS",
     offers: {
       "@type": "Offer",
-      price: "4.99",
+      price: PRICE_AMOUNT,
       priceCurrency: "USD",
     },
     aggregateRating: {

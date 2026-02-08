@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { TablePlusAlternativePage } from "@/components/tableplus-alternative-page";
 import { getTablePlusAlternativeMetadata } from "@/lib/seo";
+import { PRICE_AMOUNT } from "@/lib/constants";
 
 export const metadata: Metadata = getTablePlusAlternativeMetadata("de");
 
@@ -14,7 +15,7 @@ const jsonLd = {
     "Ein leichtgewichtiger, quelloffener PostgreSQL-Client für Mac. Native Swift-App ohne Abogebühren.",
   offers: {
     "@type": "Offer",
-    price: "4.99",
+    price: PRICE_AMOUNT,
     priceCurrency: "USD",
   },
   aggregateRating: {

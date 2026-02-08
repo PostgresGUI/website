@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Locale } from "./translations";
 import { getHreflangAlternates, getDownloadHreflangAlternates } from "./locales";
+import { PRICE_AMOUNT } from "./constants";
 
 // TablePlus Alternative Page SEO
 type TablePlusAlternativeSEO = {
@@ -125,7 +126,7 @@ export function getTablePlusAlternativeMetadata(locale: Locale = "en"): Metadata
       canonical: seo.canonical,
     },
     other: {
-      "og:price:amount": "4.99",
+      "og:price:amount": PRICE_AMOUNT,
       "og:price:currency": "USD",
     },
     openGraph: {
