@@ -1,6 +1,6 @@
 import { INSTALLED_SIZE, PRICE } from "@/lib/constants";
 
-export type Locale = "en" | "uk" | "de" | "fr" | "ja";
+export type Locale = "en" | "uk" | "de" | "fr" | "ja" | "nl" | "au";
 
 export type Translations = {
   // Hero
@@ -88,6 +88,73 @@ export type Translations = {
     openSource: string;
     viewOnGitHub: string;
   };
+  // DBeaver Comparison page (optional — only en populated; other locales fall back)
+  dbeaverComparison?: {
+    headline: string;
+    highlightWords: string[];
+    subheadline: string;
+    viewSourceOnGitHub: string;
+    atAGlance: string;
+    comparisonTitle: string;
+    comparisonDescription: string;
+    sources: string;
+    lastUpdated: string;
+    whatIsDbeaver: string;
+    whatIsDbeaverTitle: string;
+    whatIsDbeaverParagraphs: string[];
+    whatIsPostgresGUI: string;
+    whatIsPostgresGUITitle: string;
+    whatIsPostgresGUIDescription: string;
+    featureComparison: string;
+    featureComparisonTitle: string;
+    featureComparisonDescription: string;
+    features: Array<{
+      title: string;
+      icon: string;
+      dbeaver: string;
+      postgresgui: string;
+      verdict: string;
+      verdictLabel: string;
+    }>;
+    whereDbeaver: string;
+    whereDbeaverTitle: string;
+    whereDbeaverReasons: string[];
+    wherePostgresGUI: string;
+    wherePostgresGUITitle: string;
+    wherePostgresGUIReasons: string[];
+    whoShouldChoose: string;
+    whoShouldChooseTitle: string;
+    whoShouldChooseDescription: string;
+    chooseDbeaverIf: string;
+    chooseDbeaverReasons: string[];
+    choosePostgresGUIIf: string;
+    recommended: string;
+    choosePostgresGUIReasons: string[];
+    migrationGuide: string;
+    migrationGuideTitle: string;
+    migrationGuideDescription: string;
+    migrationSteps: Array<{ title: string; description: string }>;
+    finalVerdict: string;
+    finalVerdictTitle: string;
+    finalVerdictDescription: string;
+    faqTitle: string;
+    faqItems: Array<{ question: string; answer: string }>;
+    comparison: {
+      feature: string;
+      price: string;
+      platform: string;
+      technology: string;
+      openSource: string;
+      installSize: string;
+      databaseSupport: string;
+      erDiagrams: string;
+      queryEditor: string;
+      darkMode: string;
+      telemetry: string;
+      startupTime: string;
+      updates: string;
+    };
+  };
   // TablePlus Alternative page
   tablePlusAlternative: {
     breadcrumb: string;
@@ -147,7 +214,7 @@ const en: Translations = {
   hero: {
     badge: "New",
     learnSql: "Learn SQL",
-    headline: "The Postgres Client You'll Love",
+    headline: "The Best Lightweight Postgres Client",
     subheadline: "Designed and built for Mac.",
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Query editor with results",
@@ -462,7 +529,7 @@ const de: Translations = {
   hero: {
     badge: "Neu",
     learnSql: "SQL lernen",
-    headline: "Der Postgres-Client, den Sie lieben werden",
+    headline: "Der Beste Leichtgewichtige Postgres-Client",
     subheadline: "Entwickelt und gebaut für Mac.",
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Abfrage-Editor mit Ergebnissen",
@@ -782,7 +849,7 @@ const fr: Translations = {
   hero: {
     badge: "Nouveau",
     learnSql: "Apprendre SQL",
-    headline: "Le Client Postgres Que Vous Allez Adorer",
+    headline: "Le Meilleur Client Postgres Léger",
     subheadline: "Conçu et développé pour Mac.",
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Éditeur de requêtes avec résultats",
@@ -1108,7 +1175,7 @@ const ja: Translations = {
   hero: {
     badge: "新着",
     learnSql: "SQLを学ぶ",
-    headline: "きっと好きになるPostgresクライアント",
+    headline: "最高の軽量Postgresクライアント",
     subheadline: "Mac専用に設計・開発。",
     openSource: "オープンソース",
     heroImageAlt: "PostgresGUI - クエリエディタと結果",
@@ -1416,15 +1483,17 @@ const ja: Translations = {
   },
 };
 
-// UK uses the same translations as EN
+// UK, NL, AU use the same translations as EN
 const uk: Translations = en;
+const nl: Translations = en;
+const au: Translations = en;
 
-const translations: Record<Locale, Translations> = { en, uk, de, fr, ja };
+const translations: Record<Locale, Translations> = { en, uk, de, fr, ja, nl, au };
 
 export function getTranslations(locale: Locale = "en"): Translations {
   return translations[locale] || translations.en;
 }
 
 export function isValidLocale(locale: string): locale is Locale {
-  return ["en", "uk", "de", "fr", "ja"].includes(locale);
+  return ["en", "uk", "de", "fr", "ja", "nl", "au"].includes(locale);
 }
