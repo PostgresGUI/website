@@ -113,6 +113,44 @@ const tablePlusAlternativeSeoData: Record<Locale, TablePlusAlternativeSEO> = {
     ogLocale: "ja_JP",
     canonical: "https://postgresgui.com/ja/alternatives/tableplus",
   },
+  nl: {
+    title: "TablePlus Alternative for Mac - PostgresGUI | Open Source PostgreSQL Client",
+    description:
+      "Looking for a TablePlus alternative? PostgresGUI is a lightweight, open source PostgreSQL client for Mac. Native Swift app, one-time purchase, no subscription, no data collection.",
+    keywords: [
+      "tableplus alternative",
+      "tableplus alternative mac",
+      "tableplus alternative free",
+      "tableplus alternative open source",
+      "best postgresql gui mac",
+      "native postgresql client mac",
+      "tableplus vs postgresgui",
+      "lightweight database gui mac",
+      "postgresql client mac",
+      "postgres gui mac",
+    ],
+    ogLocale: "en_NL",
+    canonical: "https://postgresgui.com/alternatives/tableplus",
+  },
+  au: {
+    title: "TablePlus Alternative for Mac - PostgresGUI | Open Source PostgreSQL Client",
+    description:
+      "Looking for a TablePlus alternative? PostgresGUI is a lightweight, open source PostgreSQL client for Mac. Native Swift app, one-time purchase, no subscription, no data collection.",
+    keywords: [
+      "tableplus alternative",
+      "tableplus alternative mac",
+      "tableplus alternative free",
+      "tableplus alternative open source",
+      "best postgresql gui mac",
+      "native postgresql client mac",
+      "tableplus vs postgresgui",
+      "lightweight database gui mac",
+      "postgresql client mac",
+      "postgres gui mac",
+    ],
+    ogLocale: "en_AU",
+    canonical: "https://postgresgui.com/alternatives/tableplus",
+  },
 };
 
 export function getTablePlusAlternativeMetadata(locale: Locale = "en"): Metadata {
@@ -295,6 +333,46 @@ const seoData: Record<Locale, LocaleSEO> = {
     ogLocale: "ja_JP",
     canonical: "https://postgresgui.com/ja",
   },
+  nl: {
+    title: "PostgresGUI - The Postgres Client Built for Mac",
+    description:
+      "PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight, fast, dark mode support.",
+    keywords: [
+      "postgresql gui mac",
+      "best postgres gui",
+      "postgres client mac",
+      "postgresql macos",
+      "PostgreSQL",
+      "Postgres",
+      "SQL",
+      "database",
+      "client",
+      "macOS",
+      "Mac",
+    ],
+    ogLocale: "en_NL",
+    canonical: "https://postgresgui.com",
+  },
+  au: {
+    title: "PostgresGUI - The Postgres Client Built for Mac",
+    description:
+      "PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight, fast, dark mode support.",
+    keywords: [
+      "postgresql gui mac",
+      "best postgres gui",
+      "postgres client mac",
+      "postgresql macos",
+      "PostgreSQL",
+      "Postgres",
+      "SQL",
+      "database",
+      "client",
+      "macOS",
+      "Mac",
+    ],
+    ogLocale: "en_AU",
+    canonical: "https://postgresgui.com",
+  },
 };
 
 export function getLocaleMetadata(locale: Locale): Metadata {
@@ -424,6 +502,34 @@ const downloadSeoData: Record<Locale, LocaleSEO> = {
     ],
     ogLocale: "ja_JP",
     canonical: "https://postgresgui.com/ja/download",
+  },
+  nl: {
+    title: "Download PostgresGUI - PostgreSQL GUI for Mac | Free Download",
+    description:
+      "Download PostgresGUI for Mac. Lightweight, open-source PostgreSQL client. Native macOS app with dark mode support. Get it free on the App Store.",
+    keywords: [
+      "download postgresql gui mac",
+      "postgresql client download",
+      "postgresgui download",
+      "postgres gui mac download",
+      "database gui mac download",
+    ],
+    ogLocale: "en_NL",
+    canonical: "https://postgresgui.com/download",
+  },
+  au: {
+    title: "Download PostgresGUI - PostgreSQL GUI for Mac | Free Download",
+    description:
+      "Download PostgresGUI for Mac. Lightweight, open-source PostgreSQL client. Native macOS app with dark mode support. Get it free on the App Store.",
+    keywords: [
+      "download postgresql gui mac",
+      "postgresql client download",
+      "postgresgui download",
+      "postgres gui mac download",
+      "database gui mac download",
+    ],
+    ogLocale: "en_AU",
+    canonical: "https://postgresgui.com/download",
   },
 };
 
