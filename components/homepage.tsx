@@ -63,11 +63,20 @@ export function Homepage({
           <div className="w-full max-w-5xl mx-auto mb-10 md:mb-12 animate-slide-in stagger-2">
             <div className="relative rounded-[12px] md:rounded-xl overflow-hidden shadow-screenshot-elevated border border-stone-200/50 dark:border-stone-700/50">
               <Image
+                src="/screenshots3/PostgresGUI - Run complex query and see query results 340x212.png"
+                alt={t.hero.heroImageAlt}
+                width={340}
+                height={212}
+                className="w-full h-auto md:hidden dark:hidden"
+                priority
+                fetchPriority="high"
+              />
+              <Image
                 src="/screenshots3/PostgresGUI - Run complex query and see query results.png"
                 alt={t.hero.heroImageAlt}
                 width={1176}
                 height={750}
-                className="w-full h-auto dark:hidden"
+                className="w-full h-auto hidden md:block dark:hidden"
                 priority
                 fetchPriority="high"
               />
