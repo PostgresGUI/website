@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { AppStoreBadge } from "@/components/app-store-badge";
 import { AppStoreLink, APP_STORE_LINK } from "@/components/app-store-link";
 import { Highlights } from "@/components/highlights";
@@ -7,7 +6,6 @@ import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import { FAQ } from "@/components/faq";
 import { FlowingData } from "@/components/hero-animations/flowing-data";
 import { NewFeatureBadge } from "@/components/new-feature-badge";
-import { ArrowRight } from "lucide-react";
 import { getTranslations, Locale } from "@/lib/translations";
 
 export type HomepageProps = {
