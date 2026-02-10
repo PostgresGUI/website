@@ -26,7 +26,7 @@ export function StructuredData() {
       name: "PostgresGUI",
       url: "https://postgresgui.com",
     },
-    screenshot: "https://postgresgui.com/screenshots3/PostgresGUI - Run complex query and see query results.png",
+    screenshot: "https://postgresgui.com/screenshots4/PostgresGUI - Run complex query and see query results.webp",
     featureList: [
       "Native macOS app",
       "Dark mode support",
