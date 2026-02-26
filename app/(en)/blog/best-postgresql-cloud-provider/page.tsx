@@ -223,7 +223,7 @@ export default function BestPostgreSQLCloudProviderPage() {
             <h1 className="text-4xl md:text-5xl font-display mb-4">
               Best PostgreSQL Cloud Providers in 2025
             </h1>
-            <p className="text-muted-foreground text-lg">February 4, 2025</p>
+            <p className="text-muted-foreground text-lg">February 4, 2025 · Ghazi</p>
           </header>
 
           <CloudProviderGrid />

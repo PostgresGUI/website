@@ -67,7 +67,7 @@ export default function BestMacPostgreSQLGUIClientPage() {
             <h1 className="text-4xl md:text-5xl font-display mb-4">
               Best Mac PostgreSQL GUI Clients in 2026
             </h1>
-            <p className="text-muted-foreground text-lg">February 4, 2026</p>
+            <p className="text-muted-foreground text-lg">February 4, 2026 · Ghazi</p>
           </header>
 
           <div className="space-y-6">

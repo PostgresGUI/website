@@ -65,7 +65,7 @@ export default function BlogPage() {
                   {post.title}
                 </h2>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {formatDate(post.date)}
+                  {formatDate(post.date)} · {post.author}
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
                   {post.description}
