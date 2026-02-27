@@ -5,7 +5,7 @@ import "../globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://postgresgui.com"),
-  title: "PostgresGUI - The Best Lightweight Postgres Client for Mac",
+  title: "PostgresGUI - Lightweight, Native PostgreSQL Client for Mac",
   description:
     "PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight, fast, dark mode.",
   keywords: [
