@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 const date = "2025-01-15";
 
 export const metadata: Metadata = {
-  title: "Hello World - PostgresGUI Blog",
+  title: "Hello World",
   description:
     "Welcome to the PostgresGUI blog! This is our first post introducing our blog and sharing updates about our lightweight PostgreSQL client for Mac.",
   keywords: ["PostgresGUI", "PostgreSQL", "blog", "database", "Mac", "macOS"],
   openGraph: {
-    title: "Hello World - PostgresGUI Blog",
+    title: "Hello World",
     description:
       "Welcome to the PostgresGUI blog! This is our first post introducing our blog and sharing updates about our lightweight PostgreSQL client for Mac.",
     type: "article",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     site: "@postgresgui",
     creator: "@postgresgui",
     card: "summary_large_image",
-    title: "Hello World - PostgresGUI Blog",
+    title: "Hello World",
     description:
       "Welcome to the PostgresGUI blog! This is our first post introducing our blog and sharing updates about our lightweight PostgreSQL client for Mac.",
     images: [

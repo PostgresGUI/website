@@ -16,7 +16,7 @@ export type BlogPostInfo = {
 };
 
 function stripBlogSuffix(title: string): string {
-  return title.replace(/ - PostgresGUI Blog$/, "");
+  return title.replace(/$/, "");
 }
 
 export const posts: BlogPostInfo[] = [

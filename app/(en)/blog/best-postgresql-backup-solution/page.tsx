@@ -4,7 +4,7 @@ const date = "2026-02-04";
 
 export const metadata: Metadata = {
   title:
-    "Best PostgreSQL Backup Solutions in 2026: Tools, Strategies, and Best Practices - PostgresGUI Blog",
+    "Best PostgreSQL Backup Solutions in 2026: Tools, Strategies, and Best Practices",
   description:
     "Compare the best PostgreSQL backup solutions in 2026. From pg_dump and pgBackRest to Barman and WAL-G, find the right backup strategy for your database.",
   keywords: [
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title:
-      "Best PostgreSQL Backup Solutions in 2026: Tools, Strategies, and Best Practices - PostgresGUI Blog",
+      "Best PostgreSQL Backup Solutions in 2026: Tools, Strategies, and Best Practices",
     description:
       "Compare the best PostgreSQL backup solutions in 2026. From pg_dump and pgBackRest to Barman and WAL-G, find the right backup strategy for your database.",
     type: "article",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     creator: "@postgresgui",
     card: "summary_large_image",
     title:
-      "Best PostgreSQL Backup Solutions in 2026: Tools, Strategies, and Best Practices - PostgresGUI Blog",
+      "Best PostgreSQL Backup Solutions in 2026: Tools, Strategies, and Best Practices",
     description:
       "Compare the best PostgreSQL backup solutions in 2026. From pg_dump and pgBackRest to Barman and WAL-G, find the right backup strategy for your database.",
     images: [

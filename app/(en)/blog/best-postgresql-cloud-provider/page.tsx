@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 const date = "2025-02-04";
 
 export const metadata: Metadata = {
-  title: "Best PostgreSQL Cloud Providers in 2025 - PostgresGUI Blog",
+  title: "Best PostgreSQL Cloud Providers in 2025",
   description:
     "Compare the best PostgreSQL cloud providers in 2025. From Neon and Supabase to AWS RDS, find the right managed PostgreSQL hosting for your project.",
   keywords: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     "Render Postgres",
   ],
   openGraph: {
-    title: "Best PostgreSQL Cloud Providers in 2025 - PostgresGUI Blog",
+    title: "Best PostgreSQL Cloud Providers in 2025",
     description:
       "Compare the best PostgreSQL cloud providers in 2025. From Neon and Supabase to AWS RDS, find the right managed PostgreSQL hosting for your project.",
     type: "article",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     site: "@postgresgui",
     creator: "@postgresgui",
     card: "summary_large_image",
-    title: "Best PostgreSQL Cloud Providers in 2025 - PostgresGUI Blog",
+    title: "Best PostgreSQL Cloud Providers in 2025",
     description:
       "Compare the best PostgreSQL cloud providers in 2025. From Neon and Supabase to AWS RDS, find the right managed PostgreSQL hosting for your project.",
     images: [

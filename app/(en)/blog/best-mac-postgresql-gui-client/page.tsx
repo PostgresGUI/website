@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 const date = "2026-02-04";
 
 export const metadata: Metadata = {
-  title: "Best Mac PostgreSQL GUI Clients in 2026 - PostgresGUI Blog",
+  title: "Best Mac PostgreSQL GUI Clients in 2026",
   description:
     "Compare the best PostgreSQL GUI clients for Mac in 2026. From lightweight native apps to full-featured IDEs, find the right Postgres client for your workflow.",
   keywords: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     "database client macOS",
   ],
   openGraph: {
-    title: "Best Mac PostgreSQL GUI Clients in 2026 - PostgresGUI Blog",
+    title: "Best Mac PostgreSQL GUI Clients in 2026",
     description:
       "Compare the best PostgreSQL GUI clients for Mac in 2026. From lightweight native apps to full-featured IDEs, find the right Postgres client for your workflow.",
     type: "article",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     site: "@postgresgui",
     creator: "@postgresgui",
     card: "summary_large_image",
-    title: "Best Mac PostgreSQL GUI Clients in 2026 - PostgresGUI Blog",
+    title: "Best Mac PostgreSQL GUI Clients in 2026",
     description:
       "Compare the best PostgreSQL GUI clients for Mac in 2026. From lightweight native apps to full-featured IDEs, find the right Postgres client for your workflow.",
     images: [

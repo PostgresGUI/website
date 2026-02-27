@@ -4,7 +4,7 @@ const date = "2026-02-26";
 
 export const metadata: Metadata = {
   title:
-    "Best pgAdmin Alternatives for Mac (That You'll Actually Enjoy Using) - PostgresGUI Blog",
+    "Best pgAdmin Alternatives for Mac (That You'll Actually Enjoy Using)",
   description:
     "Tired of pgAdmin on Mac? Discover the best pgAdmin alternatives that are native, fast, and actually enjoyable to use. Compare PostgresGUI, Postico, TablePlus, DBeaver, and more.",
   keywords: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title:
-      "Best pgAdmin Alternatives for Mac (That You'll Actually Enjoy Using) - PostgresGUI Blog",
+      "Best pgAdmin Alternatives for Mac (That You'll Actually Enjoy Using)",
     description:
       "Tired of pgAdmin on Mac? Discover the best pgAdmin alternatives that are native, fast, and actually enjoyable to use. Compare PostgresGUI, Postico, TablePlus, DBeaver, and more.",
     type: "article",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     creator: "@postgresgui",
     card: "summary_large_image",
     title:
-      "Best pgAdmin Alternatives for Mac (That You'll Actually Enjoy Using) - PostgresGUI Blog",
+      "Best pgAdmin Alternatives for Mac (That You'll Actually Enjoy Using)",
     description:
       "Tired of pgAdmin on Mac? Discover the best pgAdmin alternatives that are native, fast, and actually enjoyable to use. Compare PostgresGUI, Postico, TablePlus, DBeaver, and more.",
     images: [

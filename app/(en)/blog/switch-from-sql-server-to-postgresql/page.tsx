@@ -4,7 +4,7 @@ const date = "2026-02-04";
 
 export const metadata: Metadata = {
   title:
-    "How to Switch from SQL Server to PostgreSQL - PostgresGUI Blog",
+    "How to Switch from SQL Server to PostgreSQL",
   description:
     "A practical guide to migrating from Microsoft SQL Server to PostgreSQL. Covers key differences, syntax changes, data type mapping, migration tools, and common pitfalls.",
   keywords: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title:
-      "How to Switch from SQL Server to PostgreSQL - PostgresGUI Blog",
+      "How to Switch from SQL Server to PostgreSQL",
     description:
       "A practical guide to migrating from Microsoft SQL Server to PostgreSQL. Covers key differences, syntax changes, data type mapping, migration tools, and common pitfalls.",
     type: "article",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     creator: "@postgresgui",
     card: "summary_large_image",
     title:
-      "How to Switch from SQL Server to PostgreSQL - PostgresGUI Blog",
+      "How to Switch from SQL Server to PostgreSQL",
     description:
       "A practical guide to migrating from Microsoft SQL Server to PostgreSQL. Covers key differences, syntax changes, data type mapping, migration tools, and common pitfalls.",
     images: [

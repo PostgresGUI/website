@@ -4,7 +4,7 @@ const date = "2026-02-04";
 
 export const metadata: Metadata = {
   title:
-    "Best PostgreSQL Monitoring Tools in 2026 - PostgresGUI Blog",
+    "Best PostgreSQL Monitoring Tools in 2026",
   description:
     "Compare the best PostgreSQL monitoring tools in 2026. From built-in statistics views and pg_stat_statements to Prometheus, Datadog, and pgwatch2, find the right monitoring stack for your Postgres database.",
   keywords: [
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title:
-      "Best PostgreSQL Monitoring Tools in 2026 - PostgresGUI Blog",
+      "Best PostgreSQL Monitoring Tools in 2026",
     description:
       "Compare the best PostgreSQL monitoring tools in 2026. From built-in statistics views and pg_stat_statements to Prometheus, Datadog, and pgwatch2, find the right monitoring stack for your Postgres database.",
     type: "article",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     creator: "@postgresgui",
     card: "summary_large_image",
     title:
-      "Best PostgreSQL Monitoring Tools in 2026 - PostgresGUI Blog",
+      "Best PostgreSQL Monitoring Tools in 2026",
     description:
       "Compare the best PostgreSQL monitoring tools in 2026. From built-in statistics views and pg_stat_statements to Prometheus, Datadog, and pgwatch2, find the right monitoring stack for your Postgres database.",
     images: [

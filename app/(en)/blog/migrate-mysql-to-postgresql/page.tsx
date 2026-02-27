@@ -4,7 +4,7 @@ const date = "2026-02-04";
 
 export const metadata: Metadata = {
   title:
-    "How to Migrate from MySQL to PostgreSQL: A Practical Guide - PostgresGUI Blog",
+    "How to Migrate from MySQL to PostgreSQL: A Practical Guide",
   description:
     "Step-by-step guide to migrating your database from MySQL to PostgreSQL. Covers schema conversion, data type mapping, SQL syntax differences, and the best migration tools.",
   keywords: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title:
-      "How to Migrate from MySQL to PostgreSQL: A Practical Guide - PostgresGUI Blog",
+      "How to Migrate from MySQL to PostgreSQL: A Practical Guide",
     description:
       "Step-by-step guide to migrating your database from MySQL to PostgreSQL. Covers schema conversion, data type mapping, SQL syntax differences, and the best migration tools.",
     type: "article",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     creator: "@postgresgui",
     card: "summary_large_image",
     title:
-      "How to Migrate from MySQL to PostgreSQL: A Practical Guide - PostgresGUI Blog",
+      "How to Migrate from MySQL to PostgreSQL: A Practical Guide",
     description:
       "Step-by-step guide to migrating your database from MySQL to PostgreSQL. Covers schema conversion, data type mapping, SQL syntax differences, and the best migration tools.",
     images: [
