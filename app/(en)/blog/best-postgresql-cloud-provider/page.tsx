@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 const date = "2025-02-04";
 
 export const metadata: Metadata = {
-  title: "Best PostgreSQL Cloud Providers in 2025",
+  title: "Best PostgreSQL Cloud Providers in 2026",
   description:
-    "Compare the best PostgreSQL cloud providers in 2025. From Neon and Supabase to AWS RDS, find the right managed PostgreSQL hosting for your project.",
+    "Compare the best PostgreSQL cloud providers in 2026. From Neon and Supabase to AWS RDS, find the right managed PostgreSQL hosting for your project.",
   keywords: [
     "PostgreSQL cloud provider",
     "managed PostgreSQL",
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     "Render Postgres",
   ],
   openGraph: {
-    title: "Best PostgreSQL Cloud Providers in 2025",
+    title: "Best PostgreSQL Cloud Providers in 2026",
     description:
-      "Compare the best PostgreSQL cloud providers in 2025. From Neon and Supabase to AWS RDS, find the right managed PostgreSQL hosting for your project.",
+      "Compare the best PostgreSQL cloud providers in 2026. From Neon and Supabase to AWS RDS, find the right managed PostgreSQL hosting for your project.",
     type: "article",
     publishedTime: "2025-02-04T00:00:00Z",
     url: "https://postgresgui.com/blog/best-postgresql-cloud-provider",
@@ -42,9 +42,9 @@ export const metadata: Metadata = {
     site: "@postgresgui",
     creator: "@postgresgui",
     card: "summary_large_image",
-    title: "Best PostgreSQL Cloud Providers in 2025",
+    title: "Best PostgreSQL Cloud Providers in 2026",
     description:
-      "Compare the best PostgreSQL cloud providers in 2025. From Neon and Supabase to AWS RDS, find the right managed PostgreSQL hosting for your project.",
+      "Compare the best PostgreSQL cloud providers in 2026. From Neon and Supabase to AWS RDS, find the right managed PostgreSQL hosting for your project.",
     images: [
       {
         url: "https://postgresgui.com/postgresgui-og-image.jpg",
@@ -221,7 +221,7 @@ export default function BestPostgreSQLCloudProviderPage() {
         <article className="prose dark:prose-invert max-w-none">
           <header className="mb-8">
             <h1 className="text-4xl md:text-5xl font-display mb-4">
-              Best PostgreSQL Cloud Providers in 2025
+              Best PostgreSQL Cloud Providers in 2026
             </h1>
             <p className="text-muted-foreground text-lg">February 4, 2025 · Ghazi</p>
           </header>

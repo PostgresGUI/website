@@ -6,6 +6,7 @@ import { metadata as bestMacPostgreSQLGUIClientMetadata } from "./best-mac-postg
 import { metadata as postgresqlMonitoringToolsMetadata } from "./postgresql-monitoring-tools/page";
 import { metadata as bestPostgreSQLBackupSolutionMetadata } from "./best-postgresql-backup-solution/page";
 import { metadata as bestPgAdminAlternativeMacMetadata } from "./best-pgadmin-alternative-mac/page";
+import { metadata as onlyPostgresGUIMacNoSubscriptionMetadata } from "./only-postgres-gui-mac-no-subscription/page";
 
 export type BlogPostInfo = {
   slug: string;
@@ -74,6 +75,13 @@ export const posts: BlogPostInfo[] = [
     date: "2026-02-26",
     title: stripBlogSuffix(bestPgAdminAlternativeMacMetadata.title as string),
     description: bestPgAdminAlternativeMacMetadata.description as string,
+    author: "Ghazi",
+  },
+  {
+    slug: "only-postgres-gui-mac-no-subscription",
+    date: "2026-03-03",
+    title: stripBlogSuffix(onlyPostgresGUIMacNoSubscriptionMetadata.title as string),
+    description: onlyPostgresGUIMacNoSubscriptionMetadata.description as string,
     author: "Ghazi",
   },
 ].sort((a, b) => {
