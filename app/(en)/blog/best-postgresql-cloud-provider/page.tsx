@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-const date = "2025-02-04";
 
 export const metadata: Metadata = {
   title: "Best PostgreSQL Cloud Providers in 2026",
@@ -223,7 +222,7 @@ export default function BestPostgreSQLCloudProviderPage() {
             <h1 className="text-4xl md:text-5xl font-display mb-4">
               Best PostgreSQL Cloud Providers in 2026
             </h1>
-            <p className="text-muted-foreground text-lg">February 4, 2025 · Ghazi</p>
+            <p className="text-muted-foreground text-lg">Ghazi</p>
           </header>
 
           <CloudProviderGrid />

@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 
-const date = "2026-02-26";
-
 export const metadata: Metadata = {
   title:
     "Best pgAdmin Alternatives for Mac (That You'll Actually Enjoy Using)",
@@ -28,7 +26,7 @@ export const metadata: Metadata = {
     description:
       "Tired of pgAdmin on Mac? Discover the best pgAdmin alternatives that are native, fast, and actually enjoyable to use. Compare PostgresGUI, Postico, TablePlus, DBeaver, and more.",
     type: "article",
-    publishedTime: `${date}T00:00:00Z`,
+    publishedTime: "2026-02-26T00:00:00Z",
     url: "https://postgresgui.com/blog/best-pgadmin-alternative-mac",
     siteName: "PostgresGUI",
     locale: "en_US",
@@ -72,7 +70,7 @@ export default function BestPgAdminAlternativeMacPage() {
               Best pgAdmin Alternatives for Mac (That You&apos;ll Actually Enjoy
               Using)
             </h1>
-            <p className="text-muted-foreground text-lg">February 26, 2026 · Ghazi</p>
+            <p className="text-muted-foreground text-lg">Ghazi</p>
           </header>
 
           <div className="space-y-6">

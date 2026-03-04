@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 
-const date = "2026-02-04";
-
 export const metadata: Metadata = {
   title:
     "How to Migrate from MySQL to PostgreSQL: A Practical Guide",
@@ -68,7 +66,7 @@ export default function MigrateMySQLToPostgreSQLPage() {
             <h1 className="text-4xl md:text-5xl font-display mb-4">
               How to Migrate from MySQL to PostgreSQL
             </h1>
-            <p className="text-muted-foreground text-lg">February 4, 2026 · Ghazi</p>
+            <p className="text-muted-foreground text-lg">Ghazi</p>
           </header>
 
           <div className="space-y-6">

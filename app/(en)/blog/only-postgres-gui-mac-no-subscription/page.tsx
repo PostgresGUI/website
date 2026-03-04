@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 
-const date = "2026-03-03";
-
 export const metadata: Metadata = {
   title: "The Only Postgres GUI for Mac With No Subscription",
   description:
@@ -122,7 +120,7 @@ export default function OnlyPostgresGUIMacNoSubscriptionPage() {
             <h1 className="text-4xl md:text-5xl font-display mb-4">
               The Only Postgres GUI for Mac With No Subscription
             </h1>
-            <p className="text-muted-foreground text-lg">March 3, 2026 · Ghazi</p>
+            <p className="text-muted-foreground text-lg">Ghazi</p>
           </header>
 
           <div className="space-y-6">

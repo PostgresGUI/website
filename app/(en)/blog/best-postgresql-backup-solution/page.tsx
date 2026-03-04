@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 
-const date = "2026-02-04";
-
 export const metadata: Metadata = {
   title:
     "Best PostgreSQL Backup Solutions in 2026: Tools, Strategies, and Best Practices",
@@ -27,7 +25,7 @@ export const metadata: Metadata = {
     description:
       "Compare the best PostgreSQL backup solutions in 2026. From pg_dump and pgBackRest to Barman and WAL-G, find the right backup strategy for your database.",
     type: "article",
-    publishedTime: `${date}T00:00:00Z`,
+    publishedTime: "2026-02-04T00:00:00Z",
     url: "https://postgresgui.com/blog/best-postgresql-backup-solution",
     siteName: "PostgresGUI",
     locale: "en_US",
@@ -70,7 +68,7 @@ export default function BestPostgreSQLBackupSolutionPage() {
             <h1 className="text-4xl md:text-5xl font-display mb-4">
               Best PostgreSQL Backup Solutions in 2026
             </h1>
-            <p className="text-muted-foreground text-lg">February 4, 2026 · Ghazi</p>
+            <p className="text-muted-foreground text-lg">Ghazi</p>
           </header>
 
           <div className="space-y-6">

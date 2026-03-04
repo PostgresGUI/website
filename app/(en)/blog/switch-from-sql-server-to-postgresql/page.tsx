@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 
-const date = "2026-02-04";
-
 export const metadata: Metadata = {
   title:
     "How to Switch from SQL Server to PostgreSQL",
@@ -25,7 +23,7 @@ export const metadata: Metadata = {
     description:
       "A practical guide to migrating from Microsoft SQL Server to PostgreSQL. Covers key differences, syntax changes, data type mapping, migration tools, and common pitfalls.",
     type: "article",
-    publishedTime: `${date}T00:00:00Z`,
+    publishedTime: "2026-02-04T00:00:00Z",
     url: "https://postgresgui.com/blog/switch-from-sql-server-to-postgresql",
     siteName: "PostgresGUI",
     locale: "en_US",
@@ -68,7 +66,7 @@ export default function SwitchFromSqlServerToPostgreSQLPage() {
             <h1 className="text-4xl md:text-5xl font-display mb-4">
               How to Switch from SQL Server to PostgreSQL
             </h1>
-            <p className="text-muted-foreground text-lg">February 4, 2026 · Ghazi</p>
+            <p className="text-muted-foreground text-lg">Ghazi</p>
           </header>
 
           <div className="space-y-6">

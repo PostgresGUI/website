@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-const date = "2025-01-15";
 
 export const metadata: Metadata = {
   title: "Hello World",
@@ -54,7 +53,7 @@ export default function HelloWorldPage() {
             <h1 className="text-4xl md:text-5xl font-display mb-4">
               Hello World
             </h1>
-            <p className="text-muted-foreground text-lg">January 15, 2025 · Ghazi</p>
+            <p className="text-muted-foreground text-lg">Ghazi</p>
           </header>
 
           <div className="space-y-6">
