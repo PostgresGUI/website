@@ -23,6 +23,9 @@ export function Footer({ locale = "en" }: FooterProps) {
     { href: "/sql-editor", label: "SQL Editor" },
     { href: "/sql-cheatsheet", label: "SQL Cheatsheet" },
     { href: "/schema-designer", label: "Schema Designer" },
+    { href: "/uuid-generator", label: "UUID Generator" },
+    { href: "/connection-string", label: "Connection String Builder" },
+    { href: "/data-types", label: "Data Type Picker" },
   ];
 
   const resourceLinks = [

@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { locales } from "@/lib/locales";
 import { posts as blogPosts } from "./(en)/blog/posts";
+import { categories as dataTypeCategories } from "./(apps)/data-types/_lib/data";
 
 export const dynamic = "force-static";
 
@@ -69,6 +70,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/uuid-generator`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/connection-string`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/data-types`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    ...dataTypeCategories.map((cat) => ({
+      url: `${baseUrl}/data-types/${cat.id}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
     {
       url: `${baseUrl}/privacy`,
       lastModified: new Date(),
