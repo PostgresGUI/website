@@ -26,9 +26,9 @@ export function GitHubButton({ className }: { className?: string }) {
       target="_blank"
       rel="noopener noreferrer"
       style={{
-        minWidth: 220,
-        paddingLeft: 20,
-        paddingRight: 20,
+        width: 180,
+        paddingTop: 10,
+        paddingBottom: 10,
         background: "linear-gradient(to bottom, #ffffff 0%, #f3f3f3 100%)",
         borderRadius: 12,
         border: "1px solid #d4d4d4",
@@ -38,7 +38,7 @@ export function GitHubButton({ className }: { className?: string }) {
       className={`inline-flex items-center justify-center gap-1.5 text-gray-800 text-sm font-semibold no-underline transition-all duration-150 hover:brightness-[0.97] active:brightness-[0.95] active:shadow-[inset_0_2px_3px_0_rgba(0,0,0,0.08)] ${className ?? ""}`}
     >
       <GitHubIcon width={18} height={18} />
-      <span>Open Source</span>
+      <span>OSS</span>
       {starCount !== null && (
         <>
           <span className="mx-0.5 text-gray-300">|</span>

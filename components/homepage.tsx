@@ -39,7 +39,7 @@ export function Homepage({
         <div className="text-center px-6 pt-16 pb-16 md:pt-24 md:pb-24 relative z-10">
           {/* Main Tagline */}
           <h1
-            className="text-5xl md:text-6xl max-w-xl mx-auto mb-4 animate-slide-in text-balance"
+            className="text-3xl md:text-6xl max-w-xl mx-auto mb-4 animate-slide-in text-balance"
           >
             {t.hero.headline}
           </h1>
@@ -48,18 +48,18 @@ export function Homepage({
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-row items-stretch justify-center gap-3 md:gap-4 mb-8 md:mb-10 animate-slide-in stagger-3 scale-[0.85] md:scale-100 origin-top">
-            <GitHubButton className="md:hidden" />
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 mb-8 md:mb-10 animate-slide-in stagger-3">
             <AppStoreLink
               href={appStoreLink}
               className="inline-block transition-transform hover:scale-105"
             >
               <AppStoreBadge scale={1.5} />
             </AppStoreLink>
+            <GitHubButton className="md:hidden" />
           </div>
 
           {/* Hero Screenshot */}
-          <div className="w-full max-w-5xl mx-auto px-4 md:px-0 mb-10 md:mb-12 animate-slide-in stagger-2">
+          <div className="w-full max-w-5xl mx-auto px-0 mb-10 md:mb-12 animate-slide-in stagger-2">
             <div className="relative rounded-[12px] md:rounded-xl overflow-hidden shadow-screenshot-elevated border border-stone-200/50 dark:border-stone-700/50">
               <Image
                 src="/screenshots4/PostgresGUI - Run complex query and see query results.webp"
