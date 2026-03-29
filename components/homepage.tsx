@@ -48,7 +48,7 @@ export function Homepage({
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-row items-stretch justify-center gap-4 mb-8 md:mb-10 animate-slide-in stagger-3">
+          <div className="flex flex-row items-stretch justify-center gap-3 md:gap-4 mb-8 md:mb-10 animate-slide-in stagger-3 scale-[0.85] md:scale-100 origin-top">
             <GitHubButton className="md:hidden" />
             <AppStoreLink
               href={appStoreLink}
@@ -59,7 +59,7 @@ export function Homepage({
           </div>
 
           {/* Hero Screenshot */}
-          <div className="w-full max-w-5xl mx-auto mb-10 md:mb-12 animate-slide-in stagger-2">
+          <div className="w-full max-w-5xl mx-auto px-4 md:px-0 mb-10 md:mb-12 animate-slide-in stagger-2">
             <div className="relative rounded-[12px] md:rounded-xl overflow-hidden shadow-screenshot-elevated border border-stone-200/50 dark:border-stone-700/50">
               <Image
                 src="/screenshots4/PostgresGUI - Run complex query and see query results.webp"
