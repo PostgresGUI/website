@@ -6,6 +6,7 @@ import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import { FAQ } from "@/components/faq";
 import { FlowingData } from "@/components/hero-animations/flowing-data";
 import { NewFeatureBadge } from "@/components/new-feature-badge";
+import { GitHubButton } from "@/components/github-button";
 import { getTranslations, Locale } from "@/lib/translations";
 
 export type HomepageProps = {
@@ -38,8 +39,7 @@ export function Homepage({
         <div className="text-center px-6 pt-16 pb-16 md:pt-24 md:pb-24 relative z-10">
           {/* Main Tagline */}
           <h1
-            className="text-5xl md:text-7xl max-w-xl mx-auto mb-4 animate-slide-in stagger-1 leading-tight text-pretty"
-            style={{ fontFamily: "'Oswald', sans-serif", fontWeight: 600 }}
+            className="text-5xl md:text-6xl max-w-xl mx-auto mb-4 animate-slide-in text-balance"
           >
             {t.hero.headline}
           </h1>
@@ -47,8 +47,9 @@ export function Homepage({
             {t.hero.subheadline}
           </p>
 
-          {/* CTA Button */}
-          <div className="flex flex-col items-center justify-center gap-8 mb-8 md:mb-10 animate-slide-in stagger-3">
+          {/* CTA Buttons */}
+          <div className="flex flex-row items-stretch justify-center gap-4 mb-8 md:mb-10 animate-slide-in stagger-3">
+            <GitHubButton className="md:hidden" />
             <AppStoreLink
               href={appStoreLink}
               className="inline-block transition-transform hover:scale-105"
