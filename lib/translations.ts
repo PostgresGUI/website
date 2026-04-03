@@ -214,7 +214,7 @@ const en: Translations = {
   hero: {
     badge: "New",
     learnSql: "Learn SQL",
-    headline: "Mac Postgres Client. Lightweight. Open Source.",
+    headline: "Postgres Client. Lightweight. Open Source.",
     subheadline: "",
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Query editor with results",
