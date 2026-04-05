@@ -17,7 +17,7 @@ const screenshotData = [
     zoom: { x: 50, y: 50, scale: 1 },
   },
   {
-    imagePath: "/screenshots4/PostgresGUI - Create connection.webp",
+    imagePath: "/screenshots4/PostgresGUI - Create connection (including SSH).webp",
     alt: "PostgresGUI Create Connection",
     zoom: { x: 50, y: 50, scale: 1.25 },
   },

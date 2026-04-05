@@ -17,9 +17,9 @@ const screenshots = [
     alt: "PostgresGUI Welcome Screen",
   },
   {
-    title: "Create Localhost Connection",
-    description: "Connect to your local PostgreSQL server in one click.",
-    imagePath: "/screenshots4/PostgresGUI - Create connection.webp",
+    title: "Connect (Supports SSH)",
+    description: "Connect locally or remotely via SSH tunnel.",
+    imagePath: "/screenshots4/PostgresGUI - Create connection (including SSH).webp",
     alt: "PostgresGUI Create Localhost Connection",
   },
   {

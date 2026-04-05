@@ -281,8 +281,8 @@ const en: Translations = {
         description: "Get started quickly with a clean, minimal interface.",
       },
       {
-        title: "Create DB Connection",
-        description: "Connect to your PostgreSQL server in one click.",
+        title: "Connect (Supports SSH)",
+        description: "Connect locally or remotely via SSH tunnel.",
       },
       {
         title: "Connect Via Connection String",
@@ -357,6 +357,11 @@ const en: Translations = {
       question: "Does PostgresGUI have automatic query history?",
       answer:
         "Not yet. What we do have is saved queries with folder organization and search, so you can keep your frequently-used queries organized and findable. The editor also auto-saves as you type.",
+    },
+    {
+      question: "Does PostgresGUI support SSH tunneling?",
+      answer:
+        "Yes. You can connect to remote PostgreSQL servers through an SSH tunnel directly from the connection dialog. Just toggle SSH Tunnel on and enter your SSH host, port, username, and authentication details.",
     },
     {
       question: "If it's open source, can I build it myself for free?",
