@@ -11,12 +11,14 @@ export function StructuredData() {
       "@type": "Offer",
       price: PRICE_AMOUNT,
       priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      category: "https://schema.org/OneTimePaymentOption",
+      url: "https://apps.apple.com/app/postgresgui/id6756467181",
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5",
-      ratingCount: "1",
-    },
+    // aggregateRating intentionally omitted until real rating data is
+    // available. Google treats a single 5-star rating as unreliable and may
+    // demote the rich result. Add back once ≥5 genuine ratings are imported
+    // from the App Store.
     description:
       "Best looking PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight, fast queries, dark mode support.",
     downloadUrl: "https://apps.apple.com/app/postgresgui/id6756467181",

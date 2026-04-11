@@ -125,9 +125,12 @@ export default function BestMacPostgreSQLGUIClientPage() {
 
             <h3>Pricing</h3>
             <p>
-              Free tier available with limitations (one tab, one connection at a
-              time). License starts at $89 for a single device. Subscription
-              option available at $79/year for updates across devices.
+              Free tier available with limitations (one tab, one connection at
+              a time). Basic license starts at $99 for a single device and
+              includes one year of updates. After that, you can keep using the
+              app forever, or renew updates for $59/device/year. There is no
+              monthly subscription tier — it&apos;s a one-time purchase with
+              optional paid updates.
             </p>
 
             <h3>Best For</h3>
@@ -259,8 +262,10 @@ export default function BestMacPostgreSQLGUIClientPage() {
 
             <h3>Pricing</h3>
             <p>
-              Postico 2 is a paid app at $49.99 for a single license. A free
-              trial is available with some feature limitations.
+              Postico 2 is a one-time purchase. The Personal license is $69
+              and covers up to 3 devices. Students can get a single-device
+              license for $29, and a Commercial license is $99 per device. A
+              free evaluation with no time limit is available.
             </p>
 
             <h3>Best For</h3>

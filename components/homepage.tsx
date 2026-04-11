@@ -1,12 +1,13 @@
-import Image from "next/image";
 import { AppStoreBadge } from "@/components/app-store-badge";
 import { AppStoreLink, APP_STORE_LINK } from "@/components/app-store-link";
 import { Highlights } from "@/components/highlights";
 import { ScreenshotGallery } from "@/components/screenshot-gallery";
+import { Pricing } from "@/components/pricing";
 import { FAQ } from "@/components/faq";
 import { FlowingData } from "@/components/hero-animations/flowing-data";
 import { NewFeatureBadge } from "@/components/new-feature-badge";
 import { GitHubButton } from "@/components/github-button";
+import { Testimonials } from "@/components/testimonials";
 import { getTranslations, Locale } from "@/lib/translations";
 
 export type HomepageProps = {
@@ -14,7 +15,7 @@ export type HomepageProps = {
   locale?: Locale;
 };
 
-export function Homepage({
+export async function Homepage({
   appStoreLink = APP_STORE_LINK,
   locale = "en",
 }: HomepageProps) {
@@ -43,9 +44,21 @@ export function Homepage({
           >
             {t.hero.headline}
           </h1>
-          <p className="text-lg text-stone-500 dark:text-stone-400 mb-10 md:mb-12 animate-slide-in stagger-2">
+          <p className="text-lg text-stone-500 dark:text-stone-400 mb-4 animate-slide-in stagger-2">
             {t.hero.subheadline}
           </p>
+
+          {/* Trust sub-line */}
+          <div
+            className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-stone-500 dark:text-stone-400 mb-10 md:mb-12 animate-slide-in stagger-2"
+            aria-label="Trust indicators"
+          >
+            <span>{t.hero.trustLine.lightweight}</span>
+            <span aria-hidden="true" className="text-stone-300 dark:text-stone-600">·</span>
+            <span>{t.hero.trustLine.openSource}</span>
+            <span aria-hidden="true" className="text-stone-300 dark:text-stone-600">·</span>
+            <span>{t.hero.trustLine.beautifulUI}</span>
+          </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 mb-8 md:mb-10 animate-slide-in stagger-3">
@@ -58,27 +71,26 @@ export function Homepage({
             <GitHubButton className="md:hidden" />
           </div>
 
-          {/* Hero Screenshot */}
+          {/* Hero Screenshot — <picture> with prefers-color-scheme source so
+              only the matching image is fetched (prevents dual LCP preload). */}
           <div className="w-full max-w-5xl mx-auto px-0 mb-10 md:mb-12 animate-slide-in stagger-2">
             <div className="relative rounded-[12px] md:rounded-xl overflow-hidden shadow-screenshot-elevated border border-stone-200/50 dark:border-stone-700/50">
-              <Image
-                src="/screenshots4/PostgresGUI - Run complex query and see query results.webp"
-                alt={t.hero.heroImageAlt}
-                width={1176}
-                height={750}
-                className="w-full h-auto block dark:hidden"
-                priority
-                fetchPriority="high"
-              />
-              <Image
-                src="/screenshots4/PostgresGUI - Dark mode.webp"
-                alt={t.hero.heroImageDarkAlt}
-                width={1176}
-                height={750}
-                className="w-full h-auto hidden dark:block"
-                priority
-                fetchPriority="high"
-              />
+              <picture>
+                <source
+                  media="(prefers-color-scheme: dark)"
+                  srcSet="/screenshots4/PostgresGUI - Dark mode.webp"
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/screenshots4/PostgresGUI - Run complex query and see query results.webp"
+                  alt={t.hero.heroImageAlt}
+                  width={1176}
+                  height={750}
+                  className="w-full h-auto block"
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </picture>
             </div>
           </div>
         </div>
@@ -107,6 +119,9 @@ export function Homepage({
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <Testimonials />
+
       {/* Screenshots Section */}
       <section
         id="screenshots"
@@ -124,6 +139,29 @@ export function Homepage({
             </h2>
           </div>
           <ScreenshotGallery locale={locale} />
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section
+        id="pricing"
+        className="py-16 md:py-24 px-6 border-t border-border/20"
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-12 md:mb-16">
+            <div className="mb-4">
+              <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
+                {t.sections.pricing}
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-display mb-4 tracking-tight">
+              {t.sections.pricingHeadline}
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl font-mono">
+              {t.sections.pricingSubheadline}
+            </p>
+          </div>
+          <Pricing locale={locale} />
         </div>
       </section>
 

@@ -3,6 +3,20 @@
 import { useState, useEffect } from "react";
 
 export function FlowingData() {
+  // Skip the animation entirely for users who prefer reduced motion. This
+  // also removes the main-thread + compositor cost on low-end mobile ad
+  // landings when reduced-motion is the OS default.
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const listener = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener("change", listener);
+    return () => mq.removeEventListener("change", listener);
+  }, []);
+
   // Generate stream configurations
   const streams = [
     // Left side streams
@@ -27,16 +41,24 @@ export function FlowingData() {
   }>>([]);
 
   useEffect(() => {
+    if (reducedMotion) {
+      setParticles([]);
+      return;
+    }
     // Generate particles only on client side
     setParticles(
-      Array.from({ length: 20 }, (_, i) => ({
+      Array.from({ length: 20 }, () => ({
         left: `${Math.random() * 100}%`,
         delay: `${Math.random() * 10}s`,
         duration: `${15 + Math.random() * 15}s`,
         size: Math.random() > 0.7 ? "3px" : "2px",
       }))
     );
-  }, []);
+  }, [reducedMotion]);
+
+  if (reducedMotion) {
+    return null;
+  }
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">

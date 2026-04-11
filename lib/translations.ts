@@ -9,6 +9,12 @@ export type Translations = {
     learnSql: string;
     headline: string;
     subheadline: string;
+    // Short trust line rendered under the headline in the hero.
+    trustLine: {
+      lightweight: string; // "Lightweight 32.8 MB"
+      openSource: string; // "Open source"
+      beautifulUI: string; // "Beautiful UI"
+    };
     openSource: string;
     heroImageAlt: string;
     heroImageDarkAlt: string;
@@ -25,6 +31,9 @@ export type Translations = {
     featuresTagline: string;
     screenshots: string;
     screenshotsHeadline: string;
+    pricing: string;
+    pricingHeadline: string;
+    pricingSubheadline: string;
     faq: string;
     faqHeadline: string;
   };
@@ -49,10 +58,40 @@ export type Translations = {
   cta: {
     availableNow: string;
   };
+  // Pricing section
+  pricing: {
+    badge: string; // "Recommended"
+    free: {
+      title: string;
+      priceLabel: string;
+      features: string[];
+      cta: string;
+      footnote: string;
+    };
+    paid: {
+      title: string;
+      priceLabel: string;
+      features: string[];
+      footnote: string;
+    };
+    comparison: {
+      heading: string;
+      caption: string;
+      productHeader: string;
+      priceHeader: string;
+      units: {
+        once: string;
+        perYear: string;
+        perMonth: string;
+      };
+      seeFullComparison: string;
+    };
+  };
   // Navigation
   nav: {
     features: string;
     screenshots: string;
+    pricing: string;
     support: string;
     download: string;
   };
@@ -216,6 +255,11 @@ const en: Translations = {
     learnSql: "Learn SQL",
     headline: "The Postgres client designed for Mac.",
     subheadline: "",
+    trustLine: {
+      lightweight: `Lightweight ${INSTALLED_SIZE}`,
+      openSource: "Open source",
+      beautifulUI: "Beautiful UI",
+    },
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Query editor with results",
     heroImageDarkAlt: "PostgresGUI - Query editor with results (Dark mode)",
@@ -243,6 +287,10 @@ const en: Translations = {
     featuresTagline: "// Fast, native PostgreSQL without the bloat",
     screenshots: "Screenshots",
     screenshotsHeadline: "Crafted for Ease of Use",
+    pricing: "Pricing",
+    pricingHeadline: "Pay once. Own it forever.",
+    pricingSubheadline:
+      "No subscription. No telemetry. No asterisks. Get it from the App Store — or build it yourself from source.",
     faq: "FAQ",
     faqHeadline: "Questions? Answers.",
   },
@@ -372,9 +420,49 @@ const en: Translations = {
   cta: {
     availableNow: "Available Now",
   },
+  pricing: {
+    badge: "Recommended",
+    free: {
+      title: "Build from source",
+      priceLabel: "Free forever",
+      features: [
+        "Full source code on GitHub",
+        "Audit every line of code",
+        "Clone, build and run locally",
+        "Fork, modify or contribute back",
+      ],
+      cta: "View on GitHub",
+      footnote: "For developers who want to audit or tinker.",
+    },
+    paid: {
+      title: "App Store",
+      priceLabel: "one-time purchase",
+      features: [
+        "Install in one tap — no Xcode, no terminal",
+        "Verified and notarized by Apple",
+        "Automatic updates via the App Store",
+        "Works on all your Macs with one purchase",
+        "Reinstall on any Mac with your Apple ID",
+      ],
+      footnote: "Buy once. Own it forever. No subscription.",
+    },
+    comparison: {
+      heading: "How we compare",
+      caption: "Price comparison with other Postgres GUI apps",
+      productHeader: "Product",
+      priceHeader: "Price",
+      units: {
+        once: "once",
+        perYear: "+ $59 / year",
+        perMonth: "/ month, forever",
+      },
+      seeFullComparison: "See full comparison",
+    },
+  },
   nav: {
     features: "Features",
     screenshots: "Screenshots",
+    pricing: "Pricing",
     support: "Support",
     download: "Download",
   },
@@ -536,6 +624,11 @@ const de: Translations = {
     learnSql: "SQL lernen",
     headline: "Der Beste Leichtgewichtige Postgres-Client",
     subheadline: "Entwickelt und gebaut für Mac.",
+    trustLine: {
+      lightweight: `Schlank ${INSTALLED_SIZE}`,
+      openSource: "Open Source",
+      beautifulUI: "Schönes UI",
+    },
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Abfrage-Editor mit Ergebnissen",
     heroImageDarkAlt:
@@ -564,6 +657,10 @@ const de: Translations = {
     featuresTagline: "// Schnell, nativ, ohne Ballast",
     screenshots: "Screenshots",
     screenshotsHeadline: "Entwickelt für einfache Bedienung",
+    pricing: "Preise",
+    pricingHeadline: "Einmal kaufen. Für immer behalten.",
+    pricingSubheadline:
+      "Kein Abo. Keine Telemetrie. Keine Kleingedruckten. Hol es dir im App Store – oder baue es selbst aus dem Quellcode.",
     faq: "FAQ",
     faqHeadline: "Fragen? Antworten.",
   },
@@ -692,9 +789,49 @@ const de: Translations = {
   cta: {
     availableNow: "Jetzt verfügbar",
   },
+  pricing: {
+    badge: "Empfohlen",
+    free: {
+      title: "Selbst kompilieren",
+      priceLabel: "Für immer kostenlos",
+      features: [
+        "Vollständiger Quellcode auf GitHub",
+        "Jede Zeile Code überprüfen",
+        "Klonen, bauen und lokal ausführen",
+        "Forken, anpassen oder beitragen",
+      ],
+      cta: "Auf GitHub ansehen",
+      footnote: "Für Entwickler, die prüfen oder anpassen möchten.",
+    },
+    paid: {
+      title: "App Store",
+      priceLabel: "Einmalzahlung",
+      features: [
+        "Mit einem Tipp installiert – kein Xcode, kein Terminal",
+        "Von Apple verifiziert und notariell beglaubigt",
+        "Automatische Updates über den App Store",
+        "Funktioniert auf all deinen Macs mit einem Kauf",
+        "Auf jedem Mac mit deiner Apple-ID neu installierbar",
+      ],
+      footnote: "Einmal kaufen. Für immer nutzen. Kein Abo.",
+    },
+    comparison: {
+      heading: "Im Vergleich",
+      caption: "Preisvergleich mit anderen Postgres-GUI-Apps",
+      productHeader: "Produkt",
+      priceHeader: "Preis",
+      units: {
+        once: "einmalig",
+        perYear: "+ 59 $ / Jahr",
+        perMonth: "/ Monat, für immer",
+      },
+      seeFullComparison: "Vollständigen Vergleich ansehen",
+    },
+  },
   nav: {
     features: "Funktionen",
     screenshots: "Screenshots",
+    pricing: "Preise",
     support: "Support",
     download: "Download",
   },
@@ -856,6 +993,11 @@ const fr: Translations = {
     learnSql: "Apprendre SQL",
     headline: "Le Meilleur Client Postgres Léger",
     subheadline: "Conçu et développé pour Mac.",
+    trustLine: {
+      lightweight: `Léger ${INSTALLED_SIZE}`,
+      openSource: "Open source",
+      beautifulUI: "Interface élégante",
+    },
     openSource: "Open Source",
     heroImageAlt: "PostgresGUI - Éditeur de requêtes avec résultats",
     heroImageDarkAlt:
@@ -884,6 +1026,10 @@ const fr: Translations = {
     featuresTagline: "// Rapide, natif, sans superflu",
     screenshots: "Captures d'écran",
     screenshotsHeadline: "Conçu pour la simplicité",
+    pricing: "Tarifs",
+    pricingHeadline: "Payez une fois. Pour toujours.",
+    pricingSubheadline:
+      "Sans abonnement. Sans télémétrie. Sans astérisques. Récupérez-le sur l'App Store — ou compilez-le vous-même depuis les sources.",
     faq: "FAQ",
     faqHeadline: "Questions? Réponses.",
   },
@@ -1018,9 +1164,49 @@ const fr: Translations = {
   cta: {
     availableNow: "Disponible maintenant",
   },
+  pricing: {
+    badge: "Recommandé",
+    free: {
+      title: "Compiler depuis les sources",
+      priceLabel: "Gratuit pour toujours",
+      features: [
+        "Code source complet sur GitHub",
+        "Auditez chaque ligne de code",
+        "Clonez, compilez et exécutez en local",
+        "Forkez, modifiez ou contribuez",
+      ],
+      cta: "Voir sur GitHub",
+      footnote: "Pour les développeurs qui veulent auditer ou bricoler.",
+    },
+    paid: {
+      title: "App Store",
+      priceLabel: "achat unique",
+      features: [
+        "Installation en un geste — sans Xcode, sans terminal",
+        "Vérifié et notarisé par Apple",
+        "Mises à jour automatiques via l'App Store",
+        "Fonctionne sur tous vos Macs avec un seul achat",
+        "Réinstallez sur n'importe quel Mac avec votre identifiant Apple",
+      ],
+      footnote: "Achetez une fois. Gardez-le pour toujours. Sans abonnement.",
+    },
+    comparison: {
+      heading: "Comparatif",
+      caption: "Comparaison de prix avec d'autres applications Postgres GUI",
+      productHeader: "Produit",
+      priceHeader: "Prix",
+      units: {
+        once: "unique",
+        perYear: "+ 59 $ / an",
+        perMonth: "/ mois, pour toujours",
+      },
+      seeFullComparison: "Voir le comparatif complet",
+    },
+  },
   nav: {
     features: "Fonctionnalités",
     screenshots: "Captures",
+    pricing: "Tarifs",
     support: "Support",
     download: "Télécharger",
   },
@@ -1182,6 +1368,11 @@ const ja: Translations = {
     learnSql: "SQLを学ぶ",
     headline: "最高の軽量Postgresクライアント",
     subheadline: "Mac専用に設計・開発。",
+    trustLine: {
+      lightweight: `軽量 ${INSTALLED_SIZE}`,
+      openSource: "オープンソース",
+      beautifulUI: "美しいUI",
+    },
     openSource: "オープンソース",
     heroImageAlt: "PostgresGUI - クエリエディタと結果",
     heroImageDarkAlt: "PostgresGUI - クエリエディタと結果（ダークモード）",
@@ -1209,6 +1400,10 @@ const ja: Translations = {
     featuresTagline: "// 高速、ネイティブ、無駄のないPostgreSQL",
     screenshots: "スクリーンショット",
     screenshotsHeadline: "使いやすさを追求",
+    pricing: "価格",
+    pricingHeadline: "一度買って、ずっと使う。",
+    pricingSubheadline:
+      "サブスクなし。テレメトリなし。隠れた条件なし。App Storeから入手するか、ソースコードから自分でビルドできます。",
     faq: "よくある質問",
     faqHeadline: "質問？回答。",
   },
@@ -1330,9 +1525,49 @@ const ja: Translations = {
   cta: {
     availableNow: "今すぐ入手可能",
   },
+  pricing: {
+    badge: "おすすめ",
+    free: {
+      title: "ソースからビルド",
+      priceLabel: "永久に無料",
+      features: [
+        "GitHubで完全なソースコードを公開",
+        "すべてのコードを監査可能",
+        "クローン、ビルド、ローカルで実行",
+        "フォーク、改変、コントリビュート",
+      ],
+      cta: "GitHubで見る",
+      footnote: "コードを監査・改造したい開発者の方へ。",
+    },
+    paid: {
+      title: "App Store",
+      priceLabel: "買い切り",
+      features: [
+        "ワンタップでインストール — Xcode不要、ターミナル不要",
+        "Appleによる検証と公証済み",
+        "App Store経由で自動アップデート",
+        "1回の購入で所有するすべてのMacで利用可能",
+        "Apple IDでどのMacにでも再インストール可能",
+      ],
+      footnote: "一度の購入で永久に使用可能。サブスクリプションなし。",
+    },
+    comparison: {
+      heading: "他製品との比較",
+      caption: "他のPostgres GUIアプリとの価格比較",
+      productHeader: "製品",
+      priceHeader: "価格",
+      units: {
+        once: "買い切り",
+        perYear: "+ 年間 $59",
+        perMonth: "/ 月額（永久）",
+      },
+      seeFullComparison: "詳細な比較を見る",
+    },
+  },
   nav: {
     features: "機能",
     screenshots: "スクリーンショット",
+    pricing: "価格",
     support: "サポート",
     download: "ダウンロード",
   },

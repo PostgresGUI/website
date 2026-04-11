@@ -57,9 +57,9 @@ export const metadata: Metadata = {
 function ComparisonTable() {
   const tools = [
     { name: "PostgresGUI", price: "$12.99 once", subscription: "No", native: "Yes (Swift)", openSource: "Yes", dataCollection: "None", multiDb: "No" },
-    { name: "TablePlus", price: "$89+ or $9/mo", subscription: "Optional", native: "Yes", openSource: "No", dataCollection: "Some", multiDb: "Yes" },
-    { name: "Postico", price: "$35+", subscription: "No", native: "Yes", openSource: "No", dataCollection: "Unknown", multiDb: "No" },
-    { name: "DataGrip", price: "$9.90/mo", subscription: "Yes", native: "No (JVM)", openSource: "No", dataCollection: "Yes", multiDb: "Yes" },
+    { name: "TablePlus", price: "$99 + $59/yr updates", subscription: "No (renewal for updates)", native: "Yes", openSource: "No", dataCollection: "Some", multiDb: "Yes" },
+    { name: "Postico", price: "$69 (3 devices)", subscription: "No", native: "Yes", openSource: "No", dataCollection: "Unknown", multiDb: "No" },
+    { name: "DataGrip", price: "$10.90/mo", subscription: "Yes", native: "No (JVM)", openSource: "No", dataCollection: "Yes", multiDb: "Yes" },
   ];
 
   const rows = [

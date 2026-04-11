@@ -39,6 +39,7 @@ export function Navigation({ locale = "en" }: NavigationProps) {
   const navLinks = [
     { href: "#features", label: t.nav.features },
     { href: "#screenshots", label: t.nav.screenshots },
+    { href: "#pricing", label: t.nav.pricing },
     { href: "/support", label: t.nav.support },
   ];
 
