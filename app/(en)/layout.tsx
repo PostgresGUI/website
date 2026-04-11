@@ -5,7 +5,7 @@ import "../globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://postgresgui.com"),
-  title: "PostgresGUI - Mac Postgres Client. Lightweight. Open Source.",
+  title: "PostgresGUI - The Postgres client designed for Mac.",
   description:
     "PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight, fast, dark mode.",
   keywords: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     languages: getHreflangAlternates(),
   },
   openGraph: {
-    title: "PostgresGUI - Mac Postgres Client. Lightweight. Open Source.",
+    title: "PostgresGUI - The Postgres client designed for Mac.",
     description:
       "Best looking PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
     type: "website",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
         url: "https://postgresgui.com/postgresgui-og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "PostgresGUI - Mac Postgres Client. Lightweight. Open Source.",
+        alt: "PostgresGUI - The Postgres client designed for Mac.",
       },
     ],
   },
@@ -52,13 +52,13 @@ export const metadata: Metadata = {
     site: "@postgresgui",
     creator: "@postgresgui",
     card: "summary_large_image",
-    title: "PostgresGUI - Mac Postgres Client. Lightweight. Open Source.",
+    title: "PostgresGUI - The Postgres client designed for Mac.",
     description:
       "Best looking PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
     images: [
       {
         url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        alt: "PostgresGUI - Mac Postgres Client. Lightweight. Open Source.",
+        alt: "PostgresGUI - The Postgres client designed for Mac.",
       },
     ],
   },
