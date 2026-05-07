@@ -9,6 +9,7 @@ import { NewFeatureBadge } from "@/components/new-feature-badge";
 import { GitHubButton } from "@/components/github-button";
 import { Testimonials } from "@/components/testimonials";
 import { getTranslations, Locale } from "@/lib/translations";
+import { Code2, Feather, Palette } from "lucide-react";
 
 export type HomepageProps = {
   appStoreLink?: string;
@@ -20,6 +21,11 @@ export async function Homepage({
   locale = "en",
 }: HomepageProps) {
   const t = getTranslations(locale);
+  const trustItems = [
+    { icon: Feather, label: t.hero.trustLine.lightweight },
+    { icon: Code2, label: t.hero.trustLine.openSource },
+    { icon: Palette, label: t.hero.trustLine.beautifulUI },
+  ];
 
   return (
     <>
@@ -44,20 +50,24 @@ export async function Homepage({
           >
             {t.hero.headline}
           </h1>
-          <p className="text-lg text-stone-500 dark:text-stone-400 mb-4 animate-slide-in stagger-2">
+          <p className="text-xl md:text-2xl text-stone-500 dark:text-stone-400 mb-4 animate-slide-in stagger-2">
             {t.hero.subheadline}
           </p>
 
           {/* Trust sub-line */}
           <div
-            className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-stone-500 dark:text-stone-400 mb-10 md:mb-12 animate-slide-in stagger-2"
+            className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-lg md:text-xl text-stone-500 dark:text-stone-400 mb-10 md:mb-12 animate-slide-in stagger-2"
             aria-label="Trust indicators"
           >
-            <span>{t.hero.trustLine.lightweight}</span>
-            <span aria-hidden="true" className="text-stone-300 dark:text-stone-600">·</span>
-            <span>{t.hero.trustLine.openSource}</span>
-            <span aria-hidden="true" className="text-stone-300 dark:text-stone-600">·</span>
-            <span>{t.hero.trustLine.beautifulUI}</span>
+            {trustItems.map(({ icon: Icon, label }) => (
+              <span key={label} className="inline-flex items-center gap-2">
+                <Icon
+                  className="h-[18px] w-[18px]"
+                  aria-hidden="true"
+                />
+                <span>{label}</span>
+              </span>
+            ))}
           </div>
 
           {/* CTA Buttons */}

@@ -48,25 +48,25 @@ export function Navigation({ locale = "en" }: NavigationProps) {
       className="sticky top-0 z-50 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md border-b border-border/20"
       aria-label="Main navigation"
     >
-      <div className="max-w-7xl mx-auto px-6 py-3">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between">
           {/* Logo - Left */}
           <div className="flex-1">
             <Link
               href={homeUrl}
-              className="inline-flex items-center gap-3 hover:opacity-70 transition-opacity group"
+              className="inline-flex items-center gap-1 hover:opacity-70 transition-opacity group"
             >
               <div className="relative">
                 <Image
                   src="/postgresgui-elephant.png"
                   alt={t.images.logoAlt}
-                  width={32}
-                  height={32}
-                  className="object-contain"
+                  width={56}
+                  height={56}
+                  className="h-11 w-11 md:h-14 md:w-14 object-contain"
                 />
                 <div className="absolute inset-0 bg-[var(--postgres-blue)] opacity-0 group-hover:opacity-10 transition-opacity rounded-lg"></div>
               </div>
-              <span className="text-lg font-display tracking-tight text-gray-900 dark:text-white">
+              <span className="text-xl md:text-2xl font-display tracking-tight text-gray-900 dark:text-white">
                 PostgresGUI
               </span>
             </Link>

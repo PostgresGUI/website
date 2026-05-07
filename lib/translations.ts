@@ -253,7 +253,7 @@ const en: Translations = {
   hero: {
     badge: "New",
     learnSql: "Learn SQL",
-    headline: "The Postgres client designed for Mac.",
+    headline: "The Mac Postgres client you'll love.",
     subheadline: "",
     trustLine: {
       lightweight: `Lightweight ${INSTALLED_SIZE}`,
