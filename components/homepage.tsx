@@ -46,7 +46,7 @@ export async function Homepage({
         <div className="text-center px-6 pt-16 pb-16 md:pt-24 md:pb-24 relative z-10">
           {/* Main Tagline */}
           <h1
-            className="text-3xl md:text-6xl max-w-xl mx-auto mb-4 animate-slide-in text-balance"
+            className="text-4xl md:text-6xl max-w-xl mx-auto mb-4 animate-slide-in text-balance"
           >
             {t.hero.headline}
           </h1>
@@ -56,7 +56,7 @@ export async function Homepage({
 
           {/* Trust sub-line */}
           <div
-            className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-lg md:text-xl text-stone-500 dark:text-stone-400 mb-10 md:mb-12 animate-slide-in stagger-2"
+            className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-xl md:text-xl text-stone-500 dark:text-stone-400 mb-10 md:mb-12 animate-slide-in stagger-2"
             aria-label="Trust indicators"
           >
             {trustItems.map(({ icon: Icon, label }) => (
