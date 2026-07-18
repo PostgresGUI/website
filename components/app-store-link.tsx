@@ -6,8 +6,9 @@ import {
   appendAppStoreAttribution,
   trackAppStoreClick,
 } from "@/lib/attribution";
+import { APP_STORE_LINK } from "@/lib/constants";
 
-export const APP_STORE_LINK = "https://apps.apple.com/app/postgresgui/id6756467181";
+export { APP_STORE_LINK };
 
 type AppStoreLinkProps = {
   href?: string;

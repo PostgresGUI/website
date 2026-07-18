@@ -1,6 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /api/ai
 
 # Sitemap
 Sitemap: https://postgresgui.com/sitemap.xml

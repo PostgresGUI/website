@@ -1,70 +1,18 @@
-import type { Metadata } from "next";
+import { BlogPostFooter } from "@/components/blog-post-footer";
+import { BlogStructuredData } from "@/components/blog-structured-data";
+import { getBlogPost, getBlogPostMetadata } from "@/lib/blog";
 
-export const metadata: Metadata = {
-  title:
-    "Best pgAdmin Alternatives for Mac (That You'll Actually Enjoy Using)",
-  description:
-    "Tired of pgAdmin on Mac? Discover the best pgAdmin alternatives that are native, fast, and actually enjoyable to use. Compare PostgresGUI, Postico, TablePlus, DBeaver, and more.",
-  keywords: [
-    "pgAdmin alternative",
-    "pgAdmin alternative Mac",
-    "pgAdmin replacement",
-    "pgAdmin vs",
-    "PostgreSQL GUI Mac",
-    "best pgAdmin alternative",
-    "pgAdmin slow Mac",
-    "native PostgreSQL client Mac",
-    "PostgresGUI",
-    "Postico",
-    "TablePlus",
-    "DBeaver",
-    "Beekeeper Studio",
-  ],
-  openGraph: {
-    title:
-      "Best pgAdmin Alternatives for Mac (That You'll Actually Enjoy Using)",
-    description:
-      "Tired of pgAdmin on Mac? Discover the best pgAdmin alternatives that are native, fast, and actually enjoyable to use. Compare PostgresGUI, Postico, TablePlus, DBeaver, and more.",
-    type: "article",
-    publishedTime: "2026-02-26T00:00:00Z",
-    url: "https://postgresgui.com/blog/best-pgadmin-alternative-mac",
-    siteName: "PostgresGUI",
-    locale: "en_US",
-    images: [
-      {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
-      },
-    ],
-  },
-  twitter: {
-    site: "@postgresgui",
-    creator: "@postgresgui",
-    card: "summary_large_image",
-    title:
-      "Best pgAdmin Alternatives for Mac (That You'll Actually Enjoy Using)",
-    description:
-      "Tired of pgAdmin on Mac? Discover the best pgAdmin alternatives that are native, fast, and actually enjoyable to use. Compare PostgresGUI, Postico, TablePlus, DBeaver, and more.",
-    images: [
-      {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
-      },
-    ],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+const post = getBlogPost("best-pgadmin-alternative-mac");
+
+export const metadata = getBlogPostMetadata(post.slug);
 
 export default function BestPgAdminAlternativeMacPage() {
   return (
-    <div className="flex-1 py-12 px-6">
-      <div className="max-w-3xl mx-auto">
-        <article className="prose dark:prose-invert max-w-none">
+    <>
+      <BlogStructuredData post={post} />
+      <div className="flex-1 py-12 px-6">
+        <div className="max-w-3xl mx-auto">
+          <article className="prose dark:prose-invert max-w-none">
           <header className="mb-8">
             <h1 className="text-4xl md:text-5xl font-display mb-4">
               Best pgAdmin Alternatives for Mac (That You&apos;ll Actually Enjoy
@@ -250,8 +198,11 @@ export default function BestPgAdminAlternativeMacPage() {
               shot — you can always explore the others from there.
             </p>
           </div>
-        </article>
+
+          <BlogPostFooter post={post} />
+          </article>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

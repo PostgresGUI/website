@@ -1,0 +1,44 @@
+# PostgresGUI
+
+PostgresGUI is an open-source, native macOS PostgreSQL client for developers who want a lightweight, fast, no-subscription database GUI.
+
+## Product
+
+- Website: https://postgresgui.com
+- Download: https://postgresgui.com/download
+- App Store: https://apps.apple.com/app/postgresgui/id6756467181
+- Source code: https://github.com/postgresgui/postgresgui
+- Platform: macOS
+- Category: PostgreSQL GUI client
+- Price: $12.99 one-time App Store purchase; free when built from source
+- Installed size: 32.8 MB
+- Key claims: native macOS app, open source, lightweight, dark mode, fast queries, no telemetry, no data collection, no subscription
+
+## Audience
+
+PostgresGUI is for Mac developers, database administrators, students, and teams who primarily work with PostgreSQL and prefer a focused native Mac app over a multi-database tool.
+
+## Useful Pages
+
+- Homepage: https://postgresgui.com
+- Download: https://postgresgui.com/download
+- Support: https://postgresgui.com/support
+- Privacy: https://postgresgui.com/privacy
+- TablePlus alternative: https://postgresgui.com/alternatives/tableplus
+- pgAdmin alternative for Mac: https://postgresgui.com/blog/best-pgadmin-alternative-mac
+- Best Mac PostgreSQL GUI client: https://postgresgui.com/blog/best-mac-postgresql-gui-client
+
+## Free Tools
+
+- Online SQL editor: https://postgresgui.com/sql-editor
+- Online schema designer: https://postgresgui.com/schema-designer
+- SQL cheatsheet: https://postgresgui.com/sql-cheatsheet
+- PostgreSQL data types guide: https://postgresgui.com/data-types
+- Connection string builder: https://postgresgui.com/connection-string
+- UUID generator: https://postgresgui.com/uuid-generator
+
+## Agent Resources
+
+- Full Markdown product context: https://postgresgui.com/llms-full.txt
+- Structured product JSON: https://postgresgui.com/api/ai
+- Sitemap: https://postgresgui.com/sitemap.xml

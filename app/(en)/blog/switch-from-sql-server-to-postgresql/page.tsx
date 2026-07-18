@@ -1,65 +1,16 @@
-import type { Metadata } from "next";
+import { BlogPostFooter } from "@/components/blog-post-footer";
+import { BlogStructuredData } from "@/components/blog-structured-data";
+import { getBlogPost, getBlogPostMetadata } from "@/lib/blog";
 
-export const metadata: Metadata = {
-  title:
-    "How to Switch from SQL Server to PostgreSQL",
-  description:
-    "A practical guide to migrating from Microsoft SQL Server to PostgreSQL. Covers key differences, syntax changes, data type mapping, migration tools, and common pitfalls.",
-  keywords: [
-    "SQL Server to PostgreSQL",
-    "migrate SQL Server to Postgres",
-    "SQL Server vs PostgreSQL",
-    "SQL Server migration",
-    "PostgreSQL migration guide",
-    "switch from MSSQL to PostgreSQL",
-    "T-SQL to PostgreSQL",
-    "database migration",
-    "PostgreSQL for SQL Server users",
-    "SQL Server alternative",
-  ],
-  openGraph: {
-    title:
-      "How to Switch from SQL Server to PostgreSQL",
-    description:
-      "A practical guide to migrating from Microsoft SQL Server to PostgreSQL. Covers key differences, syntax changes, data type mapping, migration tools, and common pitfalls.",
-    type: "article",
-    publishedTime: "2026-02-04T00:00:00Z",
-    url: "https://postgresgui.com/blog/switch-from-sql-server-to-postgresql",
-    siteName: "PostgresGUI",
-    locale: "en_US",
-    images: [
-      {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
-      },
-    ],
-  },
-  twitter: {
-    site: "@postgresgui",
-    creator: "@postgresgui",
-    card: "summary_large_image",
-    title:
-      "How to Switch from SQL Server to PostgreSQL",
-    description:
-      "A practical guide to migrating from Microsoft SQL Server to PostgreSQL. Covers key differences, syntax changes, data type mapping, migration tools, and common pitfalls.",
-    images: [
-      {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
-      },
-    ],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+const post = getBlogPost("switch-from-sql-server-to-postgresql");
+
+export const metadata = getBlogPostMetadata(post.slug);
 
 export default function SwitchFromSqlServerToPostgreSQLPage() {
   return (
-    <div className="flex-1 py-12 px-6">
+    <>
+      <BlogStructuredData post={post} />
+      <div className="flex-1 py-12 px-6">
       <div className="max-w-3xl mx-auto">
         <article className="prose dark:prose-invert max-w-none">
           <header className="mb-8">
@@ -494,8 +445,11 @@ SELECT * FROM orders ORDER BY created_at DESC LIMIT 10;`}</code>
               tables, running queries, and managing your data.
             </p>
           </div>
-        </article>
+
+          <BlogPostFooter post={post} />
+          </article>
       </div>
     </div>
+    </>
   );
 }

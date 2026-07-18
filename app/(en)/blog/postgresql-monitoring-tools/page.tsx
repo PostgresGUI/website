@@ -1,67 +1,16 @@
-import type { Metadata } from "next";
+import { BlogPostFooter } from "@/components/blog-post-footer";
+import { BlogStructuredData } from "@/components/blog-structured-data";
+import { getBlogPost, getBlogPostMetadata } from "@/lib/blog";
 
-export const metadata: Metadata = {
-  title:
-    "Best PostgreSQL Monitoring Tools in 2026",
-  description:
-    "Compare the best PostgreSQL monitoring tools in 2026. From built-in statistics views and pg_stat_statements to Prometheus, Datadog, and pgwatch2, find the right monitoring stack for your Postgres database.",
-  keywords: [
-    "PostgreSQL monitoring",
-    "PostgreSQL monitoring tools",
-    "pg_stat_statements",
-    "pgBadger",
-    "pgwatch2",
-    "Prometheus PostgreSQL",
-    "Datadog PostgreSQL",
-    "Percona PMM",
-    "PostgreSQL performance",
-    "database monitoring",
-    "PostgreSQL observability",
-    "postgres_exporter",
-  ],
-  openGraph: {
-    title:
-      "Best PostgreSQL Monitoring Tools in 2026",
-    description:
-      "Compare the best PostgreSQL monitoring tools in 2026. From built-in statistics views and pg_stat_statements to Prometheus, Datadog, and pgwatch2, find the right monitoring stack for your Postgres database.",
-    type: "article",
-    publishedTime: "2026-02-04T00:00:00Z",
-    url: "https://postgresgui.com/blog/postgresql-monitoring-tools",
-    siteName: "PostgresGUI",
-    locale: "en_US",
-    images: [
-      {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
-      },
-    ],
-  },
-  twitter: {
-    site: "@postgresgui",
-    creator: "@postgresgui",
-    card: "summary_large_image",
-    title:
-      "Best PostgreSQL Monitoring Tools in 2026",
-    description:
-      "Compare the best PostgreSQL monitoring tools in 2026. From built-in statistics views and pg_stat_statements to Prometheus, Datadog, and pgwatch2, find the right monitoring stack for your Postgres database.",
-    images: [
-      {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
-      },
-    ],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+const post = getBlogPost("postgresql-monitoring-tools");
+
+export const metadata = getBlogPostMetadata(post.slug);
 
 export default function PostgreSQLMonitoringToolsPage() {
   return (
-    <div className="flex-1 py-12 px-6">
+    <>
+      <BlogStructuredData post={post} />
+      <div className="flex-1 py-12 px-6">
       <div className="max-w-3xl mx-auto">
         <article className="prose dark:prose-invert max-w-none">
           <header className="mb-8">
@@ -807,8 +756,11 @@ pmm-admin add postgresql \\
               what your monitoring data is telling you.
             </p>
           </div>
-        </article>
+
+          <BlogPostFooter post={post} />
+          </article>
       </div>
     </div>
+    </>
   );
 }

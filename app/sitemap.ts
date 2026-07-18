@@ -41,8 +41,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Generate localized alternatives/tableplus routes
   const alternativesTablePlusLocales = ["", "/de", "/fr", "/ja"];
-  const localizedAlternatives = alternativesTablePlusLocales.map((path) => ({
+  const localizedTablePlusAlternatives = alternativesTablePlusLocales.map((path) => ({
     url: `${baseUrl}${path}/alternatives/tableplus`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.9,
+  }));
+
+  const englishAlternatives = ["pgadmin", "postico"].map((slug) => ({
+    url: `${baseUrl}/alternatives/${slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.9,
@@ -51,7 +58,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...localizedHomepages,
     ...localizedDownloads,
-    ...localizedAlternatives,
+    ...localizedTablePlusAlternatives,
+    ...englishAlternatives,
     {
       url: `${baseUrl}/sql-editor`,
       lastModified: new Date(),

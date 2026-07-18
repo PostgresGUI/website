@@ -1,69 +1,18 @@
-import type { Metadata } from "next";
+import { BlogPostFooter } from "@/components/blog-post-footer";
+import { BlogStructuredData } from "@/components/blog-structured-data";
+import { getBlogPost, getBlogPostMetadata } from "@/lib/blog";
 
-export const metadata: Metadata = {
-  title:
-    "Best PostgreSQL Backup Solutions in 2026: Tools, Strategies, and Best Practices",
-  description:
-    "Compare the best PostgreSQL backup solutions in 2026. From pg_dump and pgBackRest to Barman and WAL-G, find the right backup strategy for your database.",
-  keywords: [
-    "PostgreSQL backup",
-    "pg_dump",
-    "pgBackRest",
-    "Barman",
-    "WAL-G",
-    "PostgreSQL point-in-time recovery",
-    "database backup strategy",
-    "PostgreSQL WAL archiving",
-    "pg_basebackup",
-    "PostgreSQL disaster recovery",
-    "logical backup PostgreSQL",
-    "continuous archiving PostgreSQL",
-  ],
-  openGraph: {
-    title:
-      "Best PostgreSQL Backup Solutions in 2026: Tools, Strategies, and Best Practices",
-    description:
-      "Compare the best PostgreSQL backup solutions in 2026. From pg_dump and pgBackRest to Barman and WAL-G, find the right backup strategy for your database.",
-    type: "article",
-    publishedTime: "2026-02-04T00:00:00Z",
-    url: "https://postgresgui.com/blog/best-postgresql-backup-solution",
-    siteName: "PostgresGUI",
-    locale: "en_US",
-    images: [
-      {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
-      },
-    ],
-  },
-  twitter: {
-    site: "@postgresgui",
-    creator: "@postgresgui",
-    card: "summary_large_image",
-    title:
-      "Best PostgreSQL Backup Solutions in 2026: Tools, Strategies, and Best Practices",
-    description:
-      "Compare the best PostgreSQL backup solutions in 2026. From pg_dump and pgBackRest to Barman and WAL-G, find the right backup strategy for your database.",
-    images: [
-      {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
-      },
-    ],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+const post = getBlogPost("best-postgresql-backup-solution");
+
+export const metadata = getBlogPostMetadata(post.slug);
 
 export default function BestPostgreSQLBackupSolutionPage() {
   return (
-    <div className="flex-1 py-12 px-6">
-      <div className="max-w-3xl mx-auto">
-        <article className="prose dark:prose-invert max-w-none">
+    <>
+      <BlogStructuredData post={post} />
+      <div className="flex-1 py-12 px-6">
+        <div className="max-w-3xl mx-auto">
+          <article className="prose dark:prose-invert max-w-none">
           <header className="mb-8">
             <h1 className="text-4xl md:text-5xl font-display mb-4">
               Best PostgreSQL Backup Solutions in 2026
@@ -734,8 +683,11 @@ wal-g delete retain FULL 7 --confirm
               everything is running smoothly.
             </p>
           </div>
-        </article>
+
+          <BlogPostFooter post={post} />
+          </article>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

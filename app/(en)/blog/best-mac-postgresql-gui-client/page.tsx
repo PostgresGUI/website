@@ -1,66 +1,18 @@
-import type { Metadata } from "next";
+import { BlogPostFooter } from "@/components/blog-post-footer";
+import { BlogStructuredData } from "@/components/blog-structured-data";
+import { getBlogPost, getBlogPostMetadata } from "@/lib/blog";
 
-export const metadata: Metadata = {
-  title: "Best Mac PostgreSQL GUI Clients in 2026",
-  description:
-    "Compare the best PostgreSQL GUI clients for Mac in 2026. From lightweight native apps to full-featured IDEs, find the right Postgres client for your workflow.",
-  keywords: [
-    "PostgreSQL GUI Mac",
-    "Postgres client Mac",
-    "PostgreSQL Mac app",
-    "pgAdmin Mac",
-    "TablePlus",
-    "DBeaver Mac",
-    "DataGrip PostgreSQL",
-    "Postico",
-    "PostgresGUI",
-    "Beekeeper Studio",
-    "best Postgres GUI",
-    "database client macOS",
-  ],
-  openGraph: {
-    title: "Best Mac PostgreSQL GUI Clients in 2026",
-    description:
-      "Compare the best PostgreSQL GUI clients for Mac in 2026. From lightweight native apps to full-featured IDEs, find the right Postgres client for your workflow.",
-    type: "article",
-    publishedTime: "2026-02-04T00:00:00Z",
-    url: "https://postgresgui.com/blog/best-mac-postgresql-gui-client",
-    siteName: "PostgresGUI",
-    locale: "en_US",
-    images: [
-      {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
-      },
-    ],
-  },
-  twitter: {
-    site: "@postgresgui",
-    creator: "@postgresgui",
-    card: "summary_large_image",
-    title: "Best Mac PostgreSQL GUI Clients in 2026",
-    description:
-      "Compare the best PostgreSQL GUI clients for Mac in 2026. From lightweight native apps to full-featured IDEs, find the right Postgres client for your workflow.",
-    images: [
-      {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
-      },
-    ],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+const post = getBlogPost("best-mac-postgresql-gui-client");
+
+export const metadata = getBlogPostMetadata(post.slug);
 
 export default function BestMacPostgreSQLGUIClientPage() {
   return (
-    <div className="flex-1 py-12 px-6">
-      <div className="max-w-3xl mx-auto">
-        <article className="prose dark:prose-invert max-w-none">
+    <>
+      <BlogStructuredData post={post} />
+      <div className="flex-1 py-12 px-6">
+        <div className="max-w-3xl mx-auto">
+          <article className="prose dark:prose-invert max-w-none">
           <header className="mb-8">
             <h1 className="text-4xl md:text-5xl font-display mb-4">
               Best Mac PostgreSQL GUI Clients in 2026
@@ -460,8 +412,11 @@ export default function BestMacPostgreSQLGUIClientPage() {
               database in seconds.
             </p>
           </div>
-        </article>
+
+          <BlogPostFooter post={post} />
+          </article>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

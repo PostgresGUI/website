@@ -1,67 +1,18 @@
-import type { Metadata } from "next";
+import { BlogPostFooter } from "@/components/blog-post-footer";
+import { BlogStructuredData } from "@/components/blog-structured-data";
+import { getBlogPost, getBlogPostMetadata } from "@/lib/blog";
 
-export const metadata: Metadata = {
-  title:
-    "How to Migrate from MySQL to PostgreSQL: A Practical Guide",
-  description:
-    "Step-by-step guide to migrating your database from MySQL to PostgreSQL. Covers schema conversion, data type mapping, SQL syntax differences, and the best migration tools.",
-  keywords: [
-    "MySQL to PostgreSQL",
-    "migrate MySQL to Postgres",
-    "MySQL migration",
-    "PostgreSQL migration",
-    "database migration",
-    "pgloader",
-    "schema conversion",
-    "MySQL vs PostgreSQL",
-    "switch to PostgreSQL",
-    "data migration",
-  ],
-  openGraph: {
-    title:
-      "How to Migrate from MySQL to PostgreSQL: A Practical Guide",
-    description:
-      "Step-by-step guide to migrating your database from MySQL to PostgreSQL. Covers schema conversion, data type mapping, SQL syntax differences, and the best migration tools.",
-    type: "article",
-    publishedTime: "2026-02-04T00:00:00Z",
-    url: "https://postgresgui.com/blog/migrate-mysql-to-postgresql",
-    siteName: "PostgresGUI",
-    locale: "en_US",
-    images: [
-      {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
-      },
-    ],
-  },
-  twitter: {
-    site: "@postgresgui",
-    creator: "@postgresgui",
-    card: "summary_large_image",
-    title:
-      "How to Migrate from MySQL to PostgreSQL: A Practical Guide",
-    description:
-      "Step-by-step guide to migrating your database from MySQL to PostgreSQL. Covers schema conversion, data type mapping, SQL syntax differences, and the best migration tools.",
-    images: [
-      {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        alt: "PostgresGUI - Native PostgreSQL Client for Mac",
-      },
-    ],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+const post = getBlogPost("migrate-mysql-to-postgresql");
+
+export const metadata = getBlogPostMetadata(post.slug);
 
 export default function MigrateMySQLToPostgreSQLPage() {
   return (
-    <div className="flex-1 py-12 px-6">
-      <div className="max-w-3xl mx-auto">
-        <article className="prose dark:prose-invert max-w-none">
+    <>
+      <BlogStructuredData post={post} />
+      <div className="flex-1 py-12 px-6">
+        <div className="max-w-3xl mx-auto">
+          <article className="prose dark:prose-invert max-w-none">
           <header className="mb-8">
             <h1 className="text-4xl md:text-5xl font-display mb-4">
               How to Migrate from MySQL to PostgreSQL
@@ -589,8 +540,11 @@ CAST type tinyint to boolean using tinyint-to-boolean;`}</code>
               tables and verify everything looks right after migration.
             </p>
           </div>
-        </article>
+
+          <BlogPostFooter post={post} />
+          </article>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

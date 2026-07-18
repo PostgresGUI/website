@@ -40,6 +40,7 @@ export function Navigation({ locale = "en" }: NavigationProps) {
     { href: "#features", label: t.nav.features },
     { href: "#screenshots", label: t.nav.screenshots },
     { href: "#pricing", label: t.nav.pricing },
+    { href: "/blog", label: "Blog" },
     { href: "/support", label: t.nav.support },
   ];
 

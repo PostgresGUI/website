@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SITE_URL } from "@/lib/blog";
 import { posts } from "./posts";
 
 export const metadata: Metadata = {
@@ -27,10 +28,40 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: `${SITE_URL}/blog`,
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "PostgresGUI Blog",
+  description:
+    "PostgreSQL guides, Mac database tooling comparisons, and PostgresGUI product updates.",
+  url: `${SITE_URL}/blog`,
+  publisher: {
+    "@type": "Organization",
+    name: "PostgresGUI",
+    url: SITE_URL,
+  },
+  blogPost: posts.map((post) => ({
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    author: {
+      "@type": "Person",
+      name: post.author,
+    },
+    url: `${SITE_URL}/blog/${post.slug}`,
+  })),
 };
 
 function formatDate(dateString: string): string {
-  const date = new Date(dateString);
+  const [year, month, day] = dateString.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
+
   return date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
@@ -41,6 +72,10 @@ function formatDate(dateString: string): string {
 export default function BlogPage() {
   return (
     <div className="flex-1 py-12 px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="max-w-4xl mx-auto">
         <header className="mb-12">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display mb-4 tracking-tight">
@@ -65,7 +100,7 @@ export default function BlogPage() {
                   {post.title}
                 </h2>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {formatDate(post.date)} · {post.author}
+                  {formatDate(post.date)} · {post.author} · {post.category}
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
                   {post.description}
