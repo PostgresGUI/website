@@ -20,6 +20,8 @@ const tablePlusAlternativeSeoData: Record<Locale, TablePlusAlternativeSEO> = {
     keywords: [
       "tableplus alternative",
       "tableplus alternative mac",
+      "alternative to tableplus",
+      "tableplus free alternative",
       "tableplus alternative free",
       "tableplus alternative open source",
       "best postgresql gui mac",
@@ -215,11 +217,19 @@ const seoData: Record<Locale, LocaleSEO> = {
   en: {
     title: "PostgresGUI - The Postgres Client Built for Mac",
     description:
-      "PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight, fast, dark mode support.",
+      "PostgreSQL GUI for Mac. Open-source, native macOS app for browsing, querying, and managing Postgres databases. Lightweight, fast, dark mode support.",
     keywords: [
       "postgresql gui mac",
       "best postgres gui",
       "postgres client mac",
+      "free postgres client mac",
+      "postgres client mac free",
+      "open source postgres gui",
+      "postgres viewer mac",
+      "postgres viewer",
+      "macos postgres client",
+      "osx postgres client",
+      "psql gui",
       "postgresql macos",
       "PostgreSQL",
       "Postgres",
@@ -425,11 +435,14 @@ export function getLocaleMetadata(locale: Locale): Metadata {
 // Download page SEO data
 const downloadSeoData: Record<Locale, LocaleSEO> = {
   en: {
-    title: "Download PostgresGUI - PostgreSQL GUI for Mac | Free Download",
+    title: "Download PostgresGUI - PostgreSQL GUI for Mac",
     description:
-      "Download PostgresGUI for Mac. Lightweight, open-source PostgreSQL client. Native macOS app with dark mode support. Get it free on the App Store.",
+      "Download PostgresGUI for Mac or build from source. Lightweight, open-source PostgreSQL client with a native macOS interface and dark mode support.",
     keywords: [
+      "download postgresql for mac",
       "download postgresql gui mac",
+      "install postgres client on mac",
+      "mac install postgres client",
       "postgresql client download",
       "postgresgui download",
       "postgres gui mac download",

@@ -35,6 +35,213 @@ export type BlogPostInfo = Pick<
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "install-psql-mac",
+    title: "How to Install psql on Mac",
+    description:
+      "Install psql on Mac with Homebrew, Postgres.app, or the PostgreSQL installer. Learn what psql is, how to check your version, and when a GUI client helps.",
+    keywords: [
+      "install psql mac",
+      "psql install mac",
+      "mac install psql",
+      "install postgres client on mac",
+      "mac install postgres client",
+      "psql mac",
+      "download postgresql for mac",
+    ],
+    date: "2026-07-19",
+    author: "Ghazi",
+    category: "Tutorial",
+    pillar: "PostgreSQL Learning",
+    relatedSlugs: [
+      "download-postgresql-for-mac",
+      "best-mac-postgresql-gui-client",
+      "postgres-column-types",
+    ],
+    faqs: [
+      {
+        question: "What is psql on Mac?",
+        answer:
+          "psql is the official PostgreSQL command-line client. On Mac, you can install it with Homebrew, Postgres.app, or the PostgreSQL installer.",
+      },
+      {
+        question: "Do you need to install the full PostgreSQL server to get psql?",
+        answer:
+          "Not always. Homebrew can install PostgreSQL client tools, while Postgres.app and the PostgreSQL installer include both server and client utilities.",
+      },
+    ],
+    sources: [
+      { title: "PostgreSQL psql documentation", url: "https://www.postgresql.org/docs/current/app-psql.html" },
+      { title: "PostgreSQL macOS downloads", url: "https://www.postgresql.org/download/macosx/" },
+      { title: "Postgres.app documentation", url: "https://postgresapp.com/documentation/" },
+    ],
+  },
+  {
+    slug: "download-postgresql-for-mac",
+    title: "Download PostgreSQL for Mac: Server, psql, and GUI Options",
+    description:
+      "A practical guide to downloading PostgreSQL for Mac, installing psql, choosing Postgres.app or Homebrew, and adding a native GUI client.",
+    keywords: [
+      "download postgresql for mac",
+      "postgresql download mac",
+      "install postgres client on mac",
+      "mac install postgres client",
+      "psql mac",
+      "postgres client mac",
+      "postgres gui mac",
+    ],
+    date: "2026-07-19",
+    author: "Ghazi",
+    category: "Tutorial",
+    pillar: "PostgreSQL Learning",
+    relatedSlugs: [
+      "install-psql-mac",
+      "best-mac-postgresql-gui-client",
+      "only-postgres-gui-mac-no-subscription",
+    ],
+    faqs: [
+      {
+        question: "What is the easiest way to download PostgreSQL for Mac?",
+        answer:
+          "Postgres.app is a simple Mac-native option for local development. Homebrew is also popular if you prefer managing packages from the terminal.",
+      },
+      {
+        question: "Is PostgresGUI a PostgreSQL server?",
+        answer:
+          "No. PostgresGUI is a client for connecting to PostgreSQL databases. You still need a local, cloud, Docker, or hosted PostgreSQL server.",
+      },
+    ],
+    sources: [
+      { title: "PostgreSQL macOS downloads", url: "https://www.postgresql.org/download/macosx/" },
+      { title: "Postgres.app", url: "https://postgresapp.com/" },
+      { title: "Homebrew PostgreSQL formula", url: "https://formulae.brew.sh/formula/postgresql@16" },
+    ],
+  },
+  {
+    slug: "postgres-column-types",
+    title: "Postgres Column Types: A Practical Guide",
+    description:
+      "Choose the right Postgres column types for text, numbers, dates, JSON, UUIDs, arrays, booleans, and generated identity columns.",
+    keywords: [
+      "postgres column types",
+      "postgres types",
+      "postgres datatypes",
+      "postgresql data types",
+      "postgresql types",
+      "postgres data types",
+      "postgres text types",
+      "postgres integer types",
+    ],
+    date: "2026-07-19",
+    author: "Ghazi",
+    category: "Reference",
+    pillar: "PostgreSQL Learning",
+    relatedSlugs: [
+      "install-psql-mac",
+      "best-postgresql-backup-solution",
+      "migrate-mysql-to-postgresql",
+    ],
+    faqs: [
+      {
+        question: "What are the most common Postgres column types?",
+        answer:
+          "Common Postgres column types include text, integer, bigint, numeric, boolean, date, timestamptz, uuid, jsonb, arrays, and generated identity columns.",
+      },
+      {
+        question: "Should you use text or varchar in Postgres?",
+        answer:
+          "Use text by default unless you need a specific length constraint. In PostgreSQL, text and varchar have similar performance characteristics.",
+      },
+    ],
+    sources: [
+      { title: "PostgreSQL data types documentation", url: "https://www.postgresql.org/docs/current/datatype.html" },
+      { title: "PostgreSQL numeric types", url: "https://www.postgresql.org/docs/current/datatype-numeric.html" },
+      { title: "PostgreSQL date/time types", url: "https://www.postgresql.org/docs/current/datatype-datetime.html" },
+    ],
+  },
+  {
+    slug: "best-sql-ide-for-postgresql",
+    title: "Best SQL IDEs for PostgreSQL in 2026",
+    description:
+      "Compare the best SQL IDEs and PostgreSQL GUI tools, including PostgresGUI, DataGrip, DBeaver, TablePlus, pgAdmin, and VS Code extensions.",
+    keywords: [
+      "best sql ide",
+      "postgresql gui tools",
+      "postgres gui client",
+      "best postgres gui",
+      "best postgres client mac",
+      "best postgres client for mac",
+      "sql ide for postgresql",
+      "postgresql ide",
+    ],
+    date: "2026-07-19",
+    author: "Ghazi",
+    category: "Tools",
+    pillar: "PostgreSQL GUI",
+    relatedSlugs: [
+      "best-mac-postgresql-gui-client",
+      "best-pgadmin-alternative-mac",
+      "only-postgres-gui-mac-no-subscription",
+    ],
+    faqs: [
+      {
+        question: "What is the best SQL IDE for PostgreSQL?",
+        answer:
+          "The best SQL IDE depends on whether you want a full multi-database IDE, a lightweight PostgreSQL client, or a browser-based editor. PostgresGUI is focused on native Mac PostgreSQL workflows.",
+      },
+      {
+        question: "Is a SQL IDE different from a PostgreSQL GUI?",
+        answer:
+          "A SQL IDE usually emphasizes query authoring and code intelligence. A PostgreSQL GUI also focuses on browsing schemas, viewing table data, editing rows, and managing connections.",
+      },
+    ],
+    sources: [
+      { title: "PostgresGUI source code", url: "https://github.com/postgresgui/postgresgui" },
+      { title: "pgAdmin", url: "https://www.pgadmin.org/" },
+      { title: "DBeaver", url: "https://dbeaver.io/" },
+    ],
+  },
+  {
+    slug: "database-schema-design-online",
+    title: "Database Schema Design Online: How to Plan Tables Before You Build",
+    description:
+      "Design a database schema online, plan tables and relationships, generate SQL, and avoid common schema design mistakes before writing application code.",
+    keywords: [
+      "database schema design",
+      "database schema online",
+      "online database schema designer",
+      "create database schema online",
+      "database schema design online",
+      "database schema design software",
+      "sql schema design",
+      "sql database design",
+    ],
+    date: "2026-07-19",
+    author: "Ghazi",
+    category: "Design",
+    pillar: "PostgreSQL Tools",
+    relatedSlugs: [
+      "postgres-column-types",
+      "migrate-mysql-to-postgresql",
+      "best-sql-ide-for-postgresql",
+    ],
+    faqs: [
+      {
+        question: "Can you design a database schema online?",
+        answer:
+          "Yes. An online database schema designer lets you model tables, columns, primary keys, and relationships before exporting SQL.",
+      },
+      {
+        question: "What should you decide before creating a database schema?",
+        answer:
+          "Decide your core entities, primary keys, relationships, required fields, data types, indexes, and which rules belong in constraints.",
+      },
+    ],
+    sources: [
+      { title: "PostgreSQL CREATE TABLE documentation", url: "https://www.postgresql.org/docs/current/sql-createtable.html" },
+      { title: "PostgreSQL constraints documentation", url: "https://www.postgresql.org/docs/current/ddl-constraints.html" },
+    ],
+  },
+  {
     slug: "hello-world",
     title: "Hello World",
     description:
@@ -191,6 +398,10 @@ export const blogPosts: BlogPost[] = [
       "PostgreSQL GUI Mac",
       "Postgres client Mac",
       "PostgreSQL Mac app",
+      "OSX Postgres client",
+      "macOS Postgres client",
+      "best Postgres client for Mac",
+      "best Mac Postgres client",
       "pgAdmin Mac",
       "TablePlus",
       "DBeaver Mac",
@@ -208,7 +419,7 @@ export const blogPosts: BlogPost[] = [
     relatedSlugs: [
       "best-pgadmin-alternative-mac",
       "only-postgres-gui-mac-no-subscription",
-      "postgresql-monitoring-tools",
+      "best-sql-ide-for-postgresql",
     ],
     faqs: [
       {
@@ -328,6 +539,8 @@ export const blogPosts: BlogPost[] = [
     keywords: [
       "pgAdmin alternative",
       "pgAdmin alternative Mac",
+      "alternative to pgadmin",
+      "pgadmin4 alternatives",
       "pgAdmin replacement",
       "pgAdmin vs",
       "PostgreSQL GUI Mac",
@@ -347,7 +560,7 @@ export const blogPosts: BlogPost[] = [
     relatedSlugs: [
       "best-mac-postgresql-gui-client",
       "only-postgres-gui-mac-no-subscription",
-      "postgresql-monitoring-tools",
+      "best-sql-ide-for-postgresql",
     ],
     faqs: [
       {
@@ -376,6 +589,8 @@ export const blogPosts: BlogPost[] = [
       "PostgreSQL client Mac",
       "no subscription database tool",
       "PostgresGUI",
+      "free Postgres client Mac",
+      "Postgres client Mac free",
       "TablePlus alternative",
       "Postico alternative",
       "DataGrip alternative",

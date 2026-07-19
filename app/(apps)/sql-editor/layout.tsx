@@ -15,13 +15,19 @@ const sairaStencilOne = Saira_Stencil_One({
 });
 
 export const metadata: Metadata = {
-  title: "SQL Editor",
-  description: "Run SQL queries and manage tables in your browser.",
+  title: "Online SQL Compiler & SQL Query Editor",
+  description:
+    "Run SQL queries in a browser-based SQL compiler with a built-in PostgreSQL database. Use the free online SQL query editor to create tables, test joins, and practice Postgres.",
   keywords: [
     "sql editor",
     "online sql editor",
     "online sql compiler",
+    "sql online compiler with database",
     "sql query editor online",
+    "online postgresql editor",
+    "postgresql online query editor",
+    "postgresql online compiler",
+    "sql editor online with database",
     "free sql editor",
     "sql online",
   ],
@@ -29,8 +35,9 @@ export const metadata: Metadata = {
     canonical: "https://postgresgui.com/sql-editor",
   },
   openGraph: {
-    title: "SQL Editor",
-    description: "Run SQL queries and manage tables in your browser.",
+    title: "Online SQL Compiler & SQL Query Editor",
+    description:
+      "Run SQL queries in a browser-based SQL compiler with a built-in PostgreSQL database.",
     type: "website",
     url: "https://postgresgui.com/sql-editor",
     images: [
@@ -44,8 +51,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SQL Editor",
-    description: "Run SQL queries and manage tables in your browser.",
+    title: "Online SQL Compiler & SQL Query Editor",
+    description:
+      "Run SQL queries in a browser-based SQL compiler with a built-in PostgreSQL database.",
     images: ["https://postgresgui.com/online-sql-editor.jpg"],
   },
 };
@@ -53,8 +61,9 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "SQL Editor",
-  description: "Run SQL queries and manage tables in your browser.",
+  name: "Online SQL Compiler and SQL Query Editor",
+  description:
+    "Run SQL queries in a browser-based SQL compiler with a built-in PostgreSQL database.",
   url: "https://postgresgui.com/sql-editor",
   applicationCategory: "DeveloperApplication",
   operatingSystem: "Any",

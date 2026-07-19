@@ -403,6 +403,28 @@ export default function BestMacPostgreSQLGUIClientPage() {
               </li>
             </ul>
 
+            <h2>What about OSX and macOS Postgres clients?</h2>
+
+            <p>
+              Search results often split the same intent across phrases like{" "}
+              <strong>OSX Postgres client</strong>,{" "}
+              <strong>macOS Postgres client</strong>,{" "}
+              <strong>best Postgres client for Mac</strong>, and{" "}
+              <strong>best Mac Postgres client</strong>. For modern Macs, the
+              practical checklist is the same: native macOS behavior, fast
+              connection management, a clear table viewer, and a SQL editor
+              that does not make routine Postgres work feel heavy.
+            </p>
+
+            <p>
+              If you mostly use PostgreSQL, that is where a focused app like{" "}
+              <a href="https://postgresgui.com/postgres-viewer-mac">
+                PostgresGUI&apos;s Postgres viewer for Mac
+              </a>{" "}
+              fits best. Broader database suites still make sense when you need
+              one tool for several engines.
+            </p>
+
             <p>
               If PostgreSQL is your primary database and you&apos;re on a Mac,
               a native client makes a real difference. PostgresGUI is built from

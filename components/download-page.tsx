@@ -76,6 +76,37 @@ export function DownloadPage({
         </div>
       </div>
 
+      {locale === "en" && (
+        <section className="px-6 py-12 border-y border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-display tracking-tight text-gray-900 dark:text-white">
+              Open source Postgres GUI for Mac
+            </h2>
+            <p className="mt-4 text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+              PostgresGUI is a native macOS PostgreSQL client you can download
+              as a signed App Store build or inspect and build from source on
+              GitHub. If you are comparing a free Postgres client Mac workflow,
+              the open-source repository gives you a transparent starting point
+              for a lightweight Postgres viewer, SQL editor, and table browser.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/open-source-postgres-gui"
+                className="inline-flex items-center rounded-lg bg-stone-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-stone-700 dark:bg-white dark:text-stone-900 dark:hover:bg-stone-200"
+              >
+                Open source details
+              </Link>
+              <Link
+                href="/blog/download-postgresql-for-mac"
+                className="inline-flex items-center rounded-lg border border-stone-300 px-4 py-2 text-sm font-medium text-stone-800 transition-colors hover:border-stone-500 dark:border-stone-700 dark:text-stone-200 dark:hover:border-stone-500"
+              >
+                PostgreSQL Mac download guide
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Screenshots Section */}
       <section className="py-16 md:py-24 px-6 bg-stone-200 dark:bg-stone-900">
         <div className="max-w-7xl mx-auto">

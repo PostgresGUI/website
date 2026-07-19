@@ -20,7 +20,9 @@ export function Footer({ locale = "en" }: FooterProps) {
   ];
 
   const toolsLinks = [
+    { href: "/postgres-viewer-mac", label: "Postgres Viewer" },
     { href: "/sql-editor", label: "SQL Editor" },
+    { href: "/sql-compiler", label: "SQL Compiler" },
     { href: "/sql-cheatsheet", label: "SQL Cheatsheet" },
     { href: "/schema-designer", label: "Schema Designer" },
     { href: "/uuid-generator", label: "UUID Generator" },
@@ -30,6 +32,7 @@ export function Footer({ locale = "en" }: FooterProps) {
 
   const resourceLinks = [
     { href: "/blog", label: "Blog" },
+    { href: "/open-source-postgres-gui", label: "Open Source Postgres GUI" },
     { href: "/support", label: t.footer.supportLink },
     {
       href: "https://github.com/postgresgui/postgresgui/issues",

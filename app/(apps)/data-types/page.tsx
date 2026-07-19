@@ -16,12 +16,15 @@ import { categories, dataTypes } from "./_lib/data";
 import { CategoryId } from "./_lib/types";
 
 export const metadata: Metadata = {
-  title: "PostgreSQL Data Types — Compare & Choose | PostgresGUI",
+  title: "PostgreSQL Data Types & Postgres Column Types | PostgresGUI",
   description:
-    "Compare PostgreSQL data types side by side. varchar vs text, int vs bigint, jsonb vs json, timestamptz and more. Storage sizes, performance notes, and clear recommendations.",
+    "Compare PostgreSQL data types and Postgres column types side by side. varchar vs text, int vs bigint, jsonb vs json, timestamptz and more.",
   keywords: [
     "postgres data types",
     "postgresql types",
+    "postgres column types",
+    "postgres types",
+    "postgres datatypes",
     "varchar vs text",
     "int vs bigint",
     "jsonb vs json",
@@ -37,18 +40,18 @@ export const metadata: Metadata = {
     "postgres numeric vs float",
   ],
   openGraph: {
-    title: "PostgreSQL Data Types — Compare & Choose",
+    title: "PostgreSQL Data Types & Postgres Column Types",
     description:
-      "Compare PostgreSQL data types side by side. Storage sizes, performance notes, and clear recommendations for every type.",
+      "Compare PostgreSQL data types and Postgres column types side by side with storage notes, SQL examples, and recommendations.",
     type: "website",
     url: "https://postgresgui.com/data-types",
     siteName: "PostgresGUI",
   },
   twitter: {
     card: "summary_large_image",
-    title: "PostgreSQL Data Types — Compare & Choose | PostgresGUI",
+    title: "PostgreSQL Data Types & Postgres Column Types | PostgresGUI",
     description:
-      "Compare PostgreSQL data types side by side. varchar vs text, int vs bigint, jsonb vs json, and more.",
+      "Compare PostgreSQL data types and Postgres column types side by side. varchar vs text, int vs bigint, jsonb vs json, and more.",
   },
   alternates: {
     canonical: "https://postgresgui.com/data-types",
@@ -60,7 +63,7 @@ const jsonLd = {
   "@type": "WebApplication",
   name: "PostgreSQL Data Type Picker",
   description:
-    "Compare PostgreSQL data types side by side. varchar vs text, int vs bigint, jsonb vs json, timestamptz and more. Storage sizes, performance notes, and clear recommendations.",
+    "Compare PostgreSQL data types and Postgres column types side by side. varchar vs text, int vs bigint, jsonb vs json, timestamptz and more. Storage sizes, performance notes, and clear recommendations.",
   url: "https://postgresgui.com/data-types",
   applicationCategory: "DeveloperApplication",
   operatingSystem: "Any",
@@ -98,7 +101,7 @@ export default function DataTypesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <h1 className="sr-only">
-        PostgreSQL Data Types — Compare and Choose the Right Type
+        PostgreSQL Data Types and Postgres Column Types
       </h1>
       <div className="max-w-4xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -135,6 +138,22 @@ export default function DataTypesPage() {
             );
           })}
         </div>
+        <section className="mt-8 border-t border-stone-200 dark:border-stone-700 pt-6">
+          <h2 className="font-[family-name:var(--font-oswald)] text-xl font-bold uppercase tracking-tight text-stone-900 dark:text-stone-100">
+            Need a Postgres column types guide?
+          </h2>
+          <p className="mt-2 text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+            The picker is built for quick comparisons, while the{" "}
+            <Link
+              href="/blog/postgres-column-types"
+              className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+            >
+              Postgres column types guide
+            </Link>{" "}
+            explains when to use common Postgres types, PostgreSQL types, and
+            Postgres datatypes in real schemas.
+          </p>
+        </section>
       </div>
     </>
   );

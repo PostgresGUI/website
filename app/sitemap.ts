@@ -61,7 +61,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...localizedTablePlusAlternatives,
     ...englishAlternatives,
     {
+      url: `${baseUrl}/postgres-viewer-mac`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/sql-editor`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/sql-compiler`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
@@ -102,6 +114,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
+    {
+      url: `${baseUrl}/open-source-postgres-gui`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
     {
       url: `${baseUrl}/privacy`,
       lastModified: new Date(),

@@ -173,6 +173,24 @@ export function TablePlusAlternativePage({
         </div>
       </section>
 
+      {locale === "en" && (
+        <section className="py-12 px-6 border-t border-border/30 bg-background">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-display mb-4 tracking-tight">
+              TablePlus free alternative for PostgreSQL users
+            </h2>
+            <p className="text-muted-foreground max-w-3xl leading-relaxed">
+              Many searches for an <strong>alternative to TablePlus</strong> are
+              really looking for a <strong>TablePlus free alternative</strong>{" "}
+              or a focused TablePlus alternative Mac app for Postgres. If you
+              only need PostgreSQL, PostgresGUI keeps the workflow narrower:
+              connect, browse tables, inspect rows, and run queries in a native
+              macOS interface.
+            </p>
+          </div>
+        </section>
+      )}
+
       {/* Pain Points Section */}
       <section className="py-16 md:py-24 px-6 border-t border-border/30 bg-stone-100 dark:bg-stone-900">
         <div className="max-w-5xl mx-auto">

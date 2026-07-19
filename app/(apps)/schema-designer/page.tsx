@@ -2,12 +2,18 @@ import { SchemaDesigner } from "./_components/schema-designer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Database Schema Designer",
+  title: "Online Database Schema Designer",
   description:
-    "Free online database schema designer. Design tables, import and export SQL.",
+    "Free online database schema designer for PostgreSQL. Create database schema diagrams online, design tables visually, then import or export SQL.",
   keywords: [
     "schema designer",
     "database schema designer",
+    "online database schema designer",
+    "database schema design",
+    "database schema online",
+    "create database schema online",
+    "database schema design software",
+    "sql schema design",
     "erd tool",
     "database diagram",
     "sql generator",
@@ -17,9 +23,9 @@ export const metadata: Metadata = {
     canonical: "https://postgresgui.com/schema-designer",
   },
   openGraph: {
-    title: "Database Schema Designer",
+    title: "Online Database Schema Designer",
     description:
-      "Free online database schema designer. Design tables, import and export SQL.",
+      "Create database schema diagrams online, design tables visually, then import or export SQL.",
     type: "website",
     url: "https://postgresgui.com/schema-designer",
     images: [
@@ -33,9 +39,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Database Schema Designer",
+    title: "Online Database Schema Designer",
     description:
-      "Free online database schema designer. Design tables, import and export SQL.",
+      "Create database schema diagrams online, design tables visually, then import or export SQL.",
     images: ["https://postgresgui.com/online-schema-designer.jpg"],
   },
 };
@@ -43,9 +49,9 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Database Schema Designer",
+  name: "Online Database Schema Designer",
   description:
-    "Free online database schema designer. Design tables, import and export SQL.",
+    "Free online database schema designer for PostgreSQL. Create database schema diagrams online, design tables visually, then import or export SQL.",
   url: "https://postgresgui.com/schema-designer",
   applicationCategory: "DeveloperApplication",
   operatingSystem: "Any",
@@ -63,7 +69,7 @@ export default function SchemaDesignerPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <h1 className="sr-only">Database Schema Designer</h1>
+      <h1 className="sr-only">Online Database Schema Designer</h1>
       <SchemaDesigner />
     </>
   );
