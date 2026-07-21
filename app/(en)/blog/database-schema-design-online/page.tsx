@@ -74,6 +74,27 @@ export default function DatabaseSchemaDesignOnlinePage() {
                 grows around invalid states.
               </p>
 
+              <h2>Normalize where it prevents bugs</h2>
+              <p>
+                Normalization is not an academic ritual. It is a way to avoid
+                repeated facts drifting apart. If a customer address, product
+                plan, or user role appears in many rows, ask whether it should
+                become its own table with a foreign key. If a field is just
+                display metadata that rarely gets queried, <code>jsonb</code>{" "}
+                can be a pragmatic choice.
+              </p>
+
+              <h2>Plan indexes after the questions</h2>
+              <p>
+                Do not add indexes to every column. Write down the queries your
+                application needs to answer: recent invoices for one customer,
+                published posts by author, failed jobs by status, or events in
+                a date range. Add indexes for those access patterns.
+              </p>
+
+              <pre><code>{`create index on invoices (customer_id, issued_at desc);
+create index on jobs (status, created_at);`}</code></pre>
+
               <h2>Generate SQL</h2>
               <p>
                 A good online database schema designer should let you export SQL
@@ -81,6 +102,17 @@ export default function DatabaseSchemaDesignOnlinePage() {
                 schema designer lets you model tables and generate SQL directly
                 in the browser.
               </p>
+
+              <h2>Schema design checklist</h2>
+              <ul>
+                <li>Every table has a primary key.</li>
+                <li>Foreign keys match the relationships in the product.</li>
+                <li>Required fields are marked <code>NOT NULL</code>.</li>
+                <li>Unique business rules have unique constraints.</li>
+                <li>Dates use <code>timestamptz</code> unless you only need calendar days.</li>
+                <li>Indexes match real query patterns.</li>
+                <li>Generated SQL is reviewed before it becomes a migration.</li>
+              </ul>
             </div>
 
             <BlogPostFooter post={post} />

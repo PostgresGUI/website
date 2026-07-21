@@ -1,8 +1,29 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FAQ } from "@/components/faq";
 import { APP_STORE_LINK, GITHUB_REPOSITORY_LINK } from "@/lib/constants";
+import { absoluteUrl, faqJsonLd } from "@/lib/seo-helpers";
 
 const CANONICAL = "https://postgresgui.com/open-source-postgres-gui";
+const OG_IMAGE = absoluteUrl("/seo/open-source-postgres-gui.svg");
+
+const faqItems = [
+  {
+    question: "Is PostgresGUI free?",
+    answer:
+      "The source code is free to inspect and build from GitHub. The signed Mac App Store build is a one-time purchase that supports development and provides normal Mac updates.",
+  },
+  {
+    question: "Is PostgresGUI open source?",
+    answer:
+      "Yes. PostgresGUI is open source, with public code and issue tracking on GitHub.",
+  },
+  {
+    question: "Does PostgresGUI collect telemetry?",
+    answer:
+      "No. PostgresGUI is positioned as a no-telemetry PostgreSQL client. Your connection details and queries stay on your Mac.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Open Source Postgres GUI for Mac - PostgresGUI",
@@ -28,8 +49,8 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "PostgresGUI",
     images: [
-      {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
+        {
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
         alt: "Open source Postgres GUI for Mac",
@@ -41,26 +62,29 @@ export const metadata: Metadata = {
     title: "Open Source Postgres GUI for Mac - PostgresGUI",
     description:
       "Build PostgresGUI from source for free or support signed Mac App Store builds with a one-time purchase.",
-    images: ["https://postgresgui.com/postgresgui-og-image.jpg"],
+    images: [OG_IMAGE],
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "PostgresGUI",
-  applicationCategory: "DeveloperApplication",
-  operatingSystem: "macOS",
-  url: CANONICAL,
-  codeRepository: GITHUB_REPOSITORY_LINK,
-  description:
-    "An open source PostgreSQL GUI client for Mac with a focused native interface and no subscription.",
-  offers: {
-    "@type": "Offer",
-    price: "12.99",
-    priceCurrency: "USD",
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "PostgresGUI",
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "macOS",
+    url: CANONICAL,
+    codeRepository: GITHUB_REPOSITORY_LINK,
+    description:
+      "An open source PostgreSQL GUI client for Mac with a focused native interface and no subscription.",
+    offers: {
+      "@type": "Offer",
+      price: "12.99",
+      priceCurrency: "USD",
+    },
   },
-};
+  faqJsonLd(faqItems),
+];
 
 export default function OpenSourcePostgresGuiPage() {
   return (
@@ -135,6 +159,15 @@ export default function OpenSourcePostgresGuiPage() {
               </Link>
               .
             </p>
+          </div>
+        </section>
+
+        <section className="border-t border-border/30 px-6 py-14">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="text-3xl font-display tracking-tight">
+              Common questions
+            </h2>
+            <FAQ items={faqItems} className="mt-6" />
           </div>
         </section>
       </main>

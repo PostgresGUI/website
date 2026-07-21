@@ -1,8 +1,29 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FAQ } from "@/components/faq";
 import { APP_STORE_LINK, GITHUB_REPOSITORY_LINK } from "@/lib/constants";
+import { absoluteUrl, faqJsonLd } from "@/lib/seo-helpers";
 
 const CANONICAL = "https://postgresgui.com/postgres-viewer-mac";
+const OG_IMAGE = absoluteUrl("/seo/postgres-viewer-mac.svg");
+
+const faqItems = [
+  {
+    question: "What is a Postgres viewer?",
+    answer:
+      "A Postgres viewer is a database client that lets you connect to PostgreSQL, browse tables, inspect rows, run queries, and view results without writing every lookup by hand.",
+  },
+  {
+    question: "Can I edit rows with PostgresGUI?",
+    answer:
+      "Yes. PostgresGUI is built for common PostgreSQL workflows including browsing data, editing rows, running SQL, viewing JSON, and exporting CSV.",
+  },
+  {
+    question: "Is this different from pgAdmin?",
+    answer:
+      "Yes. pgAdmin is a broad PostgreSQL administration platform. PostgresGUI is a focused native Mac Postgres viewer and query client for day-to-day development.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Postgres Viewer for Mac - Browse Tables and Query Results",
@@ -29,8 +50,8 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "PostgresGUI",
     images: [
-      {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
+        {
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
         alt: "PostgresGUI - Postgres Viewer for Mac",
@@ -42,25 +63,28 @@ export const metadata: Metadata = {
     title: "Postgres Viewer for Mac - Browse Tables and Query Results",
     description:
       "Connect to PostgreSQL, browse tables, inspect query results, edit rows, export CSV, and view JSON results on Mac.",
-    images: ["https://postgresgui.com/postgresgui-og-image.jpg"],
+    images: [OG_IMAGE],
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "PostgresGUI",
-  applicationCategory: "DeveloperApplication",
-  operatingSystem: "macOS",
-  url: CANONICAL,
-  description:
-    "A native Mac Postgres viewer for browsing PostgreSQL tables, running SQL queries, inspecting query results, and exporting data.",
-  offers: {
-    "@type": "Offer",
-    price: "12.99",
-    priceCurrency: "USD",
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "PostgresGUI",
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "macOS",
+    url: CANONICAL,
+    description:
+      "A native Mac Postgres viewer for browsing PostgreSQL tables, running SQL queries, inspecting query results, and exporting data.",
+    offers: {
+      "@type": "Offer",
+      price: "12.99",
+      priceCurrency: "USD",
+    },
   },
-};
+  faqJsonLd(faqItems),
+];
 
 export default function PostgresViewerMacPage() {
   return (
@@ -135,6 +159,15 @@ export default function PostgresViewerMacPage() {
               </Link>
               .
             </p>
+          </div>
+        </section>
+
+        <section className="border-t border-border/30 px-6 py-14">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="text-3xl font-display tracking-tight">
+              Common questions
+            </h2>
+            <FAQ items={faqItems} className="mt-6" />
           </div>
         </section>
       </main>

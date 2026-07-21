@@ -20,6 +20,7 @@ export function Footer({ locale = "en" }: FooterProps) {
   ];
 
   const toolsLinks = [
+    { href: "/postgresql-tools", label: "PostgreSQL Tools" },
     { href: "/postgres-viewer-mac", label: "Postgres Viewer" },
     { href: "/sql-editor", label: "SQL Editor" },
     { href: "/sql-compiler", label: "SQL Compiler" },
@@ -32,6 +33,7 @@ export function Footer({ locale = "en" }: FooterProps) {
 
   const resourceLinks = [
     { href: "/blog", label: "Blog" },
+    { href: "/postgresql-gui-mac", label: "PostgreSQL GUI for Mac" },
     { href: "/open-source-postgres-gui", label: "Open Source Postgres GUI" },
     { href: "/support", label: t.footer.supportLink },
     {
@@ -44,6 +46,11 @@ export function Footer({ locale = "en" }: FooterProps) {
 
   const compareLinks = [
     { href: "/alternatives/tableplus", label: `vs ${t.footer.tablePlusAlternative}` },
+    { href: "/alternatives/pgadmin", label: "vs pgAdmin" },
+    { href: "/alternatives/postico", label: "vs Postico" },
+    { href: "/alternatives/dbeaver", label: "vs DBeaver" },
+    { href: "/alternatives/beekeeper-studio", label: "vs Beekeeper Studio" },
+    { href: "/alternatives/datagrip", label: "vs DataGrip" },
   ];
 
   const legalLinks = [

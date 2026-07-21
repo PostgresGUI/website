@@ -1,5 +1,6 @@
 import { AppStoreBadge } from "@/components/app-store-badge";
 import { AppStoreLink, APP_STORE_LINK } from "@/components/app-store-link";
+import Link from "next/link";
 import { Highlights } from "@/components/highlights";
 import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import { Pricing } from "@/components/pricing";
@@ -9,7 +10,7 @@ import { NewFeatureBadge } from "@/components/new-feature-badge";
 import { GitHubButton } from "@/components/github-button";
 import { Testimonials } from "@/components/testimonials";
 import { getTranslations, Locale } from "@/lib/translations";
-import { Code2, Feather, Palette } from "lucide-react";
+import { Code2, Database, Feather, Palette, Wrench } from "lucide-react";
 
 export type HomepageProps = {
   appStoreLink?: string;
@@ -26,6 +27,29 @@ export async function Homepage({
     { icon: Code2, label: t.hero.trustLine.openSource },
     { icon: Palette, label: t.hero.trustLine.beautifulUI },
   ];
+  const seoPathways =
+    locale === "en"
+      ? [
+          {
+            href: "/postgresql-gui-mac",
+            title: "PostgreSQL GUI for Mac",
+            body: "Compare Mac Postgres clients and see where PostgresGUI fits.",
+            icon: Database,
+          },
+          {
+            href: "/postgresql-tools",
+            title: "Free PostgreSQL tools",
+            body: "Use the SQL editor, schema designer, data types guide, UUID generator, and more.",
+            icon: Wrench,
+          },
+          {
+            href: "/alternatives/dbeaver",
+            title: "DBeaver alternative",
+            body: "Choose between a universal database workbench and a focused native Mac Postgres client.",
+            icon: Code2,
+          },
+        ]
+      : [];
 
   return (
     <>
@@ -128,6 +152,38 @@ export async function Homepage({
           <Highlights locale={locale} />
         </div>
       </section>
+
+      {seoPathways.length > 0 && (
+        <section className="border-t border-border/20 bg-stone-100 px-6 py-14 dark:bg-stone-900">
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-8">
+              <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
+                Explore
+              </span>
+              <h2 className="mt-3 text-3xl font-display tracking-tight md:text-4xl">
+                Find the right Postgres workflow
+              </h2>
+            </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              {seoPathways.map(({ href, title, body, icon: Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="group rounded-lg border border-border bg-background p-5 transition-colors hover:border-[var(--postgres-blue)]"
+                >
+                  <Icon className="h-5 w-5 text-[var(--postgres-blue)]" />
+                  <h3 className="mt-4 text-xl font-semibold group-hover:text-[var(--postgres-blue)]">
+                    {title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                    {body}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Testimonials Section */}
       <Testimonials />

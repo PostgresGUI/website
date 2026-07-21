@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Free PostgreSQL Tools</title>
+  <desc id="desc">PostgresGUI tools hub social preview.</desc>
+  <rect width="1200" height="630" fill="#111827"/>
+  <rect x="90" y="84" width="1020" height="462" rx="30" fill="#f9fafb"/>
+  <text x="140" y="168" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800">Free PostgreSQL Tools</text>
+  <text x="140" y="224" fill="#475569" font-family="Arial, Helvetica, sans-serif" font-size="28">SQL editor, schema designer, data types, UUIDs, and more</text>
+  <g fill="#2563eb">
+    <rect x="140" y="290" width="260" height="92" rx="18"/>
+    <rect x="470" y="290" width="260" height="92" rx="18"/>
+    <rect x="800" y="290" width="260" height="92" rx="18"/>
+    <rect x="140" y="416" width="260" height="92" rx="18"/>
+    <rect x="470" y="416" width="260" height="92" rx="18"/>
+    <rect x="800" y="416" width="260" height="92" rx="18"/>
+  </g>
+  <g fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">
+    <text x="174" y="345">SQL Editor</text>
+    <text x="504" y="345">Schema Design</text>
+    <text x="834" y="345">Data Types</text>
+    <text x="174" y="471">Connections</text>
+    <text x="504" y="471">UUIDs</text>
+    <text x="834" y="471">Mac Client</text>
+  </g>
+</svg>

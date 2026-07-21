@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Open Source Postgres GUI</title>
+  <desc id="desc">Open source PostgresGUI social preview.</desc>
+  <rect width="1200" height="630" fill="#052e16"/>
+  <rect x="82" y="78" width="1036" height="474" rx="32" fill="#f0fdf4"/>
+  <text x="132" y="170" fill="#052e16" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="800">Open Source Postgres GUI</text>
+  <text x="132" y="226" fill="#166534" font-family="Arial, Helvetica, sans-serif" font-size="30">Inspect it, build it, or use the signed Mac app</text>
+  <rect x="132" y="306" width="936" height="112" rx="22" fill="#16a34a"/>
+  <text x="178" y="376" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800">No telemetry. No subscription. Public source.</text>
+  <text x="132" y="490" fill="#14532d" font-family="Arial, Helvetica, sans-serif" font-size="28">PostgresGUI for macOS</text>
+</svg>

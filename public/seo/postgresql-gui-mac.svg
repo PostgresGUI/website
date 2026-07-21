@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">PostgreSQL GUI for Mac</title>
+  <desc id="desc">PostgresGUI social preview for PostgreSQL GUI for Mac.</desc>
+  <rect width="1200" height="630" fill="#0f172a"/>
+  <rect x="70" y="70" width="1060" height="490" rx="28" fill="#f8fafc"/>
+  <rect x="112" y="118" width="976" height="70" rx="14" fill="#e2e8f0"/>
+  <circle cx="150" cy="153" r="10" fill="#ef4444"/>
+  <circle cx="184" cy="153" r="10" fill="#f59e0b"/>
+  <circle cx="218" cy="153" r="10" fill="#10b981"/>
+  <rect x="112" y="222" width="300" height="282" rx="18" fill="#1f2937"/>
+  <rect x="452" y="222" width="636" height="70" rx="16" fill="#2563eb"/>
+  <rect x="452" y="320" width="636" height="36" rx="8" fill="#cbd5e1"/>
+  <rect x="452" y="378" width="520" height="36" rx="8" fill="#cbd5e1"/>
+  <rect x="452" y="436" width="590" height="36" rx="8" fill="#cbd5e1"/>
+  <text x="150" y="330" fill="#f8fafc" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700">PostgresGUI</text>
+  <text x="150" y="386" fill="#93c5fd" font-family="Arial, Helvetica, sans-serif" font-size="26">Native Mac PostgreSQL client</text>
+  <text x="452" y="150" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="800">PostgreSQL GUI for Mac</text>
+  <text x="492" y="268" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Browse, query, edit, export</text>
+</svg>

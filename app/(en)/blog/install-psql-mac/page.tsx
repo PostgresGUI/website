@@ -95,6 +95,67 @@ brew link --force libpq`}</code></pre>
 
               <pre><code>{`psql -h localhost -p 5432 -U user -d database`}</code></pre>
 
+              <h2>Common psql install errors on Mac</h2>
+              <h3>zsh: command not found: psql</h3>
+              <p>
+                This usually means <code>psql</code> is installed but not on
+                your <code>PATH</code>, or it was not installed at all. Run{" "}
+                <code>which psql</code> first. If Homebrew installed{" "}
+                <code>libpq</code>, make sure the Homebrew binary directory is
+                linked or added to your shell profile.
+              </p>
+
+              <h3>psql: could not connect to server</h3>
+              <p>
+                This is not an install problem. It means the client is working
+                but cannot reach a PostgreSQL server at the host, port, user, or
+                database you provided. Check whether your local server is
+                running, whether Docker exposed port <code>5432</code>, or
+                whether your cloud provider requires SSL.
+              </p>
+
+              <h3>Password authentication failed</h3>
+              <p>
+                The connection reached Postgres, but the username, password, or
+                database permissions are wrong. Copy the connection string from
+                your provider again, then test the same credentials in a GUI so
+                you can separate credential issues from terminal syntax.
+              </p>
+
+              <h2>Useful psql commands after installation</h2>
+              <div className="overflow-x-auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Command</th>
+                      <th>What it does</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>\l</code></td>
+                      <td>List databases</td>
+                    </tr>
+                    <tr>
+                      <td><code>\c database_name</code></td>
+                      <td>Connect to another database</td>
+                    </tr>
+                    <tr>
+                      <td><code>\dt</code></td>
+                      <td>List tables in the current schema</td>
+                    </tr>
+                    <tr>
+                      <td><code>\d table_name</code></td>
+                      <td>Describe columns, indexes, and constraints</td>
+                    </tr>
+                    <tr>
+                      <td><code>\q</code></td>
+                      <td>Quit psql</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
               <h2>When to add a GUI</h2>
               <p>
                 <code>psql</code> is excellent for quick terminal work,

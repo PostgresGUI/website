@@ -74,6 +74,46 @@ export default function BestSqlIdeForPostgreSQLPage() {
                 browsing, but they can be enough for lightweight query editing.
               </p>
 
+              <h2>Comparison table</h2>
+              <div className="overflow-x-auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Tool</th>
+                      <th>Best for</th>
+                      <th>Main tradeoff</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>PostgresGUI</td>
+                      <td>Native Mac PostgreSQL work</td>
+                      <td>PostgreSQL-only</td>
+                    </tr>
+                    <tr>
+                      <td>DataGrip</td>
+                      <td>Full SQL IDE workflows</td>
+                      <td>More IDE than many browsing tasks need</td>
+                    </tr>
+                    <tr>
+                      <td>DBeaver</td>
+                      <td>Free multi-database workbench</td>
+                      <td>Less Mac-native and broader than Postgres-only work</td>
+                    </tr>
+                    <tr>
+                      <td>TablePlus</td>
+                      <td>Polished multi-database Mac app</td>
+                      <td>Not open source</td>
+                    </tr>
+                    <tr>
+                      <td>pgAdmin</td>
+                      <td>PostgreSQL administration</td>
+                      <td>Heavier for routine Mac development</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
               <h2>How to choose</h2>
               <ul>
                 <li>
@@ -93,6 +133,21 @@ export default function BestSqlIdeForPostgreSQLPage() {
                   coverage.
                 </li>
               </ul>
+
+              <h2>What matters for PostgreSQL specifically?</h2>
+              <p>
+                PostgreSQL tools should make schemas, data types, JSONB, result
+                sets, transactions, connection strings, and SSL settings easy
+                to inspect. A generic SQL IDE can be excellent for query
+                authoring, but a daily PostgreSQL GUI should also help you
+                understand the shape of a database quickly.
+              </p>
+
+              <p>
+                That is why the best SQL IDE for PostgreSQL is not always the
+                largest IDE. If you are debugging app data on a Mac, a fast
+                native table browser and query editor can be the better default.
+              </p>
             </div>
 
             <BlogPostFooter post={post} />

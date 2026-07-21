@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">pgAdmin Alternative for Mac</title>
+  <desc id="desc">PostgresGUI versus pgAdmin social preview.</desc>
+  <rect width="1200" height="630" fill="#1d4ed8"/>
+  <rect x="80" y="76" width="1040" height="478" rx="32" fill="#eff6ff"/>
+  <text x="130" y="170" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="800">pgAdmin Alternative</text>
+  <text x="130" y="226" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="30">Native Mac PostgreSQL client, no local web server</text>
+  <rect x="130" y="310" width="430" height="128" rx="22" fill="#2563eb"/>
+  <rect x="640" y="310" width="430" height="128" rx="22" fill="#bfdbfe"/>
+  <text x="174" y="384" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800">PostgresGUI</text>
+  <text x="684" y="384" fill="#1e3a8a" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800">pgAdmin</text>
+</svg>

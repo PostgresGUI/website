@@ -79,6 +79,38 @@ psql --version`}</code></pre>
                 familiar and well documented.
               </p>
 
+              <h2>Docker</h2>
+              <p>
+                Docker is a good choice when you want a disposable local
+                PostgreSQL database per project. It keeps the server isolated
+                from your Mac and makes it easier to match a production version.
+                The tradeoff is that you still need a client: <code>psql</code>{" "}
+                for terminal work or a GUI for visual browsing.
+              </p>
+
+              <pre><code>{`docker run --name local-postgres \\
+  -e POSTGRES_PASSWORD=postgres \\
+  -p 5432:5432 \\
+  -d postgres:16`}</code></pre>
+
+              <h2>Cloud PostgreSQL</h2>
+              <p>
+                If your database already lives on Supabase, Neon, RDS, Railway,
+                Render, Fly.io, or another hosted provider, you probably do not
+                need to download a local PostgreSQL server at all. Copy the
+                provider&apos;s connection string, install a client, and connect
+                over SSL if your provider requires it.
+              </p>
+
+              <h2>Mac setup checklist</h2>
+              <ul>
+                <li>Install a server only if you need local databases.</li>
+                <li>Install <code>psql</code> if you want terminal access.</li>
+                <li>Install a GUI if you browse tables or inspect results visually.</li>
+                <li>Save connection strings in a password manager or secure notes, not in shell history.</li>
+                <li>Use separate databases for local development, staging, and production.</li>
+              </ul>
+
               <h2>PostgresGUI</h2>
               <p>
                 PostgresGUI is not a PostgreSQL server. It is a native Mac

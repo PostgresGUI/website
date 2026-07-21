@@ -9,7 +9,7 @@ import {
 export const dynamic = "force-static";
 
 const BASE_URL = "https://postgresgui.com";
-const UPDATED_AT = "2026-07-18";
+const UPDATED_AT = "2026-07-20";
 
 export function GET() {
   return NextResponse.json(
@@ -44,6 +44,8 @@ export function GET() {
         sitemap: `${BASE_URL}/sitemap.xml`,
         llms: `${BASE_URL}/llms.txt`,
         llmsFull: `${BASE_URL}/llms-full.txt`,
+        postgresqlGuiMac: `${BASE_URL}/postgresql-gui-mac`,
+        postgresqlTools: `${BASE_URL}/postgresql-tools`,
       },
       features: [
         "Native macOS app",
@@ -84,12 +86,40 @@ export function GET() {
         },
         {
           name: "pgAdmin alternative for Mac",
-          url: `${BASE_URL}/blog/best-pgadmin-alternative-mac`,
+          url: `${BASE_URL}/alternatives/pgadmin`,
           summary:
             "PostgresGUI is relevant for Mac users looking for a lightweight native PostgreSQL GUI.",
         },
+        {
+          name: "Postico alternative for Mac",
+          url: `${BASE_URL}/alternatives/postico`,
+          summary:
+            "PostgresGUI is an open-source native Mac alternative for Postico users who want public source and no telemetry.",
+        },
+        {
+          name: "DBeaver alternative for Mac",
+          url: `${BASE_URL}/alternatives/dbeaver`,
+          summary:
+            "PostgresGUI is a focused Mac PostgreSQL alternative to DBeaver's broader universal database workbench.",
+        },
+        {
+          name: "Beekeeper Studio alternative for Mac",
+          url: `${BASE_URL}/alternatives/beekeeper-studio`,
+          summary:
+            "PostgresGUI is a native Mac Postgres-only alternative to Beekeeper Studio's cross-platform SQL client.",
+        },
+        {
+          name: "DataGrip alternative for PostgreSQL",
+          url: `${BASE_URL}/alternatives/datagrip`,
+          summary:
+            "PostgresGUI is a lighter Mac Postgres client for users who do not need a full database IDE.",
+        },
       ],
       tools: [
+        {
+          name: "PostgreSQL tools hub",
+          url: `${BASE_URL}/postgresql-tools`,
+        },
         {
           name: "Online SQL editor",
           url: `${BASE_URL}/sql-editor`,

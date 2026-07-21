@@ -24,13 +24,20 @@ PostgresGUI is for Mac developers, database administrators, students, and teams 
 - Download: https://postgresgui.com/download
 - Support: https://postgresgui.com/support
 - Privacy: https://postgresgui.com/privacy
+- PostgreSQL GUI for Mac: https://postgresgui.com/postgresql-gui-mac
+- PostgreSQL tools hub: https://postgresgui.com/postgresql-tools
 - TablePlus alternative: https://postgresgui.com/alternatives/tableplus
-- pgAdmin alternative for Mac: https://postgresgui.com/blog/best-pgadmin-alternative-mac
+- pgAdmin alternative for Mac: https://postgresgui.com/alternatives/pgadmin
+- Postico alternative for Mac: https://postgresgui.com/alternatives/postico
+- DBeaver alternative for Mac: https://postgresgui.com/alternatives/dbeaver
+- Beekeeper Studio alternative for Mac: https://postgresgui.com/alternatives/beekeeper-studio
+- DataGrip alternative for PostgreSQL: https://postgresgui.com/alternatives/datagrip
 - Best Mac PostgreSQL GUI client: https://postgresgui.com/blog/best-mac-postgresql-gui-client
 
 ## Free Tools
 
 - Online SQL editor: https://postgresgui.com/sql-editor
+- Online SQL compiler: https://postgresgui.com/sql-compiler
 - Online schema designer: https://postgresgui.com/schema-designer
 - SQL cheatsheet: https://postgresgui.com/sql-cheatsheet
 - PostgreSQL data types guide: https://postgresgui.com/data-types

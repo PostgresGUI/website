@@ -74,6 +74,23 @@ export default function PostgresColumnTypesPage() {
                 regularly.
               </p>
 
+              <h2>Enums, checks, and lookup tables</h2>
+              <p>
+                Postgres gives you several ways to model a small set of allowed
+                values. Use an enum when the list is stable and belongs in the
+                database type system. Use a <code>CHECK</code> constraint when
+                you want a lightweight rule on a text column. Use a lookup table
+                when the values need labels, ordering, permissions, or frequent
+                edits.
+              </p>
+
+              <pre><code>{`create table orders (
+  id generated always as identity primary key,
+  status text not null check (status in ('draft', 'paid', 'shipped')),
+  total numeric(12, 2) not null,
+  created_at timestamptz not null default now()
+);`}</code></pre>
+
               <h2>Arrays and booleans</h2>
               <p>
                 Arrays are useful for small lists attached to one row, but a
@@ -115,6 +132,15 @@ export default function PostgresColumnTypesPage() {
                   </tbody>
                 </table>
               </div>
+
+              <h2>Rules of thumb</h2>
+              <ul>
+                <li>Prefer <code>text</code> until a length limit is a real product rule.</li>
+                <li>Use <code>timestamptz</code> for events that happened at a specific moment.</li>
+                <li>Use <code>numeric</code> for exact decimal math and <code>double precision</code> for approximate scientific values.</li>
+                <li>Keep frequently queried JSON fields as normal typed columns.</li>
+                <li>Prefer generated identity columns over older <code>serial</code> defaults for new schemas.</li>
+              </ul>
             </div>
 
             <BlogPostFooter post={post} />

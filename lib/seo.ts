@@ -178,7 +178,10 @@ export function getTablePlusAlternativeMetadata(locale: Locale = "en"): Metadata
       locale: seo.ogLocale,
       images: [
         {
-          url: "https://postgresgui.com/postgresgui-og-image.jpg",
+          url:
+            locale === "en"
+              ? "https://postgresgui.com/seo/tableplus-alternative.svg"
+              : "https://postgresgui.com/postgresgui-og-image.jpg",
           width: 1200,
           height: 630,
           alt: seo.title,
@@ -193,7 +196,10 @@ export function getTablePlusAlternativeMetadata(locale: Locale = "en"): Metadata
       description: seo.description,
       images: [
         {
-          url: "https://postgresgui.com/postgresgui-og-image.jpg",
+          url:
+            locale === "en"
+              ? "https://postgresgui.com/seo/tableplus-alternative.svg"
+              : "https://postgresgui.com/postgresgui-og-image.jpg",
           alt: seo.title,
         },
       ],

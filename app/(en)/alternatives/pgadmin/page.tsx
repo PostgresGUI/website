@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { AlternativePage } from "@/components/alternative-page";
 import { pgadminData } from "@/lib/alternatives-data";
-import { PRICE_AMOUNT } from "@/lib/constants";
+import { alternativeJsonLd } from "@/lib/seo-helpers";
 
 const CANONICAL = "https://postgresgui.com/alternatives/pgadmin";
 
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
+        url: "https://postgresgui.com/seo/pgadmin-alternative.svg",
         width: 1200,
         height: 630,
         alt: pgadminData.seo.title,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     description: pgadminData.seo.description,
     images: [
       {
-        url: "https://postgresgui.com/postgresgui-og-image.jpg",
+        url: "https://postgresgui.com/seo/pgadmin-alternative.svg",
         alt: pgadminData.seo.title,
       },
     ],
@@ -47,20 +47,7 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "PostgresGUI",
-  operatingSystem: "macOS",
-  applicationCategory: "DeveloperApplication",
-  description:
-    "A lightweight, open source PostgreSQL client for Mac. Native Swift app with no subscription fees.",
-  offers: {
-    "@type": "Offer",
-    price: PRICE_AMOUNT,
-    priceCurrency: "USD",
-  },
-};
+const jsonLd = alternativeJsonLd(pgadminData, CANONICAL);
 
 export default function PgAdminAlternative() {
   return (

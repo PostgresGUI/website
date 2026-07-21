@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Online SQL Compiler</title>
+  <desc id="desc">Online SQL compiler and query editor social preview.</desc>
+  <rect width="1200" height="630" fill="#111827"/>
+  <rect x="86" y="82" width="1028" height="466" rx="30" fill="#020617"/>
+  <text x="136" y="164" fill="#f8fafc" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="800">Online SQL Compiler</text>
+  <text x="136" y="220" fill="#93c5fd" font-family="Arial, Helvetica, sans-serif" font-size="30">Run SQL queries in your browser</text>
+  <rect x="136" y="286" width="500" height="188" rx="18" fill="#0f172a"/>
+  <rect x="680" y="286" width="384" height="188" rx="18" fill="#f8fafc"/>
+  <text x="172" y="344" fill="#22c55e" font-family="Menlo, Consolas, monospace" font-size="26">select * from users;</text>
+  <text x="172" y="394" fill="#38bdf8" font-family="Menlo, Consolas, monospace" font-size="26">run query</text>
+  <text x="720" y="344" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800">Results</text>
+  <rect x="720" y="376" width="296" height="22" rx="6" fill="#cbd5e1"/>
+  <rect x="720" y="420" width="250" height="22" rx="6" fill="#cbd5e1"/>
+</svg>

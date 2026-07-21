@@ -48,7 +48,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  const englishAlternatives = ["pgadmin", "postico"].map((slug) => ({
+  const englishAlternatives = [
+    "pgadmin",
+    "postico",
+    "dbeaver",
+    "beekeeper-studio",
+    "datagrip",
+  ].map((slug) => ({
     url: `${baseUrl}/alternatives/${slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
@@ -60,6 +66,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...localizedDownloads,
     ...localizedTablePlusAlternatives,
     ...englishAlternatives,
+    {
+      url: `${baseUrl}/postgresql-gui-mac`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/postgresql-tools`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
     {
       url: `${baseUrl}/postgres-viewer-mac`,
       lastModified: new Date(),

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">TablePlus Alternative for Mac</title>
+  <desc id="desc">PostgresGUI versus TablePlus social preview.</desc>
+  <rect width="1200" height="630" fill="#0f172a"/>
+  <rect x="80" y="76" width="1040" height="478" rx="32" fill="#f8fafc"/>
+  <text x="130" y="170" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="800">TablePlus Alternative</text>
+  <text x="130" y="226" fill="#475569" font-family="Arial, Helvetica, sans-serif" font-size="30">Open-source Postgres client for Mac</text>
+  <rect x="130" y="304" width="936" height="96" rx="20" fill="#2563eb"/>
+  <text x="176" y="364" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="800">Postgres-only, native, lightweight, no subscription</text>
+  <text x="130" y="474" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="26">PostgresGUI</text>
+</svg>

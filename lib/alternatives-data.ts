@@ -448,3 +448,541 @@ export const posticoData: AlternativeData = {
   },
   lastUpdatedISO: "2026-04-10",
 };
+
+// ---------------------------------------------------------------------------
+// DBeaver
+// ---------------------------------------------------------------------------
+
+export const dbeaverData: AlternativeData = {
+  competitor: "DBeaver",
+  slug: "dbeaver",
+  headline: "Looking for a DBeaver Alternative for Mac?",
+  highlightWord: "DBeaver",
+  subheadline:
+    "DBeaver is a capable universal database tool. PostgresGUI is the calmer Mac-native choice when your daily work is PostgreSQL and you do not need one app for every database engine.",
+  painPointsLabel: "Common tradeoffs",
+  painPointsHeadline: "Why Postgres developers look beyond a universal tool",
+  painPointsDescription:
+    "DBeaver Community is free and open source, and it covers a huge range of databases. That breadth is useful, but it can feel like more tool than a Mac Postgres workflow needs.",
+  painPoints: [
+    {
+      icon: "Layers",
+      title: "Built for many databases",
+      description:
+        "DBeaver's strength is broad database coverage. If you only use PostgreSQL, the extra connection types, drivers, panels, and preferences can add daily noise.",
+      sourceNum: 1,
+    },
+    {
+      icon: "Gauge",
+      title: "Heavier desktop experience",
+      description:
+        "DBeaver is a cross-platform desktop workbench with a plugin-oriented architecture. It is powerful, but it does not feel like a small native Mac utility.",
+    },
+    {
+      icon: "EyeOff",
+      title: "Less Mac-native by design",
+      description:
+        "Cross-platform consistency means DBeaver cannot fully lean into macOS conventions, App Store updates, or Swift-native interface behavior.",
+    },
+    {
+      icon: "AlertTriangle",
+      title: "Feature discovery takes time",
+      description:
+        "The tool is deep. New teammates often spend time learning workbench concepts before they get to the query and table workflows they needed.",
+    },
+  ],
+  advantagesLabel: "The focused alternative",
+  advantagesHeadline: "PostgresGUI keeps the Mac workflow narrow",
+  advantagesDescription:
+    "PostgresGUI trades universal database breadth for a smaller, native PostgreSQL client that opens quickly and keeps common Postgres tasks close at hand.",
+  advantages: [
+    {
+      icon: "Cpu",
+      title: "Native macOS app",
+      description:
+        "PostgresGUI is written for Mac instead of adapted to Mac. It uses native macOS patterns for a simpler desktop feel.",
+      highlight: "Native",
+    },
+    {
+      icon: "Feather",
+      title: "Lightweight footprint",
+      description:
+        "The app stays focused on PostgreSQL browsing, querying, editing, and export flows instead of bundling a universal database workbench.",
+      highlight: "Small",
+    },
+    {
+      icon: "Code2",
+      title: "Open source",
+      description:
+        "Like DBeaver Community, PostgresGUI is open source. You can inspect the code, build it yourself, and file issues publicly.",
+      highlight: "Open",
+    },
+    {
+      icon: "Sparkles",
+      title: "Postgres-first UI",
+      description:
+        "Tables, query results, JSON viewing, CSV export, and connection setup are the center of the app rather than one workflow among many engines.",
+      highlight: "Focused",
+    },
+  ],
+  comparisonLabel: "Side by side",
+  comparisonHeadline: "PostgresGUI vs DBeaver",
+  comparisonDescription:
+    "Choose based on whether you need a universal database workbench or a native Mac PostgreSQL client.",
+  comparison: [
+    {
+      feature: "Primary focus",
+      postgresgui: { type: "text", value: "PostgreSQL on Mac", highlight: true },
+      competitor: { type: "text", value: "Universal database tool" },
+    },
+    {
+      feature: "Platform approach",
+      postgresgui: { type: "text", value: "Native macOS", highlight: true },
+      competitor: { type: "text", value: "Cross-platform desktop" },
+    },
+    {
+      feature: "Open source",
+      postgresgui: { type: "check" },
+      competitor: { type: "check" },
+    },
+    {
+      feature: "Free path",
+      postgresgui: { type: "text", value: "Build from source", highlight: true },
+      competitor: { type: "text", value: "Community Edition" },
+    },
+    {
+      feature: "Best for",
+      postgresgui: { type: "text", value: "Focused Mac Postgres work", highlight: true },
+      competitor: { type: "text", value: "Many database engines" },
+    },
+    {
+      feature: "App Store install",
+      postgresgui: { type: "check" },
+      competitor: { type: "x" },
+    },
+  ],
+  whenToChooseLabel: "Honest assessment",
+  whenToChooseHeadline: "Which tool is right for you?",
+  whenToChooseDescription:
+    "DBeaver is excellent when breadth matters. PostgresGUI is better when a focused Mac Postgres client is enough.",
+  choosePostgresGuiReasons: [
+    "You mostly work with PostgreSQL on macOS.",
+    "You want a smaller app with a Mac-native interface.",
+    "You prefer table browsing and query workflows without universal workbench complexity.",
+    "You want App Store distribution while keeping source access.",
+  ],
+  chooseCompetitorReasons: [
+    "You manage many database engines from one desktop tool.",
+    "You need advanced workbench features, plugins, or broad driver support.",
+    "Your team uses Windows, Linux, and macOS and wants one shared tool.",
+  ],
+  faqItems: [
+    {
+      question: "Is PostgresGUI a DBeaver replacement?",
+      answer:
+        "It can replace DBeaver for common PostgreSQL work on Mac: connecting, browsing tables, running queries, editing rows, viewing JSON, and exporting CSV. It is not a universal multi-database workbench.",
+    },
+    {
+      question: "Is DBeaver free?",
+      answer:
+        "DBeaver Community is positioned by DBeaver as a free, open-source database management tool. DBeaver also offers paid products for professional and team workflows.",
+    },
+    {
+      question: "Why choose PostgresGUI over DBeaver on Mac?",
+      answer:
+        "Choose PostgresGUI when you want a native Mac app focused on PostgreSQL rather than a broader cross-platform workbench for many databases.",
+    },
+    {
+      question: "Can PostgresGUI manage MySQL or SQLite?",
+      answer:
+        "No. PostgresGUI is PostgreSQL-focused. If you need MySQL, SQLite, Oracle, SQL Server, and Postgres in one app, DBeaver is a better match.",
+    },
+  ],
+  sources: [
+    {
+      num: 1,
+      title: "DBeaver Community official site",
+      url: "https://dbeaver.io/",
+    },
+    {
+      num: 2,
+      title: "DBeaver Community download page",
+      url: "https://dbeaver.io/download/",
+    },
+  ],
+  seo: {
+    title: "DBeaver Alternative for Mac — PostgresGUI | Native PostgreSQL Client",
+    description:
+      "Looking for a DBeaver alternative for Mac? PostgresGUI is a native, open-source PostgreSQL client for focused Mac Postgres workflows.",
+    keywords: [
+      "dbeaver alternative",
+      "dbeaver alternative mac",
+      "dbeaver alternative postgresql",
+      "dbeaver vs postgresgui",
+      "postgresql gui mac",
+      "postgres client mac",
+      "native postgresql client mac",
+      "open source postgres gui",
+    ],
+  },
+  lastUpdatedISO: "2026-07-20",
+};
+
+// ---------------------------------------------------------------------------
+// Beekeeper Studio
+// ---------------------------------------------------------------------------
+
+export const beekeeperStudioData: AlternativeData = {
+  competitor: "Beekeeper Studio",
+  slug: "beekeeper-studio",
+  headline: "Looking for a Beekeeper Studio Alternative for Mac?",
+  highlightWord: "Beekeeper Studio",
+  subheadline:
+    "Beekeeper Studio is a polished cross-platform SQL client. PostgresGUI is the native Mac alternative for developers who want a smaller PostgreSQL-only workflow.",
+  painPointsLabel: "Common tradeoffs",
+  painPointsHeadline: "Why Postgres-only Mac users compare alternatives",
+  painPointsDescription:
+    "Beekeeper Studio is modern and approachable, with support for many databases. The question is whether you need cross-platform breadth or a native Mac Postgres client.",
+  painPoints: [
+    {
+      icon: "Layers",
+      title: "Multi-database scope",
+      description:
+        "Beekeeper Studio supports MySQL, PostgreSQL, SQLite, SQL Server, and more. That is great for mixed stacks, but broader than a dedicated Postgres app.",
+      sourceNum: 1,
+    },
+    {
+      icon: "DollarSign",
+      title: "Paid tiers for advanced needs",
+      description:
+        "Beekeeper Studio has a free Community Edition and paid Indie, Professional, and Business plans. Teams should check the current pricing before standardizing.",
+      sourceNum: 2,
+    },
+    {
+      icon: "EyeOff",
+      title: "Cross-platform interface",
+      description:
+        "Cross-platform consistency is useful, but it usually means fewer platform-specific macOS details than a native Swift app can provide.",
+    },
+    {
+      icon: "AlertTriangle",
+      title: "Not Postgres-only",
+      description:
+        "When PostgreSQL is your only database, multi-engine navigation and messaging can feel less direct than a tool designed around Postgres workflows.",
+    },
+  ],
+  advantagesLabel: "The native Mac path",
+  advantagesHeadline: "A smaller Postgres client for macOS",
+  advantagesDescription:
+    "PostgresGUI keeps the scope tight: connect to Postgres, browse tables, run queries, edit rows, view JSON, and export data in a native Mac app.",
+  advantages: [
+    {
+      icon: "Cpu",
+      title: "Swift-native macOS app",
+      description:
+        "PostgresGUI is built specifically for Mac, so it can lean into platform conventions rather than matching every operating system.",
+      highlight: "Mac-first",
+    },
+    {
+      icon: "Feather",
+      title: "Focused PostgreSQL workflow",
+      description:
+        "No engine switcher, no multi-database positioning, no broad SQL client baggage when your work is Postgres.",
+      highlight: "Focused",
+    },
+    {
+      icon: "DollarSign",
+      title: "No subscription",
+      description:
+        "The signed Mac App Store version is a one-time purchase, and the source can be built directly from GitHub.",
+      highlight: "Own it",
+    },
+    {
+      icon: "Code2",
+      title: "Open source",
+      description:
+        "PostgresGUI is transparent and contributor-friendly, with public source and issue tracking.",
+      highlight: "Open",
+    },
+  ],
+  comparisonLabel: "Side by side",
+  comparisonHeadline: "PostgresGUI vs Beekeeper Studio",
+  comparisonDescription:
+    "Both are approachable database clients. The important difference is cross-platform breadth versus native Mac Postgres focus.",
+  comparison: [
+    {
+      feature: "Primary focus",
+      postgresgui: { type: "text", value: "PostgreSQL on Mac", highlight: true },
+      competitor: { type: "text", value: "SQL client for many engines" },
+    },
+    {
+      feature: "Platforms",
+      postgresgui: { type: "text", value: "macOS", highlight: true },
+      competitor: { type: "text", value: "Mac, Windows, Linux" },
+    },
+    {
+      feature: "Open source",
+      postgresgui: { type: "check" },
+      competitor: { type: "check" },
+    },
+    {
+      feature: "Pricing model",
+      postgresgui: { type: "price", value: "$12.99", note: "one-time App Store", highlight: true },
+      competitor: { type: "text", value: "Free + paid tiers" },
+    },
+    {
+      feature: "Best for",
+      postgresgui: { type: "text", value: "Native Mac Postgres work", highlight: true },
+      competitor: { type: "text", value: "Mixed-database workflows" },
+    },
+    {
+      feature: "App Store install",
+      postgresgui: { type: "check" },
+      competitor: { type: "x" },
+    },
+  ],
+  whenToChooseLabel: "Honest assessment",
+  whenToChooseHeadline: "Which tool is right for you?",
+  whenToChooseDescription:
+    "Beekeeper Studio is a strong choice for mixed stacks. PostgresGUI is a better fit when your database work is Postgres on Mac.",
+  choosePostgresGuiReasons: [
+    "You work on macOS and want a native desktop app.",
+    "You only need PostgreSQL and prefer fewer cross-database concepts.",
+    "You want a one-time App Store purchase instead of per-user paid tiers.",
+    "You want a focused table browser, SQL editor, JSON viewer, and CSV export flow.",
+  ],
+  chooseCompetitorReasons: [
+    "You need one SQL client across Mac, Windows, and Linux.",
+    "You work with MySQL, SQLite, SQL Server, and PostgreSQL side by side.",
+    "You prefer Beekeeper Studio's community edition or paid team features.",
+  ],
+  faqItems: [
+    {
+      question: "Is PostgresGUI a Beekeeper Studio alternative?",
+      answer:
+        "Yes, for Mac users whose work is primarily PostgreSQL. PostgresGUI is not a replacement if you rely on Beekeeper Studio for many database engines.",
+    },
+    {
+      question: "Is Beekeeper Studio open source?",
+      answer:
+        "Beekeeper Studio describes itself as open source and offers a free Community Edition, with paid plans for additional professional and business features.",
+    },
+    {
+      question: "Why choose PostgresGUI instead?",
+      answer:
+        "Choose PostgresGUI when native macOS feel, Postgres-only focus, no telemetry, and a one-time App Store purchase matter more than cross-platform database breadth.",
+    },
+    {
+      question: "Does PostgresGUI have a free version?",
+      answer:
+        "The source code can be built for free from GitHub. The signed Mac App Store build is paid once and supports continued development.",
+    },
+  ],
+  sources: [
+    {
+      num: 1,
+      title: "Beekeeper Studio official site",
+      url: "https://www.beekeeperstudio.io/",
+    },
+    {
+      num: 2,
+      title: "Beekeeper Studio pricing",
+      url: "https://www.beekeeperstudio.io/pricing/",
+    },
+  ],
+  seo: {
+    title: "Beekeeper Studio Alternative for Mac — PostgresGUI",
+    description:
+      "Looking for a Beekeeper Studio alternative for Mac? PostgresGUI is a native, open-source PostgreSQL client with no subscription.",
+    keywords: [
+      "beekeeper studio alternative",
+      "beekeeper studio alternative mac",
+      "beekeeper studio vs postgresgui",
+      "postgresql gui mac",
+      "postgres client mac",
+      "open source postgres gui",
+      "native postgresql client mac",
+    ],
+  },
+  lastUpdatedISO: "2026-07-20",
+};
+
+// ---------------------------------------------------------------------------
+// DataGrip
+// ---------------------------------------------------------------------------
+
+export const datagripData: AlternativeData = {
+  competitor: "DataGrip",
+  slug: "datagrip",
+  headline: "Looking for a DataGrip Alternative for PostgreSQL?",
+  highlightWord: "DataGrip",
+  subheadline:
+    "DataGrip is a powerful database IDE. PostgresGUI is a lighter native Mac PostgreSQL client for teams that want to browse data and run queries without opening a full IDE.",
+  painPointsLabel: "Common tradeoffs",
+  painPointsHeadline: "Why some Postgres users want less IDE",
+  painPointsDescription:
+    "DataGrip is excellent when SQL intelligence, refactoring, many databases, and IDE-style workflows matter. It can be more than you need for quick Mac Postgres work.",
+  painPoints: [
+    {
+      icon: "Layers",
+      title: "Full IDE scope",
+      description:
+        "DataGrip is positioned by JetBrains as a powerful cross-platform IDE for relational and NoSQL databases. That depth is useful, but not every query workflow needs it.",
+      sourceNum: 1,
+    },
+    {
+      icon: "DollarSign",
+      title: "Commercial licensing for work",
+      description:
+        "JetBrains lists DataGrip as free for non-commercial use with paid plans for commercial use. Teams should verify current licensing for their use case.",
+      sourceNum: 2,
+    },
+    {
+      icon: "Gauge",
+      title: "Project and indexing overhead",
+      description:
+        "IDE-style tools tend to shine in larger environments, but for inspecting a table or running a quick query, that power can feel heavy.",
+    },
+    {
+      icon: "EyeOff",
+      title: "Not a native Mac utility",
+      description:
+        "DataGrip is cross-platform. PostgresGUI is built specifically as a Mac app for PostgreSQL work.",
+    },
+  ],
+  advantagesLabel: "The lightweight alternative",
+  advantagesHeadline: "PostgresGUI is for quick, focused Postgres work",
+  advantagesDescription:
+    "Use DataGrip when you need an IDE. Use PostgresGUI when you want a native Mac Postgres client that opens fast and keeps the interface simple.",
+  advantages: [
+    {
+      icon: "Feather",
+      title: "Lighter daily workflow",
+      description:
+        "Open the app, connect, browse, query, edit, and export. No project model required for routine Postgres work.",
+      highlight: "Fast",
+    },
+    {
+      icon: "Cpu",
+      title: "Native macOS feel",
+      description:
+        "PostgresGUI is designed for Mac users who want a desktop client that feels at home on macOS.",
+      highlight: "Native",
+    },
+    {
+      icon: "DollarSign",
+      title: "One-time purchase",
+      description:
+        "A small App Store purchase covers the signed build, with source available on GitHub if you prefer to build it yourself.",
+      highlight: "Simple",
+    },
+    {
+      icon: "Lock",
+      title: "No telemetry",
+      description:
+        "PostgresGUI does not collect usage data or send your database activity anywhere.",
+      highlight: "Private",
+    },
+  ],
+  comparisonLabel: "Side by side",
+  comparisonHeadline: "PostgresGUI vs DataGrip",
+  comparisonDescription:
+    "This is a comparison between a focused Mac PostgreSQL client and a full database IDE.",
+  comparison: [
+    {
+      feature: "Product type",
+      postgresgui: { type: "text", value: "Native Mac Postgres client", highlight: true },
+      competitor: { type: "text", value: "Cross-platform database IDE" },
+    },
+    {
+      feature: "Database scope",
+      postgresgui: { type: "text", value: "PostgreSQL", highlight: true },
+      competitor: { type: "text", value: "Relational + NoSQL databases" },
+    },
+    {
+      feature: "Best for",
+      postgresgui: { type: "text", value: "Browse, query, edit, export", highlight: true },
+      competitor: { type: "text", value: "SQL intelligence and IDE workflows" },
+    },
+    {
+      feature: "Pricing model",
+      postgresgui: { type: "price", value: "$12.99", note: "one-time App Store", highlight: true },
+      competitor: { type: "text", value: "Free non-commercial + paid plans" },
+    },
+    {
+      feature: "Open source",
+      postgresgui: { type: "check" },
+      competitor: { type: "x" },
+    },
+    {
+      feature: "Telemetry",
+      postgresgui: { type: "text", value: "None", highlight: true },
+      competitor: { type: "text", value: "See JetBrains settings" },
+    },
+  ],
+  whenToChooseLabel: "Honest assessment",
+  whenToChooseHeadline: "Which tool is right for you?",
+  whenToChooseDescription:
+    "DataGrip is the stronger IDE. PostgresGUI is the simpler native Mac Postgres client.",
+  choosePostgresGuiReasons: [
+    "You do not need a full SQL IDE for routine PostgreSQL work.",
+    "You want native macOS feel and a small focused app.",
+    "You prefer open source and no telemetry.",
+    "You want a simple one-time App Store purchase for signed builds.",
+  ],
+  chooseCompetitorReasons: [
+    "You want advanced SQL completion, refactoring, inspections, and JetBrains IDE integrations.",
+    "You work with several relational and NoSQL databases.",
+    "Your team already standardizes on JetBrains tools.",
+  ],
+  faqItems: [
+    {
+      question: "Is PostgresGUI a DataGrip replacement?",
+      answer:
+        "It replaces DataGrip for common PostgreSQL browsing, query, edit, and export workflows on Mac. It does not try to replace DataGrip's full IDE feature set.",
+    },
+    {
+      question: "Is DataGrip free?",
+      answer:
+        "JetBrains describes DataGrip as free for non-commercial use and offers paid commercial plans. Always check JetBrains for current licensing details.",
+    },
+    {
+      question: "Why choose PostgresGUI over DataGrip?",
+      answer:
+        "Choose PostgresGUI when you want a native, lightweight Mac app for PostgreSQL instead of a full cross-platform database IDE.",
+    },
+    {
+      question: "Can PostgresGUI work with NoSQL databases?",
+      answer:
+        "No. PostgresGUI focuses on PostgreSQL. DataGrip is a better fit if you need relational and NoSQL database support in one IDE.",
+    },
+  ],
+  sources: [
+    {
+      num: 1,
+      title: "JetBrains DataGrip product page",
+      url: "https://www.jetbrains.com/datagrip/",
+    },
+    {
+      num: 2,
+      title: "JetBrains DataGrip buy page",
+      url: "https://www.jetbrains.com/datagrip/buy/",
+    },
+  ],
+  seo: {
+    title: "DataGrip Alternative for PostgreSQL — PostgresGUI",
+    description:
+      "Looking for a DataGrip alternative for PostgreSQL on Mac? PostgresGUI is a lightweight native Mac Postgres client with no telemetry.",
+    keywords: [
+      "datagrip alternative",
+      "datagrip alternative mac",
+      "datagrip alternative postgresql",
+      "datagrip vs postgresgui",
+      "postgresql gui mac",
+      "postgres client mac",
+      "best sql ide postgres",
+      "native postgresql client mac",
+    ],
+  },
+  lastUpdatedISO: "2026-07-20",
+};

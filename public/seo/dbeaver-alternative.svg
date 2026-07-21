@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">DBeaver Alternative for Mac</title>
+  <desc id="desc">PostgresGUI versus DBeaver social preview.</desc>
+  <rect width="1200" height="630" fill="#1e293b"/>
+  <rect x="80" y="76" width="1040" height="478" rx="32" fill="#f8fafc"/>
+  <text x="130" y="170" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="800">DBeaver Alternative</text>
+  <text x="130" y="226" fill="#475569" font-family="Arial, Helvetica, sans-serif" font-size="30">A focused native Mac Postgres client</text>
+  <rect x="130" y="300" width="430" height="140" rx="22" fill="#2563eb"/>
+  <rect x="640" y="300" width="430" height="140" rx="22" fill="#e2e8f0"/>
+  <text x="174" y="356" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800">PostgresGUI</text>
+  <text x="174" y="402" fill="#dbeafe" font-family="Arial, Helvetica, sans-serif" font-size="24">Native, small, Postgres-only</text>
+  <text x="684" y="356" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800">DBeaver</text>
+  <text x="684" y="402" fill="#475569" font-family="Arial, Helvetica, sans-serif" font-size="24">Universal, broad, cross-platform</text>
+</svg>

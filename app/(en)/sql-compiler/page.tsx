@@ -1,7 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FAQ } from "@/components/faq";
+import { absoluteUrl, faqJsonLd } from "@/lib/seo-helpers";
 
 const CANONICAL = "https://postgresgui.com/sql-compiler";
+const OG_IMAGE = absoluteUrl("/seo/sql-compiler.svg");
+
+const faqItems = [
+  {
+    question: "Is SQL compiled?",
+    answer:
+      "SQL is usually interpreted and executed by a database engine rather than compiled into an application binary. People search for SQL compiler when they want an online SQL runner or query editor.",
+  },
+  {
+    question: "Can I use this SQL compiler without installing Postgres?",
+    answer:
+      "Yes. The browser editor is designed for practice and examples. Use the Mac app when you want to connect to real local, cloud, or remote PostgreSQL databases.",
+  },
+  {
+    question: "Is the SQL editor free?",
+    answer:
+      "Yes. The online SQL editor is free to use in your browser.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Online SQL Compiler - Run SQL Queries in Your Browser",
@@ -27,8 +48,8 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "PostgresGUI",
     images: [
-      {
-        url: "https://postgresgui.com/online-sql-editor.jpg",
+        {
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
         alt: "Online SQL Compiler",
@@ -40,25 +61,28 @@ export const metadata: Metadata = {
     title: "Online SQL Compiler - Run SQL Queries in Your Browser",
     description:
       "Write SQL, run queries, and work with sample tables in a browser-based SQL compiler and query editor.",
-    images: ["https://postgresgui.com/online-sql-editor.jpg"],
+    images: [OG_IMAGE],
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  name: "Online SQL Compiler",
-  applicationCategory: "DeveloperApplication",
-  operatingSystem: "Any",
-  url: CANONICAL,
-  description:
-    "A free online SQL compiler and query editor for writing SQL, running queries, and practicing database workflows in a browser.",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Online SQL Compiler",
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Any",
+    url: CANONICAL,
+    description:
+      "A free online SQL compiler and query editor for writing SQL, running queries, and practicing database workflows in a browser.",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
   },
-};
+  faqJsonLd(faqItems),
+];
 
 export default function SqlCompilerPage() {
   return (
@@ -121,6 +145,15 @@ export default function SqlCompilerPage() {
               but the workflow is the same: write a query, run it, and inspect
               the result.
             </p>
+          </div>
+        </section>
+
+        <section className="border-t border-border/30 px-6 py-14">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="text-3xl font-display tracking-tight">
+              Common questions
+            </h2>
+            <FAQ items={faqItems} className="mt-6" />
           </div>
         </section>
       </main>
