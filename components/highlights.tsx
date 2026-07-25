@@ -90,11 +90,11 @@ export function Highlights(props: HighlightProps) {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 border-y border-border md:grid-cols-2 lg:grid-cols-3">
       {highlights.map((highlight, index) => (
         <div
           key={highlight.title}
-          className={`group p-6 md:p-8 rounded-2xl border border-stone-200 dark:border-stone-700 transition-swiftui hover:-translate-y-2 hover:scale-[1.02] bg-white dark:bg-stone-800 ${
+          className={`group border-b border-border p-6 transition-colors hover:bg-black/[0.025] dark:hover:bg-white/[0.04] md:p-8 md:[&:nth-child(odd)]:border-r lg:border-r lg:[&:nth-child(3n)]:border-r-0 ${
             index === 0 ? "md:col-span-2 lg:col-span-1" : ""
           }`}
         >
@@ -106,7 +106,7 @@ export function Highlights(props: HighlightProps) {
               <p className="leading-relaxed">{highlight.description}</p>
             </div>
             <div>
-              <div className={`p-3 rounded-xl ${highlight.iconBg} shrink-0`}>
+              <div className={`shrink-0 rounded-lg p-3 ${highlight.iconBg}`}>
                 <highlight.icon
                   height={24}
                   width={24}

@@ -5,7 +5,6 @@ import { Highlights } from "@/components/highlights";
 import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import { Pricing } from "@/components/pricing";
 import { FAQ } from "@/components/faq";
-import { FlowingData } from "@/components/hero-animations/flowing-data";
 import { NewFeatureBadge } from "@/components/new-feature-badge";
 import { GitHubButton } from "@/components/github-button";
 import { Testimonials } from "@/components/testimonials";
@@ -59,28 +58,22 @@ export async function Homepage({
       {/* Hero Section */}
       <div
         id="hero-section"
-        className="flex-1 flex items-center justify-center grid-bg hero-gradient relative overflow-hidden"
+        className="product-stage relative flex-1 overflow-hidden"
       >
-        {/* Flowing Data Streams Background */}
-        <FlowingData />
-
-        {/* Accent Element */}
-        <div className="absolute w-[800px] h-[600px] bg-gradient-to-br from-[var(--postgres-blue)] to-blue-400 opacity-5 blur-3xl rounded-full"></div>
-
-        <div className="text-center px-6 pt-16 pb-16 md:pt-24 md:pb-24 relative z-10">
+        <div className="relative z-10 px-6 pb-0 pt-20 text-center md:pt-28">
           {/* Main Tagline */}
           <h1
-            className="text-4xl md:text-6xl max-w-xl mx-auto mb-4 animate-slide-in text-balance"
+            className="mx-auto mb-5 max-w-3xl text-balance text-5xl font-semibold md:text-7xl lg:text-8xl animate-slide-in"
           >
             {t.hero.headline}
           </h1>
-          <p className="text-xl md:text-2xl text-stone-500 dark:text-stone-400 mb-4 animate-slide-in stagger-2">
+          <p className="mx-auto mb-5 max-w-2xl text-xl text-stone-500 dark:text-stone-400 md:text-2xl animate-slide-in stagger-2">
             {t.hero.subheadline}
           </p>
 
           {/* Trust sub-line */}
           <div
-            className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-xl md:text-xl text-stone-500 dark:text-stone-400 mb-10 md:mb-12 animate-slide-in stagger-2"
+            className="mb-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-stone-500 dark:text-stone-400 md:text-base animate-slide-in stagger-2"
             aria-label="Trust indicators"
           >
             {trustItems.map(({ icon: Icon, label }) => (
@@ -95,10 +88,10 @@ export async function Homepage({
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 mb-8 md:mb-10 animate-slide-in stagger-3">
+          <div className="mb-12 flex flex-col items-center justify-center gap-3 md:flex-row md:gap-4 animate-slide-in stagger-3">
             <AppStoreLink
               href={appStoreLink}
-              className="inline-block transition-transform hover:scale-105"
+              className="inline-block transition-transform duration-200 hover:scale-[1.02]"
             >
               <AppStoreBadge scale={1.5} />
             </AppStoreLink>
@@ -107,8 +100,8 @@ export async function Homepage({
 
           {/* Hero Screenshot — <picture> with prefers-color-scheme source so
               only the matching image is fetched (prevents dual LCP preload). */}
-          <div className="w-full max-w-5xl mx-auto px-0 mb-10 md:mb-12 animate-slide-in stagger-2">
-            <div className="relative rounded-[12px] md:rounded-xl overflow-hidden shadow-screenshot-elevated border border-stone-200/50 dark:border-stone-700/50">
+          <div className="mx-auto w-full max-w-6xl animate-slide-in stagger-2">
+            <div className="product-window relative overflow-hidden rounded-t-lg border border-b-0 border-white/15 shadow-screenshot-elevated">
               <picture>
                 <source
                   media="(prefers-color-scheme: dark)"
@@ -133,7 +126,7 @@ export async function Homepage({
       {/* Features Section */}
       <section
         id="features"
-        className="py-16 md:py-24 px-6 border-t border-border/20"
+        className="apple-section px-6 py-20 md:py-32"
       >
         <div className="max-w-6xl mx-auto">
           <div className="mb-12 md:mb-16">
@@ -142,10 +135,10 @@ export async function Homepage({
                 {t.sections.features}
               </span>
             </div>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-display mb-4 tracking-tight">
+            <h2 className="mb-4 max-w-4xl text-4xl font-display md:text-6xl lg:text-7xl">
               {t.sections.whyPostgresGUI}
             </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl font-mono">
+            <p className="max-w-2xl text-lg text-muted-foreground md:text-xl">
               {t.sections.featuresTagline}
             </p>
           </div>
@@ -154,13 +147,13 @@ export async function Homepage({
       </section>
 
       {seoPathways.length > 0 && (
-        <section className="border-t border-border/20 bg-stone-100 px-6 py-14 dark:bg-stone-900">
+        <section className="apple-section-muted px-6 py-20 md:py-28">
           <div className="mx-auto max-w-6xl">
             <div className="mb-8">
               <span className="text-xs font-semibold text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]">
                 Explore
               </span>
-              <h2 className="mt-3 text-3xl font-display tracking-tight md:text-4xl">
+              <h2 className="mt-3 text-4xl font-display md:text-5xl">
                 Find the right Postgres workflow
               </h2>
             </div>
@@ -169,7 +162,7 @@ export async function Homepage({
                 <Link
                   key={href}
                   href={href}
-                  className="group rounded-lg border border-border bg-background p-5 transition-colors hover:border-[var(--postgres-blue)]"
+                  className="group rounded-lg border border-border bg-card p-6 transition-colors hover:border-[var(--postgres-blue)]"
                 >
                   <Icon className="h-5 w-5 text-[var(--postgres-blue)]" />
                   <h3 className="mt-4 text-xl font-semibold group-hover:text-[var(--postgres-blue)]">
@@ -191,7 +184,7 @@ export async function Homepage({
       {/* Screenshots Section */}
       <section
         id="screenshots"
-        className="py-16 md:py-24 px-6 border-t border-border/20 bg-stone-200 dark:bg-stone-900"
+        className="apple-section-muted px-6 py-20 md:py-32"
       >
         <div className="max-w-7xl mx-auto">
           <div className="mb-12">
@@ -200,7 +193,7 @@ export async function Homepage({
                 {t.sections.screenshots}
               </span>
             </div>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-display mb-4 tracking-tight">
+            <h2 className="mb-4 text-4xl font-display md:text-6xl lg:text-7xl">
               {t.sections.screenshotsHeadline}
             </h2>
           </div>
@@ -211,7 +204,7 @@ export async function Homepage({
       {/* Pricing Section */}
       <section
         id="pricing"
-        className="py-16 md:py-24 px-6 border-t border-border/20"
+        className="apple-section px-6 py-20 md:py-32"
       >
         <div className="max-w-6xl mx-auto">
           <div className="mb-12 md:mb-16">
@@ -220,10 +213,10 @@ export async function Homepage({
                 {t.sections.pricing}
               </span>
             </div>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-display mb-4 tracking-tight">
+            <h2 className="mb-4 text-4xl font-display md:text-6xl lg:text-7xl">
               {t.sections.pricingHeadline}
             </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl font-mono">
+            <p className="max-w-2xl text-lg text-muted-foreground md:text-xl">
               {t.sections.pricingSubheadline}
             </p>
           </div>
@@ -234,7 +227,7 @@ export async function Homepage({
       {/* FAQ Section */}
       <section
         id="faq"
-        className="py-16 md:py-24 px-6 border-t border-border/20 grid-bg"
+        className="apple-section-muted px-6 py-20 md:py-32"
       >
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
@@ -243,7 +236,7 @@ export async function Homepage({
                 {t.sections.faq}
               </span>
             </div>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-display mb-4 tracking-tight">
+            <h2 className="mb-4 text-4xl font-display md:text-6xl lg:text-7xl">
               {t.sections.faqHeadline}
             </h2>
           </div>

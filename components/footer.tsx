@@ -69,8 +69,7 @@ export function Footer({ locale = "en" }: FooterProps) {
   return (
     <footer
       className="w-full border-t border-border/30
-        bg-gradient-to-b from-gray-50/50 to-gray-100/50
-        dark:from-stone-900 dark:to-stone-950/50
+        bg-[#f5f5f7] dark:bg-black
         py-16 md:py-20 px-6 mt-auto"
       role="contentinfo"
     >
@@ -80,7 +79,7 @@ export function Footer({ locale = "en" }: FooterProps) {
           {/* Brand Hero Section - 5 cols */}
           <div className="lg:col-span-4 space-y-6">
             {/* Brand Name */}
-            <h3 className="font-display text-4xl md:text-5xl tracking-tighter text-gray-900 dark:text-white">
+            <h3 className="font-display text-4xl text-gray-900 dark:text-white md:text-5xl">
               PostgresGUI
             </h3>
 
@@ -97,8 +96,7 @@ export function Footer({ locale = "en" }: FooterProps) {
               <Link
                 href={`${localePrefix}/download`}
                 className="inline-flex items-center gap-2 px-5 py-2.5
-                  bg-gradient-to-r from-[var(--postgres-blue)] to-[var(--postgres-blue-dark)]
-                  hover:from-[var(--postgres-blue-light)] hover:to-[var(--postgres-blue)]
+                  bg-[var(--postgres-blue)] hover:bg-[var(--postgres-blue-dark)]
                   text-white text-sm font-medium rounded-lg
                   transition-all duration-300
                   shadow-md hover:shadow-lg hover:shadow-[var(--postgres-blue)]/25

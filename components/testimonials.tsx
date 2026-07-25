@@ -71,7 +71,7 @@ export function Testimonials() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {TESTIMONIALS.map((testimonial, index) => {
             const card = (
-              <div className="group relative h-full p-6 md:p-8 rounded-2xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 transition-swiftui hover:-translate-y-1">
+              <div className="group relative h-full rounded-lg border border-border bg-card p-6 transition-colors hover:border-stone-400 dark:hover:border-stone-600 md:p-8">
                 <Quote
                   className="w-6 h-6 text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)] opacity-70 mb-4"
                   aria-hidden="true"
@@ -104,7 +104,7 @@ export function Testimonials() {
                   href={testimonial.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block focus:outline-none focus:ring-2 focus:ring-[var(--postgres-blue)] rounded-2xl"
+                  className="block rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--postgres-blue)]"
                 >
                   {card}
                 </a>

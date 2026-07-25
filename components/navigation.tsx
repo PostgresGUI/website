@@ -46,35 +46,34 @@ export function Navigation({ locale = "en" }: NavigationProps) {
 
   return (
     <nav
-      className="sticky top-0 z-50 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md border-b border-border/20"
+      className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-black/80"
       aria-label="Main navigation"
     >
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-5 md:px-6">
+        <div className="flex h-14 items-center justify-between">
           {/* Logo - Left */}
           <div className="flex-1">
             <Link
               href={homeUrl}
-              className="inline-flex items-center gap-1 hover:opacity-70 transition-opacity group"
+              className="group inline-flex items-center gap-2 transition-opacity hover:opacity-70"
             >
               <div className="relative">
                 <Image
                   src="/postgresgui-elephant.png"
                   alt={t.images.logoAlt}
-                  width={56}
-                  height={56}
-                  className="h-11 w-11 md:h-14 md:w-14 object-contain"
+                  width={36}
+                  height={36}
+                  className="h-8 w-8 object-contain"
                 />
-                <div className="absolute inset-0 bg-[var(--postgres-blue)] opacity-0 group-hover:opacity-10 transition-opacity rounded-lg"></div>
               </div>
-              <span className="text-xl md:text-2xl font-display tracking-tight text-gray-900 dark:text-white">
+              <span className="text-lg font-semibold text-gray-900 dark:text-white">
                 PostgresGUI
               </span>
             </Link>
           </div>
 
           {/* Desktop Navigation - Center */}
-          <div className="hidden md:flex items-center justify-center gap-6 flex-1">
+          <div className="hidden flex-1 items-center justify-center gap-7 md:flex">
             {navLinks.map((link) => {
               // Check if we're on the home page for this locale
               const isOnHomePage = pathname === homeUrl || pathname === `${localePrefix}/`;
@@ -111,7 +110,7 @@ export function Navigation({ locale = "en" }: NavigationProps) {
               href={GITHUB_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-stone-800 hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
+              className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-gray-600 transition-colors hover:bg-black/5 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"
               aria-label="View on GitHub"
             >
               <GitHubIcon width={18} height={18} />
@@ -130,7 +129,7 @@ export function Navigation({ locale = "en" }: NavigationProps) {
               <span className="text-xs opacity-70 md:hidden">↗</span>
             </a>
             <AppStoreLink
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white text-sm font-medium transition-all bg-gradient-to-b from-gray-700 to-gray-900 dark:from-gray-600 dark:to-gray-800 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),0_2px_4px_0_rgba(0,0,0,0.4),0_4px_8px_-2px_rgba(0,0,0,0.3)] hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2),0_4px_8px_0_rgba(0,0,0,0.4),0_6px_12px_-2px_rgba(0,0,0,0.3)] hover:from-gray-600 hover:to-gray-800 dark:hover:from-gray-500 dark:hover:to-gray-700 active:from-gray-800 active:to-gray-900 active:shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.3)] border border-gray-800 dark:border-gray-700"
+              className="flex items-center gap-1.5 rounded-lg bg-[var(--postgres-blue)] px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-[var(--postgres-blue-dark)]"
             >
               {t.nav.download} <span className="text-xs opacity-70">↗</span>
             </AppStoreLink>
@@ -161,7 +160,7 @@ export function Navigation({ locale = "en" }: NavigationProps) {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-3 border-t border-border/30 pt-4 bg-white dark:bg-stone-900">
+          <div className="mt-2 space-y-2 border-t border-border/50 bg-white pb-4 pt-3 dark:bg-black md:hidden">
             {navLinks.map((link) => {
               const isOnHomePage = pathname === homeUrl || pathname === `${localePrefix}/`;
               const href = link.href.startsWith("#")
@@ -211,7 +210,7 @@ export function Navigation({ locale = "en" }: NavigationProps) {
               <span className="text-xs opacity-70">↗</span>
             </a>
             <AppStoreLink
-              className="block font-semibold text-sm text-white py-2 px-3 rounded-lg text-center transition-all bg-gradient-to-b from-gray-700 to-gray-900 dark:from-gray-600 dark:to-gray-800 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),0_2px_4px_0_rgba(0,0,0,0.4),0_4px_8px_-2px_rgba(0,0,0,0.3)] hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2),0_4px_8px_0_rgba(0,0,0,0.4),0_6px_12px_-2px_rgba(0,0,0,0.3)] hover:from-gray-600 hover:to-gray-800 dark:hover:from-gray-500 dark:hover:to-gray-700 border border-gray-800 dark:border-gray-700"
+              className="block rounded-lg bg-[var(--postgres-blue)] px-3 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-[var(--postgres-blue-dark)]"
               onClick={() => setMobileMenuOpen(false)}
             >
               {t.nav.download} <span className="text-xs opacity-70">↗</span>

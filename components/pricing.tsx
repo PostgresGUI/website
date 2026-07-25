@@ -18,7 +18,7 @@ export function Pricing({ locale = "en" }: PricingProps) {
       {/* Two-card plan layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
         {/* Card 1 — Free (build from source) */}
-        <article className="relative flex flex-col rounded-2xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900/50 p-8 md:p-10">
+        <article className="relative flex flex-col rounded-lg border border-border bg-card p-8 md:p-10">
           <header className="mb-6">
             <h3 className="text-2xl font-display tracking-tight mb-2">
               {p.free.title}
@@ -71,7 +71,7 @@ export function Pricing({ locale = "en" }: PricingProps) {
         </article>
 
         {/* Card 2 — App Store (recommended) */}
-        <article className="relative flex flex-col rounded-2xl border-2 border-[var(--postgres-blue)] bg-gradient-to-b from-blue-50/60 to-transparent dark:from-blue-950/20 dark:to-transparent p-8 md:p-10 shadow-lg shadow-blue-500/5">
+        <article className="relative flex flex-col rounded-lg border-2 border-[var(--postgres-blue)] bg-card p-8 md:p-10">
           {/* Recommended badge */}
           <div className="absolute -top-3 left-1/2 -translate-x-1/2">
             <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[var(--postgres-blue)] text-white text-xs font-semibold shadow-md whitespace-nowrap">
@@ -116,7 +116,7 @@ export function Pricing({ locale = "en" }: PricingProps) {
             ))}
           </ul>
 
-          <AppStoreLink className="flex items-center justify-center gap-1.5 w-full px-4 py-3 rounded-lg text-white text-sm font-semibold transition-all bg-gradient-to-b from-gray-700 to-gray-900 dark:from-gray-600 dark:to-gray-800 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),0_2px_4px_0_rgba(0,0,0,0.4),0_4px_8px_-2px_rgba(0,0,0,0.3)] hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2),0_4px_8px_0_rgba(0,0,0,0.4),0_6px_12px_-2px_rgba(0,0,0,0.3)] hover:from-gray-600 hover:to-gray-800 dark:hover:from-gray-500 dark:hover:to-gray-700 active:from-gray-800 active:to-gray-900 active:shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.3)] border border-gray-800 dark:border-gray-700">
+          <AppStoreLink className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-[var(--postgres-blue)] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--postgres-blue-dark)]">
             {t.download.downloadNow} <span className="text-xs opacity-70">↗</span>
           </AppStoreLink>
         </article>
