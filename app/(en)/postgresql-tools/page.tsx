@@ -9,7 +9,7 @@ import {
 } from "@/lib/seo-helpers";
 
 const CANONICAL = `${SITE_URL}/postgresql-tools`;
-const OG_IMAGE = absoluteUrl("/seo/postgresql-tools.svg");
+const OG_IMAGE = absoluteUrl("/seo/postgresql-tools.png");
 
 const faqItems = [
   {

@@ -33,16 +33,30 @@ PostgresGUI is for Mac developers, database administrators, students, and teams 
 - Beekeeper Studio alternative for Mac: https://postgresgui.com/alternatives/beekeeper-studio
 - DataGrip alternative for PostgreSQL: https://postgresgui.com/alternatives/datagrip
 - Best Mac PostgreSQL GUI client: https://postgresgui.com/blog/best-mac-postgresql-gui-client
+- Postico vs TablePlus vs PostgresGUI: https://postgresgui.com/alternatives/postico-vs-tableplus
+- psql vs PostgreSQL GUI: https://postgresgui.com/blog/psql-vs-postgresql-gui
 
 ## Free Tools
 
 - Online SQL editor: https://postgresgui.com/sql-editor
 - Online SQL compiler: https://postgresgui.com/sql-compiler
 - Online schema designer: https://postgresgui.com/schema-designer
+- PostgreSQL ER diagram from SQL: https://postgresgui.com/postgresql-er-diagram-from-sql
 - SQL cheatsheet: https://postgresgui.com/sql-cheatsheet
 - PostgreSQL data types guide: https://postgresgui.com/data-types
 - Connection string builder: https://postgresgui.com/connection-string
 - UUID generator: https://postgresgui.com/uuid-generator
+
+## PostgreSQL Guides
+
+- UUIDv4 vs UUIDv7: https://postgresgui.com/blog/postgresql-uuid-v4-vs-v7
+- JSONB query examples: https://postgresgui.com/blog/postgresql-jsonb-query-examples
+- JSONB vs JSON: https://postgresgui.com/postgresql-data-types/jsonb-vs-json
+- TIMESTAMP vs TIMESTAMPTZ: https://postgresgui.com/postgresql-data-types/timestamp-vs-timestamptz
+- VARCHAR vs TEXT: https://postgresgui.com/postgresql-data-types/varchar-vs-text
+- SERIAL vs IDENTITY: https://postgresgui.com/postgresql-data-types/serial-vs-identity
+- UUID vs BIGINT: https://postgresgui.com/postgresql-data-types/uuid-vs-bigint
+- Connection guides: https://postgresgui.com/connection-string
 
 ## Agent Resources
 

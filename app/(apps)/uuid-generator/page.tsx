@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { UuidGenerator } from "./_components/uuid-generator";
 
 export const metadata: Metadata = {
@@ -69,6 +70,31 @@ export default function UuidGeneratorPage() {
       />
       <h1 className="sr-only">UUID Generator — Generate v4 and v7 UUIDs</h1>
       <UuidGenerator />
+      <section className="border-t border-stone-200 bg-white px-6 py-14 dark:border-stone-800 dark:bg-stone-950">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">
+            UUIDv4 or UUIDv7 for PostgreSQL?
+          </h2>
+          <p className="mt-4 leading-7 text-stone-600 dark:text-stone-400">
+            UUIDv4 is random. UUIDv7 begins with time information, so newly
+            generated values are roughly ordered and friendlier to a growing
+            B-tree primary-key index. PostgreSQL 18 can generate both with{" "}
+            <code>uuidv4()</code> and <code>uuidv7()</code>.
+          </p>
+          <p className="mt-4 leading-7 text-stone-600 dark:text-stone-400">
+            Older PostgreSQL releases can store either version in a{" "}
+            <code>uuid</code> column, but UUIDv7 generation must come from your
+            application or an extension. Existing UUIDv4 keys do not need to be
+            rewritten.
+          </p>
+          <Link
+            href="/blog/postgresql-uuid-v4-vs-v7"
+            className="mt-6 inline-flex font-semibold text-[var(--postgres-blue)] hover:underline"
+          >
+            Read the PostgreSQL UUIDv4 vs UUIDv7 guide
+          </Link>
+        </div>
+      </section>
     </>
   );
 }

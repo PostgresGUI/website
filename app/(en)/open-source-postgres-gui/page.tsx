@@ -5,7 +5,7 @@ import { APP_STORE_LINK, GITHUB_REPOSITORY_LINK } from "@/lib/constants";
 import { absoluteUrl, faqJsonLd } from "@/lib/seo-helpers";
 
 const CANONICAL = "https://postgresgui.com/open-source-postgres-gui";
-const OG_IMAGE = absoluteUrl("/seo/open-source-postgres-gui.svg");
+const OG_IMAGE = absoluteUrl("/seo/open-source-postgres-gui.png");
 
 const faqItems = [
   {

@@ -11,7 +11,7 @@ const CANONICAL = `${SITE_URL}/alternatives/datagrip`;
 export const metadata = getAlternativeMetadata(
   datagripData,
   CANONICAL,
-  "/seo/datagrip-alternative.svg"
+  "/seo/datagrip-alternative.png"
 );
 
 const jsonLd = alternativeJsonLd(datagripData, CANONICAL);

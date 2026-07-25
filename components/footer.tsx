@@ -26,6 +26,7 @@ export function Footer({ locale = "en" }: FooterProps) {
     { href: "/sql-compiler", label: "SQL Compiler" },
     { href: "/sql-cheatsheet", label: "SQL Cheatsheet" },
     { href: "/schema-designer", label: "Schema Designer" },
+    { href: "/postgresql-er-diagram-from-sql", label: "SQL to ER Diagram" },
     { href: "/uuid-generator", label: "UUID Generator" },
     { href: "/connection-string", label: "Connection String Builder" },
     { href: "/data-types", label: "Data Type Picker" },
@@ -35,6 +36,8 @@ export function Footer({ locale = "en" }: FooterProps) {
     { href: "/blog", label: "Blog" },
     { href: "/postgresql-gui-mac", label: "PostgreSQL GUI for Mac" },
     { href: "/open-source-postgres-gui", label: "Open Source Postgres GUI" },
+    { href: "/postgresql-data-types/jsonb-vs-json", label: "PostgreSQL Type Comparisons" },
+    { href: "/blog/psql-vs-postgresql-gui", label: "psql vs GUI" },
     { href: "/support", label: t.footer.supportLink },
     {
       href: "https://github.com/postgresgui/postgresgui/issues",
@@ -51,6 +54,7 @@ export function Footer({ locale = "en" }: FooterProps) {
     { href: "/alternatives/dbeaver", label: "vs DBeaver" },
     { href: "/alternatives/beekeeper-studio", label: "vs Beekeeper Studio" },
     { href: "/alternatives/datagrip", label: "vs DataGrip" },
+    { href: "/alternatives/postico-vs-tableplus", label: "Postico vs TablePlus" },
   ];
 
   const legalLinks = [

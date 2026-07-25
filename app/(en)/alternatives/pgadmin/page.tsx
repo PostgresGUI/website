@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "https://postgresgui.com/seo/pgadmin-alternative.svg",
+        url: "https://postgresgui.com/seo/pgadmin-alternative.png",
         width: 1200,
         height: 630,
         alt: pgadminData.seo.title,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     description: pgadminData.seo.description,
     images: [
       {
-        url: "https://postgresgui.com/seo/pgadmin-alternative.svg",
+        url: "https://postgresgui.com/seo/pgadmin-alternative.png",
         alt: pgadminData.seo.title,
       },
     ],

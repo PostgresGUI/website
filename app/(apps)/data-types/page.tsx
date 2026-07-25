@@ -154,6 +154,28 @@ export default function DataTypesPage() {
             Postgres datatypes in real schemas.
           </p>
         </section>
+        <section className="mt-8 border-t border-stone-200 pb-10 pt-6 dark:border-stone-700">
+          <h2 className="font-[family-name:var(--font-oswald)] text-xl font-bold uppercase tracking-tight text-stone-900 dark:text-stone-100">
+            Common type decisions
+          </h2>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            {[
+              ["jsonb-vs-json", "JSONB vs JSON"],
+              ["timestamp-vs-timestamptz", "TIMESTAMP vs TIMESTAMPTZ"],
+              ["varchar-vs-text", "VARCHAR vs TEXT"],
+              ["serial-vs-identity", "SERIAL vs IDENTITY"],
+              ["uuid-vs-bigint", "UUID vs BIGINT"],
+            ].map(([slug, label]) => (
+              <Link
+                key={slug}
+                href={`/postgresql-data-types/${slug}`}
+                className="border-l-2 border-stone-300 pl-4 text-sm font-medium text-stone-700 transition-colors hover:border-blue-600 hover:text-blue-600 dark:border-stone-700 dark:text-stone-300 dark:hover:border-blue-400 dark:hover:text-blue-400"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        </section>
       </div>
     </>
   );

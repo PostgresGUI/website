@@ -35,6 +35,157 @@ export type BlogPostInfo = Pick<
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "postgresql-uuid-v4-vs-v7",
+    title: "PostgreSQL UUIDv4 vs UUIDv7",
+    description:
+      "Compare UUIDv4 and UUIDv7 in PostgreSQL, including B-tree insertion order, PostgreSQL 18's uuidv7() function, migration choices, and when random IDs still make sense.",
+    keywords: [
+      "postgresql uuid v4 vs v7",
+      "postgres uuidv7",
+      "uuid v7 postgres",
+      "postgresql 18 uuidv7",
+      "uuid primary key postgres",
+    ],
+    date: "2026-07-25",
+    author: "Ghazi",
+    category: "Database Design",
+    pillar: "PostgreSQL Learning",
+    relatedSlugs: [
+      "postgres-column-types",
+      "postgresql-jsonb-query-examples",
+      "database-schema-design-online",
+    ],
+    faqs: [
+      {
+        question: "Does PostgreSQL support UUIDv7?",
+        answer:
+          "PostgreSQL 18 includes a built-in uuidv7() function. Older releases can store UUIDv7 values in a uuid column, but generation must happen in the application or an extension.",
+      },
+      {
+        question: "Should every UUIDv4 primary key be migrated to UUIDv7?",
+        answer:
+          "No. Existing UUIDv4 keys remain valid. Change the generation strategy for new tables when insertion locality matters; rewriting stable primary keys and every foreign key is usually not worth the risk.",
+      },
+      {
+        question: "Does UUIDv7 reveal creation time?",
+        answer:
+          "Yes. UUIDv7 contains a Unix timestamp component. Do not treat it as a secret or use it when hiding approximate creation time is a requirement.",
+      },
+    ],
+    sources: [
+      {
+        title: "PostgreSQL UUID type",
+        url: "https://www.postgresql.org/docs/current/datatype-uuid.html",
+      },
+      {
+        title: "PostgreSQL UUID functions",
+        url: "https://www.postgresql.org/docs/current/functions-uuid.html",
+      },
+      {
+        title: "RFC 9562",
+        url: "https://www.rfc-editor.org/rfc/rfc9562.html",
+      },
+    ],
+  },
+  {
+    slug: "postgresql-jsonb-query-examples",
+    title: "PostgreSQL JSONB Query Examples",
+    description:
+      "Copy useful PostgreSQL JSONB queries for extraction, containment, key checks, arrays, updates, jsonpath, and GIN indexes, with notes on when a normal column is better.",
+    keywords: [
+      "postgresql jsonb query examples",
+      "postgres jsonb query",
+      "jsonb operators postgres",
+      "postgres jsonb index",
+      "query jsonb array postgres",
+    ],
+    date: "2026-07-25",
+    author: "Ghazi",
+    category: "Reference",
+    pillar: "PostgreSQL Learning",
+    relatedSlugs: [
+      "postgres-column-types",
+      "postgresql-uuid-v4-vs-v7",
+      "database-schema-design-online",
+    ],
+    faqs: [
+      {
+        question: "Should I use json or jsonb in PostgreSQL?",
+        answer:
+          "Use jsonb for most application data because it supports efficient operators and GIN indexes. Use json when preserving the submitted JSON text is part of the requirement.",
+      },
+      {
+        question: "What is the best general-purpose JSONB index?",
+        answer:
+          "A GIN index using the default jsonb operator class supports key existence, containment, and jsonpath matching. Index only after confirming the query pattern with EXPLAIN.",
+      },
+      {
+        question: "When should a JSONB key become a column?",
+        answer:
+          "Promote it when the key is required, joined, frequently filtered or sorted, needs a foreign key, or deserves a clear database type and constraint.",
+      },
+    ],
+    sources: [
+      {
+        title: "PostgreSQL JSON types",
+        url: "https://www.postgresql.org/docs/current/datatype-json.html",
+      },
+      {
+        title: "PostgreSQL JSON functions and operators",
+        url: "https://www.postgresql.org/docs/current/functions-json.html",
+      },
+    ],
+  },
+  {
+    slug: "psql-vs-postgresql-gui",
+    title: "psql vs PostgreSQL GUI: Use the Right One for the Job",
+    description:
+      "Compare psql and PostgreSQL GUI clients for scripts, remote access, table browsing, query plans, production checks, and everyday Mac development.",
+    keywords: [
+      "psql vs gui",
+      "postgresql gui vs command line",
+      "psql alternative",
+      "postgres client gui",
+      "postgresql client mac",
+    ],
+    date: "2026-07-25",
+    author: "Ghazi",
+    category: "Tools",
+    pillar: "PostgreSQL GUI",
+    relatedSlugs: [
+      "install-psql-mac",
+      "best-mac-postgresql-gui-client",
+      "best-sql-ide-for-postgresql",
+    ],
+    faqs: [
+      {
+        question: "Is psql better than a PostgreSQL GUI?",
+        answer:
+          "psql is better for scripts, repeatable terminal commands, and remote shells. A GUI is better for scanning data, moving through schema objects, and keeping several exploratory queries visible.",
+      },
+      {
+        question: "Do PostgreSQL developers need both?",
+        answer:
+          "Most do not need both for every task, but knowing psql and keeping a focused GUI available covers more work than committing to either interface alone.",
+      },
+      {
+        question: "Is a GUI safe for production?",
+        answer:
+          "The interface is not the safety boundary. Use a read-only role for investigation, restrict network access, preview WHERE clauses with SELECT, and use transactions for controlled writes.",
+      },
+    ],
+    sources: [
+      {
+        title: "PostgreSQL psql documentation",
+        url: "https://www.postgresql.org/docs/current/app-psql.html",
+      },
+      {
+        title: "PostgreSQL EXPLAIN",
+        url: "https://www.postgresql.org/docs/current/using-explain.html",
+      },
+    ],
+  },
+  {
     slug: "install-psql-mac",
     title: "How to Install psql on Mac",
     description:
@@ -326,6 +477,7 @@ export const blogPosts: BlogPost[] = [
       "data migration",
     ],
     date: "2026-02-04",
+    dateModified: "2026-07-25",
     author: "Ghazi",
     category: "Migration",
     pillar: "PostgreSQL Migration",

@@ -4,7 +4,7 @@ import { FAQ } from "@/components/faq";
 import { absoluteUrl, faqJsonLd } from "@/lib/seo-helpers";
 
 const CANONICAL = "https://postgresgui.com/sql-compiler";
-const OG_IMAGE = absoluteUrl("/seo/sql-compiler.svg");
+const OG_IMAGE = absoluteUrl("/seo/sql-compiler.png");
 
 const faqItems = [
   {

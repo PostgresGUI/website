@@ -1,5 +1,7 @@
 import { ConnectionBuilder } from "./_components/connection-builder";
 import type { Metadata } from "next";
+import Link from "next/link";
+import { connectionGuideLinks } from "@/lib/connection-guides";
 
 export const metadata: Metadata = {
   title: "PostgreSQL Connection String Builder - Free Online Tool",
@@ -86,6 +88,29 @@ export default function ConnectionStringPage() {
       />
       <h1 className="sr-only">PostgreSQL Connection String Builder</h1>
       <ConnectionBuilder />
+      <section className="border-t border-stone-200 bg-white px-6 py-14 dark:border-stone-800 dark:bg-stone-950">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="font-[family-name:var(--font-oswald)] text-3xl font-bold uppercase text-stone-900 dark:text-stone-100">
+            PostgreSQL connection guides
+          </h2>
+          <p className="mt-4 max-w-2xl leading-7 text-stone-600 dark:text-stone-400">
+            A valid URI can still fail because a provider expects a pooled
+            hostname, a private network, or a particular SSL mode. Pick the
+            service or framework you are connecting and use its exact template.
+          </p>
+          <div className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+            {connectionGuideLinks.map((guide) => (
+              <Link
+                key={guide.slug}
+                href={`/connection-string/${guide.slug}`}
+                className="border-l-2 border-stone-300 pl-4 font-medium text-stone-800 transition-colors hover:border-[var(--postgres-blue)] hover:text-[var(--postgres-blue)] dark:border-stone-700 dark:text-stone-200"
+              >
+                {guide.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }

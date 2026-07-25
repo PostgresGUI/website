@@ -9,7 +9,7 @@ import {
 export const dynamic = "force-static";
 
 const BASE_URL = "https://postgresgui.com";
-const UPDATED_AT = "2026-07-20";
+const UPDATED_AT = "2026-07-25";
 
 export function GET() {
   return NextResponse.json(
@@ -114,6 +114,12 @@ export function GET() {
           summary:
             "PostgresGUI is a lighter Mac Postgres client for users who do not need a full database IDE.",
         },
+        {
+          name: "Postico vs TablePlus vs PostgresGUI",
+          url: `${BASE_URL}/alternatives/postico-vs-tableplus`,
+          summary:
+            "A three-way comparison of native Mac PostgreSQL clients by database support, source model, pricing approach, and workflow.",
+        },
       ],
       tools: [
         {
@@ -127,6 +133,10 @@ export function GET() {
         {
           name: "Online schema designer",
           url: `${BASE_URL}/schema-designer`,
+        },
+        {
+          name: "PostgreSQL ER diagram from SQL",
+          url: `${BASE_URL}/postgresql-er-diagram-from-sql`,
         },
         {
           name: "SQL cheatsheet",
@@ -143,6 +153,32 @@ export function GET() {
         {
           name: "UUID generator",
           url: `${BASE_URL}/uuid-generator`,
+        },
+      ],
+      guides: [
+        {
+          name: "PostgreSQL UUIDv4 vs UUIDv7",
+          url: `${BASE_URL}/blog/postgresql-uuid-v4-vs-v7`,
+        },
+        {
+          name: "PostgreSQL JSONB query examples",
+          url: `${BASE_URL}/blog/postgresql-jsonb-query-examples`,
+        },
+        {
+          name: "psql vs PostgreSQL GUI",
+          url: `${BASE_URL}/blog/psql-vs-postgresql-gui`,
+        },
+        {
+          name: "PostgreSQL data type comparisons",
+          url: `${BASE_URL}/postgresql-data-types/jsonb-vs-json`,
+        },
+        {
+          name: "PostgreSQL connection guides",
+          url: `${BASE_URL}/connection-string`,
+        },
+        {
+          name: "PostgreSQL framework workflows",
+          url: `${BASE_URL}/postgresql-client-for/rails`,
         },
       ],
       support: {

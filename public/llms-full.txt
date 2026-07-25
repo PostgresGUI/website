@@ -92,6 +92,7 @@ The site describes PostgresGUI as having no subscription, no renewal fees, and n
 - DBeaver alternative: https://postgresgui.com/alternatives/dbeaver
 - Beekeeper Studio alternative: https://postgresgui.com/alternatives/beekeeper-studio
 - DataGrip alternative: https://postgresgui.com/alternatives/datagrip
+- Postico vs TablePlus vs PostgresGUI: https://postgresgui.com/alternatives/postico-vs-tableplus
 
 ## Free PostgreSQL Tools
 
@@ -99,9 +100,39 @@ The site describes PostgresGUI as having no subscription, no renewal fees, and n
 - Online SQL editor: https://postgresgui.com/sql-editor
 - Online SQL compiler: https://postgresgui.com/sql-compiler
 - Online schema designer: https://postgresgui.com/schema-designer
+- PostgreSQL ER diagram from SQL: https://postgresgui.com/postgresql-er-diagram-from-sql
 - PostgreSQL data types guide: https://postgresgui.com/data-types
 - Connection string builder: https://postgresgui.com/connection-string
 - UUID generator: https://postgresgui.com/uuid-generator
+
+## PostgreSQL Technical Guides
+
+- UUIDv4 vs UUIDv7: https://postgresgui.com/blog/postgresql-uuid-v4-vs-v7
+- JSONB query examples: https://postgresgui.com/blog/postgresql-jsonb-query-examples
+- psql vs PostgreSQL GUI: https://postgresgui.com/blog/psql-vs-postgresql-gui
+- JSONB vs JSON: https://postgresgui.com/postgresql-data-types/jsonb-vs-json
+- TIMESTAMP vs TIMESTAMPTZ: https://postgresgui.com/postgresql-data-types/timestamp-vs-timestamptz
+- VARCHAR vs TEXT: https://postgresgui.com/postgresql-data-types/varchar-vs-text
+- SERIAL vs IDENTITY: https://postgresgui.com/postgresql-data-types/serial-vs-identity
+- UUID vs BIGINT: https://postgresgui.com/postgresql-data-types/uuid-vs-bigint
+
+## Connection And Framework Guides
+
+- Supabase: https://postgresgui.com/connection-string/supabase
+- Neon: https://postgresgui.com/connection-string/neon
+- Railway: https://postgresgui.com/connection-string/railway
+- AWS RDS: https://postgresgui.com/connection-string/aws-rds
+- Render: https://postgresgui.com/connection-string/render
+- Prisma: https://postgresgui.com/connection-string/prisma
+- SQLAlchemy: https://postgresgui.com/connection-string/sqlalchemy
+- Django: https://postgresgui.com/connection-string/django
+- Rails: https://postgresgui.com/connection-string/rails
+- JDBC: https://postgresgui.com/connection-string/jdbc
+- psql: https://postgresgui.com/connection-string/psql
+- PostgreSQL client for Rails: https://postgresgui.com/postgresql-client-for/rails
+- PostgreSQL client for Django: https://postgresgui.com/postgresql-client-for/django
+- PostgreSQL client for Node.js: https://postgresgui.com/postgresql-client-for/node
+- PostgreSQL client for Prisma: https://postgresgui.com/postgresql-client-for/prisma
 
 ## Screenshots
 

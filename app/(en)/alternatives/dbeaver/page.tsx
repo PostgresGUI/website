@@ -11,7 +11,7 @@ const CANONICAL = `${SITE_URL}/alternatives/dbeaver`;
 export const metadata = getAlternativeMetadata(
   dbeaverData,
   CANONICAL,
-  "/seo/dbeaver-alternative.svg"
+  "/seo/dbeaver-alternative.png"
 );
 
 const jsonLd = alternativeJsonLd(dbeaverData, CANONICAL);

@@ -11,7 +11,7 @@ const CANONICAL = `${SITE_URL}/alternatives/beekeeper-studio`;
 export const metadata = getAlternativeMetadata(
   beekeeperStudioData,
   CANONICAL,
-  "/seo/beekeeper-studio-alternative.svg"
+  "/seo/beekeeper-studio-alternative.png"
 );
 
 const jsonLd = alternativeJsonLd(beekeeperStudioData, CANONICAL);

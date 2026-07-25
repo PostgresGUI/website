@@ -10,7 +10,7 @@ import {
 } from "@/lib/seo-helpers";
 
 const CANONICAL = `${SITE_URL}/postgresql-gui-mac`;
-const OG_IMAGE = absoluteUrl("/seo/postgresql-gui-mac.svg");
+const OG_IMAGE = absoluteUrl("/seo/postgresql-gui-mac.png");
 
 const faqItems = [
   {

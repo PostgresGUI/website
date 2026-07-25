@@ -278,14 +278,14 @@ export function SchemaDesigner() {
 
   if (!isLoaded) {
     return (
-      <div className="h-screen w-screen flex items-center justify-center bg-zinc-100 dark:bg-zinc-950">
+      <div className="h-screen w-full flex items-center justify-center bg-zinc-100 dark:bg-zinc-950">
         <div className="animate-pulse text-zinc-400 dark:text-zinc-500">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-zinc-100 dark:bg-zinc-950 overflow-hidden">
+    <div className="h-screen w-full flex flex-col bg-zinc-100 dark:bg-zinc-950 overflow-hidden">
       {/* Toolbar */}
       <header
         className={cn(

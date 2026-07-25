@@ -2,6 +2,9 @@ import { MetadataRoute } from "next";
 import { locales } from "@/lib/locales";
 import { posts as blogPosts } from "./(en)/blog/posts";
 import { categories as dataTypeCategories } from "./(apps)/data-types/_lib/data";
+import { connectionGuideSlugs } from "@/lib/connection-guides";
+import { dataTypeGuideSlugs } from "@/lib/data-type-guides";
+import { workflowGuideSlugs } from "@/lib/workflow-guides";
 
 export const dynamic = "force-static";
 
@@ -54,6 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "dbeaver",
     "beekeeper-studio",
     "datagrip",
+    "postico-vs-tableplus",
   ].map((slug) => ({
     url: `${baseUrl}/alternatives/${slug}`,
     lastModified: new Date(),
@@ -103,6 +107,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/postgresql-er-diagram-from-sql`,
+      lastModified: new Date("2026-07-25"),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/sql-cheatsheet`,
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -131,6 +141,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    ...connectionGuideSlugs.map((slug) => ({
+      url: `${baseUrl}/connection-string/${slug}`,
+      lastModified: new Date("2026-07-25"),
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    })),
+    ...dataTypeGuideSlugs.map((slug) => ({
+      url: `${baseUrl}/postgresql-data-types/${slug}`,
+      lastModified: new Date("2026-07-25"),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+    ...workflowGuideSlugs.map((slug) => ({
+      url: `${baseUrl}/postgresql-client-for/${slug}`,
+      lastModified: new Date("2026-07-25"),
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
     })),
     {
       url: `${baseUrl}/open-source-postgres-gui`,

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { FAQ } from "@/components/faq";
 import { APP_STORE_LINK, GITHUB_REPOSITORY_LINK } from "@/lib/constants";
 import { absoluteUrl, faqJsonLd } from "@/lib/seo-helpers";
 
 const CANONICAL = "https://postgresgui.com/postgres-viewer-mac";
-const OG_IMAGE = absoluteUrl("/seo/postgres-viewer-mac.svg");
+const OG_IMAGE = absoluteUrl("/seo/postgres-viewer-mac.png");
 
 const faqItems = [
   {
@@ -125,19 +126,48 @@ export default function PostgresViewerMacPage() {
         </section>
 
         <section className="px-6 py-14">
-          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+          <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
             {[
-              ["Table viewer", "Open schemas and tables, inspect rows, sort data, and check records without writing every query by hand."],
-              ["Query result viewer", "Run SQL and read results in a clear desktop interface with JSON and CSV workflows."],
-              ["Postgres-only focus", "Use a client designed around PostgreSQL rather than a general database workbench."],
+              ["Table viewer", "Open schemas and tables, inspect rows, sort data, and check records without writing every lookup by hand."],
+              ["Query result viewer", "Run SQL and keep wide results visible, then view JSON or export the result as CSV."],
+              ["Direct database view", "See PostgreSQL tables, views, and values without an ORM changing names or types."],
             ].map(([title, body]) => (
-              <article key={title} className="rounded-lg border border-border p-5">
+              <article key={title} className="border-l-2 border-border pl-5">
                 <h2 className="text-xl font-semibold">{title}</h2>
                 <p className="mt-3 text-sm leading-6 text-muted-foreground">
                   {body}
                 </p>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section className="border-t border-border/30 px-6 py-14">
+          <div className="mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+            <Image
+              src="/screenshots4/PostgresGUI - Run complex query and see query results.webp"
+              alt="PostgresGUI showing a PostgreSQL query and its result table"
+              width={1280}
+              height={800}
+              className="w-full rounded-md shadow-lg"
+            />
+            <div>
+              <h2 className="text-3xl font-display tracking-tight">
+                A table viewer should preserve the database truth
+              </h2>
+              <p className="mt-5 leading-7 text-muted-foreground">
+                PostgresGUI shows the schema and query result together, which
+                makes it easier to catch a nullable column, a timestamp
+                conversion, or a JSONB shape that looked different through the
+                application layer.
+              </p>
+              <ul className="mt-5 space-y-3 text-muted-foreground">
+                <li>Move between schemas without rewriting connection settings.</li>
+                <li>Sort and filter while keeping the original SQL available.</li>
+                <li>Inspect JSON values and export a result to CSV.</li>
+                <li>Edit rows when the connected role has permission.</li>
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -158,6 +188,14 @@ export default function PostgresViewerMacPage() {
                 best Mac PostgreSQL GUI client guide
               </Link>
               .
+            </p>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Work mostly in an application framework? See the PostgreSQL
+              client workflows for{" "}
+              <Link href="/postgresql-client-for/rails">Rails</Link>,{" "}
+              <Link href="/postgresql-client-for/django">Django</Link>,{" "}
+              <Link href="/postgresql-client-for/node">Node.js</Link>, and{" "}
+              <Link href="/postgresql-client-for/prisma">Prisma</Link>.
             </p>
           </div>
         </section>

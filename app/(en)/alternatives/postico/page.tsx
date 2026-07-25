@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "https://postgresgui.com/seo/postico-alternative.svg",
+        url: "https://postgresgui.com/seo/postico-alternative.png",
         width: 1200,
         height: 630,
         alt: posticoData.seo.title,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     description: posticoData.seo.description,
     images: [
       {
-        url: "https://postgresgui.com/seo/postico-alternative.svg",
+        url: "https://postgresgui.com/seo/postico-alternative.png",
         alt: posticoData.seo.title,
       },
     ],

@@ -30,12 +30,12 @@ export default function LearnRootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className="h-full overflow-hidden">
+    <html lang="en" suppressHydrationWarning className="min-h-full">
       <head>
         <script dangerouslySetInnerHTML={{ __html: darkModeScript }} />
       </head>
       <body
-        className={`${oswald.variable} antialiased h-full overflow-hidden`}
+        className={`${oswald.variable} min-h-full antialiased`}
       >
         {children}
       </body>
