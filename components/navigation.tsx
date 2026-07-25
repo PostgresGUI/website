@@ -46,7 +46,7 @@ export function Navigation({ locale = "en" }: NavigationProps) {
 
   return (
     <nav
-      className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-black/80"
+      className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl dark:bg-black/80"
       aria-label="Main navigation"
     >
       <div className="mx-auto max-w-7xl px-5 md:px-6">
