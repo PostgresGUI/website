@@ -68,7 +68,7 @@ export function Footer({ locale = "en" }: FooterProps) {
 
   return (
     <footer
-      className="w-full border-t border-border/30
+      className="w-full
         bg-[#f5f5f7] dark:bg-black
         py-16 md:py-20 px-6 mt-auto"
       role="contentinfo"

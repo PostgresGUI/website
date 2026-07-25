@@ -54,7 +54,7 @@ export function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="py-16 md:py-24 px-6 border-t border-border/20"
+      className="px-6 py-16 md:py-24"
     >
       <div className="max-w-6xl mx-auto">
         <div className="mb-12 md:mb-16">

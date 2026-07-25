@@ -770,12 +770,10 @@ body {
   }
 
   .apple-section {
-    border-top: 1px solid var(--border);
     background: var(--background);
   }
 
   .apple-section-muted {
-    border-top: 1px solid var(--border);
     background: #f5f5f7;
   }
 }
