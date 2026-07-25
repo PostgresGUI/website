@@ -113,7 +113,7 @@ export async function Homepage({
                   alt={t.hero.heroImageAlt}
                   width={1176}
                   height={750}
-                  className="w-full h-auto block"
+                  className="block h-auto w-full border border-border"
                   fetchPriority="high"
                   decoding="async"
                 />
