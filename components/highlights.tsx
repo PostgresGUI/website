@@ -31,8 +31,6 @@ export function Highlights(props: HighlightProps) {
           </a>
         </>
       ),
-      bgColor: "bg-emerald-50 dark:bg-emerald-950/30",
-      borderColor: "border-emerald-500 dark:border-emerald-400",
       iconBg: "bg-emerald-100 dark:bg-emerald-900/50",
       iconColor: "text-emerald-600 dark:text-emerald-400",
     },
@@ -46,8 +44,6 @@ export function Highlights(props: HighlightProps) {
           {t.highlights.native.line2}
         </>
       ),
-      bgColor: "bg-sky-50 dark:bg-sky-950/30",
-      borderColor: "border-sky-500 dark:border-sky-400",
       iconBg: "bg-sky-100 dark:bg-sky-900/50",
       iconColor: "text-sky-600 dark:text-sky-400",
     },
@@ -55,8 +51,6 @@ export function Highlights(props: HighlightProps) {
       icon: RocketIcon,
       title: t.highlights.lightweight.title,
       description: t.highlights.lightweight.installed,
-      bgColor: "bg-amber-50 dark:bg-amber-950/30",
-      borderColor: "border-amber-500 dark:border-amber-400",
       iconBg: "bg-amber-100 dark:bg-amber-900/50",
       iconColor: "text-amber-600 dark:text-amber-400",
     },
@@ -64,8 +58,6 @@ export function Highlights(props: HighlightProps) {
       icon: CreditCardOffIcon,
       title: t.highlights.noSubscription.title,
       description: t.highlights.noSubscription.description,
-      bgColor: "bg-purple-50 dark:bg-purple-950/30",
-      borderColor: "border-purple-500 dark:border-purple-400",
       iconBg: "bg-purple-100 dark:bg-purple-900/50",
       iconColor: "text-purple-600 dark:text-purple-400",
     },
@@ -73,8 +65,6 @@ export function Highlights(props: HighlightProps) {
       icon: CircleCheckIcon,
       title: t.highlights.noDataCollection.title,
       description: t.highlights.noDataCollection.description,
-      bgColor: "bg-cyan-50 dark:bg-cyan-950/30",
-      borderColor: "border-cyan-500 dark:border-cyan-400",
       iconBg: "bg-cyan-100 dark:bg-cyan-900/50",
       iconColor: "text-cyan-600 dark:text-cyan-400",
     },
@@ -82,21 +72,17 @@ export function Highlights(props: HighlightProps) {
       icon: DocToRightIcon,
       title: t.highlights.minimalisticUI.title,
       description: t.highlights.minimalisticUI.description,
-      bgColor: "bg-pink-50 dark:bg-pink-950/30",
-      borderColor: "border-pink-500 dark:border-pink-400",
       iconBg: "bg-pink-100 dark:bg-pink-900/50",
       iconColor: "text-pink-600 dark:text-pink-400",
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 border-y border-border md:grid-cols-2 lg:grid-cols-3">
-      {highlights.map((highlight, index) => (
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
+      {highlights.map((highlight) => (
         <div
           key={highlight.title}
-          className={`group border-b border-border p-6 transition-colors hover:bg-black/[0.025] dark:hover:bg-white/[0.04] md:p-8 md:[&:nth-child(odd)]:border-r lg:border-r lg:[&:nth-child(3n)]:border-r-0 ${
-            index === 0 ? "md:col-span-2 lg:col-span-1" : ""
-          }`}
+          className="group rounded-lg border border-border bg-card p-6 transition-colors hover:border-black/25 hover:bg-black/[0.025] dark:hover:border-white/25 dark:hover:bg-white/[0.04] md:p-8"
         >
           <div className="flex justify-between gap-4">
             <div className="space-y-2">
