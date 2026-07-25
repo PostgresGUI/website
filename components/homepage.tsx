@@ -126,7 +126,7 @@ export async function Homepage({
       {/* Features Section */}
       <section
         id="features"
-        className="apple-section px-6 py-20 md:py-32"
+        className="bg-[#f5f5f7] px-6 py-20 dark:bg-black md:py-32"
       >
         <div className="max-w-6xl mx-auto">
           <div className="mb-12 md:mb-16">

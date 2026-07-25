@@ -82,7 +82,7 @@ export function Highlights(props: HighlightProps) {
       {highlights.map((highlight) => (
         <div
           key={highlight.title}
-          className="group rounded-lg border border-border bg-card p-6 transition-colors hover:border-black/25 hover:bg-black/[0.025] dark:hover:border-white/25 dark:hover:bg-white/[0.04] md:p-8"
+          className="group rounded-lg bg-white p-6 transition-colors hover:bg-white/75 dark:bg-[#1d1d1f] dark:hover:bg-[#2c2c2e] md:p-8"
         >
           <div className="flex justify-between gap-4">
             <div className="space-y-2">
