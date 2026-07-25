@@ -74,11 +74,6 @@ html.dark {
   color: #f5f5f7;
 }
 
-.dark .product-window {
-  background: #1d1d1f;
-  box-shadow: 0 28px 100px rgb(0 0 0 / 0.75);
-}
-
 body {
   background: transparent;
   color: inherit;
@@ -774,11 +769,6 @@ body {
     color: #1d1d1f;
   }
 
-  .product-window {
-    background: #ffffff;
-    box-shadow: 0 24px 80px rgb(0 0 0 / 0.16);
-  }
-
   .apple-section {
     border-top: 1px solid var(--border);
     background: var(--background);
@@ -830,11 +820,6 @@ body {
   .apple-section-muted {
     background: #101010;
     color: #f5f5f7;
-  }
-
-  .product-window {
-    background: #1d1d1f;
-    box-shadow: 0 28px 100px rgb(0 0 0 / 0.75);
   }
 
   .grid-bg,

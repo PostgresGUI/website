@@ -101,7 +101,7 @@ export async function Homepage({
           {/* Hero Screenshot — <picture> with prefers-color-scheme source so
               only the matching image is fetched (prevents dual LCP preload). */}
           <div className="mx-auto w-full max-w-6xl animate-slide-in stagger-2">
-            <div className="product-window relative overflow-hidden rounded-t-lg border border-b-0 border-white/15 shadow-screenshot-elevated">
+            <div className="relative">
               <picture>
                 <source
                   media="(prefers-color-scheme: dark)"
