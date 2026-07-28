@@ -187,9 +187,9 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "install-psql-mac",
-    title: "How to Install psql on Mac",
+    title: "Install psql on Mac: Homebrew, Postgres.app, or Installer",
     description:
-      "Install psql on Mac with Homebrew, Postgres.app, or the PostgreSQL installer. Learn what psql is, how to check your version, and when a GUI client helps.",
+      "Install psql on Mac with Homebrew, Postgres.app, or the PostgreSQL installer. Includes PATH fixes, connection examples, and common error checks.",
     keywords: [
       "install psql mac",
       "psql install mac",
@@ -200,7 +200,7 @@ export const blogPosts: BlogPost[] = [
       "download postgresql for mac",
     ],
     date: "2026-07-19",
-    dateModified: "2026-07-20",
+    dateModified: "2026-07-28",
     author: "Ghazi",
     category: "Tutorial",
     pillar: "PostgreSQL Learning",
@@ -314,9 +314,9 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "best-sql-ide-for-postgresql",
-    title: "Best SQL IDEs for PostgreSQL in 2026",
+    title: "Best SQL Editors and IDEs for PostgreSQL on Mac (2026)",
     description:
-      "Compare the best SQL IDEs and PostgreSQL GUI tools, including PostgresGUI, DataGrip, DBeaver, TablePlus, pgAdmin, and VS Code extensions.",
+      "Compare SQL editors and IDEs for PostgreSQL on Mac, from focused native clients to DataGrip, DBeaver, TablePlus, pgAdmin, and VS Code.",
     keywords: [
       "best sql ide",
       "postgresql gui tools",
@@ -326,9 +326,12 @@ export const blogPosts: BlogPost[] = [
       "best postgres client for mac",
       "sql ide for postgresql",
       "postgresql ide",
+      "sql editor mac",
+      "sql ide mac",
+      "best sql editor for mac",
     ],
     date: "2026-07-19",
-    dateModified: "2026-07-20",
+    dateModified: "2026-07-28",
     author: "Ghazi",
     category: "Tools",
     pillar: "PostgreSQL GUI",
@@ -353,6 +356,8 @@ export const blogPosts: BlogPost[] = [
       { title: "PostgresGUI source code", url: "https://github.com/postgresgui/postgresgui" },
       { title: "pgAdmin", url: "https://www.pgadmin.org/" },
       { title: "DBeaver", url: "https://dbeaver.io/" },
+      { title: "DataGrip", url: "https://www.jetbrains.com/datagrip/" },
+      { title: "TablePlus", url: "https://tableplus.com/" },
     ],
   },
   {
@@ -548,9 +553,9 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "best-mac-postgresql-gui-client",
-    title: "Best Mac PostgreSQL GUI Clients in 2026",
+    title: "Best PostgreSQL Clients for Mac in 2026",
     description:
-      "Compare the best PostgreSQL GUI clients for Mac in 2026. From lightweight native apps to full-featured IDEs, find the right Postgres client for your workflow.",
+      "A direct comparison of PostgreSQL clients for Mac, including PostgresGUI, Postico, TablePlus, pgAdmin, DBeaver, and DataGrip.",
     keywords: [
       "PostgreSQL GUI Mac",
       "Postgres client Mac",
@@ -570,6 +575,7 @@ export const blogPosts: BlogPost[] = [
       "database client macOS",
     ],
     date: "2026-02-04",
+    dateModified: "2026-07-28",
     author: "Ghazi",
     category: "Tools",
     pillar: "PostgreSQL GUI",
@@ -594,6 +600,63 @@ export const blogPosts: BlogPost[] = [
       { title: "PostgresGUI source code", url: "https://github.com/postgresgui/postgresgui" },
       { title: "pgAdmin project", url: "https://www.pgadmin.org/" },
       { title: "DBeaver project", url: "https://dbeaver.io/" },
+      { title: "Postico documentation", url: "https://eggerapps.at/postico2/documentation/what-is-postico.html" },
+      { title: "TablePlus", url: "https://tableplus.com/" },
+      { title: "DataGrip", url: "https://www.jetbrains.com/datagrip/" },
+    ],
+  },
+  {
+    slug: "postgres-app-vs-postgresgui",
+    title: "Postgres.app vs PostgresGUI: Server or Client?",
+    description:
+      "Postgres.app runs a local PostgreSQL server on Mac. PostgresGUI connects to PostgreSQL so you can browse tables, run SQL, edit rows, and export results.",
+    keywords: [
+      "postgres app for mac",
+      "postgres mac app",
+      "postgres app vs postgresgui",
+      "postgresql app for mac",
+      "postgres server mac",
+      "postgres client mac",
+    ],
+    date: "2026-07-28",
+    author: "Ghazi",
+    category: "Tools",
+    pillar: "PostgreSQL GUI",
+    relatedSlugs: [
+      "install-psql-mac",
+      "download-postgresql-for-mac",
+      "best-mac-postgresql-gui-client",
+    ],
+    faqs: [
+      {
+        question: "Is Postgres.app a PostgreSQL client?",
+        answer:
+          "Postgres.app primarily packages and runs a local PostgreSQL server on macOS. It also includes command-line tools such as psql, but it is not a table-browsing desktop client.",
+      },
+      {
+        question: "Can Postgres.app and PostgresGUI be used together?",
+        answer:
+          "Yes. Run the local server with Postgres.app, then connect to it from PostgresGUI to browse tables, run SQL, edit rows, and inspect results.",
+      },
+      {
+        question: "Which app do I need for a cloud PostgreSQL database?",
+        answer:
+          "You do not need Postgres.app for a database already hosted in the cloud. Use a client such as PostgresGUI and connect with the provider's host settings or PostgreSQL connection string.",
+      },
+    ],
+    sources: [
+      {
+        title: "Postgres.app installation documentation",
+        url: "https://postgresapp.com/documentation/install.html",
+      },
+      {
+        title: "PostgreSQL macOS packages",
+        url: "https://www.postgresql.org/download/macosx/",
+      },
+      {
+        title: "PostgresGUI source code",
+        url: "https://github.com/postgresgui/postgresgui",
+      },
     ],
   },
   {

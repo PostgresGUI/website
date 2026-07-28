@@ -125,7 +125,7 @@ export default function PostgreSQLGuiMacPage() {
             <p className="mb-4 text-sm font-semibold text-[var(--postgres-blue)]">
               PostgreSQL GUI for Mac
             </p>
-            <h1 className="max-w-4xl text-4xl font-display tracking-tight md:text-6xl">
+            <h1 className="max-w-4xl text-4xl font-display tracking-normal md:text-6xl">
               The native Mac Postgres client for everyday database work.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
@@ -154,7 +154,10 @@ export default function PostgreSQLGuiMacPage() {
         <section className="px-6 py-14">
           <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
             {featureGroups.map((feature) => (
-              <article key={feature.title} className="rounded-lg border border-border p-5">
+              <article
+                key={feature.title}
+                className="border-l-2 border-border pl-5"
+              >
                 <h2 className="text-xl font-semibold">{feature.title}</h2>
                 <p className="mt-3 text-sm leading-6 text-muted-foreground">
                   {feature.body}
@@ -166,7 +169,7 @@ export default function PostgreSQLGuiMacPage() {
 
         <section className="border-y border-border/30 bg-stone-100 px-6 py-14 dark:bg-stone-900">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-3xl font-display tracking-tight">
+            <h2 className="text-3xl font-display tracking-normal">
               How to choose a Postgres GUI on Mac
             </h2>
             <div className="mt-8 overflow-hidden border-y border-border bg-card">
@@ -196,7 +199,35 @@ export default function PostgreSQLGuiMacPage() {
 
         <section className="px-6 py-14">
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-3xl font-display tracking-tight">
+            <h2 className="text-3xl font-display tracking-normal">
+              Start with the task
+            </h2>
+            <div className="mt-6 space-y-4 text-muted-foreground">
+              <p>
+                Want a visual companion for terminal work? Read the{" "}
+                <Link href="/psql-gui">psql GUI guide</Link>.
+              </p>
+              <p>
+                Need to inspect tables and results? See the{" "}
+                <Link href="/postgres-viewer-mac">
+                  PostgreSQL viewer for Mac
+                </Link>
+                .
+              </p>
+              <p>
+                Comparing daily data work with full administration? See the{" "}
+                <Link href="/postgres-manager-mac">
+                  Postgres manager for Mac
+                </Link>
+                .
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-6 py-14">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="text-3xl font-display tracking-normal">
               Common questions
             </h2>
             <FAQ items={faqItems} className="mt-6" />

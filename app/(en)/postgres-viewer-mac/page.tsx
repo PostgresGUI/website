@@ -10,9 +10,9 @@ const OG_IMAGE = absoluteUrl("/seo/postgres-viewer-mac.png");
 
 const faqItems = [
   {
-    question: "What is a Postgres viewer?",
+    question: "What is a PostgreSQL viewer?",
     answer:
-      "A Postgres viewer is a database client that lets you connect to PostgreSQL, browse tables, inspect rows, run queries, and view results without writing every lookup by hand.",
+      "A PostgreSQL viewer is a database client that connects directly to Postgres so you can browse tables, inspect rows, run queries, and read results without writing every lookup by hand.",
   },
   {
     question: "Can I edit rows with PostgresGUI?",
@@ -27,12 +27,16 @@ const faqItems = [
 ];
 
 export const metadata: Metadata = {
-  title: "Postgres Viewer for Mac - Browse Tables and Query Results",
+  title: "PostgreSQL Viewer for Mac - Tables, SQL, and JSON",
   description:
-    "Postgres viewer for Mac. Use PostgresGUI to connect to PostgreSQL, browse tables, inspect query results, edit rows, export CSV, and view JSON results.",
+    "A PostgreSQL viewer for Mac. Connect to Postgres, browse tables, inspect SQL results, edit rows, view JSON, and export CSV in a native app.",
   keywords: [
     "postgres viewer",
+    "postgresql viewer",
     "postgres viewer mac",
+    "postgresql viewer mac",
+    "mac sql database viewer",
+    "mac database viewer",
     "postgres database gui",
     "ui for postgres",
     "postgres table viewer",
@@ -44,7 +48,7 @@ export const metadata: Metadata = {
     canonical: CANONICAL,
   },
   openGraph: {
-    title: "Postgres Viewer for Mac - Browse Tables and Query Results",
+    title: "PostgreSQL Viewer for Mac - Tables, SQL, and JSON",
     description:
       "A native Mac Postgres viewer for browsing tables, running SQL, inspecting query results, editing rows, and exporting data.",
     type: "website",
@@ -61,7 +65,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Postgres Viewer for Mac - Browse Tables and Query Results",
+    title: "PostgreSQL Viewer for Mac - Tables, SQL, and JSON",
     description:
       "Connect to PostgreSQL, browse tables, inspect query results, edit rows, export CSV, and view JSON results on Mac.",
     images: [OG_IMAGE],
@@ -77,7 +81,7 @@ const jsonLd = [
     operatingSystem: "macOS",
     url: CANONICAL,
     description:
-      "A native Mac Postgres viewer for browsing PostgreSQL tables, running SQL queries, inspecting query results, and exporting data.",
+      "A native Mac PostgreSQL viewer for browsing tables, running SQL queries, inspecting results, and exporting data.",
     offers: {
       "@type": "Offer",
       price: "12.99",
@@ -98,15 +102,15 @@ export default function PostgresViewerMacPage() {
         <section className="border-b border-border/30 px-6 py-16 md:py-24">
           <div className="mx-auto max-w-5xl">
             <p className="mb-4 text-sm font-semibold text-[var(--postgres-blue)]">
-              Postgres viewer for Mac
+              PostgreSQL viewer for Mac
             </p>
-            <h1 className="max-w-3xl text-4xl font-display tracking-tight md:text-6xl">
-              Browse PostgreSQL tables and query results in a native Mac app.
+            <h1 className="max-w-3xl text-4xl font-display tracking-normal md:text-6xl">
+              A clear view of your PostgreSQL data.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
-              PostgresGUI is a focused Postgres viewer for Mac. Connect to a
-              local, cloud, or remote PostgreSQL database, browse tables, run
-              SQL, inspect query results, edit rows, view JSON, and export CSV.
+              PostgresGUI is a native PostgreSQL viewer for Mac. Connect to a
+              local, cloud, or remote database, then browse tables, run SQL,
+              edit rows, inspect JSON, and export results as CSV.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
@@ -130,7 +134,7 @@ export default function PostgresViewerMacPage() {
             {[
               ["Table viewer", "Open schemas and tables, inspect rows, sort data, and check records without writing every lookup by hand."],
               ["Query result viewer", "Run SQL and keep wide results visible, then view JSON or export the result as CSV."],
-              ["Direct database view", "See PostgreSQL tables, views, and values without an ORM changing names or types."],
+              ["Mac SQL database viewer", "See PostgreSQL tables, views, and values without an ORM changing names or types."],
             ].map(([title, body]) => (
               <article key={title} className="border-l-2 border-border pl-5">
                 <h2 className="text-xl font-semibold">{title}</h2>
@@ -152,8 +156,8 @@ export default function PostgresViewerMacPage() {
               className="w-full rounded-md shadow-lg"
             />
             <div>
-              <h2 className="text-3xl font-display tracking-tight">
-                A table viewer should preserve the database truth
+              <h2 className="text-3xl font-display tracking-normal">
+                See what PostgreSQL actually stored
               </h2>
               <p className="mt-5 leading-7 text-muted-foreground">
                 PostgresGUI shows the schema and query result together, which
@@ -173,8 +177,8 @@ export default function PostgresViewerMacPage() {
 
         <section className="border-t border-border/30 px-6 py-14">
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-3xl font-display tracking-tight">
-              When a Postgres viewer helps
+            <h2 className="text-3xl font-display tracking-normal">
+              When a PostgreSQL viewer helps
             </h2>
             <ul className="mt-6 space-y-3 text-muted-foreground">
               <li>You want to inspect data without memorizing table names.</li>
@@ -182,6 +186,15 @@ export default function PostgresViewerMacPage() {
               <li>You want a Mac-native UI for routine PostgreSQL work.</li>
               <li>You use psql for terminal work but want a clearer viewer for data exploration.</li>
             </ul>
+            <p className="mt-8 text-sm text-muted-foreground">
+              Looking for a graphical interface to use alongside psql? See the{" "}
+              <Link href="/psql-gui">psql GUI guide</Link>. Need broader
+              administration features? Compare{" "}
+              <Link href="/postgres-manager-mac">
+                Postgres managers for Mac
+              </Link>
+              .
+            </p>
             <p className="mt-8 text-sm text-muted-foreground">
               For broader comparisons, read the{" "}
               <Link href="/blog/best-mac-postgresql-gui-client">
@@ -202,7 +215,7 @@ export default function PostgresViewerMacPage() {
 
         <section className="border-t border-border/30 px-6 py-14">
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-3xl font-display tracking-tight">
+            <h2 className="text-3xl font-display tracking-normal">
               Common questions
             </h2>
             <FAQ items={faqItems} className="mt-6" />

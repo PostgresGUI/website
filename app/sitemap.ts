@@ -89,6 +89,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/psql-gui`,
+      lastModified: new Date("2026-07-28"),
+      changeFrequency: "monthly",
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/postgres-manager-mac`,
+      lastModified: new Date("2026-07-28"),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/sql-editor`,
       lastModified: new Date(),
       changeFrequency: "monthly",

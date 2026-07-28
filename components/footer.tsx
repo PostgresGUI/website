@@ -35,6 +35,8 @@ export function Footer({ locale = "en" }: FooterProps) {
   const resourceLinks = [
     { href: "/blog", label: "Blog" },
     { href: "/postgresql-gui-mac", label: "PostgreSQL GUI for Mac" },
+    { href: "/psql-gui", label: "psql GUI" },
+    { href: "/postgres-manager-mac", label: "Postgres Manager for Mac" },
     { href: "/open-source-postgres-gui", label: "Open Source Postgres GUI" },
     { href: "/postgresql-data-types/jsonb-vs-json", label: "PostgreSQL Type Comparisons" },
     { href: "/blog/psql-vs-postgresql-gui", label: "psql vs GUI" },
@@ -54,6 +56,7 @@ export function Footer({ locale = "en" }: FooterProps) {
     { href: "/alternatives/dbeaver", label: "vs DBeaver" },
     { href: "/alternatives/beekeeper-studio", label: "vs Beekeeper Studio" },
     { href: "/alternatives/datagrip", label: "vs DataGrip" },
+    { href: "/blog/postgres-app-vs-postgresgui", label: "Postgres.app vs PostgresGUI" },
     { href: "/alternatives/postico-vs-tableplus", label: "Postico vs TablePlus" },
   ];
 

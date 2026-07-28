@@ -5,9 +5,9 @@ import "../globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://postgresgui.com"),
-  title: "PostgresGUI - The Postgres client designed for Mac.",
+  title: "Postgres Client for Mac | PostgresGUI",
   description:
-    "PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight, fast, dark mode.",
+    "A native Postgres client for Mac. Browse PostgreSQL tables, run SQL, edit rows, and export results in a focused open-source macOS app.",
   keywords: [
     "postgresql gui mac",
     "best postgres gui",
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     languages: getHreflangAlternates(),
   },
   openGraph: {
-    title: "PostgresGUI - The Postgres client designed for Mac.",
+    title: "Postgres Client for Mac | PostgresGUI",
     description:
-      "Best looking PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
+      "Browse PostgreSQL tables, run SQL, edit rows, and export results in a focused native Postgres client for Mac.",
     type: "website",
     url: "https://postgresgui.com",
     siteName: "PostgresGUI",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
         url: "https://postgresgui.com/postgresgui-og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "PostgresGUI - The Postgres client designed for Mac.",
+        alt: "PostgresGUI - Native Postgres client for Mac",
       },
     ],
   },
@@ -52,13 +52,13 @@ export const metadata: Metadata = {
     site: "@postgresgui",
     creator: "@postgresgui",
     card: "summary_large_image",
-    title: "PostgresGUI - The Postgres client designed for Mac.",
+    title: "Postgres Client for Mac | PostgresGUI",
     description:
-      "Best looking PostgreSQL GUI for Mac. Open-source, native macOS app. Lightweight (3.3 MB), fast queries, dark mode support. The postgres client Mac developers love.",
+      "Browse PostgreSQL tables, run SQL, edit rows, and export results in a focused native Postgres client for Mac.",
     images: [
       {
         url: "https://postgresgui.com/postgresgui-og-image.jpg",
-        alt: "PostgresGUI - The Postgres client designed for Mac.",
+        alt: "PostgresGUI - Native Postgres client for Mac",
       },
     ],
   },

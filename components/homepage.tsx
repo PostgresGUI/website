@@ -9,7 +9,14 @@ import { NewFeatureBadge } from "@/components/new-feature-badge";
 import { GitHubButton } from "@/components/github-button";
 import { Testimonials } from "@/components/testimonials";
 import { getTranslations, Locale } from "@/lib/translations";
-import { Code2, Database, Feather, Palette, Wrench } from "lucide-react";
+import {
+  Code2,
+  Database,
+  Feather,
+  Palette,
+  ScanSearch,
+  SquareTerminal,
+} from "lucide-react";
 
 export type HomepageProps = {
   appStoreLink?: string;
@@ -30,22 +37,22 @@ export async function Homepage({
     locale === "en"
       ? [
           {
-            href: "/postgresql-gui-mac",
-            title: "PostgreSQL GUI for Mac",
-            body: "Compare Mac Postgres clients and see where PostgresGUI fits.",
+            href: "/psql-gui",
+            title: "A GUI for psql work",
+            body: "Use a visual table browser and SQL editor when terminal output gets hard to scan.",
+            icon: SquareTerminal,
+          },
+          {
+            href: "/postgres-viewer-mac",
+            title: "PostgreSQL viewer",
+            body: "Browse schemas, inspect rows, view JSON, and export query results.",
+            icon: ScanSearch,
+          },
+          {
+            href: "/postgres-manager-mac",
+            title: "Postgres manager for Mac",
+            body: "See which daily database tasks fit PostgresGUI and when a full DBA tool is better.",
             icon: Database,
-          },
-          {
-            href: "/postgresql-tools",
-            title: "Free PostgreSQL tools",
-            body: "Use the SQL editor, schema designer, data types guide, UUID generator, and more.",
-            icon: Wrench,
-          },
-          {
-            href: "/alternatives/dbeaver",
-            title: "DBeaver alternative",
-            body: "Choose between a universal database workbench and a focused native Mac Postgres client.",
-            icon: Code2,
           },
         ]
       : [];
@@ -162,7 +169,7 @@ export async function Homepage({
                 <Link
                   key={href}
                   href={href}
-                  className="group rounded-lg border border-border bg-card p-6 transition-colors hover:border-[var(--postgres-blue)]"
+                  className="group rounded-md bg-card/80 p-6 shadow-sm transition-colors hover:bg-accent/60"
                 >
                   <Icon className="h-5 w-5 text-[var(--postgres-blue)]" />
                   <h3 className="mt-4 text-xl font-semibold group-hover:text-[var(--postgres-blue)]">

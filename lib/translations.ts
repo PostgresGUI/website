@@ -253,8 +253,9 @@ const en: Translations = {
   hero: {
     badge: "New",
     learnSql: "Learn SQL",
-    headline: "The Mac Postgres client you'll love.",
-    subheadline: "",
+    headline: "A native Postgres client for Mac.",
+    subheadline:
+      "Browse tables, run SQL, edit rows, and export results without a subscription.",
     trustLine: {
       lightweight: `Lightweight ${INSTALLED_SIZE}`,
       openSource: "Open source",

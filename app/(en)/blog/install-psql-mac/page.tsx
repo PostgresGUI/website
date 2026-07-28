@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { BlogPostFooter } from "@/components/blog-post-footer";
 import { BlogStructuredData } from "@/components/blog-structured-data";
 import { getBlogPost, getBlogPostMetadata } from "@/lib/blog";
@@ -10,164 +11,211 @@ export default function InstallPsqlMacPage() {
   return (
     <>
       <BlogStructuredData post={post} />
-      <div className="flex-1 py-12 px-6">
-        <div className="max-w-3xl mx-auto">
-          <article className="prose dark:prose-invert max-w-none">
+      <div className="flex-1 px-6 py-12">
+        <div className="mx-auto max-w-3xl">
+          <article className="prose max-w-none dark:prose-invert">
             <header className="mb-8">
-              <h1 className="text-4xl md:text-5xl font-display mb-4">
-                How to Install psql on Mac
+              <h1 className="mb-4 text-4xl font-display md:text-5xl">
+                Install psql on Mac
               </h1>
-              <p className="text-muted-foreground text-lg">Ghazi</p>
+              <p className="text-lg text-muted-foreground">
+                Ghazi · Updated July 28, 2026
+              </p>
             </header>
 
             <div className="space-y-6">
               <p>
-                If you are searching for <strong>install psql mac</strong> or{" "}
-                <strong>psql install mac</strong>, you probably want the
-                PostgreSQL command-line client without spending the afternoon
-                figuring out which installer also includes a server, service, or
-                GUI.
+                The shortest route is Homebrew: install <code>libpq</code>, add
+                its binary directory to your <code>PATH</code>, and check the
+                version. Use Postgres.app instead when you also want a local
+                PostgreSQL server.
               </p>
 
+              <pre>
+                <code>{`brew install libpq
+echo 'export PATH="$(brew --prefix libpq)/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+psql --version`}</code>
+              </pre>
+
+              <h2>Choose an installation method</h2>
+              <div className="overflow-x-auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Method</th>
+                      <th>Installs</th>
+                      <th>Use it when</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Homebrew libpq</td>
+                      <td>Client tools, including psql</td>
+                      <td>Your database runs elsewhere</td>
+                    </tr>
+                    <tr>
+                      <td>Postgres.app</td>
+                      <td>Local server and client tools</td>
+                      <td>You want PostgreSQL running locally</td>
+                    </tr>
+                    <tr>
+                      <td>PostgreSQL installer</td>
+                      <td>Server, pgAdmin, and command-line tools</td>
+                      <td>You want the full packaged installation</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h2>Option 1: Homebrew libpq</h2>
               <p>
-                <code>psql</code> is the official PostgreSQL terminal client. It
-                lets you connect to a database, run SQL, inspect schemas, import
-                data, and script database work. On macOS, the three common paths
-                are Homebrew, Postgres.app, and the official PostgreSQL
-                installer.
+                Homebrew&apos;s <code>libpq</code> formula installs the
+                PostgreSQL client library and command-line tools without setting
+                up a PostgreSQL server service.
               </p>
-
-              <h2>Option 1: Install psql with Homebrew</h2>
+              <pre>
+                <code>{`brew install libpq`}</code>
+              </pre>
               <p>
-                If you already use Homebrew, this is usually the fastest path.
-                Install PostgreSQL client tools from the terminal:
+                The formula is keg-only, so its binaries may not be on your
+                shell path. Add the directory to zsh:
               </p>
+              <pre>
+                <code>{`echo 'export PATH="$(brew --prefix libpq)/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc`}</code>
+              </pre>
+              <p>Confirm the command your shell will run:</p>
+              <pre>
+                <code>{`which psql
+psql --version`}</code>
+              </pre>
 
-              <pre><code>{`brew install libpq
-brew link --force libpq`}</code></pre>
-
+              <h2>Option 2: Postgres.app</h2>
               <p>
-                Then confirm that <code>psql</code> is available:
+                Postgres.app runs a local PostgreSQL server and includes{" "}
+                <code>psql</code>. Move the app to Applications, initialize a
+                server, then add its command-line tools to macOS&apos;s system
+                path:
               </p>
-
-              <pre><code>{`psql --version`}</code></pre>
-
+              <pre>
+                <code>{`sudo mkdir -p /etc/paths.d
+echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp`}</code>
+              </pre>
               <p>
-                This is a good choice when you only need the client utilities
-                and will connect to a PostgreSQL database running somewhere
-                else, such as Docker, Neon, Supabase, RDS, Railway, or a remote
-                server.
+                Open a new Terminal window and run <code>psql --version</code>.
+                The command above follows Postgres.app&apos;s current
+                installation documentation.
               </p>
 
-              <h2>Option 2: Install Postgres.app</h2>
+              <h2>Option 3: PostgreSQL installer</h2>
               <p>
-                Postgres.app is a Mac-native PostgreSQL distribution. It gives
-                you a local PostgreSQL server and includes command-line tools
-                like <code>psql</code>. After installing it, add its binaries to
-                your shell path so the terminal can find them.
+                PostgreSQL.org links to a macOS installer distributed by EDB.
+                It includes the server, pgAdmin, Stack Builder, and command-line
+                tools. This is the largest option, but it keeps the server and
+                administration tooling in one installer.
               </p>
 
-              <pre><code>{`export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"`}</code></pre>
-
+              <h2>Connect with psql</h2>
+              <p>Use a PostgreSQL connection string:</p>
+              <pre>
+                <code>{`psql "postgresql://user:password@localhost:5432/database"`}</code>
+              </pre>
+              <p>Or pass the connection fields separately:</p>
+              <pre>
+                <code>{`psql -h localhost -p 5432 -U user -d database`}</code>
+              </pre>
               <p>
-                Add that line to your shell profile if you want it to persist.
-                For zsh, that is usually <code>~/.zshrc</code>.
+                Cloud providers often require SSL. Use the exact connection
+                string supplied by the provider rather than rebuilding it from
+                memory.
               </p>
 
-              <h2>Option 3: Use the PostgreSQL installer</h2>
+              <h2>Fix common Mac errors</h2>
+              <h3>
+                <code>zsh: command not found: psql</code>
+              </h3>
               <p>
-                The official PostgreSQL installer for macOS includes the server,
-                pgAdmin, Stack Builder, and command-line tools. This is useful
-                if you want the full packaged distribution and do not mind a
-                heavier install.
+                Check <code>brew --prefix libpq</code> and{" "}
+                <code>echo $PATH</code>. If you just changed{" "}
+                <code>~/.zshrc</code>, run <code>source ~/.zshrc</code> or open
+                a new Terminal window.
               </p>
 
-              <h2>How to connect with psql</h2>
+              <h3>
+                <code>connection refused</code>
+              </h3>
               <p>
-                Once installed, connect with a connection string:
+                psql is installed, but no server answered at the host and port.
+                Start the local server, publish the Docker port, or check the
+                cloud connection settings.
               </p>
 
-              <pre><code>{`psql "postgresql://user:password@localhost:5432/database"`}</code></pre>
-
+              <h3>
+                <code>password authentication failed</code>
+              </h3>
               <p>
-                Or connect with flags:
+                The server answered, but rejected the credentials. Check the
+                user, password, database name, and provider SSL requirements.
               </p>
 
-              <pre><code>{`psql -h localhost -p 5432 -U user -d database`}</code></pre>
-
-              <h2>Common psql install errors on Mac</h2>
-              <h3>zsh: command not found: psql</h3>
-              <p>
-                This usually means <code>psql</code> is installed but not on
-                your <code>PATH</code>, or it was not installed at all. Run{" "}
-                <code>which psql</code> first. If Homebrew installed{" "}
-                <code>libpq</code>, make sure the Homebrew binary directory is
-                linked or added to your shell profile.
-              </p>
-
-              <h3>psql: could not connect to server</h3>
-              <p>
-                This is not an install problem. It means the client is working
-                but cannot reach a PostgreSQL server at the host, port, user, or
-                database you provided. Check whether your local server is
-                running, whether Docker exposed port <code>5432</code>, or
-                whether your cloud provider requires SSL.
-              </p>
-
-              <h3>Password authentication failed</h3>
-              <p>
-                The connection reached Postgres, but the username, password, or
-                database permissions are wrong. Copy the connection string from
-                your provider again, then test the same credentials in a GUI so
-                you can separate credential issues from terminal syntax.
-              </p>
-
-              <h2>Useful psql commands after installation</h2>
+              <h2>Useful commands after installation</h2>
               <div className="overflow-x-auto">
                 <table>
                   <thead>
                     <tr>
                       <th>Command</th>
-                      <th>What it does</th>
+                      <th>Result</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td><code>\l</code></td>
+                      <td>
+                        <code>\l</code>
+                      </td>
                       <td>List databases</td>
                     </tr>
                     <tr>
-                      <td><code>\c database_name</code></td>
+                      <td>
+                        <code>\c database_name</code>
+                      </td>
                       <td>Connect to another database</td>
                     </tr>
                     <tr>
-                      <td><code>\dt</code></td>
-                      <td>List tables in the current schema</td>
+                      <td>
+                        <code>\dt</code>
+                      </td>
+                      <td>List tables</td>
                     </tr>
                     <tr>
-                      <td><code>\d table_name</code></td>
-                      <td>Describe columns, indexes, and constraints</td>
+                      <td>
+                        <code>\d table_name</code>
+                      </td>
+                      <td>Describe a table</td>
                     </tr>
                     <tr>
-                      <td><code>\q</code></td>
+                      <td>
+                        <code>\q</code>
+                      </td>
                       <td>Quit psql</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
 
-              <h2>When to add a GUI</h2>
+              <h2>When a GUI is easier</h2>
               <p>
-                <code>psql</code> is excellent for quick terminal work,
-                scripting, and debugging. A GUI helps when you want to browse
-                tables, inspect query results visually, edit rows, sort/filter
-                data, or keep saved queries organized.
+                Keep psql for scripts, SSH sessions, and repeatable commands.
+                Use a GUI when you need to scan a wide result, browse tables,
+                edit one row, inspect JSON, or keep several queries open.
               </p>
-
               <p>
-                PostgresGUI pairs well with <code>psql</code>: keep the terminal
-                for automation and use a native Mac Postgres client when you
-                want a cleaner view of your database.
+                See the <Link href="/psql-gui">psql GUI guide</Link> or read the
+                full{" "}
+                <Link href="/blog/psql-vs-postgresql-gui">
+                  psql and PostgreSQL GUI comparison
+                </Link>
+                .
               </p>
             </div>
 
