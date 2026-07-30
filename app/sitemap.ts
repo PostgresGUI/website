@@ -1,195 +1,84 @@
 import { MetadataRoute } from "next";
-import { locales } from "@/lib/locales";
 import { posts as blogPosts } from "./(en)/blog/posts";
 import { categories as dataTypeCategories } from "./(apps)/data-types/_lib/data";
 import { connectionGuideSlugs } from "@/lib/connection-guides";
 import { dataTypeGuideSlugs } from "@/lib/data-type-guides";
+import { getBlogPost } from "@/lib/blog";
 import { workflowGuideSlugs } from "@/lib/workflow-guides";
 
 export const dynamic = "force-static";
 
+const baseUrl = "https://postgresgui.com";
+
+function entry(
+  path: string,
+  lastModified?: string
+): MetadataRoute.Sitemap[number] {
+  return {
+    url: `${baseUrl}${path}`,
+    ...(lastModified ? { lastModified } : {}),
+  };
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://postgresgui.com";
-
-  const blogRoutes = [
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    },
-    ...blogPosts.map((post) => ({
-      url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: new Date(post.date),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
-  ];
-
-  // Generate localized homepage routes
-  const localizedHomepages = locales.map((locale) => ({
-    url: `${baseUrl}${locale.path}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: locale.path === "" ? 1 : 0.9,
-  }));
-
-  // Generate localized download page routes
-  const localizedDownloads = locales.map((locale) => ({
-    url: `${baseUrl}${locale.path}/download`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.9,
-  }));
-
-  // Generate localized alternatives/tableplus routes
-  const alternativesTablePlusLocales = ["", "/de", "/fr", "/ja"];
-  const localizedTablePlusAlternatives = alternativesTablePlusLocales.map((path) => ({
-    url: `${baseUrl}${path}/alternatives/tableplus`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.9,
-  }));
-
-  const englishAlternatives = [
-    "pgadmin",
-    "postico",
-    "dbeaver",
-    "beekeeper-studio",
-    "datagrip",
-    "postico-vs-tableplus",
-  ].map((slug) => ({
-    url: `${baseUrl}/alternatives/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.9,
-  }));
+  const localizedCanonicalPaths = ["", "/de", "/fr", "/ja"];
 
   return [
-    ...localizedHomepages,
-    ...localizedDownloads,
-    ...localizedTablePlusAlternatives,
-    ...englishAlternatives,
-    {
-      url: `${baseUrl}/postgresql-gui-mac`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/postgresql-tools`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/postgres-viewer-mac`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/psql-gui`,
-      lastModified: new Date("2026-07-28"),
-      changeFrequency: "monthly",
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/postgres-manager-mac`,
-      lastModified: new Date("2026-07-28"),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/sql-editor`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/sql-compiler`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/schema-designer`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/postgresql-er-diagram-from-sql`,
-      lastModified: new Date("2026-07-25"),
-      changeFrequency: "monthly",
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/sql-cheatsheet`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/uuid-generator`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/connection-string`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/data-types`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    ...dataTypeCategories.map((cat) => ({
-      url: `${baseUrl}/data-types/${cat.id}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
-    ...connectionGuideSlugs.map((slug) => ({
-      url: `${baseUrl}/connection-string/${slug}`,
-      lastModified: new Date("2026-07-25"),
-      changeFrequency: "monthly" as const,
-      priority: 0.75,
-    })),
-    ...dataTypeGuideSlugs.map((slug) => ({
-      url: `${baseUrl}/postgresql-data-types/${slug}`,
-      lastModified: new Date("2026-07-25"),
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
-    ...workflowGuideSlugs.map((slug) => ({
-      url: `${baseUrl}/postgresql-client-for/${slug}`,
-      lastModified: new Date("2026-07-25"),
-      changeFrequency: "monthly" as const,
-      priority: 0.75,
-    })),
-    {
-      url: `${baseUrl}/open-source-postgres-gui`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/support`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    ...blogRoutes,
+    entry("", "2026-07-28"),
+    ...localizedCanonicalPaths
+      .filter((path) => path !== "")
+      .map((path) => entry(path)),
+    entry("/download", "2026-07-30"),
+    ...localizedCanonicalPaths
+      .filter((path) => path !== "")
+      .map((path) => entry(`${path}/download`)),
+    entry("/alternatives/tableplus"),
+    ...["/de", "/fr", "/ja"].map((path) =>
+      entry(`${path}/alternatives/tableplus`)
+    ),
+    ...[
+      "pgadmin",
+      "postico",
+      "dbeaver",
+      "beekeeper-studio",
+      "datagrip",
+      "postico-vs-tableplus",
+    ].map((slug) => entry(`/alternatives/${slug}`)),
+    entry("/postgresql-gui-mac", "2026-07-28"),
+    entry("/postgresql-tools", "2026-07-25"),
+    entry("/postgres-viewer-mac", "2026-07-28"),
+    entry("/psql-gui", "2026-07-28"),
+    entry("/postgres-manager-mac", "2026-07-28"),
+    entry("/sql-editor", "2026-07-25"),
+    entry("/sql-compiler", "2026-07-25"),
+    entry("/schema-designer", "2026-07-25"),
+    entry("/postgresql-er-diagram-from-sql", "2026-07-25"),
+    entry("/sql-cheatsheet", "2026-07-25"),
+    entry("/uuid-generator", "2026-07-25"),
+    entry("/connection-string", "2026-07-25"),
+    entry("/data-types", "2026-07-25"),
+    ...dataTypeCategories.map((category) =>
+      entry(`/data-types/${category.id}`, "2026-07-25")
+    ),
+    ...connectionGuideSlugs.map((slug) =>
+      entry(`/connection-string/${slug}`, "2026-07-25")
+    ),
+    ...dataTypeGuideSlugs.map((slug) =>
+      entry(`/postgresql-data-types/${slug}`, "2026-07-25")
+    ),
+    ...workflowGuideSlugs.map((slug) =>
+      entry(`/postgresql-client-for/${slug}`, "2026-07-25")
+    ),
+    entry("/open-source-postgres-gui", "2026-07-25"),
+    entry("/privacy", "2026-01-09"),
+    entry("/support", "2026-01-09"),
+    entry("/blog", "2026-07-30"),
+    ...blogPosts.map((post) => {
+      const fullPost = getBlogPost(post.slug);
+      return entry(
+        `/blog/${post.slug}`,
+        fullPost.dateModified ?? fullPost.date
+      );
+    }),
   ];
 }

@@ -108,16 +108,22 @@ export function BlogPostFooter({ post }: BlogPostFooterProps) {
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link
-            href="/download"
+            href="/"
             className="inline-flex rounded-md bg-[var(--postgres-blue)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--postgres-blue-dark)]"
           >
-            Download
+            See PostgresGUI
           </Link>
           <Link
-            href="/sql-editor"
+            href="/postgresql-gui-mac"
             className="inline-flex rounded-md border border-border px-4 py-2 text-sm font-semibold transition-colors hover:bg-accent"
           >
-            Try the SQL editor
+            PostgreSQL GUI for Mac
+          </Link>
+          <Link
+            href="/download"
+            className="inline-flex px-2 py-2 text-sm font-semibold text-[var(--postgres-blue)] hover:underline"
+          >
+            Download options
           </Link>
         </div>
       </section>

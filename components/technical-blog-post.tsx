@@ -1,21 +1,52 @@
+import Image from "next/image";
+import type { ReactNode } from "react";
 import { BlogPostFooter } from "@/components/blog-post-footer";
 import { BlogStructuredData } from "@/components/blog-structured-data";
-import type { GuideCodeBlock, GuideSection } from "@/components/seo-guide-page";
+import type { GuideCodeBlock } from "@/components/seo-guide-page";
 import type { BlogPost } from "@/lib/blog";
+
+type TechnicalSection = {
+  title: string;
+  paragraphs: ReactNode[];
+  bullets?: ReactNode[];
+  code?: GuideCodeBlock;
+};
+
+type ArticleScreenshot = {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+};
+
+function formatDate(dateString: string): string {
+  const [year, month, day] = dateString.split("-").map(Number);
+
+  return new Date(year, month - 1, day).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
 
 export function TechnicalBlogPost({
   post,
   intro,
   answer,
   codeBlocks = [],
+  screenshot,
   sections,
 }: {
   post: BlogPost;
-  intro: string;
-  answer: string;
+  intro: ReactNode;
+  answer: ReactNode;
   codeBlocks?: GuideCodeBlock[];
-  sections: GuideSection[];
+  screenshot?: ArticleScreenshot;
+  sections: TechnicalSection[];
 }) {
+  const dateModified = post.dateModified ?? post.date;
+
   return (
     <>
       <BlogStructuredData post={post} />
@@ -26,7 +57,10 @@ export function TechnicalBlogPost({
               {post.title}
             </h1>
             <p className="text-lg text-muted-foreground">
-              Ghazi · July 25, 2026
+              {post.author} · {formatDate(post.date)}
+              {dateModified !== post.date
+                ? ` · Updated ${formatDate(dateModified)}`
+                : ""}
             </p>
           </header>
 
@@ -34,6 +68,20 @@ export function TechnicalBlogPost({
           <p className="border-l-4 border-[var(--postgres-blue)] pl-4 font-medium">
             {answer}
           </p>
+
+          {screenshot ? (
+            <figure>
+              <Image
+                src={screenshot.src}
+                alt={screenshot.alt}
+                width={screenshot.width}
+                height={screenshot.height}
+                sizes="(max-width: 768px) 100vw, 768px"
+                className="rounded-md border border-border"
+              />
+              <figcaption>{screenshot.caption}</figcaption>
+            </figure>
+          ) : null}
 
           {codeBlocks.map((block) => (
             <section key={block.title}>
@@ -48,13 +96,13 @@ export function TechnicalBlogPost({
           {sections.map((section) => (
             <section key={section.title}>
               <h2>{section.title}</h2>
-              {section.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+              {section.paragraphs.map((paragraph, index) => (
+                <p key={`${section.title}-paragraph-${index}`}>{paragraph}</p>
               ))}
               {section.bullets?.length ? (
                 <ul>
-                  {section.bullets.map((bullet) => (
-                    <li key={bullet}>{bullet}</li>
+                  {section.bullets.map((bullet, index) => (
+                    <li key={`${section.title}-bullet-${index}`}>{bullet}</li>
                   ))}
                 </ul>
               ) : null}

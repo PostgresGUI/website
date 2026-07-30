@@ -9,7 +9,7 @@ import {
 export const dynamic = "force-static";
 
 const BASE_URL = "https://postgresgui.com";
-const UPDATED_AT = "2026-07-25";
+const UPDATED_AT = "2026-07-30";
 
 export function GET() {
   return NextResponse.json(
@@ -156,6 +156,26 @@ export function GET() {
         },
       ],
       guides: [
+        {
+          name: "Connect PostgresGUI to Supabase",
+          url: `${BASE_URL}/blog/connect-postgresgui-to-supabase`,
+        },
+        {
+          name: "Connect PostgresGUI to Neon",
+          url: `${BASE_URL}/blog/connect-postgresgui-to-neon`,
+        },
+        {
+          name: "Connect to PostgreSQL through an SSH tunnel",
+          url: `${BASE_URL}/blog/ssh-tunnel-postgres`,
+        },
+        {
+          name: "RDS PostgreSQL SSL verify-full on Mac",
+          url: `${BASE_URL}/blog/ssl-verify-full-for-rds-postgresql-on-mac`,
+        },
+        {
+          name: "Read PostgreSQL EXPLAIN ANALYZE",
+          url: `${BASE_URL}/blog/explain-analyze-postgres`,
+        },
         {
           name: "PostgreSQL UUIDv4 vs UUIDv7",
           url: `${BASE_URL}/blog/postgresql-uuid-v4-vs-v7`,

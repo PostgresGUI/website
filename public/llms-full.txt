@@ -107,6 +107,11 @@ The site describes PostgresGUI as having no subscription, no renewal fees, and n
 
 ## PostgreSQL Technical Guides
 
+- Connect PostgresGUI to Supabase: https://postgresgui.com/blog/connect-postgresgui-to-supabase
+- Connect PostgresGUI to Neon: https://postgresgui.com/blog/connect-postgresgui-to-neon
+- PostgreSQL through an SSH tunnel: https://postgresgui.com/blog/ssh-tunnel-postgres
+- RDS PostgreSQL SSL verify-full on Mac: https://postgresgui.com/blog/ssl-verify-full-for-rds-postgresql-on-mac
+- Read EXPLAIN ANALYZE: https://postgresgui.com/blog/explain-analyze-postgres
 - UUIDv4 vs UUIDv7: https://postgresgui.com/blog/postgresql-uuid-v4-vs-v7
 - JSONB query examples: https://postgresgui.com/blog/postgresql-jsonb-query-examples
 - psql vs PostgreSQL GUI: https://postgresgui.com/blog/psql-vs-postgresql-gui

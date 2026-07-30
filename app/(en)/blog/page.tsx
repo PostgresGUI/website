@@ -4,13 +4,13 @@ import { SITE_URL } from "@/lib/blog";
 import { posts } from "./posts";
 
 export const metadata: Metadata = {
-  title: "Blog - PostgresGUI",
+  title: "PostgreSQL Guides and Tutorials | PostgresGUI",
   description:
-    "Read the latest blog posts from PostgresGUI. Updates, insights, and stories about building a lightweight PostgreSQL client for Mac.",
+    "Practical PostgreSQL guides for connections, query tuning, data types, migrations, and Mac database workflows.",
   openGraph: {
-    title: "Blog - PostgresGUI",
+    title: "PostgreSQL Guides and Tutorials | PostgresGUI",
     description:
-      "Read the latest blog posts from PostgresGUI. Updates, insights, and stories about building a lightweight PostgreSQL client for Mac.",
+      "Practical PostgreSQL guides for connections, query tuning, data types, migrations, and Mac database workflows.",
     type: "website",
     url: "https://postgresgui.com/blog",
     siteName: "PostgresGUI",
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     site: "@postgresgui",
     creator: "@postgresgui",
     card: "summary_large_image",
-    title: "Blog - PostgresGUI",
+    title: "PostgreSQL Guides and Tutorials | PostgresGUI",
     description:
-      "Read the latest blog posts from PostgresGUI. Updates, insights, and stories about building a lightweight PostgreSQL client for Mac.",
+      "Practical PostgreSQL guides for connections, query tuning, data types, migrations, and Mac database workflows.",
   },
   robots: {
     index: true,
@@ -32,6 +32,20 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/blog`,
   },
 };
+
+const connectionGuideSlugs = new Set([
+  "connect-postgresgui-to-supabase",
+  "connect-postgresgui-to-neon",
+  "ssh-tunnel-postgres",
+  "ssl-verify-full-for-rds-postgresql-on-mac",
+]);
+
+const connectionGuides = posts.filter((post) =>
+  connectionGuideSlugs.has(post.slug)
+);
+const latestPosts = posts.filter(
+  (post) => !connectionGuideSlugs.has(post.slug)
+);
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -78,16 +92,42 @@ export default function BlogPage() {
       />
       <div className="max-w-4xl mx-auto">
         <header className="mb-12">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display mb-4 tracking-tight">
-            Blog
+          <h1 className="text-4xl md:text-5xl font-display mb-4 tracking-tight">
+            PostgreSQL guides and tutorials
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground">
-            Updates, insights, and stories from PostgresGUI
+            Connection setup, query tuning, data types, migrations, and
+            practical Mac workflows.
           </p>
         </header>
 
+        <section className="mb-14 border-y border-border/60 py-8">
+          <h2 className="text-2xl font-semibold">Connection guides</h2>
+          <p className="mt-2 text-muted-foreground">
+            Connect a Mac client without guessing at hosts, poolers, tunnels, or
+            TLS settings.
+          </p>
+          <div className="mt-6 grid gap-x-10 gap-y-5 sm:grid-cols-2">
+            {connectionGuides.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="group border-l-2 border-border pl-4 transition-colors hover:border-[var(--postgres-blue)]"
+              >
+                <h3 className="font-semibold group-hover:text-[var(--postgres-blue)]">
+                  {post.title}
+                </h3>
+                <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                  {post.description}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <h2 className="mb-7 text-2xl font-semibold">Latest guides</h2>
         <div className="space-y-8">
-          {posts.map((post) => (
+          {latestPosts.map((post) => (
             <article
               key={post.slug}
               className="border-b border-border pb-8 last:border-b-0"

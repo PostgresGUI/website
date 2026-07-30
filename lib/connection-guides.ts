@@ -319,9 +319,10 @@ export function getConnectionGuide(
         description: "Open the SQL editor, schema designer, UUID generator, and reference tools.",
       },
       {
-        href: "/download",
-        label: "PostgresGUI for Mac",
-        description: "Connect to local and hosted PostgreSQL databases from a native Mac app.",
+        href: "/postgresql-gui-mac",
+        label: "PostgreSQL GUI for Mac",
+        description:
+          "Connect to local and hosted PostgreSQL databases from a native Mac app.",
       },
     ],
     sources: [

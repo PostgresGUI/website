@@ -441,21 +441,15 @@ export function getLocaleMetadata(locale: Locale): Metadata {
 // Download page SEO data
 const downloadSeoData: Record<Locale, LocaleSEO> = {
   en: {
-    title: "Download PostgresGUI - PostgreSQL GUI for Mac",
+    title: "Download PostgresGUI for Mac | App Store or Source",
     description:
-      "Download PostgresGUI for Mac or build from source. Lightweight, open-source PostgreSQL client with a native macOS interface and dark mode support.",
+      "Get PostgresGUI from the Mac App Store or build the open-source app yourself. Review macOS requirements, download size, and source code.",
     keywords: [
-      "download postgresql for mac",
-      "download postgresql gui mac",
-      "install postgres client on mac",
-      "mac install postgres client",
-      "postgresql client download",
       "postgresgui download",
       "postgres gui mac download",
-      "postgresql mac app download",
-      "postgresql gui free download",
-      "postgres client mac free",
-      "database gui mac download",
+      "download postgresgui for mac",
+      "postgresgui app store",
+      "postgresgui source code",
     ],
     ogLocale: "en_US",
     canonical: "https://postgresgui.com/download",

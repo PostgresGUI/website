@@ -41,9 +41,9 @@ export function MobileNav({
       <header className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800">
         <div className="flex items-center justify-between px-4 py-3">
           <div>
-            <h1 className="text-sm font-black text-stone-900 dark:text-stone-100 tracking-tighter uppercase">
+            <p className="text-sm font-black text-stone-900 dark:text-stone-100 tracking-tighter uppercase">
               SQL Cheatsheet
-            </h1>
+            </p>
             <p className="text-[10px] text-stone-500 dark:text-stone-400 uppercase tracking-wide">
               For {selectedDatabase.shortName}
             </p>

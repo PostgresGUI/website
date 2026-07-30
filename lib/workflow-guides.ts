@@ -210,9 +210,10 @@ rollback;`,
         description: "Choose by task instead of treating one interface as the universal answer.",
       },
       {
-        href: "/download",
-        label: "Download PostgresGUI",
-        description: "A native, PostgreSQL-only client for macOS.",
+        href: "/postgresql-gui-mac",
+        label: "PostgreSQL GUI for Mac",
+        description:
+          "See the native query, browsing, editing, and connection workflow.",
       },
     ],
     sources: [

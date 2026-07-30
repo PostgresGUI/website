@@ -68,7 +68,6 @@ export default function UuidGeneratorPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <h1 className="sr-only">UUID Generator — Generate v4 and v7 UUIDs</h1>
       <UuidGenerator />
       <section className="border-t border-stone-200 bg-white px-6 py-14 dark:border-stone-800 dark:bg-stone-950">
         <div className="mx-auto max-w-3xl">
