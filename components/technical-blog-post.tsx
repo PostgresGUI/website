@@ -77,7 +77,7 @@ export function TechnicalBlogPost({
                 width={screenshot.width}
                 height={screenshot.height}
                 sizes="(max-width: 768px) 100vw, 768px"
-                className="rounded-md border border-border"
+                className="rounded-md"
               />
               <figcaption>{screenshot.caption}</figcaption>
             </figure>
