@@ -94,7 +94,7 @@ export async function Homepage({
 
           {/* Trust sub-line */}
           <div
-            className="mb-6 mt-8 flex flex-wrap items-center gap-y-3 border-t border-stone-200 pt-5 text-sm font-medium text-stone-600 dark:border-stone-800 dark:text-stone-300 md:text-base animate-slide-in stagger-2"
+            className="mb-6 mt-6 pt-6 flex flex-wrap items-center gap-y-3 border-t border-stone-200 text-sm font-medium text-stone-600 dark:border-stone-800 dark:text-stone-300 md:text-base animate-slide-in stagger-2"
             aria-label="Trust indicators"
           >
             {trustItems.map(({ icon: Icon, label }) => (
