@@ -36,25 +36,25 @@ export async function Homepage({
   const seoPathways =
     locale === "en"
       ? [
-          {
-            href: "/psql-gui",
-            title: "A GUI for psql work",
-            body: "Use a visual table browser and SQL editor when terminal output gets hard to scan.",
-            icon: SquareTerminal,
-          },
-          {
-            href: "/postgres-viewer-mac",
-            title: "PostgreSQL viewer",
-            body: "Browse schemas, inspect rows, view JSON, and export query results.",
-            icon: ScanSearch,
-          },
-          {
-            href: "/postgres-manager-mac",
-            title: "Postgres manager for Mac",
-            body: "See which daily database tasks fit PostgresGUI and when a full DBA tool is better.",
-            icon: Database,
-          },
-        ]
+        {
+          href: "/psql-gui",
+          title: "A GUI for psql work",
+          body: "Use a visual table browser and SQL editor when terminal output gets hard to scan.",
+          icon: SquareTerminal,
+        },
+        {
+          href: "/postgres-viewer-mac",
+          title: "PostgreSQL viewer",
+          body: "Browse schemas, inspect rows, view JSON, and export query results.",
+          icon: ScanSearch,
+        },
+        {
+          href: "/postgres-manager-mac",
+          title: "Postgres manager for Mac",
+          body: "See which daily database tasks fit PostgresGUI and when a full DBA tool is better.",
+          icon: Database,
+        },
+      ]
       : [];
 
   return (
@@ -94,7 +94,7 @@ export async function Homepage({
 
           {/* Trust sub-line */}
           <div
-            className="mb-12 mt-8 flex flex-wrap items-center gap-y-3 border-t border-stone-200 pt-5 text-sm font-medium text-stone-600 dark:border-stone-800 dark:text-stone-300 md:text-base animate-slide-in stagger-2"
+            className="mb-6 mt-8 flex flex-wrap items-center gap-y-3 border-t border-stone-200 pt-5 text-sm font-medium text-stone-600 dark:border-stone-800 dark:text-stone-300 md:text-base animate-slide-in stagger-2"
             aria-label="Trust indicators"
           >
             {trustItems.map(({ icon: Icon, label }) => (
