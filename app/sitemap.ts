@@ -12,7 +12,7 @@ const baseUrl = "https://postgresgui.com";
 
 function entry(
   path: string,
-  lastModified?: string
+  lastModified?: string,
 ): MetadataRoute.Sitemap[number] {
   return {
     url: `${baseUrl}${path}`,
@@ -34,7 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       .map((path) => entry(`${path}/download`)),
     entry("/alternatives/tableplus"),
     ...["/de", "/fr", "/ja"].map((path) =>
-      entry(`${path}/alternatives/tableplus`)
+      entry(`${path}/alternatives/tableplus`),
     ),
     ...[
       "pgadmin",
@@ -58,26 +58,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/connection-string", "2026-07-25"),
     entry("/data-types", "2026-07-25"),
     ...dataTypeCategories.map((category) =>
-      entry(`/data-types/${category.id}`, "2026-07-25")
+      entry(`/data-types/${category.id}`, "2026-07-25"),
     ),
     ...connectionGuideSlugs.map((slug) =>
-      entry(`/connection-string/${slug}`, "2026-07-25")
+      entry(`/connection-string/${slug}`, "2026-07-25"),
     ),
     ...dataTypeGuideSlugs.map((slug) =>
-      entry(`/postgresql-data-types/${slug}`, "2026-07-25")
+      entry(`/postgresql-data-types/${slug}`, "2026-07-25"),
     ),
     ...workflowGuideSlugs.map((slug) =>
-      entry(`/postgresql-client-for/${slug}`, "2026-07-25")
+      entry(`/postgresql-client-for/${slug}`, "2026-07-25"),
     ),
     entry("/open-source-postgres-gui", "2026-07-25"),
     entry("/privacy", "2026-01-09"),
     entry("/support", "2026-01-09"),
-    entry("/blog", "2026-07-30"),
+    entry("/blog", "2026-07-31"),
     ...blogPosts.map((post) => {
       const fullPost = getBlogPost(post.slug);
       return entry(
         `/blog/${post.slug}`,
-        fullPost.dateModified ?? fullPost.date
+        fullPost.dateModified ?? fullPost.date,
       );
     }),
   ];

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { trendBlogPosts } from "@/lib/trend-blog-posts";
 
 export const SITE_URL = "https://postgresgui.com";
 export const BLOG_IMAGE = `${SITE_URL}/postgresgui-og-image.jpg`;
@@ -34,6 +35,7 @@ export type BlogPostInfo = Pick<
 >;
 
 export const blogPosts: BlogPost[] = [
+  ...trendBlogPosts,
   {
     slug: "connect-postgresgui-to-supabase",
     title: "Connect PostgresGUI to Supabase",
@@ -57,7 +59,8 @@ export const blogPosts: BlogPost[] = [
     ],
     faqs: [
       {
-        question: "Should a desktop PostgreSQL client use the Supabase direct URL or pooler?",
+        question:
+          "Should a desktop PostgreSQL client use the Supabase direct URL or pooler?",
         answer:
           "Use the direct URL when your network can reach its IPv6 endpoint. On an IPv4-only network, use the shared pooler's session-mode URL on port 5432. Transaction mode on port 6543 is intended for short application transactions, not a long desktop session.",
       },
@@ -163,7 +166,8 @@ export const blogPosts: BlogPost[] = [
     ],
     faqs: [
       {
-        question: "What does the PostgreSQL host become when using an SSH tunnel?",
+        question:
+          "What does the PostgreSQL host become when using an SSH tunnel?",
         answer:
           "The client connects to the local end of the tunnel, normally 127.0.0.1 and the local port you chose. The SSH server opens the database-side connection to the target host and port.",
       },
@@ -481,15 +485,25 @@ export const blogPosts: BlogPost[] = [
           "psql is the official PostgreSQL command-line client. On Mac, you can install it with Homebrew, Postgres.app, or the PostgreSQL installer.",
       },
       {
-        question: "Do you need to install the full PostgreSQL server to get psql?",
+        question:
+          "Do you need to install the full PostgreSQL server to get psql?",
         answer:
           "Not always. Homebrew can install PostgreSQL client tools, while Postgres.app and the PostgreSQL installer include both server and client utilities.",
       },
     ],
     sources: [
-      { title: "PostgreSQL psql documentation", url: "https://www.postgresql.org/docs/current/app-psql.html" },
-      { title: "PostgreSQL macOS downloads", url: "https://www.postgresql.org/download/macosx/" },
-      { title: "Postgres.app documentation", url: "https://postgresapp.com/documentation/" },
+      {
+        title: "PostgreSQL psql documentation",
+        url: "https://www.postgresql.org/docs/current/app-psql.html",
+      },
+      {
+        title: "PostgreSQL macOS downloads",
+        url: "https://www.postgresql.org/download/macosx/",
+      },
+      {
+        title: "Postgres.app documentation",
+        url: "https://postgresapp.com/documentation/",
+      },
     ],
   },
   {
@@ -529,9 +543,15 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     sources: [
-      { title: "PostgreSQL macOS downloads", url: "https://www.postgresql.org/download/macosx/" },
+      {
+        title: "PostgreSQL macOS downloads",
+        url: "https://www.postgresql.org/download/macosx/",
+      },
       { title: "Postgres.app", url: "https://postgresapp.com/" },
-      { title: "Homebrew PostgreSQL formula", url: "https://formulae.brew.sh/formula/postgresql@16" },
+      {
+        title: "Homebrew PostgreSQL formula",
+        url: "https://formulae.brew.sh/formula/postgresql@16",
+      },
     ],
   },
   {
@@ -572,9 +592,18 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     sources: [
-      { title: "PostgreSQL data types documentation", url: "https://www.postgresql.org/docs/current/datatype.html" },
-      { title: "PostgreSQL numeric types", url: "https://www.postgresql.org/docs/current/datatype-numeric.html" },
-      { title: "PostgreSQL date/time types", url: "https://www.postgresql.org/docs/current/datatype-datetime.html" },
+      {
+        title: "PostgreSQL data types documentation",
+        url: "https://www.postgresql.org/docs/current/datatype.html",
+      },
+      {
+        title: "PostgreSQL numeric types",
+        url: "https://www.postgresql.org/docs/current/datatype-numeric.html",
+      },
+      {
+        title: "PostgreSQL date/time types",
+        url: "https://www.postgresql.org/docs/current/datatype-datetime.html",
+      },
     ],
   },
   {
@@ -618,7 +647,10 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     sources: [
-      { title: "PostgresGUI source code", url: "https://github.com/postgresgui/postgresgui" },
+      {
+        title: "PostgresGUI source code",
+        url: "https://github.com/postgresgui/postgresgui",
+      },
       { title: "pgAdmin", url: "https://www.pgadmin.org/" },
       { title: "DBeaver", url: "https://dbeaver.io/" },
       { title: "DataGrip", url: "https://www.jetbrains.com/datagrip/" },
@@ -663,8 +695,14 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     sources: [
-      { title: "PostgreSQL CREATE TABLE documentation", url: "https://www.postgresql.org/docs/current/sql-createtable.html" },
-      { title: "PostgreSQL constraints documentation", url: "https://www.postgresql.org/docs/current/ddl-constraints.html" },
+      {
+        title: "PostgreSQL CREATE TABLE documentation",
+        url: "https://www.postgresql.org/docs/current/sql-createtable.html",
+      },
+      {
+        title: "PostgreSQL constraints documentation",
+        url: "https://www.postgresql.org/docs/current/ddl-constraints.html",
+      },
     ],
   },
   {
@@ -724,9 +762,15 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     sources: [
-      { title: "PostgreSQL documentation", url: "https://www.postgresql.org/docs/current/" },
+      {
+        title: "PostgreSQL documentation",
+        url: "https://www.postgresql.org/docs/current/",
+      },
       { title: "Neon documentation", url: "https://neon.com/docs" },
-      { title: "Supabase database documentation", url: "https://supabase.com/docs/guides/database" },
+      {
+        title: "Supabase database documentation",
+        url: "https://supabase.com/docs/guides/database",
+      },
     ],
   },
   {
@@ -769,7 +813,10 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     sources: [
-      { title: "PostgreSQL documentation", url: "https://www.postgresql.org/docs/current/" },
+      {
+        title: "PostgreSQL documentation",
+        url: "https://www.postgresql.org/docs/current/",
+      },
       { title: "pgloader project", url: "https://github.com/dimitri/pgloader" },
     ],
   },
@@ -812,8 +859,14 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     sources: [
-      { title: "PostgreSQL documentation", url: "https://www.postgresql.org/docs/current/" },
-      { title: "Microsoft SQL Server documentation", url: "https://learn.microsoft.com/sql/sql-server/" },
+      {
+        title: "PostgreSQL documentation",
+        url: "https://www.postgresql.org/docs/current/",
+      },
+      {
+        title: "Microsoft SQL Server documentation",
+        url: "https://learn.microsoft.com/sql/sql-server/",
+      },
     ],
   },
   {
@@ -862,10 +915,16 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     sources: [
-      { title: "PostgresGUI source code", url: "https://github.com/postgresgui/postgresgui" },
+      {
+        title: "PostgresGUI source code",
+        url: "https://github.com/postgresgui/postgresgui",
+      },
       { title: "pgAdmin project", url: "https://www.pgadmin.org/" },
       { title: "DBeaver project", url: "https://dbeaver.io/" },
-      { title: "Postico documentation", url: "https://eggerapps.at/postico2/documentation/what-is-postico.html" },
+      {
+        title: "Postico documentation",
+        url: "https://eggerapps.at/postico2/documentation/what-is-postico.html",
+      },
       { title: "TablePlus", url: "https://tableplus.com/" },
       { title: "DataGrip", url: "https://www.jetbrains.com/datagrip/" },
     ],
@@ -965,14 +1024,24 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     sources: [
-      { title: "PostgreSQL monitoring documentation", url: "https://www.postgresql.org/docs/current/monitoring.html" },
-      { title: "pg_stat_statements documentation", url: "https://www.postgresql.org/docs/current/pgstatstatements.html" },
-      { title: "Prometheus postgres exporter", url: "https://github.com/prometheus-community/postgres_exporter" },
+      {
+        title: "PostgreSQL monitoring documentation",
+        url: "https://www.postgresql.org/docs/current/monitoring.html",
+      },
+      {
+        title: "pg_stat_statements documentation",
+        url: "https://www.postgresql.org/docs/current/pgstatstatements.html",
+      },
+      {
+        title: "Prometheus postgres exporter",
+        url: "https://github.com/prometheus-community/postgres_exporter",
+      },
     ],
   },
   {
     slug: "best-postgresql-backup-solution",
-    title: "Best PostgreSQL Backup Solutions in 2026: Tools, Strategies, and Best Practices",
+    title:
+      "Best PostgreSQL Backup Solutions in 2026: Tools, Strategies, and Best Practices",
     description:
       "Compare the best PostgreSQL backup solutions in 2026. From pg_dump and pgBackRest to Barman and WAL-G, find the right backup strategy for your database.",
     keywords: [
@@ -1011,14 +1080,18 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     sources: [
-      { title: "PostgreSQL backup and restore documentation", url: "https://www.postgresql.org/docs/current/backup.html" },
+      {
+        title: "PostgreSQL backup and restore documentation",
+        url: "https://www.postgresql.org/docs/current/backup.html",
+      },
       { title: "pgBackRest documentation", url: "https://pgbackrest.org/" },
       { title: "Barman documentation", url: "https://docs.pgbarman.org/" },
     ],
   },
   {
     slug: "best-pgadmin-alternative-mac",
-    title: "Best pgAdmin Alternatives for Mac (That You'll Actually Enjoy Using)",
+    title:
+      "Best pgAdmin Alternatives for Mac (That You'll Actually Enjoy Using)",
     description:
       "Tired of pgAdmin on Mac? Discover the best pgAdmin alternatives that are native, fast, and actually enjoyable to use. Compare PostgresGUI, Postico, TablePlus, DBeaver, and more.",
     keywords: [
@@ -1061,7 +1134,10 @@ export const blogPosts: BlogPost[] = [
     ],
     sources: [
       { title: "pgAdmin project", url: "https://www.pgadmin.org/" },
-      { title: "PostgresGUI source code", url: "https://github.com/postgresgui/postgresgui" },
+      {
+        title: "PostgresGUI source code",
+        url: "https://github.com/postgresgui/postgresgui",
+      },
     ],
   },
   {
@@ -1105,8 +1181,14 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     sources: [
-      { title: "PostgresGUI source code", url: "https://github.com/postgresgui/postgresgui" },
-      { title: "PostgresGUI on the Mac App Store", url: "https://apps.apple.com/app/postgresgui/id6756467181" },
+      {
+        title: "PostgresGUI source code",
+        url: "https://github.com/postgresgui/postgresgui",
+      },
+      {
+        title: "PostgresGUI on the Mac App Store",
+        url: "https://apps.apple.com/app/postgresgui/id6756467181",
+      },
     ],
   },
 ];

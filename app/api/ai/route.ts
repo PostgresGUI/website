@@ -5,11 +5,12 @@ import {
   INSTALLED_SIZE,
   PRICE_AMOUNT,
 } from "@/lib/constants";
+import { trendBlogPosts } from "@/lib/trend-blog-posts";
 
 export const dynamic = "force-static";
 
 const BASE_URL = "https://postgresgui.com";
-const UPDATED_AT = "2026-07-30";
+const UPDATED_AT = "2026-07-31";
 
 export function GET() {
   return NextResponse.json(
@@ -156,6 +157,10 @@ export function GET() {
         },
       ],
       guides: [
+        ...trendBlogPosts.map((post) => ({
+          name: post.title,
+          url: BASE_URL + "/blog/" + post.slug,
+        })),
         {
           name: "Connect PostgresGUI to Supabase",
           url: `${BASE_URL}/blog/connect-postgresgui-to-supabase`,
@@ -209,7 +214,8 @@ export function GET() {
     },
     {
       headers: {
-        "Cache-Control": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
+        "Cache-Control":
+          "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
       },
     },
   );

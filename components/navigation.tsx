@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { MenuIcon, XIcon, GitHubIcon } from "@/components/icons";
 import { getTranslations, Locale } from "@/lib/translations";
 import { AppStoreLink } from "@/components/app-store-link";
+import { SiteSearch } from "@/components/search/site-search";
 
 const GITHUB_LINK = "https://github.com/postgresgui/postgresgui";
 const GITHUB_API = "https://api.github.com/repos/postgresgui/postgresgui";
@@ -76,7 +77,8 @@ export function Navigation({ locale = "en" }: NavigationProps) {
           <div className="hidden flex-1 items-center justify-center gap-7 md:flex">
             {navLinks.map((link) => {
               // Check if we're on the home page for this locale
-              const isOnHomePage = pathname === homeUrl || pathname === `${localePrefix}/`;
+              const isOnHomePage =
+                pathname === homeUrl || pathname === `${localePrefix}/`;
 
               // If link is a hash and we're not on home page, prepend locale home URL
               const href = link.href.startsWith("#")
@@ -104,20 +106,25 @@ export function Navigation({ locale = "en" }: NavigationProps) {
             })}
           </div>
 
-          {/* GitHub & Download - Right */}
-          <div className="hidden md:flex flex-1 justify-end items-center gap-2">
+          {/* Search, GitHub & Download - Right */}
+          <div className="flex flex-1 items-center justify-end gap-1 md:gap-2">
+            {locale === "en" ? <SiteSearch /> : null}
             <a
               href={GITHUB_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-gray-600 transition-colors hover:bg-black/5 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"
+              className="hidden items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-gray-600 transition-colors hover:bg-black/5 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white md:flex"
               aria-label="View on GitHub"
             >
               <GitHubIcon width={18} height={18} />
-              <span className="text-xs font-semibold md:hidden lg:inline">Open Source</span>
+              <span className="text-xs font-semibold md:hidden lg:inline">
+                Open Source
+              </span>
               {starCount !== null && (
                 <>
-                  <span className="text-gray-300 dark:text-gray-600 md:hidden lg:inline">|</span>
+                  <span className="text-gray-300 dark:text-gray-600 md:hidden lg:inline">
+                    |
+                  </span>
                   <span className="text-xs font-semibold tabular-nums">
                     ⭐{" "}
                     {starCount >= 1000
@@ -128,41 +135,39 @@ export function Navigation({ locale = "en" }: NavigationProps) {
               )}
               <span className="text-xs opacity-70 md:hidden">↗</span>
             </a>
-            <AppStoreLink
-              className="flex items-center gap-1.5 rounded-lg bg-[var(--postgres-blue)] px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-[var(--postgres-blue-dark)]"
-            >
+            <AppStoreLink className="hidden items-center gap-1.5 rounded-lg bg-[var(--postgres-blue)] px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-[var(--postgres-blue-dark)] md:flex">
               {t.nav.download} <span className="text-xs opacity-70">↗</span>
             </AppStoreLink>
+            {/* Mobile Menu Button */}
+            <button
+              className="rounded-lg p-2 text-gray-900 transition-swiftui hover:bg-accent/50 dark:text-white md:hidden"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-expanded={mobileMenuOpen}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? (
+                <XIcon
+                  width={20}
+                  height={20}
+                  className="text-gray-900 dark:text-white"
+                />
+              ) : (
+                <MenuIcon
+                  width={20}
+                  height={20}
+                  className="text-gray-900 dark:text-white"
+                />
+              )}
+            </button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-accent/50 transition-swiftui text-gray-900 dark:text-white"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-expanded={mobileMenuOpen}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? (
-              <XIcon
-                width={20}
-                height={20}
-                className="text-gray-900 dark:text-white"
-              />
-            ) : (
-              <MenuIcon
-                width={20}
-                height={20}
-                className="text-gray-900 dark:text-white"
-              />
-            )}
-          </button>
         </div>
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="mt-2 space-y-2 border-t border-border/50 bg-white pb-4 pt-3 dark:bg-black md:hidden">
             {navLinks.map((link) => {
-              const isOnHomePage = pathname === homeUrl || pathname === `${localePrefix}/`;
+              const isOnHomePage =
+                pathname === homeUrl || pathname === `${localePrefix}/`;
               const href = link.href.startsWith("#")
                 ? isOnHomePage
                   ? link.href

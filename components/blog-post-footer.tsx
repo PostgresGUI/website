@@ -1,8 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import {
-  type BlogPost,
-  getRelatedBlogPosts,
-} from "@/lib/blog";
+import { type BlogPost, getRelatedBlogPosts } from "@/lib/blog";
 
 type BlogPostFooterProps = {
   post: BlogPost;
@@ -25,7 +23,9 @@ export function BlogPostFooter({ post }: BlogPostFooterProps) {
   return (
     <footer className="not-prose mt-12 space-y-8 border-t border-border pt-8">
       <section className="rounded-lg border border-border bg-card p-5">
-        <p className="text-sm font-semibold text-foreground">About the author</p>
+        <p className="text-sm font-semibold text-foreground">
+          About the author
+        </p>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
           {post.author} builds PostgresGUI, a native macOS PostgreSQL client
           focused on fast query work, simple browsing, and a clean Mac
@@ -33,7 +33,9 @@ export function BlogPostFooter({ post }: BlogPostFooterProps) {
         </p>
         <p className="mt-3 text-xs text-muted-foreground">
           Published {formatDate(post.date)}
-          {dateModified !== post.date ? ` · Updated ${formatDate(dateModified)}` : ""}
+          {dateModified !== post.date
+            ? ` · Updated ${formatDate(dateModified)}`
+            : ""}
         </p>
       </section>
 
@@ -98,33 +100,45 @@ export function BlogPostFooter({ post }: BlogPostFooterProps) {
         </div>
       </section>
 
-      <section className="rounded-lg border border-[var(--postgres-blue)]/30 bg-[var(--postgres-blue)]/5 p-5">
-        <h2 className="text-xl font-semibold tracking-tight">
-          Try PostgresGUI
-        </h2>
-        <p className="mt-2 text-sm leading-6 text-muted-foreground">
-          A lightweight PostgreSQL client for Mac, built for developers who want
-          a focused native app without a subscription.
-        </p>
-        <div className="mt-4 flex flex-wrap gap-3">
-          <Link
-            href="/"
-            className="inline-flex rounded-md bg-[var(--postgres-blue)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--postgres-blue-dark)]"
-          >
-            See PostgresGUI
-          </Link>
-          <Link
-            href="/postgresql-gui-mac"
-            className="inline-flex rounded-md border border-border px-4 py-2 text-sm font-semibold transition-colors hover:bg-accent"
-          >
-            PostgreSQL GUI for Mac
-          </Link>
-          <Link
-            href="/download"
-            className="inline-flex px-2 py-2 text-sm font-semibold text-[var(--postgres-blue)] hover:underline"
-          >
-            Download options
-          </Link>
+      <section className="overflow-hidden rounded-lg bg-stone-100 dark:bg-stone-900">
+        <div className="grid items-center gap-6 md:grid-cols-[0.9fr_1.1fr]">
+          <div className="p-6 md:p-8">
+            <p className="text-sm font-semibold text-[var(--postgres-blue)]">
+              PostgresGUI for Mac
+            </p>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight">
+              Keep the query and the result in one focused workspace
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              Browse schemas, edit rows, run SQL, and save the queries you want
+              to revisit. PostgresGUI is native, open source, and available
+              without a subscription.
+            </p>
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <Link
+                href="/download"
+                className="inline-flex rounded-md bg-[var(--postgres-blue)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--postgres-blue-dark)]"
+              >
+                Download PostgresGUI
+              </Link>
+              <Link
+                href="/postgresql-gui-mac"
+                className="inline-flex px-2 py-2 text-sm font-semibold text-[var(--postgres-blue)] hover:underline"
+              >
+                See the Mac client
+              </Link>
+            </div>
+          </div>
+          <div className="self-end px-5 pt-2 md:px-0 md:pt-6">
+            <Image
+              src="/screenshots4/PostgresGUI - Run complex query and see query results.webp"
+              alt="PostgresGUI query editor showing PostgreSQL query results"
+              width={2336}
+              height={1456}
+              sizes="(max-width: 768px) 100vw, 440px"
+              className="h-auto w-full rounded-t-md shadow-[0_18px_45px_rgba(0,0,0,0.14)]"
+            />
+          </div>
         </div>
       </section>
     </footer>

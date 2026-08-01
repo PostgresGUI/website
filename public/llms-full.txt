@@ -107,6 +107,20 @@ The site describes PostgresGUI as having no subscription, no renewal fees, and n
 
 ## PostgreSQL Technical Guides
 
+- Safe Postgres MCP server setup: https://postgresgui.com/blog/postgres-mcp-server
+- PostgreSQL 19 features and beta testing: https://postgresgui.com/blog/postgresql-19-features
+- Supabase RLS examples: https://postgresgui.com/blog/supabase-rls-examples
+- PostgreSQL hybrid search with pgvector: https://postgresgui.com/blog/postgres-hybrid-search-pgvector
+- Find slow queries with pg_stat_statements: https://postgresgui.com/blog/find-slow-postgresql-queries-pg-stat-statements
+- PostgreSQL connection pooling: https://postgresgui.com/blog/postgresql-connection-pooling
+- PostgreSQL 18 skip scan: https://postgresgui.com/blog/postgresql-18-skip-scan
+- pgvector HNSW vs IVFFlat: https://postgresgui.com/blog/pgvector-hnsw-vs-ivfflat
+- PostgreSQL RLS performance: https://postgresgui.com/blog/postgresql-rls-performance
+- PostgreSQL temporal constraints: https://postgresgui.com/blog/postgresql-temporal-constraints
+- PostgreSQL 14 end-of-life upgrade: https://postgresgui.com/blog/postgresql-14-end-of-life-upgrade
+- PostgreSQL generated columns: https://postgresgui.com/blog/postgresql-generated-columns
+- PostgreSQL OAuth authentication: https://postgresgui.com/blog/postgresql-oauth-authentication
+- Secure PostgreSQL access for AI agents: https://postgresgui.com/blog/secure-postgresql-ai-agents
 - Connect PostgresGUI to Supabase: https://postgresgui.com/blog/connect-postgresgui-to-supabase
 - Connect PostgresGUI to Neon: https://postgresgui.com/blog/connect-postgresgui-to-neon
 - PostgreSQL through an SSH tunnel: https://postgresgui.com/blog/ssh-tunnel-postgres
