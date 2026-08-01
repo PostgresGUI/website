@@ -67,26 +67,43 @@ export async function Homepage({
         id="hero-section"
         className="product-stage relative flex-1 overflow-hidden"
       >
-        <div className="relative z-10 px-6 pb-0 pt-20 text-center md:pt-28">
+        <div className="relative z-10 mx-auto max-w-7xl px-5 pb-0 pt-20 text-left md:px-6 md:pt-28">
           {/* Main Tagline */}
           <h1
-            className="mx-auto mb-5 max-w-3xl text-balance text-5xl font-semibold md:text-7xl lg:text-8xl animate-slide-in"
+            className="max-w-4xl text-balance text-5xl font-semibold md:text-7xl lg:text-8xl animate-slide-in"
           >
             {t.hero.headline}
           </h1>
-          <p className="mx-auto mb-5 max-w-2xl text-xl text-stone-500 dark:text-stone-400 md:text-2xl animate-slide-in stagger-2">
-            {t.hero.subheadline}
-          </p>
+
+          <div className="mt-8 grid gap-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+            <p className="max-w-4xl text-balance text-xl text-stone-500 dark:text-stone-400 md:text-2xl animate-slide-in stagger-2">
+              {t.hero.subheadline}
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col items-start gap-3 md:flex-row md:gap-4 animate-slide-in stagger-3">
+              <AppStoreLink
+                href={appStoreLink}
+                className="inline-block transition-transform duration-200 hover:scale-[1.02]"
+              >
+                <AppStoreBadge scale={1.5} />
+              </AppStoreLink>
+              <GitHubButton className="md:hidden" />
+            </div>
+          </div>
 
           {/* Trust sub-line */}
           <div
-            className="mb-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-stone-500 dark:text-stone-400 md:text-base animate-slide-in stagger-2"
+            className="mb-12 mt-8 flex flex-wrap items-center gap-y-3 border-t border-stone-200 pt-5 text-sm font-medium text-stone-600 dark:border-stone-800 dark:text-stone-300 md:text-base animate-slide-in stagger-2"
             aria-label="Trust indicators"
           >
             {trustItems.map(({ icon: Icon, label }) => (
-              <span key={label} className="inline-flex items-center gap-2">
+              <span
+                key={label}
+                className="mr-6 inline-flex items-center gap-2 border-stone-200 pr-6 last:mr-0 last:pr-0 sm:border-r sm:last:border-r-0 dark:border-stone-800"
+              >
                 <Icon
-                  className="h-[18px] w-[18px]"
+                  className="h-[18px] w-[18px] text-[var(--postgres-blue)] dark:text-[var(--postgres-blue-light)]"
                   aria-hidden="true"
                 />
                 <span>{label}</span>
@@ -94,20 +111,9 @@ export async function Homepage({
             ))}
           </div>
 
-          {/* CTA Buttons */}
-          <div className="mb-12 flex flex-col items-center justify-center gap-3 md:flex-row md:gap-4 animate-slide-in stagger-3">
-            <AppStoreLink
-              href={appStoreLink}
-              className="inline-block transition-transform duration-200 hover:scale-[1.02]"
-            >
-              <AppStoreBadge scale={1.5} />
-            </AppStoreLink>
-            <GitHubButton className="md:hidden" />
-          </div>
-
           {/* Hero Screenshot — <picture> with prefers-color-scheme source so
               only the matching image is fetched (prevents dual LCP preload). */}
-          <div className="mx-auto w-full max-w-6xl animate-slide-in stagger-2">
+          <div className="w-full animate-slide-in stagger-2">
             <div className="relative">
               <picture>
                 <source
