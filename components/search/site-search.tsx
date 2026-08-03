@@ -165,7 +165,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
         onClick={(event) => {
           if (event.target === event.currentTarget) closeSearch();
         }}
-        className="m-auto max-h-[min(720px,calc(100dvh-2rem))] w-[min(680px,calc(100vw-1.5rem))] overflow-hidden rounded-lg border border-border bg-background p-0 text-foreground shadow-2xl backdrop:bg-black/45 backdrop:backdrop-blur-[2px]"
+        className="m-auto flex h-[min(720px,calc(100dvh-2rem))] w-[min(680px,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-lg border border-border bg-background p-0 text-foreground shadow-2xl backdrop:bg-black/45 backdrop:backdrop-blur-[2px]"
       >
         <h2 id="site-search-title" className="sr-only">
           Search PostgresGUI
@@ -190,7 +190,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
           </button>
         </div>
 
-        <div className="max-h-[min(600px,calc(100dvh-7rem))] overflow-y-auto p-2 sm:p-3">
+        <div className="min-h-0 flex-1 overflow-y-auto p-2 sm:p-3">
           {!documents.length ? (
             <p className="px-3 py-10 text-center text-sm text-muted-foreground">
               Loading search…
