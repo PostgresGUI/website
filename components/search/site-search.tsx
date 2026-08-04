@@ -165,7 +165,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
         onClick={(event) => {
           if (event.target === event.currentTarget) closeSearch();
         }}
-        className="m-auto flex h-[min(720px,calc(100dvh-2rem))] w-[min(680px,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-lg border border-border bg-background p-0 text-foreground shadow-2xl backdrop:bg-black/45 backdrop:backdrop-blur-[2px]"
+        className="m-auto flex h-[min(720px,calc(100dvh-2rem))] w-[min(680px,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-lg border border-border bg-background p-0 text-foreground shadow-2xl backdrop:bg-black/45 backdrop:backdrop-blur-[2px] [&:not([open])]:hidden"
       >
         <h2 id="site-search-title" className="sr-only">
           Search PostgresGUI
