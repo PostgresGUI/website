@@ -56,6 +56,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/sql-cheatsheet", "2026-07-25"),
     entry("/uuid-generator", "2026-07-25"),
     entry("/connection-string", "2026-07-25"),
+    entry("/explain-checker", "2026-08-04"),
+    entry("/migration-diff", "2026-08-04"),
     entry("/data-types", "2026-07-25"),
     ...dataTypeCategories.map((category) =>
       entry(`/data-types/${category.id}`, "2026-07-25"),

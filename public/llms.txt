@@ -45,6 +45,8 @@ PostgresGUI is for Mac developers, database administrators, students, and teams 
 - SQL cheatsheet: https://postgresgui.com/sql-cheatsheet
 - PostgreSQL data types guide: https://postgresgui.com/data-types
 - Connection string builder: https://postgresgui.com/connection-string
+- Postgres EXPLAIN checker: https://postgresgui.com/explain-checker
+- Postgres migration diff generator: https://postgresgui.com/migration-diff
 - UUID generator: https://postgresgui.com/uuid-generator
 
 ## PostgreSQL Guides

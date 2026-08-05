@@ -152,6 +152,14 @@ export function GET() {
           url: `${BASE_URL}/connection-string`,
         },
         {
+          name: "Postgres EXPLAIN checker",
+          url: `${BASE_URL}/explain-checker`,
+        },
+        {
+          name: "Postgres migration diff generator",
+          url: `${BASE_URL}/migration-diff`,
+        },
+        {
           name: "UUID generator",
           url: `${BASE_URL}/uuid-generator`,
         },

@@ -160,6 +160,36 @@ const toolDocuments: SearchDocument[] = [
     priority: 30,
   },
   {
+    href: "/explain-checker",
+    title: "Postgres EXPLAIN Checker",
+    description:
+      "Paste PostgreSQL EXPLAIN JSON and check for bad estimates, sequential scans, disk sorts, and temp I/O.",
+    type: "tool",
+    keywords: [
+      "postgres explain checker",
+      "postgresql explain analyzer",
+      "explain analyze postgres",
+      "postgres query plan",
+    ],
+    aliases: ["query plan checker", "explain plan analyzer"],
+    priority: 30,
+  },
+  {
+    href: "/migration-diff",
+    title: "Postgres Migration Diff Generator",
+    description:
+      "Compare before and after PostgreSQL CREATE TABLE schemas and generate ALTER TABLE migration SQL.",
+    type: "tool",
+    keywords: [
+      "postgres migration diff",
+      "postgresql migration generator",
+      "postgres schema diff",
+      "postgres alter table generator",
+    ],
+    aliases: ["schema compare", "migration sql generator"],
+    priority: 30,
+  },
+  {
     href: "/data-types",
     title: "PostgreSQL Data Type Picker",
     description:

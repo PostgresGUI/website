@@ -30,14 +30,15 @@ const faqItems = [
 ];
 
 export const metadata: Metadata = {
-  title: "Free PostgreSQL Tools - SQL Editor, Schema Designer, Data Types",
+  title: "Free PostgreSQL Tools - SQL Editor, EXPLAIN Checker, Schema Designer",
   description:
-    "Free PostgreSQL tools from PostgresGUI: online SQL editor, database schema designer, data types guide, connection string builder, UUID generator, and Mac client.",
+    "Free PostgreSQL tools from PostgresGUI: online SQL editor, EXPLAIN checker, database schema designer, data types guide, connection string builder, UUID generator, and Mac client.",
   keywords: [
     "postgresql tools",
     "free postgres tools",
     "postgres tools online",
     "postgresql online tools",
+    "postgres explain checker",
     "online sql editor",
     "database schema designer",
     "postgres data types",
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Free PostgreSQL Tools",
     description:
-      "SQL editor, schema designer, data types guide, connection string builder, UUID generator, and Mac PostgreSQL client.",
+      "SQL editor, EXPLAIN checker, schema designer, data types guide, connection string builder, UUID generator, and Mac PostgreSQL client.",
     type: "website",
     url: CANONICAL,
     siteName: "PostgresGUI",
@@ -67,7 +68,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Free PostgreSQL Tools",
     description:
-      "SQL editor, schema designer, data types guide, connection string builder, UUID generator, and Mac PostgreSQL client.",
+      "SQL editor, EXPLAIN checker, schema designer, data types guide, connection string builder, UUID generator, and Mac PostgreSQL client.",
     images: [OG_IMAGE],
   },
 };
@@ -110,6 +111,20 @@ export default function PostgreSQLToolsPage() {
       body: "Build and understand PostgreSQL connection strings without memorizing every field.",
       image: "/tool-screenshots/connection-string-clean.png",
       imageAlt: "PostgreSQL connection string builder form and output panel",
+    },
+    {
+      title: "EXPLAIN checker",
+      href: "/explain-checker",
+      body: "Paste a PostgreSQL JSON plan and spot common query-plan issues.",
+      image: "/tool-screenshots/sql-editor-clean.png",
+      imageAlt: "PostgreSQL EXPLAIN checker with plan findings",
+    },
+    {
+      title: "Migration diff generator",
+      href: "/migration-diff",
+      body: "Compare before and after schemas, then generate PostgreSQL migration SQL.",
+      image: "/tool-screenshots/schema-designer-clean.png",
+      imageAlt: "PostgreSQL migration diff generator with ALTER TABLE SQL",
     },
     {
       title: "UUID generator",
