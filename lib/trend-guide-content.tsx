@@ -20,6 +20,957 @@ export type TrendGuideContent = {
 const lines = (...value: string[]) => value.join("\n");
 
 const trendGuideContent: Record<string, TrendGuideContent> = {
+  "postgresql-autovacuum-and-table-bloat": {
+    intro:
+      "PostgreSQL updates create new row versions. Old versions remain until they are no longer visible to any transaction and VACUUM marks their space reusable. Autovacuum automates that cleanup and also runs ANALYZE for planner statistics.",
+    answer:
+      "Do not start with VACUUM FULL. Check table size, dead-row estimates, vacuum history, active long transactions, and current autovacuum progress. Tune the busiest tables when their change rate outpaces the default thresholds, then measure whether dead rows and table growth stabilize.",
+    codeBlocks: [
+      {
+        title: "Find large tables with dead-row estimates",
+        code: lines(
+          "select",
+          "  schemaname, relname,",
+          "  n_live_tup, n_dead_tup,",
+          "  last_autovacuum, autovacuum_count,",
+          "  pg_size_pretty(pg_total_relation_size(relid)) as total_size",
+          "from pg_stat_user_tables",
+          "order by n_dead_tup desc",
+          "limit 25;",
+        ),
+        note: "n_live_tup and n_dead_tup are estimates. Use them to identify candidates, then investigate the workload and physical size.",
+      },
+    ],
+    sections: [
+      {
+        title: "Know what regular VACUUM changes",
+        paragraphs: [
+          "Regular VACUUM makes dead-row space available for reuse and updates visibility information. It normally does not shrink the table file back to the operating system. That is why a table can remain physically large after cleanup while future updates reuse its space.",
+          "VACUUM FULL rewrites the table into a new file and takes an ACCESS EXCLUSIVE lock. It can reclaim filesystem space, but it needs temporary disk capacity and blocks normal access. Use it only when reclaiming that space justifies the operational cost.",
+        ],
+      },
+      {
+        title: "Understand the trigger calculation",
+        paragraphs: [
+          "Autovacuum uses a base threshold plus a fraction of the table size. On busy large tables, a percentage-based threshold can allow many dead rows to accumulate before vacuum starts. Current PostgreSQL also supports a maximum threshold that caps the calculated trigger.",
+          "Changing global defaults can create unnecessary work across every table. Set per-table storage parameters for a table whose update pattern requires a different threshold, and record why the override exists.",
+        ],
+        code: {
+          title: "Inspect and tune one busy table",
+          code: lines(
+            "select relname, reloptions",
+            "from pg_class",
+            "where oid = 'app.events'::regclass;",
+            "",
+            "alter table app.events set (",
+            "  autovacuum_vacuum_scale_factor = 0.02,",
+            "  autovacuum_vacuum_threshold = 1000,",
+            "  autovacuum_analyze_scale_factor = 0.02",
+            ");",
+          ),
+          note: "The sample values are not universal defaults. Estimate the table's row-change rate and observe the effect before applying them elsewhere.",
+        },
+      },
+      {
+        title: "Look for work autovacuum cannot finish",
+        paragraphs: [
+          "A long-running transaction can keep old row versions visible and prevent their removal. An idle in transaction session can cause the same problem even when it is not running a query. Replication slots and prepared transactions can also retain old data.",
+          "Before increasing workers or making vacuum more aggressive, inspect old transaction start times and the blocker behind the oldest xmin. Ending a valid long transaction without coordination can be worse than waiting, so identify its owner first.",
+        ],
+        code: {
+          title: "List old open transactions",
+          code: lines(
+            "select",
+            "  pid, usename, application_name, state,",
+            "  xact_start, now() - xact_start as transaction_age,",
+            "  wait_event_type, wait_event, query",
+            "from pg_stat_activity",
+            "where xact_start is not null",
+            "order by xact_start;",
+          ),
+        },
+      },
+      {
+        title: "Watch vacuum progress",
+        paragraphs: [
+          "pg_stat_progress_vacuum shows the phase and block progress for running VACUUM operations, including autovacuum workers. VACUUM FULL appears in pg_stat_progress_cluster because it rewrites the table.",
+        ],
+        code: {
+          title: "Inspect active VACUUM work",
+          code: lines(
+            "select",
+            "  pid, datname, relid::regclass as table_name, phase,",
+            "  heap_blks_scanned, heap_blks_total,",
+            "  index_vacuum_count",
+            "from pg_stat_progress_vacuum",
+            "order by pid;",
+          ),
+        },
+      },
+      {
+        title: "Measure bloat with the right level of confidence",
+        paragraphs: [
+          "Statistics views provide useful estimates but do not calculate exact reclaimable bytes. Extension-based checks such as pgstattuple can inspect a relation more closely, at additional cost and with required privileges. Sampling variants reduce the scan cost but remain estimates.",
+          <>
+            Track physical size, dead rows, vacuum frequency, write volume, and
+            query latency together. Use the{" "}
+            <Link href="/blog/postgresql-monitoring-tools">
+              PostgreSQL monitoring guide
+            </Link>{" "}
+            to place maintenance signals beside locks, sessions, and slow
+            queries instead of treating table size as an isolated alarm.
+          </>,
+        ],
+      },
+    ],
+  },
+
+  "postgresql-connection-string-errors": {
+    intro:
+      "A PostgreSQL connection URL compresses the user, password, host, port, database, and options into one line. That convenience also makes one unescaped character or copied pooler port look like an unrelated network or password failure.",
+    answer:
+      "Split the URL into fields, redact the password, and verify the scheme, encoded credentials, hostname, port, database path, and query parameters separately. Test the same values with psql, then rebuild the URL instead of editing a secret-filled string by eye.",
+    codeBlocks: [
+      {
+        title: "Compare URI and keyword-value formats",
+        code: lines(
+          "postgresql://app_user:p%40ss%3Aword@db.example.com:5432/app?sslmode=require",
+          "",
+          "host=db.example.com port=5432 dbname=app \\",
+          "user=app_user password='p@ss:word' sslmode=require",
+        ),
+        note: "The URI password is percent-encoded. Keyword-value strings use their own quoting rules and should not be pasted where a URI is required.",
+      },
+    ],
+    sections: [
+      {
+        title: "Check the shape before the credentials",
+        paragraphs: [
+          "libpq accepts postgresql:// and postgres:// URIs. The database name follows the host and port as the path. Connection options follow ? and use & between parameters.",
+          "A missing slash, doubled @, fragment marker, or copied quotation mark can change how the entire URL is parsed. Do not post the original URL in an issue or chat. Replace the password and any private host before sharing it.",
+        ],
+        code: {
+          title: "Use the documented URI structure",
+          code: lines(
+            "postgresql://[user[:password]@][host][:port][/dbname][?name=value&...]",
+          ),
+        },
+      },
+      {
+        title: "Percent-encode URI credentials",
+        paragraphs: [
+          "Characters such as @, :, /, ?, #, %, and spaces have structural meaning in a URI. Percent-encode them when they are data inside a user name, password, database name, or parameter value.",
+          "Encode the individual value once, not the complete URL. Encoding the separators would destroy the structure. Encoding an already encoded percent sign produces a different password.",
+        ],
+        bullets: [
+          "@ becomes %40",
+          ": becomes %3A",
+          "/ becomes %2F",
+          "? becomes %3F",
+          "# becomes %23",
+          "% becomes %25",
+          "space becomes %20",
+        ],
+      },
+      {
+        title: "Treat IPv6 and Unix sockets explicitly",
+        paragraphs: [
+          "Wrap a literal IPv6 address in square brackets in a PostgreSQL URI. A hostless connection can select a Unix-domain socket, which is different from TCP through localhost. When comparing two clients, state the host rather than assuming both chose the same transport.",
+        ],
+        code: {
+          title: "Valid IPv6 and Unix-socket examples",
+          code: lines(
+            "postgresql://app_user@[2001:db8::1234]:5432/app",
+            "",
+            "postgresql:///app?host=/tmp",
+          ),
+        },
+      },
+      {
+        title: "Verify provider pooler details",
+        paragraphs: [
+          "Managed providers can issue direct and pooled URLs with different hostnames, user formats, ports, and session behavior. A Supabase transaction pooler commonly differs from its session pooler. A Neon pooled hostname contains a pooler marker. Copy the intended connection type as a complete unit.",
+          "An error after swapping only the port may not mean the port is closed. The pooler may expect another host or user string. Return to the provider's connection panel and compare every field.",
+        ],
+      },
+      {
+        title: "Map errors to the failing layer",
+        paragraphs: [
+          "Connection refused points to the listener and port. Timeout points to reachability. Host not found points to DNS or a malformed host. Password authentication failed means the server responded but rejected authentication. Database does not exist means the path or dbname is wrong. Certificate errors belong to SSL trust or hostname verification.",
+          <>
+            Use the local{" "}
+            <Link href="/connection-string">
+              PostgreSQL connection string builder
+            </Link>{" "}
+            to parse and rebuild a URL in the browser. For TLS parameters, read{" "}
+            <Link href="/blog/postgresql-sslmode-explained">
+              the sslmode guide
+            </Link>
+            . For a refused local connection, start with the{" "}
+            <Link href="/blog/postgres-connection-refused-mac">
+              Mac listener checklist
+            </Link>
+            .
+          </>,
+        ],
+      },
+      {
+        title: "Test without leaking the password",
+        paragraphs: [
+          "Prefer an interactive prompt or a protected password file over placing credentials directly in shell history. Set a short connect_timeout while troubleshooting unreachable hosts, especially when a URL lists several hosts.",
+        ],
+        code: {
+          title: "Test the reconstructed fields",
+          code: lines(
+            "psql \"host=db.example.com port=5432 dbname=app \\",
+            "user=app_user sslmode=require connect_timeout=5\"",
+          ),
+          note: "psql prompts for a password when the server requests one and no password source supplies it.",
+        },
+      },
+    ],
+  },
+
+  "postgresql-index-types": {
+    intro:
+      "PostgreSQL has several index access methods because equality, ranges, arrays, full-text terms, geometric operators, and physically ordered tables do not behave the same way. The query's operators determine which index type can help.",
+    answer:
+      "Start with B-tree for ordinary equality, range, and ordering queries. Use GIN for values with searchable components such as JSONB, arrays, and text-search vectors; GiST for supported ranges, geometry, and nearest-neighbor operators; and BRIN for very large tables whose values track physical row order. Verify every choice with EXPLAIN and representative data.",
+    codeBlocks: [
+      {
+        title: "Create four indexes for four different query shapes",
+        code: lines(
+          "create index orders_created_at_idx",
+          "  on orders (created_at);",
+          "",
+          "create index products_attributes_gin_idx",
+          "  on products using gin (attributes);",
+          "",
+          "create index bookings_during_gist_idx",
+          "  on bookings using gist (during);",
+          "",
+          "create index events_created_at_brin_idx",
+          "  on events using brin (created_at);",
+        ),
+        note: "These are examples, not a recommendation to add all four. Each index must match real operators, data distribution, and workload.",
+      },
+    ],
+    sections: [
+      {
+        title: "Use B-tree for the common case",
+        paragraphs: [
+          "B-tree is PostgreSQL's default index. It supports equality and ordered comparisons such as less than, greater than, BETWEEN, IN, IS NULL, and sorting. It can also support anchored prefix matching under compatible operator classes and collations.",
+          "Column order matters in a multicolumn B-tree. Equality conditions on leading columns, followed by a range condition, are the conventional useful shape. PostgreSQL 18 can sometimes use skip scan when a leading value is missing, but that does not make column order irrelevant.",
+        ],
+        code: {
+          title: "Match a multicolumn index to the query",
+          code: lines(
+            "create index orders_account_created_idx",
+            "  on orders (account_id, created_at desc);",
+            "",
+            "select id, total",
+            "from orders",
+            "where account_id = 42",
+            "  and created_at >= current_date - interval '30 days'",
+            "order by created_at desc",
+            "limit 50;",
+          ),
+        },
+      },
+      {
+        title: "Use GIN for values with components",
+        paragraphs: [
+          "GIN is an inverted index. It stores entries for components inside a value, which makes it useful for arrays, JSONB containment, and full-text search. The supported operators come from the selected operator class.",
+          "GIN can be expensive to update and can consume meaningful space. Index the JSONB or search operations you actually run, then compare write cost and index size as well as read latency.",
+        ],
+      },
+      {
+        title: "Use GiST for extensible search strategies",
+        paragraphs: [
+          "GiST is an index framework used by range types, geometric data, network-address extensions, exclusion constraints, and nearest-neighbor searches when the operator class supports them. It is not simply an alternative spelling of GIN.",
+          "Choose between GIN and GiST from the operators and behavior of the data type. For example, a range-overlap query and a JSONB-containment query need different operator classes even though both values look composite.",
+        ],
+      },
+      {
+        title: "Use BRIN when physical order helps",
+        paragraphs: [
+          "BRIN stores summaries for ranges of table pages rather than an entry for every row. It stays small and can skip large parts of an append-heavy table when a value such as created_at is correlated with physical row order.",
+          "BRIN is not a tiny B-tree. On a small table or randomly distributed identifier, its summaries may select too many pages to help. Test the correlation and the actual plan.",
+        ],
+      },
+      {
+        title: "Prove that the index improves the query",
+        paragraphs: [
+          "Load representative data and run EXPLAIN (ANALYZE, BUFFERS) before and after the index. Compare execution time, rows, loops, buffer reads, and the chosen scan. Run ANALYZE after a major data load so the planner has current statistics.",
+          <>
+            Keep indexes that improve important queries enough to justify their
+            storage and write cost. The{" "}
+            <Link href="/blog/explain-analyze-postgres">
+              EXPLAIN ANALYZE walkthrough
+            </Link>{" "}
+            shows how to read the plan without treating an index scan as an
+            automatic win.
+          </>,
+        ],
+        code: {
+          title: "Measure the intended query",
+          code: lines(
+            "analyze orders;",
+            "",
+            "explain (analyze, buffers)",
+            "select id, total",
+            "from orders",
+            "where account_id = 42",
+            "order by created_at desc",
+            "limit 50;",
+          ),
+          note: "EXPLAIN ANALYZE executes the query. Use care with writes and expensive production statements.",
+        },
+      },
+    ],
+  },
+
+  "import-csv-postgresql": {
+    intro:
+      "PostgreSQL has two similarly named CSV workflows. SQL COPY reads from the database server's filesystem. psql \\copy reads from the computer running psql and streams the data through the connection.",
+    answer:
+      "For a CSV stored on your Mac, create a staging table and use psql \\copy inside a controlled import workflow. State the delimiter, header, encoding, and null representation, then validate counts and rejected assumptions before moving rows into application tables.",
+    codeBlocks: [
+      {
+        title: "Import a local CSV with psql \\copy",
+        code: lines(
+          "create table customer_import (",
+          "  email text,",
+          "  full_name text,",
+          "  joined_on date,",
+          "  lifetime_value numeric(12, 2)",
+          ");",
+          "",
+          "\\copy customer_import (email, full_name, joined_on, lifetime_value) from '/Users/me/Downloads/customers.csv' with (format csv, header true, encoding 'UTF8')",
+        ),
+        note: "\\copy is a psql meta-command, so run it in psql rather than sending it as SQL through a generic query editor.",
+      },
+    ],
+    sections: [
+      {
+        title: "Choose COPY or \\copy from the file location",
+        paragraphs: [
+          "COPY FROM '/path/file.csv' asks the PostgreSQL server process to read that path. On a hosted database, your Mac path does not exist on the server. Server-side file access also requires elevated privileges.",
+          "psql \\copy uses COPY FROM STDIN and reads the file through the psql client. The database role still needs INSERT on the target table, but the file only needs to be readable by your local psql process.",
+        ],
+      },
+      {
+        title: "Import into a staging table first",
+        paragraphs: [
+          "A staging table keeps file parsing separate from application constraints and transformations. Start with types that faithfully accept the source, inspect the rows, and then insert cleaned values into the final table.",
+          "Do not make every staging column text by habit when the source contract is reliable. Types such as date and numeric expose bad input early. Use text where normalization is genuinely required.",
+        ],
+      },
+      {
+        title: "Be explicit about NULL and empty strings",
+        paragraphs: [
+          "In PostgreSQL CSV format, an unquoted empty field represents NULL by default. A quoted empty field represents an empty string. If the source writes a marker such as NULL or N/A, state it with the NULL option only when that marker cannot be legitimate data.",
+          "Dates, decimal separators, embedded newlines, quotes, byte-order marks, and inconsistent column counts are common failures. Inspect the source file as data, not just as a spreadsheet preview.",
+        ],
+        code: {
+          title: "Import a source that uses NULL as its null marker",
+          code: lines(
+            "\\copy customer_import from '/Users/me/Downloads/customers.csv' with (format csv, header true, null 'NULL', encoding 'UTF8')",
+          ),
+        },
+      },
+      {
+        title: "Validate before merging",
+        paragraphs: [
+          "Count the staged rows, test required fields, find duplicate keys, and inspect values that fail the destination rules. Keep these checks next to the import command so another run uses the same definition of valid data.",
+        ],
+        code: {
+          title: "Run basic staging checks",
+          code: lines(
+            "select count(*) from customer_import;",
+            "",
+            "select * from customer_import",
+            "where email is null or btrim(email) = '';",
+            "",
+            "select lower(email), count(*)",
+            "from customer_import",
+            "group by lower(email)",
+            "having count(*) > 1;",
+          ),
+        },
+      },
+      {
+        title: "Move valid rows in one reviewed statement",
+        paragraphs: [
+          "Insert from staging into the destination with explicit columns and transformations. Use a transaction when the final merge must be all-or-nothing. For a large load, consider lock duration, WAL volume, indexes, triggers, and available disk space before wrapping everything in one transaction.",
+          <>
+            After the import, browse the staging and destination tables in
+            PostgresGUI and run spot checks on the same connection. The{" "}
+            <Link href="/blog/postgres-column-types">
+              PostgreSQL column type guide
+            </Link>{" "}
+            can help when source values do not map cleanly to the destination
+            schema.
+          </>,
+        ],
+        code: {
+          title: "Normalize and merge valid rows",
+          code: lines(
+            "begin;",
+            "",
+            "insert into customers (email, full_name, joined_on, lifetime_value)",
+            "select",
+            "  lower(btrim(email)),",
+            "  nullif(btrim(full_name), ''),",
+            "  joined_on,",
+            "  lifetime_value",
+            "from customer_import",
+            "where email is not null and btrim(email) <> '';",
+            "",
+            "commit;",
+          ),
+        },
+      },
+    ],
+  },
+
+  "connect-postgresgui-to-postgres-app": {
+    intro:
+      "Postgres.app runs PostgreSQL on your Mac. PostgresGUI is the client you use to inspect that server. With the default Postgres.app setup, the connection is local, uses port 5432, and starts with your macOS user name and a database of the same name.",
+    answer:
+      "Start the server in Postgres.app, then create a PostgresGUI connection with host localhost, port 5432, your macOS user name, the database shown by Postgres.app, and a blank password unless you configured one. Test the connection before saving it.",
+    codeBlocks: [
+      {
+        title: "Confirm the default Postgres.app connection",
+        code: lines(
+          "/Applications/Postgres.app/Contents/Versions/latest/bin/pg_isready \\",
+          "  -h localhost -p 5432",
+          "",
+          "/Applications/Postgres.app/Contents/Versions/latest/bin/psql \\",
+          "  -h localhost -p 5432 -U \"$USER\" -d \"$USER\"",
+        ),
+        note: "If the Postgres.app window shows a different port or database, use those displayed values instead of the defaults.",
+      },
+    ],
+    sections: [
+      {
+        title: "Understand which app does which job",
+        paragraphs: [
+          "Postgres.app installs and runs the database server and command-line tools. Closing every database client does not stop that server. PostgresGUI does not create or manage the server process; it opens a normal PostgreSQL client connection.",
+          <>
+            If you are choosing between the two apps, the answer is often both.
+            The{" "}
+            <Link href="/blog/postgres-app-vs-postgresgui">
+              Postgres.app and PostgresGUI comparison
+            </Link>{" "}
+            explains the server-client distinction in more detail.
+          </>,
+        ],
+      },
+      {
+        title: "Enter the connection fields",
+        paragraphs: [
+          "Open PostgresGUI, add a connection, and enter a useful name such as Local Postgres.app. Set host to localhost and port to the port shown next to the running Postgres.app server. Use your macOS account name for the default user and database.",
+          "Leave the password blank only when the local Postgres.app configuration still uses its documented default. If you changed authentication or created another login, enter that role's actual password. Local default connections do not need an SSL mode.",
+        ],
+        bullets: [
+          "Name: Local Postgres.app",
+          "Host: localhost",
+          "Port: 5432 by default",
+          "Database: your macOS user name by default",
+          "User: your macOS user name by default",
+          "Password: blank in the default local configuration",
+        ],
+      },
+      {
+        title: "Create a separate practice database",
+        paragraphs: [
+          "Using a named practice database makes examples easier to recognize and avoids mixing tutorial tables into the default maintenance database. Create it with the Postgres.app binary or from a connected SQL editor.",
+        ],
+        code: {
+          title: "Create and verify a practice database",
+          code: lines(
+            "/Applications/Postgres.app/Contents/Versions/latest/bin/createdb postgresgui_practice",
+            "",
+            "/Applications/Postgres.app/Contents/Versions/latest/bin/psql \\",
+            "  -h localhost -d postgresgui_practice \\",
+            "  -c \"select current_database(), current_user;\"",
+          ),
+        },
+      },
+      {
+        title: "Fix the common local failures",
+        paragraphs: [
+          "Connection refused means the server is stopped or is not listening on the chosen port. Role does not exist usually means the user field does not match a PostgreSQL role. Database does not exist means the database field is wrong. Password authentication failed means this server is no longer using the blank-password default for that connection.",
+          "If port 5432 is already occupied, Postgres.app may show a different port or fail to start. Its troubleshooting documentation recommends reading postgres-server.log inside the data directory for the exact startup failure.",
+        ],
+      },
+      {
+        title: "Browse the local database",
+        paragraphs: [
+          "After the test succeeds, save the connection and open the practice database. Create a small table, insert rows, and confirm they appear in the table browser. That proves the server, role, database, and client are all aligned.",
+          <>
+            For a listener or port problem, use the full{" "}
+            <Link href="/blog/postgres-connection-refused-mac">
+              connection refused checklist for Mac
+            </Link>
+            . Do not reset Postgres.app or delete its data directory as a first
+            troubleshooting step.
+          </>,
+        ],
+      },
+    ],
+  },
+
+  "postgresql-locks-blocking-queries": {
+    intro:
+      "A blocked PostgreSQL query is waiting for another transaction to release a lock. The waiting statement is the symptom. The session holding the lock, often an old transaction left open by an application or migration, is the place to investigate.",
+    answer:
+      "Use pg_blocking_pids to connect each waiting session to its blockers, then inspect both sessions in pg_stat_activity. Ask the owner to commit or roll back when possible. Cancel a query before terminating its session, and terminate only after checking the transaction and application impact.",
+    codeBlocks: [
+      {
+        title: "Show blocked sessions and their direct blockers",
+        code: lines(
+          "select",
+          "  waiting.pid as waiting_pid,",
+          "  waiting.usename as waiting_user,",
+          "  waiting.query as waiting_query,",
+          "  waiting.wait_event_type,",
+          "  waiting.wait_event,",
+          "  blocker.pid as blocker_pid,",
+          "  blocker.usename as blocker_user,",
+          "  blocker.state as blocker_state,",
+          "  blocker.xact_start as blocker_xact_start,",
+          "  blocker.query as blocker_query",
+          "from pg_stat_activity waiting",
+          "cross join lateral unnest(pg_blocking_pids(waiting.pid)) as b(pid)",
+          "join pg_stat_activity blocker on blocker.pid = b.pid",
+          "order by waiting.query_start;",
+        ),
+        note: "Run this with a role allowed to view the relevant activity. Query text for other users can be restricted.",
+      },
+    ],
+    sections: [
+      {
+        title: "Confirm that the wait is a lock",
+        paragraphs: [
+          "pg_stat_activity shows one row per backend. A lock wait normally reports wait_event_type as Lock. Other wait types, such as Client, IO, or IPC, need a different investigation.",
+          "pg_locks exposes outstanding lock records, but joining it correctly for every lock type is easy to get wrong. pg_blocking_pids is the direct starting point for finding the sessions that block a specific backend.",
+        ],
+      },
+      {
+        title: "Inspect the blocker before touching it",
+        paragraphs: [
+          "Record the blocker PID, user, application name, client address, state, transaction start, query start, and query text. An idle in transaction session is especially important: its last statement ended, but its open transaction can still hold locks.",
+          "Check whether the blocker belongs to a migration, maintenance task, checkout flow, background worker, or another administrator. Killing a legitimate migration midway can leave an operational mess even though PostgreSQL rolls back its open transaction.",
+        ],
+        code: {
+          title: "Inspect one blocker in context",
+          code: lines(
+            "select",
+            "  pid, usename, application_name, client_addr,",
+            "  state, xact_start, query_start, state_change,",
+            "  wait_event_type, wait_event, query",
+            "from pg_stat_activity",
+            "where pid = 12345;",
+          ),
+          note: "Replace 12345 with the blocker PID returned by the first query.",
+        },
+      },
+      {
+        title: "Prefer a clean transaction end",
+        paragraphs: [
+          "The best resolution is for the owning application to commit or roll back. That releases locks through the normal transaction path and lets the application report its own outcome.",
+          "If you control the waiting operation, canceling that operation may be safer than disrupting the blocker. The right choice depends on which transaction is valuable and whether either client can retry safely.",
+        ],
+      },
+      {
+        title: "Cancel before terminating",
+        paragraphs: [
+          "pg_cancel_backend asks PostgreSQL to cancel the current query while preserving the session. pg_terminate_backend ends the session. Termination rolls back an open transaction, which can itself take time before every lock is released.",
+          "These signaling functions are permission-controlled. Only authorized operators should use them, and a normal role cannot terminate a superuser backend.",
+        ],
+        code: {
+          title: "Escalate deliberately",
+          code: lines(
+            "-- First, ask the current statement to stop",
+            "select pg_cancel_backend(12345);",
+            "",
+            "-- If the session itself must end",
+            "select pg_terminate_backend(12345, 5000);",
+          ),
+          note: "Replace 12345 only after verifying the session. The optional timeout waits for termination confirmation on supported PostgreSQL versions.",
+        },
+      },
+      {
+        title: "Prevent the next lock pileup",
+        paragraphs: [
+          "Set application_name so sessions can be traced to a service. Keep transactions short, avoid user interaction inside an open transaction, and set idle_in_transaction_session_timeout where an abandoned transaction is worse than a disconnected client.",
+          <>
+            Slow statements can hold locks longer even when the lock choice is
+            correct. Pair this workflow with{" "}
+            <Link href="/blog/find-slow-postgresql-queries-pg-stat-statements">
+              pg_stat_statements
+            </Link>{" "}
+            and the{" "}
+            <Link href="/blog/explain-analyze-postgres">
+              EXPLAIN ANALYZE guide
+            </Link>{" "}
+            after the immediate incident is stable.
+          </>,
+        ],
+      },
+    ],
+  },
+
+  "postgresql-permission-denied-for-relation": {
+    intro:
+      "PostgreSQL reports permission denied for relation when the current role lacks a required object privilege. The relation might be a table, view, sequence, or materialized view, and the missing schema permission may be reported separately.",
+    answer:
+      "Identify the current login, object owner, schema, and exact operation. Grant only the required schema and object privileges. If future objects must inherit access, set default privileges for the role that creates those objects rather than for the role receiving access.",
+    codeBlocks: [
+      {
+        title: "Inspect identity, ownership, and effective privileges",
+        code: lines(
+          "select current_user, session_user;",
+          "",
+          "select",
+          "  n.nspname as schema_name,",
+          "  c.relname,",
+          "  c.relkind,",
+          "  pg_get_userbyid(c.relowner) as owner,",
+          "  has_schema_privilege(current_user, n.oid, 'USAGE') as schema_usage,",
+          "  has_table_privilege(current_user, c.oid, 'SELECT') as can_select,",
+          "  has_table_privilege(current_user, c.oid, 'INSERT') as can_insert",
+          "from pg_class c",
+          "join pg_namespace n on n.oid = c.relnamespace",
+          "where n.nspname = 'app' and c.relname = 'orders';",
+        ),
+        note: "Change app.orders to the object named in the error. relkind distinguishes tables, views, sequences, and other relation types.",
+      },
+    ],
+    sections: [
+      {
+        title: "Grant access at the correct layers",
+        paragraphs: [
+          "USAGE on a schema lets a role resolve objects inside it. It does not grant access to the tables. Likewise, SELECT on a table does not grant schema USAGE. Both may be needed.",
+          "INSERT into a table backed by a sequence can also require USAGE on that sequence. This commonly appears after a table grant seems to fix reads but inserts still fail.",
+        ],
+        code: {
+          title: "Grant a read-write application role",
+          code: lines(
+            "grant usage on schema app to app_runtime;",
+            "grant select, insert, update, delete",
+            "  on all tables in schema app to app_runtime;",
+            "grant usage, select",
+            "  on all sequences in schema app to app_runtime;",
+          ),
+          note: "Run grants as the object owner or another authorized role. Remove write privileges the application does not need.",
+        },
+      },
+      {
+        title: "Do not solve it with superuser",
+        paragraphs: [
+          "Making an application login a superuser hides the privilege error by bypassing normal controls. It also gives that application the ability to read, alter, or destroy unrelated data and configuration.",
+          "Use a group role when several logins need the same access. Grant privileges to the group, grant membership to each login, and test with SET ROLE or a direct connection as the runtime user.",
+        ],
+      },
+      {
+        title: "Set defaults for objects created later",
+        paragraphs: [
+          "ALTER DEFAULT PRIVILEGES affects objects created in the future by a particular owner. It does not repair existing tables, and running it as the receiving application role will not affect tables later created by a migration owner.",
+        ],
+        code: {
+          title: "Grant future objects created by the migration role",
+          code: lines(
+            "alter default privileges for role app_migrator in schema app",
+            "  grant select, insert, update, delete on tables to app_runtime;",
+            "",
+            "alter default privileges for role app_migrator in schema app",
+            "  grant usage, select on sequences to app_runtime;",
+          ),
+          note: "Run the command as app_migrator or a role allowed to alter its default privileges.",
+        },
+      },
+      {
+        title: "Separate RLS from object privileges",
+        paragraphs: [
+          "Row-level security is checked after ordinary object privileges. A missing SELECT privilege produces a permission error. A valid SELECT with a restrictive RLS policy can return fewer rows or reject a write instead.",
+          <>
+            Test the exact application login in a separate connection. For a
+            stricter production setup, use the role patterns in{" "}
+            <Link href="/blog/secure-postgresql-ai-agents">
+              secure PostgreSQL access for AI agents
+            </Link>{" "}
+            as a general least-privilege checklist.
+          </>,
+        ],
+      },
+    ],
+  },
+
+  "pg-dump-pg-restore-mac": {
+    intro:
+      "pg_dump makes a consistent logical export of one PostgreSQL database. The custom archive format is compressed, inspectable with pg_restore, and flexible enough for selective or parallel restores.",
+    answer:
+      "Use a pg_dump version at least as new as the server, create a custom-format archive, inspect its table of contents, and restore it into a separate empty database. Finish by checking errors, row counts, sequences, extensions, and an application query.",
+    codeBlocks: [
+      {
+        title: "Create, inspect, and restore a custom-format backup",
+        code: lines(
+          "pg_dump --format=custom --file=app-2026-08-04.dump \\",
+          "  \"postgresql://backup_user@db.example.com/app\"",
+          "",
+          "pg_restore --list app-2026-08-04.dump | less",
+          "createdb app_restore_test",
+          "pg_restore --exit-on-error --no-owner \\",
+          "  --dbname=app_restore_test app-2026-08-04.dump",
+        ),
+        note: "Avoid putting a password directly in shell history. Use an appropriately protected password file, interactive prompt, or secret mechanism.",
+      },
+    ],
+    sections: [
+      {
+        title: "Choose the archive format deliberately",
+        paragraphs: [
+          "A plain SQL dump can be reviewed in a text editor and restored with psql. A custom archive is restored with pg_restore and supports listing, filtering, reordering, and parallel restore. Directory format also supports parallel dump and restore, but it creates multiple files.",
+          "For a normal application database, custom format is a useful default. Keep the command, PostgreSQL client version, source version, destination, and completion status with the backup record.",
+        ],
+      },
+      {
+        title: "Match pg_dump to the server",
+        paragraphs: [
+          "pg_dump can usually read older server versions, but it refuses to dump a server newer than its own major version. On a Mac with several PostgreSQL installations, verify which binary the shell resolves before starting a long backup.",
+        ],
+        code: {
+          title: "Check client and server versions",
+          code: lines(
+            "which pg_dump",
+            "pg_dump --version",
+            "psql \"$DATABASE_URL\" -Atc \"show server_version\"",
+          ),
+          note: "Use a current pg_dump when migrating to a newer major release and read that release's documentation for compatibility details.",
+        },
+      },
+      {
+        title: "Handle roles and ownership",
+        paragraphs: [
+          "pg_dump exports one database, not every cluster-wide role and tablespace definition. Use pg_dumpall --globals-only when those objects are part of the recovery plan, and protect that output because it can contain role definitions.",
+          "For a development restore under a different owner, --no-owner avoids ALTER OWNER commands. Production recovery may need the original roles created first. Do not add --no-acl automatically if grants are part of the behavior you need to recover.",
+        ],
+      },
+      {
+        title: "Inspect untrusted archives before restoring",
+        paragraphs: [
+          "PostgreSQL warns that restoring a dump executes code chosen by users with sufficient privileges in the source database. Treat an archive from an untrusted source like executable input.",
+          "List the archive and render it to SQL for review when trust is uncertain. Restore into an isolated environment with limited credentials rather than into a valuable database.",
+        ],
+        code: {
+          title: "Render an archive to SQL without executing it",
+          code: lines(
+            "pg_restore --file=review.sql app-2026-08-04.dump",
+            "less review.sql",
+          ),
+        },
+      },
+      {
+        title: "Verify recovery, not just archive creation",
+        paragraphs: [
+          "A zero exit status from pg_dump proves that the export command completed. It does not prove that the file is retained, decryptable, restorable within the recovery window, or complete enough for the application.",
+          <>
+            Restore into a clean database, review every pg_restore error, run
+            representative counts and constraints, and open the result in a
+            database client. Use the broader{" "}
+            <Link href="/blog/best-postgresql-backup-solution">
+              PostgreSQL backup comparison
+            </Link>{" "}
+            to decide where logical dumps fit beside managed snapshots and
+            point-in-time recovery.
+          </>,
+        ],
+        code: {
+          title: "Run basic post-restore checks",
+          code: lines(
+            "select current_database(), current_user;",
+            "select count(*) from app.orders;",
+            "select pg_size_pretty(pg_database_size(current_database()));",
+            "analyze;",
+          ),
+          note: "Replace the sample table with application-specific checks. ANALYZE helps the restored database rebuild useful planner statistics when needed.",
+        },
+      },
+    ],
+  },
+
+  "postgres-connection-refused-mac": {
+    intro:
+      "A connection refused error is narrower than it looks. Your Mac reached the requested address, but no PostgreSQL server accepted the TCP connection on that port. Check the listener before changing passwords, SSL settings, or application code.",
+    answer:
+      "Confirm which PostgreSQL installation should be running, start it, find its actual port, and test that exact host and port with pg_isready and psql. Then copy the same values into PostgresGUI. If TCP still fails, inspect the server log instead of repeatedly changing credentials.",
+    codeBlocks: [
+      {
+        title: "Check port 5432 and test the same TCP connection",
+        code: lines(
+          "lsof -nP -iTCP:5432 -sTCP:LISTEN",
+          "pg_isready -h 127.0.0.1 -p 5432",
+          "psql -h 127.0.0.1 -p 5432 -d postgres -U \"$USER\"",
+        ),
+        note: "An empty lsof result means nothing is listening on that TCP port. pg_isready can report whether a server responds without proving that your database name or password is correct.",
+      },
+    ],
+    sections: [
+      {
+        title: "Read the error before applying a fix",
+        paragraphs: [
+          "Connection refused is not an authentication failure. A bad password usually reaches PostgreSQL and returns a FATAL authentication message. A missing database also reaches PostgreSQL and names the missing database. Refused means the TCP listener was not there at the requested address and port.",
+          "A timeout is different again. It commonly points to a firewall, unreachable private address, failed IPv6 route, or cloud allowlist. Keep the original error text because it tells you which layer to inspect first.",
+        ],
+      },
+      {
+        title: "Find which PostgreSQL installation owns the port",
+        paragraphs: [
+          "A Mac can have Postgres.app, Homebrew PostgreSQL, Docker, and an old installer present at the same time. Only one process can normally bind the same address and port. Check the process reported by lsof, then use that installation's controls to start or stop the server.",
+          "Do not delete postmaster.pid just because a page online suggests it. That file can describe a running server. Postgres.app recommends checking for PostgreSQL processes and reading its server log before treating a PID file as stale.",
+        ],
+        bullets: [
+          "Postgres.app: open the app and confirm the intended server shows as running.",
+          "Homebrew: run brew services list and inspect the named PostgreSQL service.",
+          "Docker: run docker ps and confirm the container publishes a host port such as 5432:5432.",
+          "Manual server: use the matching pg_ctl binary and data directory, not a pg_ctl from another PostgreSQL version.",
+        ],
+      },
+      {
+        title: "Force psql to use TCP",
+        paragraphs: [
+          "On macOS, psql without -h commonly uses a Unix-domain socket. A GUI connection to localhost uses TCP. This explains the confusing case where psql works but a desktop client receives connection refused.",
+          "Test with -h 127.0.0.1 and the exact port from the server. If the socket connection works but TCP does not, inspect listen_addresses and the server log. Restart PostgreSQL after changing server configuration.",
+        ],
+        code: {
+          title: "Compare socket and TCP behavior",
+          code: lines(
+            "# Local socket chosen by libpq",
+            "psql -d postgres",
+            "",
+            "# Explicit TCP connection",
+            "psql -h 127.0.0.1 -p 5432 -d postgres -U \"$USER\"",
+          ),
+          note: "Use localhost instead of 127.0.0.1 if certificate hostname verification or local configuration requires the host name.",
+        },
+      },
+      {
+        title: "Check the port and server log",
+        paragraphs: [
+          "If another process already owns 5432, PostgreSQL may start on a different configured port or fail to start. Read the startup log for cannot bind, data-directory, permission, recovery, and version mismatch messages.",
+          "Postgres.app keeps postgres-server.log inside the selected data directory. For Homebrew or another package, use that service's log location. Fix the first startup error rather than the later connection symptom.",
+        ],
+      },
+      {
+        title: "Use the verified values in PostgresGUI",
+        paragraphs: [
+          <>
+            Create a connection with the host, port, database, and user that
+            worked in the explicit psql test. Local development servers often
+            do not need SSL. Hosted databases usually do. Use the{" "}
+            <Link href="/connection-string">connection string builder</Link> to
+            inspect a provider URL without saving it on the server.
+          </>,
+          <>
+            If Postgres.app is the server, continue with the dedicated{" "}
+            <Link href="/blog/connect-postgresgui-to-postgres-app">
+              Postgres.app connection guide
+            </Link>
+            . If the server responds but rejects SSL or the URL, troubleshoot
+            those errors separately.
+          </>,
+        ],
+      },
+    ],
+  },
+
+  "postgresql-sslmode-explained": {
+    intro:
+      "PostgreSQL sslmode controls more than whether traffic is encrypted. The stronger modes also decide whether the client trusts the certificate authority and whether the certificate matches the host you meant to reach.",
+    answer:
+      "Use verify-full for a production connection when the provider supplies a trusted CA and a stable hostname. Use require when encryption is mandatory but certificate verification is not available. Do not treat require as proof that the server is the intended server.",
+    codeBlocks: [
+      {
+        title: "Connect with certificate and hostname verification",
+        code: lines(
+          "psql \"host=db.example.com port=5432 dbname=app user=app_reader \\",
+          "sslmode=verify-full sslrootcert=$HOME/.postgresql/root.crt\"",
+        ),
+        note: "Keep the original hostname from the provider. Replacing it with an IP address usually breaks verify-full unless that IP is present in the certificate.",
+      },
+    ],
+    sections: [
+      {
+        title: "What each sslmode does",
+        paragraphs: [
+          "The six libpq modes form a policy, not a quality score. allow and prefer can fall back between encrypted and unencrypted TCP. require refuses an unencrypted connection. verify-ca adds certificate-chain validation. verify-full also checks that the requested hostname matches the certificate.",
+        ],
+        bullets: [
+          "disable: use only an unencrypted TCP connection.",
+          "allow: try unencrypted first, then TLS if the first attempt fails.",
+          "prefer: try TLS first, then allow an unencrypted fallback. This is the libpq default.",
+          "require: require TLS, without normal hostname verification.",
+          "verify-ca: require TLS and a certificate issued by a trusted CA.",
+          "verify-full: require TLS, trust the issuing CA, and match the server hostname.",
+        ],
+      },
+      {
+        title: "Encryption is not server identity",
+        paragraphs: [
+          "An encrypted connection prevents passive observers from reading traffic. It does not by itself prove who is at the other end. That is why verify-full checks both the certificate chain and host name.",
+          "PostgreSQL retains a compatibility behavior where require can act like verify-ca when a root CA file is present. Do not build a security policy around that implicit switch. State verify-ca or verify-full when verification is intended.",
+        ],
+      },
+      {
+        title: "Check the negotiated connection",
+        paragraphs: [
+          "After connecting, pg_stat_ssl reports whether the current backend uses SSL, along with the protocol and cipher when your role can see them. This confirms encryption. It does not replace the client-side certificate and hostname checks performed during connection setup.",
+        ],
+        code: {
+          title: "Inspect SSL for the current session",
+          code: lines(
+            "select ssl, version, cipher, bits",
+            "from pg_stat_ssl",
+            "where pid = pg_backend_pid();",
+          ),
+          note: "Run the query in the same connection you are verifying.",
+        },
+      },
+      {
+        title: "Diagnose common verification failures",
+        paragraphs: [
+          "Certificate verify failed usually means the CA file is missing, unreadable, expired, or not the CA that issued the server certificate. Hostname mismatch means the connection used a name or address absent from the certificate. Fix the trust material or hostname; do not silently downgrade production to require.",
+          "sslmode is ignored for Unix-domain socket connections because those are not TCP connections. For local sockets, filesystem permissions control access to the socket while PostgreSQL authentication still controls the database session.",
+        ],
+      },
+      {
+        title: "Apply the mode to provider connections",
+        paragraphs: [
+          <>
+            Start with the connection string issued by the provider. Supabase,
+            Neon, RDS, and proxies can have different CA and pooler behavior.
+            Preserve provider parameters unless their documentation tells you
+            to change them. The{" "}
+            <Link href="/blog/ssl-verify-full-for-rds-postgresql-on-mac">
+              RDS verify-full guide
+            </Link>{" "}
+            covers the extra root-certificate setup for Amazon RDS.
+          </>,
+          <>
+            Before pasting a URL into a client, review its parameters with the{" "}
+            <Link href="/connection-string">
+              PostgreSQL connection string builder
+            </Link>
+            . Remove credentials before sharing screenshots or support logs.
+          </>,
+        ],
+      },
+    ],
+  },
+
   "postgres-mcp-server": {
     intro:
       "A Postgres MCP server lets an AI client inspect schemas and run SQL through the Model Context Protocol. The useful part is direct database context. The dangerous part is also direct database context, especially when the server starts with a privileged connection string.",

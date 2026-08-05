@@ -2,6 +2,486 @@ import type { BlogPost } from "@/lib/blog";
 
 export const trendBlogPosts: BlogPost[] = [
   {
+    slug: "postgres-connection-refused-mac",
+    title: "Postgres Connection Refused on Mac: A Practical Fix",
+    description:
+      "Fix PostgreSQL connection refused errors on macOS by checking the server, port, socket, installation, logs, and client connection fields in order.",
+    keywords: [
+      "postgres connection refused mac",
+      "postgresql connection refused localhost",
+      "port 5432 connection refused mac",
+      "is postgres running mac",
+      "could not connect to server postgres mac",
+    ],
+    date: "2026-08-04",
+    author: "Ghazi",
+    category: "PostgreSQL Troubleshooting",
+    pillar: "PostgreSQL Connections",
+    relatedSlugs: [
+      "connect-postgresgui-to-postgres-app",
+      "postgresql-connection-string-errors",
+      "install-psql-mac",
+    ],
+    faqs: [
+      {
+        question: "What does connection refused mean in PostgreSQL?",
+        answer:
+          "The network connection reached the Mac, but no PostgreSQL server accepted it at that address and port. The server may be stopped, listening on another port or interface, or hidden behind a container port that was not published.",
+      },
+      {
+        question: "Why does psql work while a PostgreSQL GUI fails?",
+        answer:
+          "psql may be using a local Unix socket when no host is supplied, while the GUI uses TCP through localhost. Compare host, port, database, and user explicitly, then test psql with the same host and port as the GUI.",
+      },
+    ],
+    sources: [
+      {
+        title: "PostgreSQL: Starting the database server",
+        url: "https://www.postgresql.org/docs/current/server-start.html",
+      },
+      {
+        title: "PostgreSQL: Database connection parameters",
+        url: "https://www.postgresql.org/docs/current/libpq-connect.html",
+      },
+      {
+        title: "Postgres.app troubleshooting",
+        url: "https://postgresapp.com/documentation/troubleshooting.html",
+      },
+    ],
+  },
+  {
+    slug: "postgresql-sslmode-explained",
+    title: "PostgreSQL sslmode Explained: require vs verify-full",
+    description:
+      "Choose the right PostgreSQL sslmode and understand what disable, prefer, require, verify-ca, and verify-full actually protect.",
+    keywords: [
+      "postgresql sslmode explained",
+      "sslmode require vs verify full",
+      "postgres sslmode require",
+      "postgres verify ca verify full",
+      "postgres ssl connection string",
+    ],
+    date: "2026-08-04",
+    author: "Ghazi",
+    category: "PostgreSQL Security",
+    pillar: "PostgreSQL Connections",
+    relatedSlugs: [
+      "ssl-verify-full-for-rds-postgresql-on-mac",
+      "postgresql-connection-string-errors",
+      "connect-postgresgui-to-supabase",
+    ],
+    faqs: [
+      {
+        question: "Does sslmode=require verify the PostgreSQL server identity?",
+        answer:
+          "It requires an encrypted connection, but it does not normally verify that the certificate belongs to the intended host. Use verify-full with a trusted root certificate when server identity matters.",
+      },
+      {
+        question: "What is the safest PostgreSQL sslmode?",
+        answer:
+          "verify-full provides encryption, certificate-chain validation, and hostname verification. It only works when the client trusts the issuing CA and connects with a hostname present in the server certificate.",
+      },
+    ],
+    sources: [
+      {
+        title: "PostgreSQL: Database connection parameters",
+        url: "https://www.postgresql.org/docs/current/libpq-connect.html",
+      },
+      {
+        title: "PostgreSQL: SSL support",
+        url: "https://www.postgresql.org/docs/current/libpq-ssl.html",
+      },
+      {
+        title: "PostgreSQL: SSL TCP/IP connections",
+        url: "https://www.postgresql.org/docs/current/ssl-tcp.html",
+      },
+    ],
+  },
+  {
+    slug: "postgresql-permission-denied-for-relation",
+    title: "PostgreSQL Permission Denied for Relation: Fix the Right Grant",
+    description:
+      "Diagnose PostgreSQL permission denied errors across schemas, tables, sequences, and future objects without granting unnecessary access.",
+    keywords: [
+      "postgresql permission denied for relation",
+      "postgres permission denied table",
+      "grant select on table postgres",
+      "postgres sequence permission denied",
+      "alter default privileges postgres",
+    ],
+    date: "2026-08-04",
+    author: "Ghazi",
+    category: "PostgreSQL Security",
+    pillar: "PostgreSQL Permissions",
+    relatedSlugs: [
+      "secure-postgresql-ai-agents",
+      "postgres-mcp-server",
+      "postgresql-rls-performance",
+    ],
+    faqs: [
+      {
+        question: "Why does GRANT on a table not fix every permission error?",
+        answer:
+          "The role may also need USAGE on the containing schema or USAGE on a sequence used by an identity or serial column. Tables, schemas, sequences, and functions have separate privileges.",
+      },
+      {
+        question: "Why do permissions work for old tables but fail on new ones?",
+        answer:
+          "A GRANT on existing tables does not change privileges for future tables. ALTER DEFAULT PRIVILEGES must be run for the role that will create those future objects.",
+      },
+    ],
+    sources: [
+      {
+        title: "PostgreSQL: Privileges",
+        url: "https://www.postgresql.org/docs/current/ddl-priv.html",
+      },
+      {
+        title: "PostgreSQL: GRANT",
+        url: "https://www.postgresql.org/docs/current/sql-grant.html",
+      },
+      {
+        title: "PostgreSQL: ALTER DEFAULT PRIVILEGES",
+        url: "https://www.postgresql.org/docs/current/sql-alterdefaultprivileges.html",
+      },
+    ],
+  },
+  {
+    slug: "pg-dump-pg-restore-mac",
+    title: "pg_dump and pg_restore on Mac: Backup, Restore, Verify",
+    description:
+      "Create a PostgreSQL custom-format backup on Mac, inspect it, restore it into a clean database, and verify that the recovered data works.",
+    keywords: [
+      "pg dump mac",
+      "pg restore mac",
+      "postgresql backup restore mac",
+      "pg_dump custom format",
+      "restore postgres database mac",
+    ],
+    date: "2026-08-04",
+    author: "Ghazi",
+    category: "Backup and Recovery",
+    pillar: "PostgreSQL Operations",
+    relatedSlugs: [
+      "best-postgresql-backup-solution",
+      "postgresql-14-end-of-life-upgrade",
+      "install-psql-mac",
+    ],
+    faqs: [
+      {
+        question: "Should I use a plain SQL or custom-format PostgreSQL dump?",
+        answer:
+          "Plain SQL is easy to read and restore with psql. Custom format works with pg_restore, supports selective restores, and can restore data and indexes in parallel, so it is usually more flexible for operational backups.",
+      },
+      {
+        question: "Is a successful pg_dump enough to prove a backup works?",
+        answer:
+          "No. Restore the archive into a separate database, inspect pg_restore errors, run row-count and application checks, and record how long recovery takes. A backup is useful only when it can be restored correctly.",
+      },
+    ],
+    sources: [
+      {
+        title: "PostgreSQL: pg_dump",
+        url: "https://www.postgresql.org/docs/current/app-pgdump.html",
+      },
+      {
+        title: "PostgreSQL: pg_restore",
+        url: "https://www.postgresql.org/docs/current/app-pgrestore.html",
+      },
+      {
+        title: "PostgreSQL: SQL dump backups",
+        url: "https://www.postgresql.org/docs/current/backup-dump.html",
+      },
+    ],
+  },
+  {
+    slug: "connect-postgresgui-to-postgres-app",
+    title: "Connect PostgresGUI to Postgres.app on Mac",
+    description:
+      "Connect PostgresGUI to a local Postgres.app server using the correct host, port, user, database, and blank default password.",
+    keywords: [
+      "connect postgres gui to postgres app",
+      "postgres app database client",
+      "postgres app localhost connection",
+      "postgres app port 5432",
+      "postgres app gui mac",
+    ],
+    date: "2026-08-04",
+    author: "Ghazi",
+    category: "Connection Guide",
+    pillar: "PostgreSQL Connections",
+    relatedSlugs: [
+      "postgres-connection-refused-mac",
+      "postgres-app-vs-postgresgui",
+      "download-postgresql-for-mac",
+    ],
+    faqs: [
+      {
+        question: "What are the default Postgres.app connection settings?",
+        answer:
+          "Postgres.app documents localhost, port 5432, your macOS user name, a blank password, and a database with the same name as your user as its defaults. Use the values shown by your running server if you changed them.",
+      },
+      {
+        question: "Does PostgresGUI replace Postgres.app?",
+        answer:
+          "No. Postgres.app runs a local PostgreSQL server. PostgresGUI is a client that connects to that server so you can browse tables, edit rows, and run SQL.",
+      },
+    ],
+    sources: [
+      {
+        title: "Postgres.app configuration and connection parameters",
+        url: "https://postgresapp.com/documentation/configuration-general.html",
+      },
+      {
+        title: "Postgres.app installation guide",
+        url: "https://postgresapp.com/documentation/install.html",
+      },
+      {
+        title: "Postgres.app troubleshooting",
+        url: "https://postgresapp.com/documentation/troubleshooting.html",
+      },
+    ],
+  },
+  {
+    slug: "postgresql-locks-blocking-queries",
+    title: "PostgreSQL Locks: Find and Handle Blocking Queries",
+    description:
+      "Find blocked PostgreSQL sessions, identify the blocking transaction, inspect its SQL, and decide whether to wait, cancel, or terminate it.",
+    keywords: [
+      "postgresql blocking queries",
+      "postgres find locks",
+      "pg blocking pids",
+      "postgres terminate blocking query",
+      "pg_locks pg_stat_activity",
+    ],
+    date: "2026-08-04",
+    author: "Ghazi",
+    category: "PostgreSQL Performance",
+    pillar: "PostgreSQL Monitoring",
+    relatedSlugs: [
+      "find-slow-postgresql-queries-pg-stat-statements",
+      "postgresql-monitoring-tools",
+      "explain-analyze-postgres",
+    ],
+    faqs: [
+      {
+        question: "What is the difference between pg_cancel_backend and pg_terminate_backend?",
+        answer:
+          "pg_cancel_backend asks a session to stop its current query while keeping the connection. pg_terminate_backend ends the session, which also rolls back its open transaction and releases its locks when cleanup completes.",
+      },
+      {
+        question: "Why is an idle PostgreSQL session blocking a query?",
+        answer:
+          "A session marked idle in transaction has finished its current statement but has not committed or rolled back. Its transaction can continue holding row or table locks until it ends.",
+      },
+    ],
+    sources: [
+      {
+        title: "PostgreSQL: Viewing locks",
+        url: "https://www.postgresql.org/docs/current/monitoring-locks.html",
+      },
+      {
+        title: "PostgreSQL: The cumulative statistics system",
+        url: "https://www.postgresql.org/docs/current/monitoring-stats.html",
+      },
+      {
+        title: "PostgreSQL: System administration functions",
+        url: "https://www.postgresql.org/docs/current/functions-admin.html",
+      },
+    ],
+  },
+  {
+    slug: "postgresql-index-types",
+    title: "PostgreSQL Index Types: B-tree, GIN, GiST, and BRIN",
+    description:
+      "Choose a PostgreSQL index type from the query operators and data shape, then verify the result with EXPLAIN instead of guessing.",
+    keywords: [
+      "postgresql index types",
+      "postgres btree vs gin",
+      "postgres gist vs gin",
+      "postgres brin index",
+      "which postgres index to use",
+    ],
+    date: "2026-08-04",
+    author: "Ghazi",
+    category: "Query Performance",
+    pillar: "PostgreSQL Indexing",
+    relatedSlugs: [
+      "explain-analyze-postgres",
+      "postgresql-18-skip-scan",
+      "postgresql-jsonb-query-examples",
+    ],
+    faqs: [
+      {
+        question: "Which PostgreSQL index type should I use by default?",
+        answer:
+          "B-tree is PostgreSQL's default and fits equality, range, ordering, and many prefix searches. Choose another type only when its supported operators and data layout match the queries you need to speed up.",
+      },
+      {
+        question: "Why is PostgreSQL ignoring my index?",
+        answer:
+          "The planner may estimate that a sequential scan is cheaper, the query may use an unsupported operator, the indexed expression may not match, statistics may be stale, or the table may be too small for the index to help.",
+      },
+    ],
+    sources: [
+      {
+        title: "PostgreSQL: Index types",
+        url: "https://www.postgresql.org/docs/current/indexes-types.html",
+      },
+      {
+        title: "PostgreSQL: Multicolumn indexes",
+        url: "https://www.postgresql.org/docs/current/indexes-multicolumn.html",
+      },
+      {
+        title: "PostgreSQL: Examining index usage",
+        url: "https://www.postgresql.org/docs/current/indexes-examine.html",
+      },
+    ],
+  },
+  {
+    slug: "import-csv-postgresql",
+    title: "Import CSV into PostgreSQL with COPY and \\copy",
+    description:
+      "Import a CSV file into PostgreSQL, choose between server-side COPY and client-side psql \\copy, handle nulls and headers, and validate the loaded rows.",
+    keywords: [
+      "import csv postgresql",
+      "postgres copy csv",
+      "psql copy csv import",
+      "postgresql csv header",
+      "postgres copy permission denied",
+    ],
+    date: "2026-08-04",
+    author: "Ghazi",
+    category: "PostgreSQL Data",
+    pillar: "PostgreSQL Import and Export",
+    relatedSlugs: [
+      "postgres-column-types",
+      "postgresql-jsonb-query-examples",
+      "psql-vs-postgresql-gui",
+    ],
+    faqs: [
+      {
+        question: "What is the difference between COPY and \\copy?",
+        answer:
+          "COPY reads a file from the PostgreSQL server's filesystem and uses server privileges. psql \\copy streams a local file through the client connection, so it is usually the practical choice for a CSV stored on your Mac.",
+      },
+      {
+        question: "Does an empty CSV field become NULL in PostgreSQL?",
+        answer:
+          "In PostgreSQL CSV format, an unquoted empty field is NULL by default, while a quoted empty string is an empty string. Set NULL explicitly when the source uses another marker.",
+      },
+    ],
+    sources: [
+      {
+        title: "PostgreSQL: COPY",
+        url: "https://www.postgresql.org/docs/current/sql-copy.html",
+      },
+      {
+        title: "PostgreSQL: psql",
+        url: "https://www.postgresql.org/docs/current/app-psql.html",
+      },
+      {
+        title: "PostgreSQL: COPY progress reporting",
+        url: "https://www.postgresql.org/docs/current/progress-reporting.html#COPY-PROGRESS-REPORTING",
+      },
+    ],
+  },
+  {
+    slug: "postgresql-autovacuum-and-table-bloat",
+    title: "PostgreSQL Autovacuum and Table Bloat: What to Check",
+    description:
+      "Inspect dead rows and vacuum history, understand autovacuum thresholds, and fix table growth without jumping straight to VACUUM FULL.",
+    keywords: [
+      "postgresql autovacuum",
+      "postgres table bloat",
+      "postgres dead tuples",
+      "postgres vacuum full",
+      "autovacuum not running postgres",
+    ],
+    date: "2026-08-04",
+    author: "Ghazi",
+    category: "PostgreSQL Performance",
+    pillar: "PostgreSQL Maintenance",
+    relatedSlugs: [
+      "postgresql-monitoring-tools",
+      "find-slow-postgresql-queries-pg-stat-statements",
+      "postgresql-locks-blocking-queries",
+    ],
+    faqs: [
+      {
+        question: "Does regular VACUUM shrink a PostgreSQL table file?",
+        answer:
+          "Regular VACUUM marks dead-row space reusable inside the table but usually does not return that space to the operating system. VACUUM FULL rewrites the table and requires a stronger lock.",
+      },
+      {
+        question: "Should autovacuum be disabled before manual maintenance?",
+        answer:
+          "Usually no. Autovacuum also updates planner statistics and protects against transaction ID wraparound. Diagnose why it falls behind and tune specific busy tables rather than disabling it broadly.",
+      },
+    ],
+    sources: [
+      {
+        title: "PostgreSQL: Routine vacuuming",
+        url: "https://www.postgresql.org/docs/current/routine-vacuuming.html",
+      },
+      {
+        title: "PostgreSQL: Automatic vacuum settings",
+        url: "https://www.postgresql.org/docs/current/runtime-config-vacuum.html",
+      },
+      {
+        title: "PostgreSQL: VACUUM progress reporting",
+        url: "https://www.postgresql.org/docs/current/progress-reporting.html#VACUUM-PROGRESS-REPORTING",
+      },
+    ],
+  },
+  {
+    slug: "postgresql-connection-string-errors",
+    title: "PostgreSQL Connection String Errors: Diagnose the URL",
+    description:
+      "Fix malformed PostgreSQL URLs, encoded passwords, wrong database names, IPv6 hosts, SSL parameters, and pooler-port mistakes.",
+    keywords: [
+      "postgresql connection string error",
+      "postgres url special characters password",
+      "invalid postgres connection string",
+      "postgresql uri format",
+      "postgres connection url sslmode",
+    ],
+    date: "2026-08-04",
+    author: "Ghazi",
+    category: "PostgreSQL Troubleshooting",
+    pillar: "PostgreSQL Connections",
+    relatedSlugs: [
+      "postgres-connection-refused-mac",
+      "postgresql-sslmode-explained",
+      "connect-postgresgui-to-neon",
+    ],
+    faqs: [
+      {
+        question: "How do I put special characters in a PostgreSQL URL password?",
+        answer:
+          "Percent-encode characters that have structural meaning in a URI. For example, @ becomes %40, : becomes %3A, / becomes %2F, # becomes %23, and % becomes %25.",
+      },
+      {
+        question: "Are postgres:// and postgresql:// both valid?",
+        answer:
+          "libpq accepts both URI schemes. postgresql:// is clearer and is the form used in PostgreSQL's documentation, but many providers emit postgres:// for compatibility.",
+      },
+    ],
+    sources: [
+      {
+        title: "PostgreSQL: Connection strings",
+        url: "https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING",
+      },
+      {
+        title: "PostgreSQL: Connection parameter keywords",
+        url: "https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-PARAMKEYWORDS",
+      },
+      {
+        title: "PostgreSQL connection string builder",
+        url: "https://postgresgui.com/connection-string",
+      },
+    ],
+  },
+  {
     slug: "postgres-mcp-server",
     title: "Postgres MCP Server: A Safe Read-Only Setup",
     description:

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { AppStoreLink } from "@/components/app-store-link";
 import { FAQ } from "@/components/faq";
-import { APP_STORE_LINK, GITHUB_REPOSITORY_LINK } from "@/lib/constants";
+import { GITHUB_REPOSITORY_LINK } from "@/lib/constants";
 import {
   absoluteUrl,
   faqJsonLd,
@@ -110,12 +111,9 @@ export default function PostgresManagerMacPage() {
               loop instead of trying to replace a full DBA suite.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href={APP_STORE_LINK}
-                className="rounded-md bg-[var(--postgres-blue)] px-5 py-3 text-sm font-semibold text-white hover:bg-[var(--postgres-blue-dark)]"
-              >
+              <AppStoreLink className="rounded-md bg-[var(--postgres-blue)] px-5 py-3 text-sm font-semibold text-white hover:bg-[var(--postgres-blue-dark)]">
                 Download for Mac
-              </a>
+              </AppStoreLink>
               <a
                 href={GITHUB_REPOSITORY_LINK}
                 className="rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-accent"

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AppStoreLink } from "@/components/app-store-link";
 import { FAQ } from "@/components/faq";
-import { APP_STORE_LINK, GITHUB_REPOSITORY_LINK } from "@/lib/constants";
+import { GITHUB_REPOSITORY_LINK } from "@/lib/constants";
 import { absoluteUrl, faqJsonLd } from "@/lib/seo-helpers";
 
 const CANONICAL = "https://postgresgui.com/open-source-postgres-gui";
@@ -114,12 +115,9 @@ export default function OpenSourcePostgresGuiPage() {
               >
                 View on GitHub
               </a>
-              <a
-                href={APP_STORE_LINK}
-                className="rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-accent"
-              >
+              <AppStoreLink className="rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-accent">
                 Download signed build
-              </a>
+              </AppStoreLink>
             </div>
           </div>
         </section>

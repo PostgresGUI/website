@@ -74,7 +74,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/open-source-postgres-gui", "2026-07-25"),
     entry("/privacy", "2026-01-09"),
     entry("/support", "2026-01-09"),
-    entry("/blog", "2026-07-31"),
+    entry("/blog", "2026-08-04"),
     ...blogPosts.map((post) => {
       const fullPost = getBlogPost(post.slug);
       return entry(

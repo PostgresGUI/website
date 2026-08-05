@@ -36,6 +36,10 @@ export const metadata: Metadata = {
 };
 
 const connectionGuideSlugs = [
+  "postgres-connection-refused-mac",
+  "postgresql-sslmode-explained",
+  "connect-postgresgui-to-postgres-app",
+  "postgresql-connection-string-errors",
   "connect-postgresgui-to-supabase",
   "connect-postgresgui-to-neon",
   "ssh-tunnel-postgres",
