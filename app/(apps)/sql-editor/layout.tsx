@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Saira_Stencil_One } from "next/font/google";
+import { JetBrains_Mono, Saira_Stencil } from "next/font/google";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -7,11 +7,12 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const sairaStencilOne = Saira_Stencil_One({
+const sairaStencilOne = Saira_Stencil({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-saira-stencil",
   display: "swap",
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
