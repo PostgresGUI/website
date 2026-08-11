@@ -727,7 +727,7 @@ export const beekeeperStudioData: AlternativeData = {
     },
     {
       feature: "Pricing model",
-      postgresgui: { type: "price", value: "$12.99", note: "one-time App Store", highlight: true },
+      postgresgui: { type: "price", value: "$22.99", note: "one-time App Store", highlight: true },
       competitor: { type: "text", value: "Free + paid tiers" },
     },
     {
@@ -906,7 +906,7 @@ export const datagripData: AlternativeData = {
     },
     {
       feature: "Pricing model",
-      postgresgui: { type: "price", value: "$12.99", note: "one-time App Store", highlight: true },
+      postgresgui: { type: "price", value: "$22.99", note: "one-time App Store", highlight: true },
       competitor: { type: "text", value: "Free non-commercial + paid plans" },
     },
     {

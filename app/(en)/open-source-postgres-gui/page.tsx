@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AppStoreLink } from "@/components/app-store-link";
 import { FAQ } from "@/components/faq";
-import { GITHUB_REPOSITORY_LINK } from "@/lib/constants";
+import { GITHUB_REPOSITORY_LINK, PRICE_AMOUNT } from "@/lib/constants";
 import { absoluteUrl, faqJsonLd } from "@/lib/seo-helpers";
 
 const CANONICAL = "https://postgresgui.com/open-source-postgres-gui";
@@ -80,7 +80,7 @@ const jsonLd = [
       "An open source PostgreSQL GUI client for Mac with a focused native interface and no subscription.",
     offers: {
       "@type": "Offer",
-      price: "12.99",
+      price: PRICE_AMOUNT,
       priceCurrency: "USD",
     },
   },

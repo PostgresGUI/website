@@ -1144,7 +1144,7 @@ export const blogPosts: BlogPost[] = [
     slug: "only-postgres-gui-mac-no-subscription",
     title: "The Only Postgres GUI for Mac With No Subscription",
     description:
-      "PostgresGUI is a native Mac Postgres client for $12.99 - one time. No subscription, no telemetry, fully open source. See how it compares to TablePlus, Postico, and DataGrip.",
+      "PostgresGUI is a native Mac Postgres client for $22.99 - one time. No subscription, no telemetry, fully open source. See how it compares to TablePlus, Postico, and DataGrip.",
     keywords: [
       "Postgres GUI Mac",
       "PostgreSQL client Mac",

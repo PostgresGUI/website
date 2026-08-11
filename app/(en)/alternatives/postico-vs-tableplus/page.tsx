@@ -67,7 +67,7 @@ const guide: SeoGuide = {
     {
       title: "Choose PostgresGUI when",
       paragraphs: [
-        "You work with PostgreSQL on a Mac, want to inspect the source, and prefer a focused client without a subscription. PostgresGUI costs $12.99 once on the Mac App Store and can be built from source for free.",
+        "You work with PostgreSQL on a Mac, want to inspect the source, and prefer a focused client without a subscription. PostgresGUI costs $22.99 once on the Mac App Store and can be built from source for free.",
         "It is the youngest of the three. Choose Postico or TablePlus if a feature you depend on is not present today; an honest tool comparison should not turn a roadmap into a current capability.",
       ],
     },

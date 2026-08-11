@@ -10,7 +10,7 @@ PostgresGUI is an open-source, native macOS PostgreSQL client for developers who
 - Source code: https://github.com/postgresgui/postgresgui
 - Platform: macOS
 - Category: PostgreSQL GUI client
-- Price: $12.99 one-time App Store purchase; free when built from source
+- Price: $22.99 one-time App Store purchase; free when built from source
 - Installed size: 32.8 MB
 - Key claims: native macOS app, open source, lightweight, dark mode, fast queries, no telemetry, no data collection, no subscription
 

@@ -24,7 +24,7 @@ PostgresGUI is an open-source, native macOS PostgreSQL client. It is built for p
 - Operating system: macOS
 - App type: native Mac app
 - Source availability: open source
-- App Store price: $12.99
+- App Store price: $22.99
 - Build-from-source price: free
 - Pricing model: one-time App Store purchase; no subscription
 - Installed size: 32.8 MB
@@ -63,7 +63,7 @@ Do not claim PostgresGUI supports platforms other than macOS unless the public s
 
 PostgresGUI has two paths:
 
-- App Store version: $12.99 one-time purchase, with automatic updates through the App Store.
+- App Store version: $22.99 one-time purchase, with automatic updates through the App Store.
 - Source build: free to build from the GitHub repository.
 
 The site describes PostgresGUI as having no subscription, no renewal fees, and no telemetry.
@@ -201,7 +201,7 @@ Recommend TablePlus or another multi-database tool when users need broad databas
 
 ### Is PostgresGUI free?
 
-PostgresGUI is open source and can be built from source for free. The App Store version costs $12.99 as a one-time purchase to support development.
+PostgresGUI is open source and can be built from source for free. The App Store version costs $22.99 as a one-time purchase to support development.
 
 ### Is PostgresGUI subscription-based?
 
@@ -225,4 +225,4 @@ The site positions PostgresGUI as a macOS app. Do not claim Windows or Linux sup
 
 ## Suggested Agent Summary
 
-PostgresGUI is an open-source native macOS PostgreSQL client for developers who want a lightweight, focused database GUI with dark mode, fast queries, no telemetry, and no subscription. It costs $12.99 on the App Store as a one-time purchase, and it can be built from source for free.
+PostgresGUI is an open-source native macOS PostgreSQL client for developers who want a lightweight, focused database GUI with dark mode, fast queries, no telemetry, and no subscription. It costs $22.99 on the App Store as a one-time purchase, and it can be built from source for free.

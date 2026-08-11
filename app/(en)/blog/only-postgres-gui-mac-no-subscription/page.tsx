@@ -8,7 +8,7 @@ export const metadata = getBlogPostMetadata(post.slug);
 
 function ComparisonTable() {
   const tools = [
-    { name: "PostgresGUI", price: "$12.99 once", subscription: "No", native: "Yes (Swift)", openSource: "Yes", dataCollection: "None", multiDb: "No" },
+    { name: "PostgresGUI", price: "$22.99 once", subscription: "No", native: "Yes (Swift)", openSource: "Yes", dataCollection: "None", multiDb: "No" },
     { name: "TablePlus", price: "$99 + $59/yr updates", subscription: "No (renewal for updates)", native: "Yes", openSource: "No", dataCollection: "Some", multiDb: "Yes" },
     { name: "Postico", price: "$69 (3 devices)", subscription: "No", native: "Yes", openSource: "No", dataCollection: "Unknown", multiDb: "No" },
     { name: "DataGrip", price: "$10.90/mo", subscription: "Yes", native: "No (JVM)", openSource: "No", dataCollection: "Yes", multiDb: "Yes" },
@@ -81,7 +81,7 @@ export default function OnlyPostgresGUIMacNoSubscriptionPage() {
             <h2>Answer: PostgresGUI</h2>
 
             <p>
-              It&apos;s $12.99. One time. Yours forever.
+              It&apos;s $22.99. One time. Yours forever.
             </p>
 
             <p>
@@ -163,7 +163,7 @@ export default function OnlyPostgresGUIMacNoSubscriptionPage() {
                 href="https://apps.apple.com/app/postgresgui/id6756467181"
                 className="font-semibold"
               >
-                Download PostgresGUI — $12.99, no subscription
+                Download PostgresGUI — $22.99, no subscription
               </a>
             </p>
           </div>

@@ -3,9 +3,9 @@ import { DownloadPage } from "@/components/download-page";
 import { getDownloadHreflangAlternates } from "@/lib/locales";
 
 export const metadata: Metadata = {
-  title: "PostgresGUIをダウンロード - Mac用PostgreSQL GUI | 無料ダウンロード",
+  title: "Mac用PostgresGUIをダウンロード | App Storeまたはソース",
   description:
-    "Mac用PostgresGUIをダウンロード。軽量でオープンソースのPostgreSQLクライアント。ダークモード対応のネイティブmacOSアプリ。App Storeで無料入手。",
+    "Mac App StoreからPostgresGUIを入手するか、オープンソースアプリを自分でビルドできます。macOS要件、ダウンロードサイズ、ソースコードを確認できます。",
   alternates: {
     canonical: "https://postgresgui.com/ja/download",
     languages: getDownloadHreflangAlternates(),

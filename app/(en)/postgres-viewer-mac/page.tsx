@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AppStoreLink } from "@/components/app-store-link";
 import { FAQ } from "@/components/faq";
-import { GITHUB_REPOSITORY_LINK } from "@/lib/constants";
+import { GITHUB_REPOSITORY_LINK, PRICE_AMOUNT } from "@/lib/constants";
 import { absoluteUrl, faqJsonLd } from "@/lib/seo-helpers";
 
 const CANONICAL = "https://postgresgui.com/postgres-viewer-mac";
@@ -85,7 +85,7 @@ const jsonLd = [
       "A native Mac PostgreSQL viewer for browsing tables, running SQL queries, inspecting results, and exporting data.",
     offers: {
       "@type": "Offer",
-      price: "12.99",
+      price: PRICE_AMOUNT,
       priceCurrency: "USD",
     },
   },

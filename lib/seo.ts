@@ -455,9 +455,9 @@ const downloadSeoData: Record<Locale, LocaleSEO> = {
     canonical: "https://postgresgui.com/download",
   },
   uk: {
-    title: "Download PostgresGUI - PostgreSQL GUI for Mac | Free Download",
+    title: "Download PostgresGUI for Mac | App Store or Source",
     description:
-      "Download PostgresGUI for Mac. Lightweight, open-source PostgreSQL client. Native macOS app with dark mode support. Get it free on the App Store.",
+      "Get PostgresGUI from the Mac App Store or build the open-source app yourself. Review macOS requirements, download size, and source code.",
     keywords: [
       "download postgresql client",
       "database gui download",
@@ -472,9 +472,9 @@ const downloadSeoData: Record<Locale, LocaleSEO> = {
     canonical: "https://postgresgui.com/download", // Point to main download page
   },
   de: {
-    title: "PostgresGUI herunterladen - PostgreSQL GUI für Mac | Kostenlos",
+    title: "PostgresGUI für Mac herunterladen | App Store oder Quellcode",
     description:
-      "PostgresGUI für Mac herunterladen. Leichtgewichtiger, Open-Source PostgreSQL-Client. Native macOS-App mit Dunkelmodus. Kostenlos im App Store.",
+      "PostgresGUI aus dem Mac App Store laden oder die Open-Source-App selbst bauen. macOS-Anforderungen, Downloadgröße und Quellcode prüfen.",
     keywords: [
       "postgresql gui mac herunterladen",
       "postgres client download mac",
@@ -487,9 +487,9 @@ const downloadSeoData: Record<Locale, LocaleSEO> = {
     canonical: "https://postgresgui.com/de/download",
   },
   fr: {
-    title: "Télécharger PostgresGUI - GUI PostgreSQL pour Mac | Gratuit",
+    title: "Télécharger PostgresGUI pour Mac | App Store ou source",
     description:
-      "Télécharger PostgresGUI pour Mac. Client PostgreSQL léger et open-source. Application macOS native avec mode sombre. Gratuit sur l'App Store.",
+      "Obtenez PostgresGUI sur le Mac App Store ou compilez vous-même l'app open source. Consultez les prérequis macOS, la taille du téléchargement et le code source.",
     keywords: [
       "telecharger postgresql gui mac",
       "postgresql client mac telecharger",
@@ -502,9 +502,9 @@ const downloadSeoData: Record<Locale, LocaleSEO> = {
     canonical: "https://postgresgui.com/fr/download",
   },
   ja: {
-    title: "PostgresGUIをダウンロード - Mac用PostgreSQL GUI | 無料ダウンロード",
+    title: "Mac用PostgresGUIをダウンロード | App Storeまたはソース",
     description:
-      "Mac用PostgresGUIをダウンロード。軽量でオープンソースのPostgreSQLクライアント。ダークモード対応のネイティブmacOSアプリ。App Storeで無料入手。",
+      "Mac App StoreからPostgresGUIを入手するか、オープンソースアプリを自分でビルドできます。macOS要件、ダウンロードサイズ、ソースコードを確認できます。",
     keywords: [
       "postgresql gui mac ダウンロード",
       "postgresql クライアント ダウンロード",
@@ -517,9 +517,9 @@ const downloadSeoData: Record<Locale, LocaleSEO> = {
     canonical: "https://postgresgui.com/ja/download",
   },
   nl: {
-    title: "Download PostgresGUI - PostgreSQL GUI for Mac | Free Download",
+    title: "Download PostgresGUI for Mac | App Store or Source",
     description:
-      "Download PostgresGUI for Mac. Lightweight, open-source PostgreSQL client. Native macOS app with dark mode support. Get it free on the App Store.",
+      "Get PostgresGUI from the Mac App Store or build the open-source app yourself. Review macOS requirements, download size, and source code.",
     keywords: [
       "download postgresql gui mac",
       "postgresql client download",
@@ -531,9 +531,9 @@ const downloadSeoData: Record<Locale, LocaleSEO> = {
     canonical: "https://postgresgui.com/download",
   },
   au: {
-    title: "Download PostgresGUI - PostgreSQL GUI for Mac | Free Download",
+    title: "Download PostgresGUI for Mac | App Store or Source",
     description:
-      "Download PostgresGUI for Mac. Lightweight, open-source PostgreSQL client. Native macOS app with dark mode support. Get it free on the App Store.",
+      "Get PostgresGUI from the Mac App Store or build the open-source app yourself. Review macOS requirements, download size, and source code.",
     keywords: [
       "download postgresql gui mac",
       "postgresql client download",
