@@ -53,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/sql-compiler", "2026-07-25"),
     entry("/schema-designer", "2026-07-25"),
     entry("/postgresql-er-diagram-from-sql", "2026-07-25"),
-    entry("/sql-cheatsheet", "2026-07-25"),
+    entry("/sql-cheatsheet", "2026-08-11"),
     entry("/uuid-generator", "2026-07-25"),
     entry("/connection-string", "2026-07-25"),
     entry("/explain-checker", "2026-08-04"),

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { BlogPostFooter } from "@/components/blog-post-footer";
 import { BlogStructuredData } from "@/components/blog-structured-data";
 import { getBlogPost, getBlogPostMetadata } from "@/lib/blog";
@@ -65,6 +66,19 @@ export default function PostgreSQLMonitoringToolsPage() {
                 temporary file creation, and shared buffer utilization
               </li>
             </ul>
+
+            <p>
+              For the two checks that most often turn into immediate incident
+              work, use the focused guides to{" "}
+              <Link href="/blog/postgresql-locks-blocking-queries">
+                find blocking PostgreSQL queries
+              </Link>{" "}
+              and{" "}
+              <Link href="/blog/postgresql-autovacuum-and-table-bloat">
+                diagnose autovacuum and table bloat
+              </Link>
+              .
+            </p>
 
             <h2>1. PostgreSQL Built-in Statistics Views</h2>
 

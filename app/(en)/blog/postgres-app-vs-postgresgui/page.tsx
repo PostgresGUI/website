@@ -102,6 +102,18 @@ export default function PostgresAppVsPostgresGuiPage() {
                 settings depend on the server you initialized. Use the values
                 shown in Postgres.app rather than guessing.
               </p>
+              <p>
+                The{" "}
+                <Link href="/blog/connect-postgresgui-to-postgres-app">
+                  Postgres.app connection walkthrough
+                </Link>{" "}
+                shows the fields and a test query. If localhost still refuses
+                the connection, follow the{" "}
+                <Link href="/blog/postgres-connection-refused-mac">
+                  Mac connection-refused checklist
+                </Link>
+                .
+              </p>
 
               <h2>What if the database is already in the cloud?</h2>
               <p>

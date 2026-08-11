@@ -723,9 +723,9 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "best-postgresql-cloud-provider",
-    title: "Best PostgreSQL Cloud Providers in 2026",
+    title: "Best Managed PostgreSQL Hosting in 2026",
     description:
-      "Compare the best PostgreSQL cloud providers in 2026. From Neon and Supabase to AWS RDS, find the right managed PostgreSQL hosting for your project.",
+      "Compare managed PostgreSQL hosting by use case, recovery, networking, operational model, and tradeoffs across Neon, Supabase, AWS, GCP, Azure, Aiven, DigitalOcean, Railway, and Render.",
     keywords: [
       "PostgreSQL cloud provider",
       "managed PostgreSQL",
@@ -741,6 +741,7 @@ export const blogPosts: BlogPost[] = [
       "Render Postgres",
     ],
     date: "2025-02-04",
+    dateModified: "2026-08-11",
     author: "Ghazi",
     category: "Hosting",
     pillar: "PostgreSQL Operations",
@@ -763,13 +764,28 @@ export const blogPosts: BlogPost[] = [
     ],
     sources: [
       {
-        title: "PostgreSQL documentation",
-        url: "https://www.postgresql.org/docs/current/",
+        title: "PostgreSQL backup and restore documentation",
+        url: "https://www.postgresql.org/docs/current/backup.html",
       },
-      { title: "Neon documentation", url: "https://neon.com/docs" },
+      {
+        title: "Neon serverless architecture",
+        url: "https://neon.com/docs/introduction/serverless",
+      },
       {
         title: "Supabase database documentation",
         url: "https://supabase.com/docs/guides/database",
+      },
+      {
+        title: "Amazon RDS for PostgreSQL",
+        url: "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html",
+      },
+      {
+        title: "Google Cloud SQL for PostgreSQL",
+        url: "https://cloud.google.com/sql/docs/postgres",
+      },
+      {
+        title: "Azure Database for PostgreSQL",
+        url: "https://learn.microsoft.com/azure/postgresql/",
       },
     ],
   },
@@ -871,9 +887,9 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "best-mac-postgresql-gui-client",
-    title: "Best PostgreSQL Clients for Mac in 2026",
+    title: "Best PostgreSQL GUI Clients for Mac in 2026",
     description:
-      "A direct comparison of PostgreSQL clients for Mac, including PostgresGUI, Postico, TablePlus, pgAdmin, DBeaver, and DataGrip.",
+      "Compare six PostgreSQL GUI clients for Mac by database scope, native experience, source availability, administration depth, and everyday workflow.",
     keywords: [
       "PostgreSQL GUI Mac",
       "Postgres client Mac",
@@ -893,7 +909,7 @@ export const blogPosts: BlogPost[] = [
       "database client macOS",
     ],
     date: "2026-02-04",
-    dateModified: "2026-07-28",
+    dateModified: "2026-08-11",
     author: "Ghazi",
     category: "Tools",
     pillar: "PostgreSQL GUI",
@@ -1040,10 +1056,9 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "best-postgresql-backup-solution",
-    title:
-      "Best PostgreSQL Backup Solutions in 2026: Tools, Strategies, and Best Practices",
+    title: "Best PostgreSQL Backup Tools in 2026",
     description:
-      "Compare the best PostgreSQL backup solutions in 2026. From pg_dump and pgBackRest to Barman and WAL-G, find the right backup strategy for your database.",
+      "Compare pg_dump, pg_basebackup, pgBackRest, Barman, WAL-G, and managed backups by portability, PITR, storage, recovery goals, and operational tradeoffs.",
     keywords: [
       "PostgreSQL backup",
       "pg_dump",
@@ -1059,6 +1074,7 @@ export const blogPosts: BlogPost[] = [
       "continuous archiving PostgreSQL",
     ],
     date: "2026-02-04",
+    dateModified: "2026-08-11",
     author: "Ghazi",
     category: "Operations",
     pillar: "PostgreSQL Operations",
@@ -1086,6 +1102,7 @@ export const blogPosts: BlogPost[] = [
       },
       { title: "pgBackRest documentation", url: "https://pgbackrest.org/" },
       { title: "Barman documentation", url: "https://docs.pgbarman.org/" },
+      { title: "WAL-G documentation", url: "https://wal-g.readthedocs.io/" },
     ],
   },
   {

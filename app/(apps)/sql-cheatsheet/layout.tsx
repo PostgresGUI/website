@@ -21,9 +21,9 @@ export default function CheatsheetLayout({ children }: { children: React.ReactNo
         <aside className="hidden lg:flex w-48 shrink-0 bg-white dark:bg-stone-900 border-r border-stone-200 dark:border-stone-800 fixed top-0 left-0 h-screen flex-col">
           {/* Title */}
           <div className="px-4 py-4 border-b border-stone-200 dark:border-stone-800">
-            <h1 className="text-sm font-black text-stone-900 dark:text-stone-100 tracking-tighter uppercase">
+            <p className="text-sm font-black text-stone-900 dark:text-stone-100 tracking-tighter uppercase">
               SQL Cheatsheet
-            </h1>
+            </p>
             <DatabaseSelector selected={selectedDatabase} />
           </div>
 

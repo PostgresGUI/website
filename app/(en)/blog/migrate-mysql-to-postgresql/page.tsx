@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { BlogPostFooter } from "@/components/blog-post-footer";
 import { BlogStructuredData } from "@/components/blog-structured-data";
 import { getBlogPost, getBlogPostMetadata } from "@/lib/blog";
@@ -459,6 +460,19 @@ CAST type tinyint to boolean using tinyint-to-boolean;`}</code>
                 way to catch query compatibility issues.
               </li>
             </ul>
+
+            <p>
+              For a table-by-table transfer or a corrected reload, use the{" "}
+              <Link href="/blog/import-csv-postgresql">
+                PostgreSQL CSV import guide
+              </Link>
+              . If validation succeeds as an administrator but the application
+              cannot read a migrated table, check ownership and grants with the{" "}
+              <Link href="/blog/postgresql-permission-denied-for-relation">
+                permission-denied troubleshooting guide
+              </Link>
+              .
+            </p>
 
             <h2>Common Pitfalls</h2>
 

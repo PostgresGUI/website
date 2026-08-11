@@ -90,6 +90,18 @@ where pid = pg_backend_pid();`,
           title: "Fix certificate errors without weakening verification",
           paragraphs: [
             "Do not solve a certificate error by silently switching to disable or prefer. Check the endpoint and root file first.",
+            <>
+              For the full behavior of disable, prefer, require, verify-ca, and
+              verify-full, read the{" "}
+              <Link href="/blog/postgresql-sslmode-explained">
+                PostgreSQL sslmode guide
+              </Link>
+              . If the URI fails before TLS starts, use the{" "}
+              <Link href="/blog/postgresql-connection-string-errors">
+                connection-string error checklist
+              </Link>
+              .
+            </>,
           ],
           bullets: [
             "No such file: verify the sslrootcert path and expand $HOME in the shell, not inside a single-quoted URI.",

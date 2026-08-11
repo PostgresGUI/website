@@ -72,6 +72,15 @@ limit 50;`,
           title: "Treat scan names as descriptions, not verdicts",
           paragraphs: [
             "A sequential scan is reasonable when the table is small or the query needs much of it. An index scan is useful when it can avoid reading most rows. A bitmap scan combines index matches before visiting heap pages.",
+            <>
+              If the plan points to an indexing problem, choose the index method
+              from the operator and data shape rather than adding another
+              default B-tree. The{" "}
+              <Link href="/blog/postgresql-index-types">
+                PostgreSQL index types guide
+              </Link>{" "}
+              compares B-tree, GIN, GiST, BRIN, and hash indexes.
+            </>,
           ],
           bullets: [
             "Seq Scan: reads table pages in sequence.",

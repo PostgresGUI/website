@@ -1,11 +1,13 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { getCategories, type SQLCategory, type SQLExample } from "./_lib/data";
 import { defaultDatabase } from "./_lib/databases";
 import { CopyButton } from "./_components/copy-button";
 
 export const metadata: Metadata = {
-  title: "SQL Cheatsheet",
-  description: "SQL cheatsheet with copy-paste examples.",
+  title: "PostgreSQL Cheat Sheet: Commands and Copy-Paste SQL",
+  description:
+    "A practical PostgreSQL cheat sheet with copy-paste SELECT, JOIN, INSERT, UPDATE, CTE, window function, JSONB, index, and administration examples.",
   keywords: [
     "sql cheatsheet",
     "postgresql cheatsheet",
@@ -20,15 +22,17 @@ export const metadata: Metadata = {
     "cte examples",
   ],
   openGraph: {
-    title: "SQL Cheatsheet",
-    description: "SQL cheatsheet with copy-paste examples.",
+    title: "PostgreSQL Cheat Sheet: Commands and Copy-Paste SQL",
+    description:
+      "Copy practical PostgreSQL examples for queries, joins, writes, CTEs, JSONB, indexes, and administration.",
     type: "website",
     url: "https://postgresgui.com/sql-cheatsheet",
   },
   twitter: {
     card: "summary_large_image",
-    title: "SQL Cheatsheet",
-    description: "SQL cheatsheet with copy-paste examples.",
+    title: "PostgreSQL Cheat Sheet: Commands and Copy-Paste SQL",
+    description:
+      "Copy practical PostgreSQL examples for queries, joins, writes, CTEs, JSONB, indexes, and administration.",
   },
   alternates: {
     canonical: "https://postgresgui.com/sql-cheatsheet",
@@ -38,13 +42,15 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "SQL Cheatsheet",
-  description: "SQL cheatsheet with copy-paste examples.",
+  name: "PostgreSQL Cheat Sheet",
+  description:
+    "Copy-paste PostgreSQL examples for queries, joins, writes, CTEs, window functions, JSONB, indexes, and administration.",
   url: "https://postgresgui.com/sql-cheatsheet",
   mainEntity: {
     "@type": "Article",
-    name: "SQL Cheatsheet",
-    description: "Comprehensive SQL cheatsheet with copy-paste examples for PostgreSQL, MySQL, and SQLite.",
+    name: "PostgreSQL Cheat Sheet",
+    description:
+      "Practical PostgreSQL commands and copy-paste SQL examples.",
     author: {
       "@type": "Organization",
       name: "PostgresGUI",
@@ -229,6 +235,50 @@ export default function SQLCheatsheetPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <header className="mb-8 max-w-4xl">
+        <p className="mb-2 text-xs font-bold uppercase text-blue-700 dark:text-blue-400">
+          PostgreSQL reference
+        </p>
+        <h1 className="text-balance text-3xl font-black leading-tight text-stone-950 dark:text-stone-50 sm:text-4xl">
+          PostgreSQL cheat sheet
+        </h1>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-stone-600 dark:text-stone-400 sm:text-base">
+          Copy working examples for SELECT, filters, joins, inserts, updates,
+          CTEs, window functions, JSONB, arrays, indexes, and routine database
+          administration. The examples use PostgreSQL syntax and common sample
+          tables such as <code>users</code>, <code>orders</code>, and{" "}
+          <code>products</code>.
+        </p>
+        <nav
+          aria-label="Related PostgreSQL references"
+          className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold"
+        >
+          <Link
+            href="/blog/postgresql-index-types"
+            className="text-blue-700 hover:underline dark:text-blue-400"
+          >
+            Choose an index
+          </Link>
+          <Link
+            href="/blog/import-csv-postgresql"
+            className="text-blue-700 hover:underline dark:text-blue-400"
+          >
+            Import a CSV
+          </Link>
+          <Link
+            href="/blog/explain-analyze-postgres"
+            className="text-blue-700 hover:underline dark:text-blue-400"
+          >
+            Read EXPLAIN ANALYZE
+          </Link>
+          <Link
+            href="/postgresql-tools"
+            className="text-blue-700 hover:underline dark:text-blue-400"
+          >
+            More PostgreSQL tools
+          </Link>
+        </nav>
+      </header>
       <div className="columns-1 md:columns-2 xl:columns-3 gap-4 sm:gap-6 lg:gap-8">
         {categories.map((category) => (
           <div key={category.id} id={category.id}>
