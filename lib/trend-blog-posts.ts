@@ -1156,4 +1156,110 @@ export const trendBlogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "postgresql-numeric-vs-double-precision",
+    title: "PostgreSQL NUMERIC vs DOUBLE PRECISION: Which Should You Use?",
+    description:
+      "Choose between PostgreSQL NUMERIC, DOUBLE PRECISION, and REAL based on exactness, range, storage, rounding, and query behavior.",
+    keywords: [
+      "postgresql numeric vs double precision",
+      "postgres double precision",
+      "postgresql float",
+      "double precision vs numeric",
+      "postgres numeric type",
+    ],
+    date: "2026-08-11",
+    author: "Ghazi",
+    category: "PostgreSQL Data Types",
+    pillar: "PostgreSQL Data Types",
+    relatedSlugs: [
+      "postgresql-bigint-vs-integer",
+      "postgresql-jsonb-query-examples",
+      "migrate-mysql-to-postgresql",
+    ],
+    faqs: [
+      {
+        question: "Should money use NUMERIC or DOUBLE PRECISION in PostgreSQL?",
+        answer:
+          "Use NUMERIC with an explicit precision and scale when decimal values must remain exact, as they usually must for money. DOUBLE PRECISION is approximate and can introduce small binary rounding differences.",
+      },
+      {
+        question: "Is FLOAT the same as DOUBLE PRECISION in PostgreSQL?",
+        answer:
+          "PostgreSQL treats FLOAT without a precision as DOUBLE PRECISION. FLOAT(1) through FLOAT(24) select REAL, while FLOAT(25) through FLOAT(53) select DOUBLE PRECISION.",
+      },
+      {
+        question: "When is DOUBLE PRECISION a better choice than NUMERIC?",
+        answer:
+          "Use DOUBLE PRECISION for measurements, scientific calculations, coordinates, and other approximate values where about 15 significant decimal digits are sufficient and binary floating-point behavior is acceptable.",
+      },
+    ],
+    sources: [
+      {
+        title: "PostgreSQL: Numeric Types",
+        url: "https://www.postgresql.org/docs/current/datatype-numeric.html",
+      },
+      {
+        title: "PostgreSQL: Mathematical Functions and Operators",
+        url: "https://www.postgresql.org/docs/current/functions-math.html",
+      },
+      {
+        title: "PostgreSQL: Lexical Structure and Numeric Constants",
+        url: "https://www.postgresql.org/docs/current/sql-syntax-lexical.html",
+      },
+    ],
+  },
+  {
+    slug: "postgresql-bigint-vs-integer",
+    title: "PostgreSQL BIGINT vs INTEGER: Ranges, Storage, and IDs",
+    description:
+      "Choose PostgreSQL SMALLINT, INTEGER, or BIGINT using their exact ranges, storage costs, overflow behavior, and expected ID growth.",
+    keywords: [
+      "postgresql bigint vs integer",
+      "postgresql bigint",
+      "postgres integer",
+      "bigint postgres",
+      "postgres integer range",
+    ],
+    date: "2026-08-11",
+    author: "Ghazi",
+    category: "PostgreSQL Data Types",
+    pillar: "PostgreSQL Data Types",
+    relatedSlugs: [
+      "postgresql-numeric-vs-double-precision",
+      "migrate-mysql-to-postgresql",
+      "postgresql-uuid-v4-vs-v7",
+    ],
+    faqs: [
+      {
+        question: "What is the difference between INTEGER and BIGINT in PostgreSQL?",
+        answer:
+          "INTEGER uses 4 bytes and ranges from -2,147,483,648 to 2,147,483,647. BIGINT uses 8 bytes and has a much larger signed 64-bit range.",
+      },
+      {
+        question: "Should every PostgreSQL primary key use BIGINT?",
+        answer:
+          "No. INTEGER is sufficient when the table cannot approach roughly 2.1 billion positive IDs. BIGINT is sensible when long-term insert volume, distributed ID allocation, or imported identifiers could exceed that range.",
+      },
+      {
+        question: "Can PostgreSQL automatically widen an INTEGER column?",
+        answer:
+          "No. PostgreSQL raises an out-of-range error when a value exceeds the type. Changing a populated INTEGER column to BIGINT rewrites or otherwise changes the table depending on the PostgreSQL version and operation, so plan and test the migration before the sequence reaches its limit.",
+      },
+    ],
+    sources: [
+      {
+        title: "PostgreSQL: Numeric Types",
+        url: "https://www.postgresql.org/docs/current/datatype-numeric.html",
+      },
+      {
+        title: "PostgreSQL: Identity Columns",
+        url: "https://www.postgresql.org/docs/current/ddl-identity-columns.html",
+      },
+      {
+        title: "PostgreSQL: ALTER TABLE",
+        url: "https://www.postgresql.org/docs/current/sql-altertable.html",
+      },
+    ],
+  },
 ];

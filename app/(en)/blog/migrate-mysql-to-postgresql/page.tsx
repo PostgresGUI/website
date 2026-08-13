@@ -16,16 +16,26 @@ export default function MigrateMySQLToPostgreSQLPage() {
           <article className="prose dark:prose-invert max-w-none">
           <header className="mb-8">
             <h1 className="text-4xl md:text-5xl font-display mb-4">
-              How to Migrate from MySQL to PostgreSQL
+              Migrate MySQL to PostgreSQL with pgloader
             </h1>
             <p className="text-muted-foreground text-lg">Ghazi</p>
           </header>
 
           <div className="space-y-6">
             <p>
-              This guide walks through the key differences you&apos;ll
-              encounter, how to map data types, convert your schema and queries,
-              and which tools can automate most of the heavy lifting.
+              For most small and medium databases, start with a test migration
+              using pgloader. It can create the PostgreSQL schema, copy the data,
+              build indexes, and reset sequences from a live MySQL connection.
+              The tool does not remove the need to review type conversions,
+              rewrite MySQL-specific SQL, validate the result, and rehearse the
+              final cutover.
+            </p>
+
+            <p className="border-l-4 border-[var(--postgres-blue)] pl-4 font-medium">
+              The safe sequence is: inventory the source, run pgloader into an
+              empty test database, fix conversion and application errors,
+              compare the two databases, then repeat the tested process during
+              a controlled write freeze or replication-based cutover.
             </p>
 
             <h2>Why Migrate to PostgreSQL?</h2>
@@ -215,6 +225,20 @@ ORDER BY table_name, ordinal_position;`}</code>
                 </tbody>
               </table>
             </div>
+
+            <p>
+              Do not map types by name alone. Check the values and the rules
+              attached to them. The{" "}
+              <Link href="/blog/postgresql-bigint-vs-integer">
+                PostgreSQL BIGINT vs INTEGER guide
+              </Link>{" "}
+              covers signed ranges and identity growth, while the{" "}
+              <Link href="/blog/postgresql-numeric-vs-double-precision">
+                NUMERIC vs DOUBLE PRECISION guide
+              </Link>{" "}
+              explains when an exact decimal is safer than a floating-point
+              value.
+            </p>
 
             <h2>Step 3: Convert Your Schema</h2>
 

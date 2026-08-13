@@ -791,9 +791,9 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "migrate-mysql-to-postgresql",
-    title: "How to Migrate from MySQL to PostgreSQL: A Practical Guide",
+    title: "Migrate MySQL to PostgreSQL with pgloader: Step-by-Step",
     description:
-      "Step-by-step guide to migrating your database from MySQL to PostgreSQL. Covers schema conversion, data type mapping, SQL syntax differences, and the best migration tools.",
+      "Migrate MySQL to PostgreSQL with pgloader, map incompatible types, validate rows and sequences, test the application, and plan a controlled cutover.",
     keywords: [
       "MySQL to PostgreSQL",
       "migrate MySQL to Postgres",
@@ -807,7 +807,7 @@ export const blogPosts: BlogPost[] = [
       "data migration",
     ],
     date: "2026-02-04",
-    dateModified: "2026-07-25",
+    dateModified: "2026-08-11",
     author: "Ghazi",
     category: "Migration",
     pillar: "PostgreSQL Migration",

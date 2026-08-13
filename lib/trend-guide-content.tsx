@@ -2215,6 +2215,194 @@ const trendGuideContent: Record<string, TrendGuideContent> = {
       },
     ],
   },
+
+  "postgresql-numeric-vs-double-precision": {
+    intro:
+      "PostgreSQL NUMERIC stores exact decimal values. DOUBLE PRECISION stores an eight-byte, approximate binary floating-point value with about 15 decimal digits of precision. REAL is the four-byte approximate alternative with about six decimal digits of precision.",
+    answer:
+      "Use NUMERIC for money, rates, and rules where a decimal result must be exact. Use DOUBLE PRECISION for measurements and scientific values where a tiny representation error is acceptable. Do not choose FLOAT by habit: in PostgreSQL, bare FLOAT means DOUBLE PRECISION.",
+    codeBlocks: [
+      {
+        title: "See exact and approximate arithmetic side by side",
+        code: lines(
+          "select",
+          "  0.1::numeric + 0.2::numeric as exact_sum,",
+          "  0.1::double precision + 0.2::double precision as approximate_sum,",
+          "  (0.1::double precision + 0.2::double precision) = 0.3::double precision",
+          "    as floats_are_equal;",
+        ),
+        note: "The exact sum is 0.3. The floating-point equality can be false because these decimal fractions do not have exact binary representations.",
+      },
+    ],
+    sections: [
+      {
+        title: "Choose by what an error means",
+        paragraphs: [
+          "A price of 19.99, a tax rate, and an account balance usually have decimal business rules. Store them as NUMERIC with an intentional scale, such as NUMERIC(12,2) for an amount that may have ten digits before the decimal point and two after it.",
+          "A latitude, sensor reading, model score, or physical measurement already has limited accuracy. DOUBLE PRECISION usually fits that model better. It offers a wide exponent range and fixed eight-byte storage, but calculations can produce a nearby value instead of the decimal value you typed.",
+        ],
+      },
+      {
+        title: "Set precision and scale deliberately",
+        paragraphs: [
+          "NUMERIC(precision, scale) constrains stored values. Precision is the total count of significant digits and scale is the number of fractional digits. PostgreSQL rounds to the declared scale, then rejects a value when the digits before the decimal point exceed the remaining capacity.",
+          "Unconstrained NUMERIC accepts values of different scales up to PostgreSQL's implementation limits. That flexibility is useful for calculations, but a business column normally benefits from a declared scale or a separate CHECK constraint that states the domain rule.",
+        ],
+        code: {
+          title: "Constrain a decimal amount",
+          code: lines(
+            "create table invoices (",
+            "  id bigint generated always as identity primary key,",
+            "  subtotal numeric(12,2) not null check (subtotal >= 0),",
+            "  tax_rate numeric(7,6) not null check (tax_rate between 0 and 1)",
+            ");",
+            "",
+            "insert into invoices (subtotal, tax_rate)",
+            "values (149.95, 0.082500);",
+          ),
+        },
+      },
+      {
+        title: "Avoid exact equality for floating-point results",
+        paragraphs: [
+          "Two DOUBLE PRECISION calculations that should mean the same thing can differ in their last bits. Compare within a tolerance chosen from the domain rather than using equality on a computed result. The tolerance must have a real unit; a universal epsilon is not a substitute for understanding the data.",
+        ],
+        code: {
+          title: "Compare approximate values with a domain tolerance",
+          code: lines(
+            "select abs(measured_value - expected_value) <= 0.000001 as close_enough",
+            "from experiment_results;",
+          ),
+          note: "This tolerance is only an example. Choose one that matches the measurement resolution and the decisions made from it.",
+        },
+      },
+      {
+        title: "Know what FLOAT means in PostgreSQL",
+        paragraphs: [
+          "REAL and DOUBLE PRECISION are PostgreSQL's direct floating-point types. The SQL spelling FLOAT(p) uses p as minimum binary precision: FLOAT(1) through FLOAT(24) selects REAL, and FLOAT(25) through FLOAT(53) selects DOUBLE PRECISION. FLOAT without p selects DOUBLE PRECISION.",
+          "Use the explicit REAL or DOUBLE PRECISION name in schemas when you want the type to be obvious during review. A cast can make literal and expression behavior clear when exact and approximate values meet in one calculation.",
+        ],
+        code: {
+          title: "Inspect the selected PostgreSQL types",
+          code: lines(
+            "select",
+            "  pg_typeof(1.25::float) as bare_float,",
+            "  pg_typeof(1.25::float(24)) as float_24,",
+            "  pg_typeof(1.25::float(53)) as float_53;",
+          ),
+        },
+      },
+      {
+        title: "Test rounding and special values",
+        paragraphs: [
+          "NUMERIC and floating-point types can differ when a value lands exactly on a rounding tie. PostgreSQL NUMERIC rounds ties away from zero, while floating-point rounding depends on the platform and commonly rounds to the nearest even number.",
+          <>
+            PostgreSQL also supports Infinity, -Infinity, and NaN for floating
+            types and unconstrained NUMERIC. Test how your driver serializes
+            them before allowing those values in an application column. For
+            other schema decisions, use the{" "}
+            <Link href="/data-types/numeric">numeric type reference</Link> and
+            the <Link href="/sql-cheatsheet">PostgreSQL SQL cheatsheet</Link>.
+          </>,
+        ],
+      },
+    ],
+  },
+
+  "postgresql-bigint-vs-integer": {
+    intro:
+      "PostgreSQL INTEGER is a signed four-byte value from -2,147,483,648 to 2,147,483,647. BIGINT is a signed eight-byte value from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807. SMALLINT uses two bytes and ranges from -32,768 to 32,767.",
+    answer:
+      "Use INTEGER for bounded counts and tables that cannot approach 2.1 billion positive IDs. Use BIGINT when imported identifiers, sustained insert volume, or long retention can cross that limit. Pick the range from a growth estimate, not from the current row count alone.",
+    codeBlocks: [
+      {
+        title: "Check integer ranges and sequence headroom",
+        code: lines(
+          "select",
+          "  pg_typeof(id) as id_type,",
+          "  max(id) as largest_id,",
+          "  2147483647::bigint - max(id)::bigint as integer_ids_remaining",
+          "from events",
+          "group by pg_typeof(id);",
+        ),
+        note: "This arithmetic is useful only for an INTEGER ID. Also inspect the sequence value because rolled-back or deleted inserts can consume IDs without increasing max(id).",
+      },
+    ],
+    sections: [
+      {
+        title: "Start with range and growth",
+        paragraphs: [
+          "INTEGER allows roughly 2.1 billion positive values when an identity sequence starts at 1. At one million generated IDs per day, that theoretical space lasts a little under six years. At ten thousand per day it lasts centuries. Failed transactions, deleted rows, sequence caching, and manual jumps still consume or skip values.",
+          "BIGINT removes that practical ceiling for most applications. Its cost is four additional bytes in every table row that stores the value and in each index entry or foreign-key column that includes it. The total difference matters most on large tables with several indexes and referencing tables.",
+        ],
+      },
+      {
+        title: "Use identity columns for generated IDs",
+        paragraphs: [
+          "INTEGER and BIGINT describe storage and range. Identity describes how PostgreSQL generates a value. Keep those decisions separate: an identity column can use either integer type, and a plain BIGINT does not generate values by itself.",
+          <>
+            Prefer SQL-standard identity columns for new schemas. The existing{" "}
+            <Link href="/postgresql-data-types/serial-vs-identity">
+              SERIAL vs identity guide
+            </Link>{" "}
+            explains ownership, defaults, and migration from older serial
+            columns.
+          </>,
+        ],
+        code: {
+          title: "Create integer and bigint identity columns",
+          code: lines(
+            "create table projects (",
+            "  id integer generated always as identity primary key,",
+            "  name text not null",
+            ");",
+            "",
+            "create table audit_events (",
+            "  id bigint generated always as identity primary key,",
+            "  project_id integer not null references projects (id),",
+            "  payload jsonb not null",
+            ");",
+          ),
+        },
+      },
+      {
+        title: "Monitor the sequence, not just the table",
+        paragraphs: [
+          "A sequence advances independently of committed rows. INSERT attempts that fail or roll back can leave gaps, and deleting old rows does not return their values. Compare the sequence's current position with the underlying type limit when forecasting exhaustion.",
+        ],
+        code: {
+          title: "Find the sequence and read its current state",
+          code: lines(
+            "select pg_get_serial_sequence('public.events', 'id') as sequence_name;",
+            "",
+            "select last_value, is_called",
+            "from public.events_id_seq;",
+          ),
+          note: "pg_get_serial_sequence also works for an identity column despite its historical name. Sequence access requires the appropriate privilege.",
+        },
+      },
+      {
+        title: "Plan an INTEGER to BIGINT migration early",
+        paragraphs: [
+          "PostgreSQL does not widen an overflowing INTEGER automatically. ALTER COLUMN TYPE must account for the main table, its indexes, foreign keys, referencing columns, locks, disk space, replication, and the PostgreSQL version in use. Test the exact operation against a production-sized copy.",
+          "For a large busy table, teams often use a staged migration: add BIGINT columns, keep them synchronized, backfill in batches, build replacement indexes, update foreign keys, and switch columns during a short controlled lock. The right process depends on table size and write rate; do not wait until the sequence has only days of headroom.",
+        ],
+      },
+      {
+        title: "Map unsigned MySQL integers carefully",
+        paragraphs: [
+          "PostgreSQL integer types are signed. A MySQL INT UNSIGNED can hold values up to 4,294,967,295, which does not fit in a PostgreSQL INTEGER. BIGINT preserves that range. MySQL BIGINT UNSIGNED can exceed PostgreSQL BIGINT and may require NUMERIC(20), a constraint, or a redesigned identifier strategy.",
+          <>
+            Audit the actual maximum values before converting a schema. The{" "}
+            <Link href="/blog/migrate-mysql-to-postgresql">
+              MySQL to PostgreSQL migration guide
+            </Link>{" "}
+            covers type mapping, pgloader, validation, and cutover checks.
+          </>,
+        ],
+      },
+    ],
+  },
 };
 
 export const trendGuideSlugs = trendBlogPosts.map((post) => post.slug);

@@ -18,6 +18,8 @@ const newGuideSlugs = [
   "import-csv-postgresql",
   "postgresql-autovacuum-and-table-bloat",
   "postgresql-connection-string-errors",
+  "postgresql-numeric-vs-double-precision",
+  "postgresql-bigint-vs-integer",
 ];
 
 describe("trend guide registry", () => {
